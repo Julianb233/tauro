@@ -5,8 +5,8 @@ export function OrganizationJsonLd() {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     name: "Tauro | LYL Realty Group",
-    url: "https://tauro.com",
-    logo: "https://tauro.com/logo.png",
+    url: "https://tauro.realty",
+    logo: "https://tauro.realty/logo.png",
     description:
       "Premium Philadelphia real estate brokerage serving Center City, Rittenhouse, Fishtown, and surrounding neighborhoods.",
     address: {
@@ -39,7 +39,7 @@ export function RealEstateListingJsonLd({
     "@type": "RealEstateListing",
     name: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
     description: property.description.slice(0, 200),
-    url: `https://tauro.com/properties/${property.slug}`,
+    url: `https://tauro.realty/properties/${property.slug}`,
     image: property.images[0],
     datePosted: new Date().toISOString().split("T")[0],
     offers: {

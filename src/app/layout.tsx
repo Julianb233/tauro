@@ -23,7 +23,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tauro.com"),
+  metadataBase: new URL("https://tauro.realty"),
   title: {
     default: "Tauro | Premium Philadelphia Real Estate",
     template: "%s | Tauro",

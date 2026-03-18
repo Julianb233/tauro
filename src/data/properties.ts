@@ -85,7 +85,7 @@ export const properties: Property[] = [
     agent: {
       name: "Julian Bradley",
       phone: "(619) 555-0100",
-      email: "julian@tauro.com",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
     },
     lat: 32.7707,
@@ -144,7 +144,7 @@ export const properties: Property[] = [
     agent: {
       name: "Sofia Martinez",
       phone: "(619) 555-0200",
-      email: "sofia@tauro.com",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
     },
     lat: 32.8491,
@@ -200,7 +200,7 @@ export const properties: Property[] = [
     agent: {
       name: "Julian Bradley",
       phone: "(619) 555-0100",
-      email: "julian@tauro.com",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
     },
     lat: 32.8601,
@@ -248,7 +248,7 @@ export const properties: Property[] = [
     agent: {
       name: "Sofia Martinez",
       phone: "(619) 555-0200",
-      email: "sofia@tauro.com",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
     },
     lat: 32.7224,
@@ -298,7 +298,7 @@ export const properties: Property[] = [
     agent: {
       name: "Julian Bradley",
       phone: "(619) 555-0100",
-      email: "julian@tauro.com",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
     },
     lat: 33.1581,
@@ -351,7 +351,7 @@ export const properties: Property[] = [
     agent: {
       name: "Sofia Martinez",
       phone: "(619) 555-0200",
-      email: "sofia@tauro.com",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
     },
     lat: 32.7486,
