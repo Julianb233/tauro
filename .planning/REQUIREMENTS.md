@@ -121,8 +121,8 @@
 | PROP-05 | Phase 3 | Complete |
 | PROP-06 | Phase 3 | Complete |
 | PROP-07 | Phase 3 | Complete |
-| PROP-08 | Phase 3 | Pending |
-| PROP-09 | Phase 3 | Pending |
+| PROP-08 | Phase 3 | Complete |
+| PROP-09 | Phase 3 | Complete |
 | AGENT-01 | Phase 4 | Pending |
 | AGENT-02 | Phase 4 | Pending |
 | AGENT-03 | Phase 4 | Pending |
