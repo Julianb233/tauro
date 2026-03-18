@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Lightbox from "yet-another-react-lightbox";
 import Counter from "yet-another-react-lightbox/plugins/counter";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
@@ -41,14 +42,16 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
       {/* Hero image */}
       <button
         onClick={() => openLightbox(0)}
-        className="relative w-full cursor-pointer overflow-hidden rounded-xl"
+        className="relative aspect-[16/9] max-h-[500px] w-full cursor-pointer overflow-hidden rounded-xl lg:aspect-[21/9]"
         aria-label={`View gallery for ${address}`}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={images[0]}
           alt={`${address} - Main photo`}
-          className="aspect-[16/9] max-h-[500px] w-full object-cover lg:aspect-[21/9]"
+          fill
+          className="object-cover"
+          priority
+          sizes="(max-width: 768px) 100vw, 66vw"
         />
       </button>
 
@@ -66,11 +69,12 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
                 className="relative h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 border-transparent opacity-60 transition-all hover:border-gold hover:opacity-100"
                 aria-label={`View photo ${thumbIndex + 1}`}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={src}
                   alt={`${address} - Photo ${thumbIndex + 1}`}
-                  className="h-full w-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="80px"
                 />
                 {isLast && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black/60">

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import {
   MapPin,
@@ -90,11 +91,13 @@ export default async function NeighborhoodDetailPage({
     <>
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="relative min-h-[50vh] overflow-hidden pt-16">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={neighborhood.image}
           alt={neighborhood.name}
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-near-black via-near-black/60 to-near-black/30" />
 

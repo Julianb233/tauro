@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { MapPin } from "lucide-react";
 import { neighborhoods } from "@/data/neighborhoods";
@@ -41,11 +42,12 @@ export default function NeighborhoodsPage() {
                 className="group relative overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-gold/40 hover:shadow-xl"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={hood.cardImage}
                     alt={hood.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-near-black/90 via-near-black/30 to-transparent" />
                 </div>

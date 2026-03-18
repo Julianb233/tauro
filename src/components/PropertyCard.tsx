@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Property, formatPrice } from "@/data/properties";
 import { cn } from "@/lib/utils";
@@ -16,11 +17,12 @@ export default function PropertyCard({ property }: { property: Property }) {
       className="group block overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-gold/40 hover:shadow-lg"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={property.images[0]}
           alt={property.address}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         <span
           className={cn(
