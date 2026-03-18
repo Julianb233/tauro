@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -9,6 +10,14 @@
   --font-heading: var(--font-playfair);
 
   /* shadcn tokens */
+  /* Tauro brand colors */
+  --color-midnight: #1A1A2E;
+  --color-bold-red: #E94560;
+  --color-gold: #C9A96E;
+  --color-gold-light: #D4BC8A;
+  --color-gold-dark: #B08E4A;
+  --color-near-black: #0F0F1A;
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -25,14 +34,6 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-
-  /* Tauro brand colors */
-  --color-midnight: #1A1A2E;
-  --color-bold-red: #E94560;
-  --color-gold: #C9A96E;
-  --color-gold-light: #D4BC8A;
-  --color-gold-dark: #B08E4A;
-  --color-near-black: #0F0F1A;
 
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
