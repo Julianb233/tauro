@@ -100,14 +100,14 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BRAND-01 | Phase 1 | Pending |
-| BRAND-02 | Phase 1 | Pending |
-| BRAND-03 | Phase 1 | Pending |
-| BRAND-04 | Phase 1 | Pending |
-| NAV-01 | Phase 1 | Pending |
-| NAV-02 | Phase 1 | Pending |
-| NAV-03 | Phase 1 | Pending |
-| NAV-04 | Phase 1 | Pending |
+| BRAND-01 | Phase 1 | Complete |
+| BRAND-02 | Phase 1 | Complete |
+| BRAND-03 | Phase 1 | Complete |
+| BRAND-04 | Phase 1 | Complete |
+| NAV-01 | Phase 1 | Complete |
+| NAV-02 | Phase 1 | Complete |
+| NAV-03 | Phase 1 | Complete |
+| NAV-04 | Phase 1 | Complete |
 | HOME-01 | Phase 2 | Pending |
 | HOME-02 | Phase 2 | Pending |
 | HOME-03 | Phase 2 | Pending |
