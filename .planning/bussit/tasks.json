@@ -1,0 +1,249 @@
+{
+  "version": "3.0",
+  "createdAt": "2026-03-18T12:00:00Z",
+  "tasks": [
+    {
+      "id": "01-plan", "type": "plan", "title": "Plan Phase 1: Design System & Layout Shell",
+      "description": "Create PLAN.md files for brand tokens, typography, nav, footer, page shell. Requirements: BRAND-01-04, NAV-01-04",
+      "planPath": ".planning/phases/01-design-system-layout/", "project": "tauro", "phase": "1", "plan": "0", "priority": 100,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "01-build", "type": "build", "title": "Build Phase 1: Design System & Layout Shell",
+      "description": "Execute all plans for design system, brand colors, typography, header, footer, mobile nav, micro-interactions",
+      "planPath": ".planning/phases/01-design-system-layout/", "project": "tauro", "phase": "1", "plan": "0", "priority": 101,
+      "status": "pending", "dependencies": ["01-plan"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "01-test", "type": "test", "title": "Verify Phase 1: Design System & Layout Shell",
+      "description": "Verify dark mode, header fixed+transparent, mobile nav overlay, footer, gold shimmer micro-interactions",
+      "planPath": ".planning/phases/01-design-system-layout/", "project": "tauro", "phase": "1", "plan": "0", "priority": 102,
+      "status": "pending", "dependencies": ["01-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "02-plan", "type": "plan", "title": "Plan Phase 2: Homepage",
+      "description": "Create PLAN.md files for cinematic hero, featured properties, neighborhoods, CTAs. Requirements: HOME-01-06",
+      "planPath": ".planning/phases/02-homepage/", "project": "tauro", "phase": "2", "plan": "0", "priority": 200,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "02-build", "type": "build", "title": "Build Phase 2: Homepage",
+      "description": "Execute plans for hero, featured properties, neighborhoods section, brand statement, testimonials, CTAs",
+      "planPath": ".planning/phases/02-homepage/", "project": "tauro", "phase": "2", "plan": "0", "priority": 201,
+      "status": "pending", "dependencies": ["02-plan", "01-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "02-test", "type": "test", "title": "Verify Phase 2: Homepage",
+      "description": "Verify hero fills viewport, featured properties, neighborhoods clickable, brand section, CTAs prominent",
+      "planPath": ".planning/phases/02-homepage/", "project": "tauro", "phase": "2", "plan": "0", "priority": 202,
+      "status": "pending", "dependencies": ["02-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "03-plan", "type": "plan", "title": "Plan Phase 3: Property Pages",
+      "description": "Create PLAN.md files for listings grid/map, detail pages, gallery, video tours. Requirements: PROP-01-09",
+      "planPath": ".planning/phases/03-property-pages/", "project": "tauro", "phase": "3", "plan": "0", "priority": 300,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "03-build", "type": "build", "title": "Build Phase 3: Property Pages",
+      "description": "Execute plans for property grid, Mapbox map, filters, detail pages, gallery, video tours, 3D walkthroughs",
+      "planPath": ".planning/phases/03-property-pages/", "project": "tauro", "phase": "3", "plan": "0", "priority": 301,
+      "status": "pending", "dependencies": ["03-plan", "01-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "03-test", "type": "test", "title": "Verify Phase 3: Property Pages",
+      "description": "Verify grid, map markers, filters, detail gallery+lightbox, video tours, schedule showing CTA",
+      "planPath": ".planning/phases/03-property-pages/", "project": "tauro", "phase": "3", "plan": "0", "priority": 302,
+      "status": "pending", "dependencies": ["03-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "04-plan", "type": "plan", "title": "Plan Phase 4: Agent Pages",
+      "description": "Create PLAN.md files for team grid, profiles, join page, video intros. Requirements: AGENT-01-06",
+      "planPath": ".planning/phases/04-agent-pages/", "project": "tauro", "phase": "4", "plan": "0", "priority": 400,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "04-build", "type": "build", "title": "Build Phase 4: Agent Pages",
+      "description": "Execute plans for team grid, agent profiles with bio/stats/listings/awards/video, join team page",
+      "planPath": ".planning/phases/04-agent-pages/", "project": "tauro", "phase": "4", "plan": "0", "priority": 401,
+      "status": "pending", "dependencies": ["04-plan", "01-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "04-test", "type": "test", "title": "Verify Phase 4: Agent Pages",
+      "description": "Verify team grid, agent profile sections, contact form, join team application form",
+      "planPath": ".planning/phases/04-agent-pages/", "project": "tauro", "phase": "4", "plan": "0", "priority": 402,
+      "status": "pending", "dependencies": ["04-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "05-plan", "type": "plan", "title": "Plan Phase 5: Philadelphia Area Pages",
+      "description": "Create PLAN.md files for 15 neighborhood pages. Requirements: AREA-01-03",
+      "planPath": ".planning/phases/05-philadelphia-areas/", "project": "tauro", "phase": "5", "plan": "0", "priority": 500,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "05-build", "type": "build", "title": "Build Phase 5: Philadelphia Area Pages",
+      "description": "Execute plans for 15 Philly neighborhood pages with unique content, maps, listings, SEO",
+      "planPath": ".planning/phases/05-philadelphia-areas/", "project": "tauro", "phase": "5", "plan": "0", "priority": 501,
+      "status": "pending", "dependencies": ["05-plan", "02-build", "03-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "05-test", "type": "test", "title": "Verify Phase 5: Philadelphia Area Pages",
+      "description": "Verify all 15 pages render with unique content, maps, listings, SEO title pattern",
+      "planPath": ".planning/phases/05-philadelphia-areas/", "project": "tauro", "phase": "5", "plan": "0", "priority": 502,
+      "status": "pending", "dependencies": ["05-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "06-plan", "type": "plan", "title": "Plan Phase 6: Contact & Lead Capture",
+      "description": "Create PLAN.md files for contact, tour booking, seller inquiry, GHL. Requirements: LEAD-01-06",
+      "planPath": ".planning/phases/06-contact-lead-capture/", "project": "tauro", "phase": "6", "plan": "0", "priority": 600,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "06-build", "type": "build", "title": "Build Phase 6: Contact & Lead Capture",
+      "description": "Execute plans for contact forms, book a tour, seller inquiry, GHL webhook integration",
+      "planPath": ".planning/phases/06-contact-lead-capture/", "project": "tauro", "phase": "6", "plan": "0", "priority": 601,
+      "status": "pending", "dependencies": ["06-plan", "03-build", "04-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "06-test", "type": "test", "title": "Verify Phase 6: Contact & Lead Capture",
+      "description": "Verify forms, tour booking, seller inquiry, GHL webhook receives submissions",
+      "planPath": ".planning/phases/06-contact-lead-capture/", "project": "tauro", "phase": "6", "plan": "0", "priority": 602,
+      "status": "pending", "dependencies": ["06-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "07-plan", "type": "plan", "title": "Plan Phase 7: Resource & Education Pages",
+      "description": "Create PLAN.md files for buyer/seller guides, market insights, FAQ, home valuation. Requirements: EDU-01-06",
+      "planPath": ".planning/phases/07-resource-education-pages/", "project": "tauro", "phase": "7", "plan": "0", "priority": 700,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "07-build", "type": "build", "title": "Build Phase 7: Resource & Education Pages",
+      "description": "Execute plans for buyer guide, seller guide, market insights, FAQ, home valuation, agent opportunity",
+      "planPath": ".planning/phases/07-resource-education-pages/", "project": "tauro", "phase": "7", "plan": "0", "priority": 701,
+      "status": "pending", "dependencies": ["07-plan", "01-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "07-test", "type": "test", "title": "Verify Phase 7: Resource & Education Pages",
+      "description": "Verify all education pages, forms capture leads, FAQ renders",
+      "planPath": ".planning/phases/07-resource-education-pages/", "project": "tauro", "phase": "7", "plan": "0", "priority": 702,
+      "status": "pending", "dependencies": ["07-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "08-plan", "type": "plan", "title": "Plan Phase 8: Proposal & Payment",
+      "description": "Create PLAN.md files for client proposal, Stripe/Fanbases payment ($5,500 deposit + $977/mo), onboarding. Requirements: PROPOSAL-01-03",
+      "planPath": ".planning/phases/08-proposal-payment/", "project": "tauro", "phase": "8", "plan": "0", "priority": 800,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "08-build", "type": "build", "title": "Build Phase 8: Proposal & Payment",
+      "description": "Execute plans for proposal page with scope, Fanbases payment link ($5,500 deposit + $977/mo), onboarding steps",
+      "planPath": ".planning/phases/08-proposal-payment/", "project": "tauro", "phase": "8", "plan": "0", "priority": 801,
+      "status": "pending", "dependencies": ["08-plan", "01-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "08-test", "type": "test", "title": "Verify Phase 8: Proposal & Payment",
+      "description": "Verify proposal displays scope/timeline, payment link works, onboarding steps shown",
+      "planPath": ".planning/phases/08-proposal-payment/", "project": "tauro", "phase": "8", "plan": "0", "priority": 802,
+      "status": "pending", "dependencies": ["08-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "09-plan", "type": "plan", "title": "Plan Phase 9: SEO, Performance & Deploy",
+      "description": "Create PLAN.md files for structured data, meta tags, CWV, Vercel deploy. Requirements: SEO-01-05, DEPLOY-01-02",
+      "planPath": ".planning/phases/09-seo-performance-deploy/", "project": "tauro", "phase": "9", "plan": "0", "priority": 900,
+      "status": "pending", "dependencies": [], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "09-build", "type": "build", "title": "Build Phase 9: SEO, Performance & Deploy",
+      "description": "Execute plans for JSON-LD, meta tags, SSG, image optimization, CWV, Vercel production deploy",
+      "planPath": ".planning/phases/09-seo-performance-deploy/", "project": "tauro", "phase": "9", "plan": "0", "priority": 901,
+      "status": "pending", "dependencies": ["09-plan", "01-build", "02-build", "03-build", "04-build", "05-build", "06-build", "07-build", "08-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    },
+    {
+      "id": "09-test", "type": "test", "title": "Verify Phase 9: SEO, Performance & Deploy",
+      "description": "Verify unique titles/meta, JSON-LD, SSG, LCP<2.5s, CLS<0.1, Vercel live with previews",
+      "planPath": ".planning/phases/09-seo-performance-deploy/", "project": "tauro", "phase": "9", "plan": "0", "priority": 902,
+      "status": "pending", "dependencies": ["09-build"], "source": "gsd",
+      "linearId": null, "linearIdentifier": null, "assignedTo": null, "claimedAt": null,
+      "completedAt": null, "createdAt": "2026-03-18T12:00:00Z", "result": null,
+      "executionTime": 0, "retries": 0, "failureHistory": []
+    }
+  ]
+}

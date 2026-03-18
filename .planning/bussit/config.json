@@ -1,0 +1,71 @@
+{
+  "version": "3.0",
+  "gsd": {
+    "projectFile": ".planning/PROJECT.md",
+    "roadmapFile": ".planning/ROADMAP.md",
+    "stateFile": ".planning/STATE.md",
+    "phasesDir": ".planning/phases"
+  },
+  "autopilot": {
+    "defaultWorkerCount": 5,
+    "maxWorkerCount": 40,
+    "progressUpdateInterval": 30,
+    "stuckWorkerTimeout": 600,
+    "maxTaskRetries": 3,
+    "notifications": {
+      "slack": { "enabled": false, "webhookUrl": null },
+      "discord": { "enabled": false, "webhookUrl": null },
+      "notifyOn": ["completion", "failure", "needsHuman"]
+    },
+    "autoFix": {
+      "stuckWorkers": true,
+      "flakyTests": true,
+      "gitConflicts": true,
+      "dependencyIssues": true
+    }
+  },
+  "parallelization": {
+    "maxConcurrentBuilds": 10
+  },
+  "linearIntegration": {
+    "enabled": true,
+    "apiKeySource": "1password:LINEAR_API_KEY-aiacrobatics",
+    "teamId": "9a9d11aa-c8a5-4dc5-855c-c1da260db615",
+    "teamKey": "AI",
+    "projectId": null,
+    "autoCreateIssues": true,
+    "autoUpdateStatus": true,
+    "syncIntervalSeconds": 300,
+    "stateIds": {
+      "AI": {
+        "Backlog": "1414377a-e0d6-4c23-bdfc-3d51049c1b19",
+        "Todo": "455d246f-ccf7-46d5-b7a4-c02985ee1390",
+        "In Progress": "58f2d9c4-1937-4bfa-be94-09e91831a8f5",
+        "In Review": "9ff7fe5c-d98b-4ac4-ab19-82e20b7baf4b",
+        "Done": "99712028-3475-4157-9052-8ba749ded0da",
+        "Canceled": "9cd681fe-34f9-40b8-92ba-9c2c06c77968"
+      },
+      "PERS": {
+        "Backlog": "d980400d-d5fc-43b1-96a9-29e6a6874154",
+        "Todo": "cd18ce93-7661-4d20-a124-7c2e8c2138b9",
+        "In Progress": "4ce57163-dc5d-4d69-b95b-32284a88a41f",
+        "In Review": "cd59896c-07e2-4807-97a2-abfc900c9da0",
+        "Done": "40e8b940-9de0-4d9c-9fd4-b77fe93ae171",
+        "Canceled": "bcb2abfd-1f70-4ab3-9ea8-c688ce32cb41"
+      }
+    },
+    "statusMapping": {
+      "pending": "Backlog",
+      "claimed": "In Progress",
+      "running": "In Progress",
+      "completed": "Done",
+      "failed": "Todo",
+      "blocked": "Todo",
+      "needs_human": "Todo"
+    }
+  },
+  "beadsIntegration": {
+    "enabled": true,
+    "severityMapping": { "critical": "P1", "high": "P2", "medium": "P3", "low": "P4" }
+  }
+}
