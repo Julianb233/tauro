@@ -124,6 +124,35 @@
     .contact-agent-btn { width: 100%; margin-top: 14px; padding: 12px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: transparent; color: var(--gold); border: 1px solid var(--gold); }
 
     .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-links, .nav-cta { display: none; }
+
+      .hero-content-area { padding: 0 20px 40px; }
+      .area-name { font-size: 48px; }
+      .area-tagline { font-size: 16px; }
+
+      .quick-stats { flex-wrap: wrap; }
+      .qs { flex: 1 1 50%; border-right: none; border-bottom: 1px solid var(--border-subtle); padding: 16px 20px; }
+      .qs:nth-child(odd) { border-right: 1px solid var(--border-subtle); }
+
+      .area-layout {
+        grid-template-columns: 1fr;
+        padding: 32px 16px;
+        gap: 32px;
+      }
+      .area-main { padding-right: 0; border-right: none; }
+      .area-side { padding-left: 0; }
+
+      .highlights { grid-template-columns: 1fr; }
+
+      .lifestyle-grid { grid-template-columns: 1fr; }
+      .lifestyle-img:first-child { grid-column: auto; height: 200px; }
+
+      .area-sidebar-content { position: static; }
+    }
   </style>
 </head>
 <body>

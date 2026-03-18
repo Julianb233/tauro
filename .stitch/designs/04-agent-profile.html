@@ -141,6 +141,35 @@
     .stars { color: var(--gold); font-size: 12px; letter-spacing: 2px; margin-bottom: 8px; }
 
     .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-links, .nav-cta { display: none; }
+
+      .hero-content { padding: 0 20px 32px; flex-direction: column; gap: 24px; align-items: flex-start; }
+      .agent-photo { width: 120px; height: 160px; }
+      .agent-name { font-size: 36px; }
+      .agent-contacts { flex-direction: column; gap: 8px; }
+
+      .stat-band-inner { padding: 0 16px; flex-wrap: wrap; }
+      .band-stat { flex: 1 1 50%; border-right: none; border-bottom: 1px solid var(--border-subtle); }
+      .band-stat:nth-child(odd) { border-right: 1px solid var(--border-subtle); }
+
+      .agent-layout {
+        grid-template-columns: 1fr;
+        padding: 32px 16px;
+        gap: 32px;
+      }
+      .agent-main { padding-right: 0; border-right: none; }
+      .agent-sidebar { padding-left: 0; }
+
+      .awards-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .mini-listings { grid-template-columns: 1fr; }
+
+      .contact-card { position: static; }
+    }
   </style>
 </head>
 <body>

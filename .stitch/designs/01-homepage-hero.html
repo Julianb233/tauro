@@ -633,6 +633,55 @@
       text-transform: uppercase;
       color: var(--cream);
     }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 20px;
+      }
+      .nav-links, .nav-cta { display: none; }
+
+      .hero-content {
+        padding: 0 20px 80px;
+      }
+
+      .hero-subtext { font-size: 15px; margin-bottom: 32px; }
+
+      .hero-search {
+        flex-direction: column;
+        max-width: 100%;
+      }
+      .search-fields { flex-direction: column; }
+      .search-field { border-right: none; border-bottom: 1px solid var(--border); }
+      .search-btn { padding: 16px; justify-content: center; }
+
+      .hero-stats { display: none; }
+
+      .section { padding: 60px 20px; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .section-title { font-size: 30px; }
+
+      .property-grid {
+        grid-template-columns: 1fr;
+      }
+      .property-card:first-child { grid-row: span 1; }
+      .property-card:first-child .property-img { height: 280px; }
+
+      .why-section { padding: 60px 20px; }
+      .why-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .why-content .section-title { font-size: 36px; }
+      .why-ctas { flex-direction: column; }
+      .why-pillars { grid-template-columns: 1fr; }
+
+      .neighborhoods { padding: 60px 0; }
+      .neighborhoods-header { padding: 0 20px; }
+      .neighborhoods-scroll { padding: 0 20px; }
+
+      div[style*="padding: 0 64px"] { padding: 0 20px !important; }
+    }
   </style>
 </head>
 <body>

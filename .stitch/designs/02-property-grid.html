@@ -223,6 +223,29 @@
 
     /* ANNOTATION */
     .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-links, .nav-cta { display: none; }
+
+      .page-header { padding: 24px 16px; }
+      .page-title { font-size: 26px; }
+
+      .layout { flex-direction: column; }
+      .sidebar {
+        width: 100%; position: static; height: auto;
+        border-right: none; border-bottom: 1px solid var(--border);
+        padding: 20px 16px;
+      }
+
+      .main-content { padding: 20px 16px; }
+
+      .toolbar { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .toolbar > div { flex-wrap: wrap; }
+
+      .grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>

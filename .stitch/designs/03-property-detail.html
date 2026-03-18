@@ -149,6 +149,39 @@
     .tour-slot.selected { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
 
     .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-links, .nav-cta { display: none; }
+
+      .gallery { grid-template-columns: 1fr; height: auto; }
+      .gallery-main { grid-row: auto; }
+      .gallery-main img { height: 260px; }
+      .gallery-side { display: none; }
+
+      .detail-layout {
+        grid-template-columns: 1fr;
+        padding: 24px 16px;
+        gap: 32px;
+      }
+      .detail-main { padding-right: 0; border-right: none; }
+      .detail-sidebar { padding-left: 0; }
+
+      .prop-price-main { font-size: 36px; }
+      .prop-address-main { font-size: 15px; }
+
+      .key-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .features-grid { grid-template-columns: 1fr; }
+
+      .nbhd-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .tour-dates { grid-template-columns: repeat(2, 1fr); }
+      .tour-slots { grid-template-columns: repeat(2, 1fr); }
+
+      .contact-card { position: static; }
+    }
   </style>
 </head>
 <body>
