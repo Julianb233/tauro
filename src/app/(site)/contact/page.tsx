@@ -1,12 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import type { Metadata } from "next";
 import { Mail, Phone, MapPin, Clock, CheckCircle, AlertCircle, ArrowRight } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
-
-// Note: metadata must be in a server component; moving to layout or use generateMetadata if needed
-// export const metadata: Metadata = { title: "Contact Us", description: "..." };
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
