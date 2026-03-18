@@ -110,7 +110,7 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-near-black/70 via-near-black/50 to-near-black" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 text-center sm:px-6 lg:px-8">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-gold">
+          <p className="mb-4 font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Premium Philadelphia Real Estate
           </p>
           <h1 className="font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
@@ -136,7 +136,7 @@ export default function HomePage() {
               </div>
               <button
                 type="button"
-                className="rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
+                className="shimmer-gold rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
               >
                 Search
               </button>
@@ -178,7 +178,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                 Featured Listings
               </p>
               <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -206,7 +206,7 @@ export default function HomePage() {
       <section className="border-t border-border/40 bg-midnight py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Explore Philadelphia
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -258,7 +258,7 @@ export default function HomePage() {
       <section className="bg-near-black py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               The Tauro Difference
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -274,7 +274,7 @@ export default function HomePage() {
             {whyTauro.map((item) => (
               <div
                 key={item.title}
-                className="group rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30 hover:shadow-lg"
+                className="card-tilt group rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30 hover:shadow-lg"
               >
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <item.icon className="size-6 text-gold" />
@@ -295,7 +295,7 @@ export default function HomePage() {
       <section className="border-t border-border/40 bg-midnight py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Client Stories
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -348,7 +348,7 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-near-black/90 via-near-black/70 to-near-black/40" />
               <div className="relative z-10 p-8 sm:p-10">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                   For Buyers
                 </p>
                 <h3 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">
@@ -360,7 +360,7 @@ export default function HomePage() {
                 </p>
                 <Link
                   href="/properties"
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
+                  className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
                 >
                   Browse Properties
                   <ArrowRight className="size-4" />
@@ -378,7 +378,7 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-near-black/90 via-near-black/70 to-near-black/40" />
               <div className="relative z-10 p-8 sm:p-10">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                   For Sellers
                 </p>
                 <h3 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">
