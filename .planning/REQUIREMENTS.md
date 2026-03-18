@@ -147,13 +147,13 @@
 | PROPOSAL-01 | Phase 8 | Complete |
 | PROPOSAL-02 | Phase 8 | Complete |
 | PROPOSAL-03 | Phase 8 | Complete |
-| SEO-01 | Phase 9 | Pending |
-| SEO-02 | Phase 9 | Pending |
-| SEO-03 | Phase 9 | Pending |
-| SEO-04 | Phase 9 | Pending |
-| SEO-05 | Phase 9 | Pending |
-| DEPLOY-01 | Phase 9 | Pending |
-| DEPLOY-02 | Phase 9 | Pending |
+| SEO-01 | Phase 9 | Complete |
+| SEO-02 | Phase 9 | Complete |
+| SEO-03 | Phase 9 | Complete |
+| SEO-04 | Phase 9 | Complete |
+| SEO-05 | Phase 9 | Complete |
+| DEPLOY-01 | Phase 9 | Complete |
+| DEPLOY-02 | Phase 9 | Complete |
 
 **Coverage:**
 - v1 requirements: 53 total
