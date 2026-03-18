@@ -2,66 +2,77 @@
 phase: 09-seo-performance-deploy
 plan: 02
 subsystem: seo
-tags: [json-ld, structured-data, robots, sitemap, schema-org]
-dependency-graph:
-  requires: [09-01]
-  provides: [json-ld-component, complete-sitemap, robots-txt]
-  affects: []
+tags: [json-ld, schema.org, structured-data, seo]
+depends_on: [09-01]
+provides: [organization-schema, real-estate-listing-schema, consolidated-jsonld]
+affects: [search-rankings, rich-results]
 tech-stack:
   added: []
-  patterns: [schema-org-real-estate-listing, next-metadata-api]
+  patterns: [json-ld-injection, schema-org-markup]
 key-files:
   created:
-    - src/components/PropertyJsonLd.tsx
+    - src/components/JsonLd.tsx
   modified:
+    - src/app/layout.tsx
     - src/app/properties/[slug]/page.tsx
-    - src/app/sitemap.ts
-decisions: []
+  removed:
+    - src/components/PropertyJsonLd.tsx
+decisions:
+  - id: JSONLD-01
+    decision: "Consolidated PropertyJsonLd into JsonLd.tsx with named exports"
+    reason: "Single file for all JSON-LD components, cleaner imports"
 metrics:
-  duration: 1m 19s
+  duration: 1m 36s
   completed: 2026-03-18
 ---
 
-# Phase 9 Plan 2: JSON-LD Structured Data, Robots & Sitemap Summary
+# Phase 9 Plan 2: JSON-LD Structured Data Summary
 
-Extracted JSON-LD RealEstateListing schema into reusable PropertyJsonLd component and added agent pages to sitemap for complete crawl coverage.
+Organization and RealEstateListing JSON-LD schema.org markup for search engine rich results.
 
 ## What Was Done
 
-### Task 1: Create JSON-LD component and add to property pages
-- Created `src/components/PropertyJsonLd.tsx` as a server component rendering `<script type="application/ld+json">` with RealEstateListing schema
-- Refactored `src/app/properties/[slug]/page.tsx` to replace inline JSON-LD with the extracted component
-- Schema includes nested Residence type with PostalAddress, GeoCoordinates, floor size, bedroom/bathroom counts, and year built
-- Commit: `02600cc`
+### Task 1: Create JSON-LD Components (6942c4f)
+Created `src/components/JsonLd.tsx` with two server components:
+- **OrganizationJsonLd**: Static RealEstateAgent schema with Philadelphia area, brand details
+- **RealEstateListingJsonLd**: Dynamic property listing schema accepting Property prop with offers, address, geo coordinates, floor size, rooms, year built
 
-### Task 2: Add agent pages to sitemap
-- Updated `src/app/sitemap.ts` to import agents data and generate URLs for all agent detail pages
-- Agent pages use monthly changeFrequency and 0.7 priority (lower than properties at 0.9)
-- Sitemap now covers all dynamic routes: properties, neighborhoods, and agents
-- robots.ts already existed from 09-01 with correct configuration
-- Commit: `e895759`
+### Task 2: Wire JSON-LD Into Layout and Property Pages (0e83777)
+- Added `OrganizationJsonLd` to root layout `<body>` for site-wide Organization schema
+- Replaced old `PropertyJsonLd` import with `RealEstateListingJsonLd` from consolidated `JsonLd.tsx`
+- Removed deprecated `PropertyJsonLd.tsx`
 
 ## Deviations from Plan
 
-### Pre-existing Work from 09-01
+### Auto-fixed Issues
 
-The 09-01 plan had already created robots.ts, sitemap.ts, and inline JSON-LD in the property page. This plan's work focused on:
-1. Extracting inline JSON-LD into a reusable component (plan's primary intent)
-2. Adding missing agent pages to the sitemap (gap in 09-01)
-3. Keeping `tauro.realty` domain (established in 09-01) rather than `tauro.com` from plan template
+**1. [Rule 3 - Blocking] Consolidated existing PropertyJsonLd.tsx**
+- **Found during:** Task 2
+- **Issue:** 09-01 had already created a `PropertyJsonLd.tsx` component wired into the property page. Plan called for creating a new `JsonLd.tsx` with both components.
+- **Fix:** Created `JsonLd.tsx` with both components, updated property page import to use new file, deleted old `PropertyJsonLd.tsx`
+- **Files modified:** src/components/JsonLd.tsx, src/app/properties/[slug]/page.tsx
+- **Commit:** 0e83777
 
-### [Rule 1 - Bug] Improved JSON-LD schema structure
-- **Found during:** Task 1
-- **Issue:** Inline JSON-LD used flat structure; plan specified nested `about: { @type: Residence }` which is more semantically correct per schema.org
-- **Fix:** Component uses the improved nested Residence structure with proper property details
-- **Files modified:** src/components/PropertyJsonLd.tsx
+**2. [Rule 1 - Bug] Linter enhanced RealEstateListingJsonLd with geo coordinates**
+- **Found during:** Task 1 (post-commit lint)
+- **Issue:** Plan specified basic address fields only; linter automatically added geo coordinates and full address formatting to match the original PropertyJsonLd quality
+- **Fix:** Accepted linter enhancements (geo coordinates, full name format)
+- **Files modified:** src/components/JsonLd.tsx
+- **Commit:** 6942c4f
 
 ## Verification
 
-- PropertyJsonLd component renders valid JSON-LD with @type RealEstateListing -- PASS
-- robots.ts and sitemap.ts follow Next.js Metadata API conventions -- PASS
-- No build errors introduced (TypeScript check clean) -- PASS
+- `npx next build` completes without errors
+- Organization JSON-LD present in root layout (every page)
+- RealEstateListing JSON-LD present on property detail pages
+- All schema.org types are valid (@type values recognized)
+
+## Success Criteria Met
+
+- [x] SEO-02 COMPLETE: Property pages include JSON-LD RealEstateListing structured data
+- [x] Organization schema present site-wide via root layout
+- [x] All JSON-LD is valid schema.org format
 
 ## Next Phase Readiness
 
-All SEO structured data, robots, and sitemap requirements are complete. Ready for performance optimization or deployment tasks.
+All JSON-LD structured data requirements complete. Ready for performance optimization or deployment tasks.
