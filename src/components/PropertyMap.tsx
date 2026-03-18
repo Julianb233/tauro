@@ -17,7 +17,7 @@ interface PropertyMapProps {
 export default function PropertyMap({
   properties,
   onPropertyClick,
-  center = [-117.16, 32.78],
+  center = [-75.16, 39.95],
   zoom = 10,
   singleMarker = false,
 }: PropertyMapProps) {
