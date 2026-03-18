@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export interface LeadPayload {
-  type: "contact" | "showing" | "seller";
+  type: "contact" | "showing" | "seller" | "agent-application" | "agent-contact";
   firstName: string;
   lastName: string;
   email: string;
@@ -20,6 +20,14 @@ export interface LeadPayload {
   sqft?: string;
   timeline?: string;
   reason?: string;
+  // Agent application-specific
+  licenseNumber?: string;
+  yearsExperience?: string;
+  currentBrokerage?: string;
+  whyJoin?: string;
+  // Agent contact-specific
+  agentName?: string;
+  agentSlug?: string;
 }
 
 function buildGhlContact(data: LeadPayload) {
@@ -28,6 +36,7 @@ function buildGhlContact(data: LeadPayload) {
   if (data.type === "contact") tags.push("website-contact");
   if (data.type === "showing") tags.push("showing-request");
   if (data.type === "seller") tags.push("seller-lead");
+  if (data.type === "agent-application") tags.push("agent-application");
 
   const customFields: Record<string, string> = {};
 
@@ -42,6 +51,10 @@ function buildGhlContact(data: LeadPayload) {
   if (data.sqft) customFields.square_feet = data.sqft;
   if (data.timeline) customFields.selling_timeline = data.timeline;
   if (data.reason) customFields.selling_reason = data.reason;
+  if (data.licenseNumber) customFields.license_number = data.licenseNumber;
+  if (data.yearsExperience) customFields.years_experience = data.yearsExperience;
+  if (data.currentBrokerage) customFields.current_brokerage = data.currentBrokerage;
+  if (data.whyJoin) customFields.why_join = data.whyJoin;
 
   return {
     firstName: data.firstName,
