@@ -30,6 +30,45 @@ export default function PropertyDetailClient({
   similar: Property[];
 }) {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitError("");
+    setSubmitSuccess(false);
+
+    try {
+      const [firstName, ...rest] = formData.name.split(" ");
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "showing" as const,
+          firstName,
+          lastName: rest.join(" ") || firstName,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message || undefined,
+          propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
+          propertyId: property.id,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitSuccess(true);
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setSubmitError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setSubmitError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen pt-16">
@@ -272,55 +311,76 @@ export default function PropertyDetailClient({
 
             {/* Schedule form */}
             <div id="schedule" className="rounded-xl border border-border bg-card p-6">
-              <h3 className="font-heading text-lg font-bold">Schedule a Showing</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Interested in this property? Fill out the form and we will be in touch.
-              </p>
-              <form
-                className="mt-4 space-y-3"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  alert("Showing request submitted! We will contact you shortly.");
-                  setFormData({ name: "", email: "", phone: "", message: "" });
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <textarea
-                  placeholder="Message (optional)"
-                  rows={3}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-gold py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
-                >
-                  Request a Showing
-                </button>
-              </form>
+              {submitSuccess ? (
+                <div className="text-center">
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600/20">
+                    <Check className="h-6 w-6 text-emerald-400" />
+                  </div>
+                  <h3 className="font-heading text-lg font-bold">Request Submitted</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Thank you! We will be in touch shortly to schedule your showing.
+                  </p>
+                  <button
+                    onClick={() => setSubmitSuccess(false)}
+                    className="mt-4 text-sm font-medium text-gold hover:text-gold-light"
+                  >
+                    Schedule Another
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <h3 className="font-heading text-lg font-bold">Schedule a Showing</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Interested in this property? Fill out the form and we will be in touch.
+                  </p>
+                  <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      required
+                      disabled={submitting}
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      required
+                      disabled={submitting}
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                    />
+                    <input
+                      type="tel"
+                      placeholder="Phone Number"
+                      disabled={submitting}
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                    />
+                    <textarea
+                      placeholder="Message (optional)"
+                      rows={3}
+                      disabled={submitting}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                    />
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full rounded-lg bg-gold py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {submitting ? "Submitting..." : "Request a Showing"}
+                    </button>
+                    {submitError && (
+                      <p className="mt-2 text-center text-sm text-red-400">{submitError}</p>
+                    )}
+                  </form>
+                </>
+              )}
             </div>
           </div>
         </div>
