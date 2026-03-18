@@ -60,7 +60,7 @@ None -- plan executed exactly as written.
 
 ## Duration
 
-~2 minutes
+2m 11s
 
 ## Next Phase Readiness
 
