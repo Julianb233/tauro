@@ -16,6 +16,8 @@ import {
   X,
   Home,
   Check,
+  Play,
+  View,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -233,6 +235,47 @@ export default function PropertyDetailClient({
                 </div>
               </div>
             </div>
+
+            {/* Video Tour (PROP-08) */}
+            {property.videoUrl && (
+              <div>
+                <h2 className="font-heading text-xl font-bold">
+                  <Play className="mr-2 inline-block h-5 w-5 text-gold" />
+                  Video Tour
+                </h2>
+                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-midnight">
+                  <iframe
+                    src={property.videoUrl}
+                    title={`Video tour of ${property.address}`}
+                    className="h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* 3D Virtual Tour (PROP-09) */}
+            {property.virtualTourUrl && (
+              <div>
+                <h2 className="font-heading text-xl font-bold">
+                  <View className="mr-2 inline-block h-5 w-5 text-gold" />
+                  3D Virtual Tour
+                </h2>
+                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-midnight">
+                  <iframe
+                    src={property.virtualTourUrl}
+                    title={`3D walkthrough of ${property.address}`}
+                    className="h-full w-full"
+                    allow="fullscreen; vr"
+                    allowFullScreen
+                  />
+                </div>
+                <p className="mt-2 text-center text-xs text-muted-foreground">
+                  Click and drag to explore the property in 3D
+                </p>
+              </div>
+            )}
 
             {/* Features */}
             <div>

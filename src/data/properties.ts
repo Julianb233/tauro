@@ -29,6 +29,8 @@ export interface Property {
   lat: number;
   lng: number;
   openHouse?: string;
+  videoUrl?: string;
+  virtualTourUrl?: string;
 }
 
 export const properties: Property[] = [
@@ -89,6 +91,8 @@ export const properties: Property[] = [
     lat: 32.7707,
     lng: -117.2537,
     openHouse: "Sat, Mar 22 · 1:00 PM - 4:00 PM",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "2",
@@ -250,6 +254,7 @@ export const properties: Property[] = [
     lat: 32.7224,
     lng: -117.168,
     openHouse: "Sun, Mar 23 · 11:00 AM - 2:00 PM",
+    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "5",
