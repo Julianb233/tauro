@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Home, TrendingUp, Users, Shield, Star, MapPin } from "lucide-react";
@@ -5,6 +6,12 @@ import { properties, formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import HeroSearchBar from "@/components/HeroSearchBar";
 import { TiltCard } from "@/components/ui/tilt-card";
+
+export const metadata: Metadata = {
+  title: "Tauro | Premium Philadelphia Real Estate",
+  description:
+    "Discover luxury homes in Philadelphia with Tauro. Browse premium properties, explore neighborhoods, and connect with top agents across Center City, Rittenhouse, Fishtown, and more.",
+};
 
 const neighborhoods = [
   {
@@ -212,7 +219,7 @@ export default function HomePage() {
             {neighborhoods.map((hood) => (
               <Link
                 key={hood.slug}
-                href={`/areas/${hood.slug}`}
+                href={`/neighborhoods/${hood.slug}`}
                 className="group relative overflow-hidden rounded-xl border border-border/40 transition-all hover:border-gold/40 hover:shadow-xl"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
