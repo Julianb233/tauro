@@ -11,9 +11,6 @@ import {
   MapPin,
   Phone,
   Mail,
-  ChevronLeft,
-  ChevronRight,
-  X,
   Home,
   Check,
   Play,
@@ -21,6 +18,8 @@ import {
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import ImageGallery from "@/components/ImageGallery";
+import PropertyMap from "@/components/PropertyMap";
 import { cn } from "@/lib/utils";
 
 export default function PropertyDetailClient({
@@ -30,14 +29,7 @@ export default function PropertyDetailClient({
   property: Property;
   similar: Property[];
 }) {
-  const [galleryIndex, setGalleryIndex] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
-
-  const prev = () =>
-    setGalleryIndex((i) => (i === 0 ? property.images.length - 1 : i - 1));
-  const next = () =>
-    setGalleryIndex((i) => (i === property.images.length - 1 ? 0 : i + 1));
 
   return (
     <div className="min-h-screen pt-16">
@@ -57,90 +49,9 @@ export default function PropertyDetailClient({
       {/* Gallery */}
       <div className="relative bg-near-black">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          {/* Main image */}
-          <div
-            className="relative aspect-[16/9] max-h-[500px] cursor-pointer overflow-hidden rounded-xl lg:aspect-[21/9]"
-            onClick={() => setLightboxOpen(true)}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={property.images[galleryIndex]}
-              alt={`${property.address} - Photo ${galleryIndex + 1}`}
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-
-            {/* Nav arrows */}
-            <button
-              onClick={(e) => { e.stopPropagation(); prev(); }}
-              className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); next(); }}
-              className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-
-            {/* Counter */}
-            <span className="absolute right-3 bottom-3 rounded-md bg-black/60 px-3 py-1.5 text-sm text-white backdrop-blur-sm">
-              {galleryIndex + 1} / {property.images.length}
-            </span>
-          </div>
-
-          {/* Thumbnails */}
-          <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
-            {property.images.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setGalleryIndex(i)}
-                className={cn(
-                  "h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all",
-                  i === galleryIndex ? "border-gold" : "border-transparent opacity-60 hover:opacity-100"
-                )}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img} alt="" className="h-full w-full object-cover" />
-              </button>
-            ))}
-          </div>
+          <ImageGallery images={property.images} address={property.address} />
         </div>
       </div>
-
-      {/* Lightbox */}
-      {lightboxOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95">
-          <button
-            onClick={() => setLightboxOpen(false)}
-            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
-          >
-            <X className="h-6 w-6" />
-          </button>
-          <button
-            onClick={prev}
-            className="absolute left-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
-          >
-            <ChevronLeft className="h-8 w-8" />
-          </button>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={property.images[galleryIndex]}
-            alt=""
-            className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
-          />
-          <button
-            onClick={next}
-            className="absolute right-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
-          >
-            <ChevronRight className="h-8 w-8" />
-          </button>
-          <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-md bg-white/10 px-4 py-2 text-sm text-white">
-            {galleryIndex + 1} / {property.images.length}
-          </span>
-        </div>
-      )}
 
       {/* Key details bar - sticky */}
       <div className="sticky top-16 z-40 border-b border-border bg-card/95 backdrop-blur-sm">
@@ -299,19 +210,16 @@ export default function PropertyDetailClient({
               </div>
             </div>
 
-            {/* Map placeholder */}
+            {/* Location map */}
             <div>
               <h2 className="font-heading text-xl font-bold">Location</h2>
-              <div className="mt-4 h-64 overflow-hidden rounded-xl border border-border bg-midnight/30">
-                <div className="flex h-full items-center justify-center text-muted-foreground">
-                  <div className="text-center">
-                    <MapPin className="mx-auto h-8 w-8 text-gold" />
-                    <p className="mt-2 text-sm">
-                      {property.address}, {property.city}, {property.state} {property.zip}
-                    </p>
-                    <p className="mt-1 text-xs">Interactive map coming soon</p>
-                  </div>
-                </div>
+              <div className="mt-4 h-64 overflow-hidden rounded-xl border border-border">
+                <PropertyMap
+                  properties={[property]}
+                  singleMarker
+                  center={[property.lng, property.lat]}
+                  zoom={14}
+                />
               </div>
             </div>
 
