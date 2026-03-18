@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { properties } from "@/data/properties";
 import { neighborhoods } from "@/data/neighborhoods";
+import { agents } from "@/data/agents";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://tauro.realty";
@@ -30,5 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...propertyPages, ...neighborhoodPages];
+  const agentPages = agents.map((a) => ({
+    url: `${baseUrl}/agents/${a.slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...propertyPages, ...neighborhoodPages, ...agentPages];
 }
