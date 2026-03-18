@@ -1,6 +1,6 @@
-# Phase 9 Plan 1: SEO Foundations Summary
+# Phase 9 Plan 1: SEO Metadata Summary
 
-**One-liner:** Dynamic sitemap/robots.ts, JSON-LD structured data on property pages, and metadata on all client-component pages via layout files
+**One-liner:** Fixed title template duplication across 8 layout files, added properties listing metadata, and refactored agents/[slug] to server component with dynamic generateMetadata
 
 ## Tasks Completed
 
@@ -9,42 +9,51 @@
 | 1 | Create sitemap.ts and robots.ts | d76316a | src/app/sitemap.ts, src/app/robots.ts |
 | 2 | Add JSON-LD structured data to property pages | b627764 | src/app/properties/[slug]/page.tsx |
 | 3 | Add metadata to all remaining pages | 854165c | 6 layout.tsx files + contact/page.tsx cleanup |
+| 4 | Fix layout.tsx metadata titles and add properties layout | b8e335d | 8 layout.tsx files (contact, sell, book-tour, faq, home-value, join, properties, proposal) |
+| 5 | Add dynamic metadata to agents/[slug] | c75f15d | agents/[slug]/page.tsx, AgentProfileClient.tsx |
 
 ## What Was Built
 
-### Sitemap & Robots
-- **sitemap.ts** generates dynamic XML sitemap with 14 static pages, all property detail pages, and all neighborhood pages
-- **robots.ts** allows all crawlers on `/`, disallows `/api/` and `/proposal/`, points to sitemap URL
+### Sitemap & Robots (prior execution)
+- **sitemap.ts** generates dynamic XML sitemap with all pages
+- **robots.ts** allows all crawlers on `/`, disallows `/api/` and `/proposal/`
 
-### JSON-LD Structured Data
-- Property detail pages now include `RealEstateListing` schema.org structured data
-- Includes: address (PostalAddress), price (PriceSpecification), rooms, floor size (QuantitativeValue), geo coordinates (GeoCoordinates)
-- Enables rich snippets in Google search results for property listings
+### JSON-LD Structured Data (prior execution)
+- Property detail pages include `RealEstateListing` schema.org structured data
 
-### Page Metadata
-- Created layout.tsx files for 6 client-component pages that couldn't export metadata directly: contact, book-tour, sell, join, faq, home-value
-- Each layout exports descriptive `title` and `description` metadata
-- Cleaned up stale metadata import/comment from contact page
+### Page Metadata (Tasks 4-5, this execution)
+- Fixed 7 existing layout.tsx files that had doubled title suffixes (e.g. "Contact Us | Tauro Realty" rendered as "Contact Us | Tauro Realty | Tauro" due to root template)
+- Titles now use short form (e.g. "Contact Us") which template renders as "Contact Us | Tauro"
+- Created new `src/app/properties/layout.tsx` with "Properties for Sale" metadata
+- Updated `src/app/proposal/layout.tsx` title and description to match spec
+
+### Agent Detail Dynamic Metadata (Task 5)
+- Extracted 530-line client component to `AgentProfileClient.tsx`
+- Rewrote `page.tsx` as server component with `generateMetadata` for per-agent SEO
+- Added `generateStaticParams` for SSG of all agent slugs
+- Agent titles render as "Julian Bradley -- Founding Partner & Lead Agent | Tauro"
 
 ## Deviations from Plan
 
 ### Auto-fixed Issues
 
-**1. [Rule 1 - Bug] Removed stale Metadata import and commented-out code from contact/page.tsx**
-- **Found during:** Task 3
-- **Issue:** contact/page.tsx had `import type { Metadata } from "next"` and a commented-out metadata export that were no longer needed since metadata now lives in the layout
-- **Fix:** Removed unused import and comment
-- **Files modified:** src/app/(site)/contact/page.tsx
+**1. [Rule 1 - Bug] Fixed doubled title branding in all existing layout.tsx files**
+- **Found during:** Task 1
+- **Issue:** Previous execution created layout.tsx files with titles like "Contact Us | Tauro Realty" but root layout has template "%s | Tauro", causing doubled branding "Contact Us | Tauro Realty | Tauro"
+- **Fix:** Changed all titles to short form without suffix (e.g. "Contact Us"), letting the template append "| Tauro" correctly
+- **Files modified:** 7 layout.tsx files
+- **Commit:** b8e335d
 
 ## Verification
 
-- Next.js build succeeds with all routes
-- `/sitemap.xml` and `/robots.txt` routes appear in build output
-- All 6 new layout.tsx files compile without errors
-- JSON-LD script renders in property detail page server output
+- 18 total metadata exports across all page routes
+- No page relies only on root layout default metadata (except homepage, intentionally)
+- agents/[slug]/page.tsx is a server component (no "use client")
+- AgentProfileClient.tsx has "use client" directive
+- generateMetadata and generateStaticParams both present in agents/[slug]/page.tsx
 
 ## Metrics
 
-- **Duration:** 1m 32s
+- **Duration:** 3m 11s (this execution)
 - **Completed:** 2026-03-18
-- **Tasks:** 3/3
+- **Tasks:** 5/5 (3 prior + 2 this execution)

@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-03-18)
 ## Current Position
 
 Phase: 9 of 9 (SEO, Performance & Deploy)
-Plan: 2 of ? complete
+Plan: 2 of 4 complete (09-01 re-executed with fixes)
 Status: In progress
-Last activity: 2026-03-18 — Completed 09-02 JSON-LD Structured Data, Robots & Sitemap
+Last activity: 2026-03-18 — Re-executed 09-01: fixed title template duplication, added agents/[slug] dynamic metadata
 
-Progress: ██████████████████ ~60%
+Progress: ██████████████████ ~62%
 
 ## Performance Metrics
 
@@ -58,6 +58,8 @@ Recent decisions affecting current work:
 - IMAGE-01: Add Unsplash remote patterns to next.config.ts for Next.js Image optimization
 - AGENT-CARD-EMAIL-01: Email uses onClick with stopPropagation instead of nested anchor
 - NEIGHBORHOOD-DATA-01: Used neighborhood name as propertyFilter value since current properties are placeholder San Diego data
+- SEO-TITLE-TEMPLATE-01: Page titles use short form (e.g. "Contact Us") since root layout template appends "| Tauro" automatically
+- AGENT-SERVER-CLIENT-01: agents/[slug] split into server page.tsx (metadata/SSG) + AgentProfileClient.tsx (interactivity)
 
 ### Pending Todos
 
@@ -69,6 +71,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-18T21:23Z
-Stopped at: Completed 09-02 JSON-LD Structured Data, Robots & Sitemap
+Last session: 2026-03-18T21:24Z
+Stopped at: Re-executed 09-01-PLAN.md (SEO Metadata - title fixes + agents/[slug] dynamic metadata)
 Resume file: None
