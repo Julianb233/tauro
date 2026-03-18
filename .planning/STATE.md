@@ -19,15 +19,16 @@ Progress: █████░░░░░ ~15%
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
-- Average duration: 2m 21s
-- Total execution time: 0.20 hours
+- Total plans completed: 6
+- Average duration: 2m 20s
+- Total execution time: 0.23 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 1 | 4/4 | 10m 39s | 2m 40s |
+| 2 | 1/? | 2m 17s | 2m 17s |
 | 4 | 1/4 | 59s | 59s |
 
 **Recent Trend:**
@@ -50,6 +51,8 @@ Recent decisions affecting current work:
 - NAV-HOOK-01: Extract scroll detection into reusable useScrolled hook
 - NAV-SHIMMER-01: Replace GoldShimmer wrapper with shimmer-gold CSS class on CTA
 - NAV-COLOR-01: Use bg-near-black/95 for scrolled header state
+- SEARCH-01: Extract HeroSearchBar as client component to keep page.tsx as server component
+- IMAGE-01: Add Unsplash remote patterns to next.config.ts for Next.js Image optimization
 
 ### Pending Todos
 
