@@ -4,6 +4,7 @@ import { ArrowRight, Home, TrendingUp, Users, Shield, Star, MapPin } from "lucid
 import { properties, formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import HeroSearchBar from "@/components/HeroSearchBar";
+import { TiltCard } from "@/components/ui/tilt-card";
 
 const neighborhoods = [
   {
@@ -183,7 +184,9 @@ export default function HomePage() {
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+              <TiltCard key={property.id}>
+                <PropertyCard property={property} />
+              </TiltCard>
             ))}
           </div>
         </div>
@@ -209,15 +212,16 @@ export default function HomePage() {
             {neighborhoods.map((hood) => (
               <Link
                 key={hood.slug}
-                href={`/neighborhoods/${hood.slug}`}
+                href={`/areas/${hood.slug}`}
                 className="group relative overflow-hidden rounded-xl border border-border/40 transition-all hover:border-gold/40 hover:shadow-xl"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={hood.image}
                     alt={hood.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-near-black/90 via-near-black/30 to-transparent" />
                 </div>
@@ -259,20 +263,19 @@ export default function HomePage() {
 
           <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {whyTauro.map((item) => (
-              <div
-                key={item.title}
-                className="card-tilt group rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30 hover:shadow-lg"
-              >
-                <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
-                  <item.icon className="size-6 text-gold" />
+              <TiltCard key={item.title} maxTilt={6}>
+                <div className="group rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30 hover:shadow-lg">
+                  <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                    <item.icon className="size-6 text-gold" />
+                  </div>
+                  <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
                 </div>
-                <h3 className="mt-4 font-heading text-lg font-bold text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {item.description}
-                </p>
-              </div>
+              </TiltCard>
             ))}
           </div>
         </div>
@@ -327,11 +330,12 @@ export default function HomePage() {
           <div className="grid gap-6 md:grid-cols-2">
             {/* Buyer CTA */}
             <div className="relative overflow-hidden rounded-2xl border border-border/40">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
                 alt="Luxury home interior"
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-near-black/90 via-near-black/70 to-near-black/40" />
               <div className="relative z-10 p-8 sm:p-10">
@@ -357,11 +361,12 @@ export default function HomePage() {
 
             {/* Seller CTA */}
             <div className="relative overflow-hidden rounded-2xl border border-border/40">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
                 alt="Modern home exterior"
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-near-black/90 via-near-black/70 to-near-black/40" />
               <div className="relative z-10 p-8 sm:p-10">
@@ -376,8 +381,8 @@ export default function HomePage() {
                   knows your neighborhood inside and out.
                 </p>
                 <Link
-                  href="/contact"
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
+                  href="/sell"
+                  className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
                 >
                   Get a Free Valuation
                   <ArrowRight className="size-4" />
