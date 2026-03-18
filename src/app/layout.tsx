@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Inter } from "next/font/google";
+import { Playfair_Display, DM_Sans, Montserrat } from "next/font/google";
+import { OrganizationJsonLd } from "@/components/JsonLd";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -8,13 +9,21 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
+const montserrat = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700"],
+});
+
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tauro.realty"),
   title: {
     default: "Tauro | Premium Philadelphia Real Estate",
     template: "%s | Tauro",
@@ -28,6 +37,20 @@ export const metadata: Metadata = {
     "Tauro",
     "LYL Realty Group",
   ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Tauro Realty",
+    title: "Tauro | Premium Philadelphia Real Estate",
+    description:
+      "Premium real estate brokerage serving Philadelphia. Luxury homes, expert agents, and neighborhood guides.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tauro | Premium Philadelphia Real Estate",
+    description:
+      "Premium real estate brokerage serving Philadelphia. Luxury homes, expert agents, and neighborhood guides.",
+  },
 };
 
 export default function RootLayout({
@@ -38,8 +61,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${playfair.variable} ${inter.variable} min-h-screen bg-background text-foreground antialiased`}
+        className={`${playfair.variable} ${dmSans.variable} ${montserrat.variable} min-h-screen bg-background text-foreground antialiased`}
       >
+        <OrganizationJsonLd />
         {children}
       </body>
     </html>

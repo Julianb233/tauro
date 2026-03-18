@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { properties, formatPriceFull } from "@/data/properties";
+import { RealEstateListingJsonLd } from "@/components/JsonLd";
 import PropertyDetailClient from "./PropertyDetailClient";
 
 export function generateStaticParams() {
@@ -25,5 +26,11 @@ export default async function PropertyDetailPage({
   const property = properties.find((p) => p.slug === slug);
   if (!property) notFound();
   const similar = properties.filter((p) => p.id !== property.id).slice(0, 3);
-  return <PropertyDetailClient property={property} similar={similar} />;
+
+  return (
+    <>
+      <RealEstateListingJsonLd property={property} />
+      <PropertyDetailClient property={property} similar={similar} />
+    </>
+  );
 }

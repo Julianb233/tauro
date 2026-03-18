@@ -1,12 +1,14 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Logo } from "@/components/logo";
+import { GoldShimmer } from "@/components/ui/gold-shimmer";
 
 const quickLinks = [
-  { href: "/properties", label: "Browse Properties" },
-  { href: "/agents", label: "Our Agents" },
-  { href: "/neighborhoods", label: "Neighborhoods" },
-  { href: "/about", label: "About Tauro" },
-  { href: "/contact", label: "Contact Us" },
+  { href: "/properties", label: "Properties" },
+  { href: "/agents", label: "Agents" },
+  { href: "/sell", label: "Sell" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const neighborhoods = [
@@ -26,9 +28,7 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
-              <span className="font-heading text-2xl font-bold tracking-wide text-gold">
-                TAURO
-              </span>
+              <Logo width={100} height={34} />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
               Premium real estate brokerage serving Philadelphia&apos;s most
@@ -105,14 +105,73 @@ export function Footer() {
                 </span>
               </li>
             </ul>
+            {/* Office map placeholder */}
+            <a
+              href="https://maps.google.com/?q=Philadelphia+PA"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-border/40 bg-midnight transition-colors hover:border-gold/40"
+            >
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-muted-foreground">
+                <MapPin className="size-5 text-gold" />
+                <span>Philadelphia, PA</span>
+                <span className="text-gold/70">View on Map</span>
+              </div>
+            </a>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 md:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 sm:flex-row">
           <p className="text-xs text-muted-foreground">
             &copy; {new Date().getFullYear()} Tauro. All rights reserved.
           </p>
+          <div className="flex items-center gap-3">
+            <GoldShimmer>
+              <a
+                href="https://instagram.com/taurorealty"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                aria-label="Instagram"
+              >
+                <Instagram className="size-5" />
+              </a>
+            </GoldShimmer>
+            <GoldShimmer>
+              <a
+                href="https://facebook.com/taurorealty"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                aria-label="Facebook"
+              >
+                <Facebook className="size-5" />
+              </a>
+            </GoldShimmer>
+            <GoldShimmer>
+              <a
+                href="https://linkedin.com/company/taurorealty"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="size-5" />
+              </a>
+            </GoldShimmer>
+            <GoldShimmer>
+              <a
+                href="https://x.com/taurorealty"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                aria-label="X (Twitter)"
+              >
+                <Twitter className="size-5" />
+              </a>
+            </GoldShimmer>
+          </div>
           <div className="flex gap-4">
             <Link
               href="/privacy"

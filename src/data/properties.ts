@@ -29,6 +29,8 @@ export interface Property {
   lat: number;
   lng: number;
   openHouse?: string;
+  videoUrl?: string;
+  virtualTourUrl?: string;
 }
 
 export const properties: Property[] = [
@@ -83,12 +85,14 @@ export const properties: Property[] = [
     agent: {
       name: "Julian Bradley",
       phone: "(619) 555-0100",
-      email: "julian@tauro.com",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
     },
     lat: 32.7707,
     lng: -117.2537,
     openHouse: "Sat, Mar 22 · 1:00 PM - 4:00 PM",
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "2",
@@ -140,7 +144,7 @@ export const properties: Property[] = [
     agent: {
       name: "Sofia Martinez",
       phone: "(619) 555-0200",
-      email: "sofia@tauro.com",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
     },
     lat: 32.8491,
@@ -196,7 +200,7 @@ export const properties: Property[] = [
     agent: {
       name: "Julian Bradley",
       phone: "(619) 555-0100",
-      email: "julian@tauro.com",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
     },
     lat: 32.8601,
@@ -244,12 +248,13 @@ export const properties: Property[] = [
     agent: {
       name: "Sofia Martinez",
       phone: "(619) 555-0200",
-      email: "sofia@tauro.com",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
     },
     lat: 32.7224,
     lng: -117.168,
     openHouse: "Sun, Mar 23 · 11:00 AM - 2:00 PM",
+    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "5",
@@ -293,7 +298,7 @@ export const properties: Property[] = [
     agent: {
       name: "Julian Bradley",
       phone: "(619) 555-0100",
-      email: "julian@tauro.com",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200",
     },
     lat: 33.1581,
@@ -346,7 +351,7 @@ export const properties: Property[] = [
     agent: {
       name: "Sofia Martinez",
       phone: "(619) 555-0200",
-      email: "sofia@tauro.com",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200",
     },
     lat: 32.7486,

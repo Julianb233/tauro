@@ -8,6 +8,9 @@ export interface FilterState {
   priceMax: string;
   beds: string;
   baths: string;
+  sqftMin: string;
+  sqftMax: string;
+  area: string;
   propertyType: string;
   status: string;
   sort: string;
@@ -18,6 +21,9 @@ export const defaultFilters: FilterState = {
   priceMax: "",
   beds: "",
   baths: "",
+  sqftMin: "",
+  sqftMax: "",
+  area: "",
   propertyType: "",
   status: "",
   sort: "price-desc",
@@ -26,17 +32,17 @@ export const defaultFilters: FilterState = {
 export default function PropertyFilters({
   filters,
   onChange,
+  onClear,
 }: {
   filters: FilterState;
-  onChange: (f: FilterState) => void;
+  onChange: (key: keyof FilterState, value: string) => void;
+  onClear: () => void;
 }) {
   const [open, setOpen] = useState(false);
 
-  const update = (key: keyof FilterState, value: string) => {
-    onChange({ ...filters, [key]: value });
-  };
+  const update = (key: keyof FilterState, value: string) => onChange(key, value);
 
-  const clearAll = () => onChange(defaultFilters);
+  const clearAll = () => onClear();
 
   const activeCount = Object.entries(filters).filter(
     ([k, v]) => v && k !== "sort" && v !== defaultFilters[k as keyof FilterState]
@@ -134,6 +140,56 @@ export default function PropertyFilters({
               <option value="2">2+</option>
               <option value="3">3+</option>
               <option value="4">4+</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Min Sqft
+            </label>
+            <select
+              value={filters.sqftMin}
+              onChange={(e) => update("sqftMin", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">No Min</option>
+              <option value="1000">1,000 SF</option>
+              <option value="1500">1,500 SF</option>
+              <option value="2000">2,000 SF</option>
+              <option value="3000">3,000 SF</option>
+              <option value="4000">4,000 SF</option>
+              <option value="5000">5,000 SF</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Max Sqft
+            </label>
+            <select
+              value={filters.sqftMax}
+              onChange={(e) => update("sqftMax", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">No Max</option>
+              <option value="2000">2,000 SF</option>
+              <option value="3000">3,000 SF</option>
+              <option value="4000">4,000 SF</option>
+              <option value="5000">5,000 SF</option>
+              <option value="7000">7,000 SF</option>
+              <option value="10000">10,000 SF</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">Area</label>
+            <select
+              value={filters.area}
+              onChange={(e) => update("area", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">All Areas</option>
+              <option value="Mission Beach">Mission Beach</option>
+              <option value="La Jolla">La Jolla</option>
+              <option value="San Diego">San Diego</option>
+              <option value="Carlsbad">Carlsbad</option>
             </select>
           </div>
           <div>

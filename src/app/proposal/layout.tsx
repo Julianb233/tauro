@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Proposal | Tauro x LYL Realty Group",
+  title: "Project Proposal",
   description:
-    "Your custom website and CRM build proposal from AI Acrobatics for Tauro / LYL Realty Group.",
+    "Tauro website build proposal — scope, deliverables, timeline, and pricing.",
   robots: { index: false, follow: false },
 };
 

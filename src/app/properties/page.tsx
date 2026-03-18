@@ -1,18 +1,49 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { Suspense, useState, useMemo, useCallback } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { LayoutGrid, Map } from "lucide-react";
 import { properties } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
-import PropertyFilters, { FilterState, defaultFilters } from "@/components/PropertyFilters";
-import MapPlaceholder from "@/components/MapPlaceholder";
+import PropertyFilters, { FilterState } from "@/components/PropertyFilters";
+import PropertyMap from "@/components/PropertyMap";
 import { cn } from "@/lib/utils";
 
 type ViewMode = "grid" | "map";
 
-export default function PropertiesPage() {
-  const [filters, setFilters] = useState<FilterState>(defaultFilters);
+function PropertiesContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const [view, setView] = useState<ViewMode>("grid");
+
+  const filters: FilterState = useMemo(() => ({
+    priceMin: searchParams.get("priceMin") || "",
+    priceMax: searchParams.get("priceMax") || "",
+    beds: searchParams.get("beds") || "",
+    baths: searchParams.get("baths") || "",
+    sqftMin: searchParams.get("sqftMin") || "",
+    sqftMax: searchParams.get("sqftMax") || "",
+    area: searchParams.get("area") || "",
+    propertyType: searchParams.get("type") || "",
+    status: searchParams.get("status") || "",
+    sort: searchParams.get("sort") || "price-desc",
+  }), [searchParams]);
+
+  const updateFilter = useCallback((key: keyof FilterState, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const paramKey = key === "propertyType" ? "type" : key;
+    if (value && !(key === "sort" && value === "price-desc")) {
+      params.set(paramKey, value);
+    } else {
+      params.delete(paramKey);
+    }
+    const qs = params.toString();
+    router.replace(`/properties${qs ? `?${qs}` : ""}`, { scroll: false });
+  }, [searchParams, router]);
+
+  const clearFilters = useCallback(() => {
+    router.replace("/properties", { scroll: false });
+  }, [router]);
 
   const filtered = useMemo(() => {
     let result = [...properties];
@@ -28,6 +59,15 @@ export default function PropertiesPage() {
     }
     if (filters.baths) {
       result = result.filter((p) => p.baths >= Number(filters.baths));
+    }
+    if (filters.sqftMin) {
+      result = result.filter((p) => p.sqft >= Number(filters.sqftMin));
+    }
+    if (filters.sqftMax) {
+      result = result.filter((p) => p.sqft <= Number(filters.sqftMax));
+    }
+    if (filters.area) {
+      result = result.filter((p) => p.city === filters.area);
     }
     if (filters.propertyType) {
       result = result.filter((p) => p.propertyType === filters.propertyType);
@@ -95,7 +135,7 @@ export default function PropertiesPage() {
       </div>
 
       {/* Filters */}
-      <PropertyFilters filters={filters} onChange={setFilters} />
+      <PropertyFilters filters={filters} onChange={updateFilter} onClear={clearFilters} />
 
       {/* Content */}
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -112,7 +152,7 @@ export default function PropertiesPage() {
                 No properties match your filters.
               </p>
               <button
-                onClick={() => setFilters(defaultFilters)}
+                onClick={clearFilters}
                 className="mt-4 text-sm font-medium text-gold hover:text-gold-light"
               >
                 Clear all filters
@@ -122,7 +162,12 @@ export default function PropertiesPage() {
         ) : (
           <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
             <div className="order-2 lg:order-1">
-              <MapPlaceholder properties={filtered} />
+              <div className="min-h-[500px] h-[calc(100vh-16rem)]">
+                <PropertyMap
+                  properties={filtered}
+                  onPropertyClick={(slug) => router.push(`/properties/${slug}`)}
+                />
+              </div>
             </div>
             <div className="order-1 space-y-4 lg:order-2 lg:max-h-[calc(100vh-16rem)] lg:overflow-y-auto">
               {filtered.map((p) => (
@@ -133,5 +178,13 @@ export default function PropertiesPage() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function PropertiesPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen pt-16" />}>
+      <PropertiesContent />
+    </Suspense>
   );
 }

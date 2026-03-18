@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -11,14 +12,15 @@ import {
   MapPin,
   Phone,
   Mail,
-  ChevronLeft,
-  ChevronRight,
-  X,
   Home,
   Check,
+  Play,
+  View,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import ImageGallery from "@/components/ImageGallery";
+import PropertyMap from "@/components/PropertyMap";
 import { cn } from "@/lib/utils";
 
 export default function PropertyDetailClient({
@@ -28,14 +30,46 @@ export default function PropertyDetailClient({
   property: Property;
   similar: Property[];
 }) {
-  const [galleryIndex, setGalleryIndex] = useState(0);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [submitting, setSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const prev = () =>
-    setGalleryIndex((i) => (i === 0 ? property.images.length - 1 : i - 1));
-  const next = () =>
-    setGalleryIndex((i) => (i === property.images.length - 1 ? 0 : i + 1));
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setSubmitError("");
+    setSubmitSuccess(false);
+
+    try {
+      const [firstName, ...rest] = formData.name.split(" ");
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "showing" as const,
+          firstName,
+          lastName: rest.join(" ") || firstName,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message || undefined,
+          propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
+          propertyId: property.id,
+        }),
+      });
+
+      if (res.ok) {
+        setSubmitSuccess(true);
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setSubmitError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setSubmitError("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen pt-16">
@@ -55,90 +89,9 @@ export default function PropertyDetailClient({
       {/* Gallery */}
       <div className="relative bg-near-black">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          {/* Main image */}
-          <div
-            className="relative aspect-[16/9] max-h-[500px] cursor-pointer overflow-hidden rounded-xl lg:aspect-[21/9]"
-            onClick={() => setLightboxOpen(true)}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={property.images[galleryIndex]}
-              alt={`${property.address} - Photo ${galleryIndex + 1}`}
-              className="h-full w-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-
-            {/* Nav arrows */}
-            <button
-              onClick={(e) => { e.stopPropagation(); prev(); }}
-              className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              onClick={(e) => { e.stopPropagation(); next(); }}
-              className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-black/50 p-2 text-white backdrop-blur-sm transition-colors hover:bg-black/70"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-
-            {/* Counter */}
-            <span className="absolute right-3 bottom-3 rounded-md bg-black/60 px-3 py-1.5 text-sm text-white backdrop-blur-sm">
-              {galleryIndex + 1} / {property.images.length}
-            </span>
-          </div>
-
-          {/* Thumbnails */}
-          <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
-            {property.images.map((img, i) => (
-              <button
-                key={i}
-                onClick={() => setGalleryIndex(i)}
-                className={cn(
-                  "h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all",
-                  i === galleryIndex ? "border-gold" : "border-transparent opacity-60 hover:opacity-100"
-                )}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img} alt="" className="h-full w-full object-cover" />
-              </button>
-            ))}
-          </div>
+          <ImageGallery images={property.images} address={property.address} />
         </div>
       </div>
-
-      {/* Lightbox */}
-      {lightboxOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95">
-          <button
-            onClick={() => setLightboxOpen(false)}
-            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
-          >
-            <X className="h-6 w-6" />
-          </button>
-          <button
-            onClick={prev}
-            className="absolute left-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
-          >
-            <ChevronLeft className="h-8 w-8" />
-          </button>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={property.images[galleryIndex]}
-            alt=""
-            className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
-          />
-          <button
-            onClick={next}
-            className="absolute right-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
-          >
-            <ChevronRight className="h-8 w-8" />
-          </button>
-          <span className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-md bg-white/10 px-4 py-2 text-sm text-white">
-            {galleryIndex + 1} / {property.images.length}
-          </span>
-        </div>
-      )}
 
       {/* Key details bar - sticky */}
       <div className="sticky top-16 z-40 border-b border-border bg-card/95 backdrop-blur-sm">
@@ -234,6 +187,47 @@ export default function PropertyDetailClient({
               </div>
             </div>
 
+            {/* Video Tour (PROP-08) */}
+            {property.videoUrl && (
+              <div>
+                <h2 className="font-heading text-xl font-bold">
+                  <Play className="mr-2 inline-block h-5 w-5 text-gold" />
+                  Video Tour
+                </h2>
+                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-midnight">
+                  <iframe
+                    src={property.videoUrl}
+                    title={`Video tour of ${property.address}`}
+                    className="h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* 3D Virtual Tour (PROP-09) */}
+            {property.virtualTourUrl && (
+              <div>
+                <h2 className="font-heading text-xl font-bold">
+                  <View className="mr-2 inline-block h-5 w-5 text-gold" />
+                  3D Virtual Tour
+                </h2>
+                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-midnight">
+                  <iframe
+                    src={property.virtualTourUrl}
+                    title={`3D walkthrough of ${property.address}`}
+                    className="h-full w-full"
+                    allow="fullscreen; vr"
+                    allowFullScreen
+                  />
+                </div>
+                <p className="mt-2 text-center text-xs text-muted-foreground">
+                  Click and drag to explore the property in 3D
+                </p>
+              </div>
+            )}
+
             {/* Features */}
             <div>
               <h2 className="font-heading text-xl font-bold">Features & Amenities</h2>
@@ -256,19 +250,16 @@ export default function PropertyDetailClient({
               </div>
             </div>
 
-            {/* Map placeholder */}
+            {/* Location map */}
             <div>
               <h2 className="font-heading text-xl font-bold">Location</h2>
-              <div className="mt-4 h-64 overflow-hidden rounded-xl border border-border bg-midnight/30">
-                <div className="flex h-full items-center justify-center text-muted-foreground">
-                  <div className="text-center">
-                    <MapPin className="mx-auto h-8 w-8 text-gold" />
-                    <p className="mt-2 text-sm">
-                      {property.address}, {property.city}, {property.state} {property.zip}
-                    </p>
-                    <p className="mt-1 text-xs">Interactive map coming soon</p>
-                  </div>
-                </div>
+              <div className="mt-4 h-64 overflow-hidden rounded-xl border border-border">
+                <PropertyMap
+                  properties={[property]}
+                  singleMarker
+                  center={[property.lng, property.lat]}
+                  zoom={14}
+                />
               </div>
             </div>
 
@@ -290,11 +281,13 @@ export default function PropertyDetailClient({
             {/* Agent card */}
             <div className="rounded-xl border border-border bg-card p-6">
               <div className="flex items-center gap-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={property.agent.photo}
                   alt={property.agent.name}
-                  className="h-16 w-16 rounded-full border-2 border-gold object-cover"
+                  width={64}
+                  height={64}
+                  className="rounded-full border-2 border-gold object-cover"
+                  sizes="64px"
                 />
                 <div>
                   <p className="font-heading text-lg font-bold">{property.agent.name}</p>
@@ -321,55 +314,76 @@ export default function PropertyDetailClient({
 
             {/* Schedule form */}
             <div id="schedule" className="rounded-xl border border-border bg-card p-6">
-              <h3 className="font-heading text-lg font-bold">Schedule a Showing</h3>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Interested in this property? Fill out the form and we will be in touch.
-              </p>
-              <form
-                className="mt-4 space-y-3"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  alert("Showing request submitted! We will contact you shortly.");
-                  setFormData({ name: "", email: "", phone: "", message: "" });
-                }}
-              >
-                <input
-                  type="text"
-                  placeholder="Full Name"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <input
-                  type="tel"
-                  placeholder="Phone Number"
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <textarea
-                  placeholder="Message (optional)"
-                  rows={3}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
-                />
-                <button
-                  type="submit"
-                  className="w-full rounded-lg bg-gold py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
-                >
-                  Request a Showing
-                </button>
-              </form>
+              {submitSuccess ? (
+                <div className="text-center">
+                  <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-600/20">
+                    <Check className="h-6 w-6 text-emerald-400" />
+                  </div>
+                  <h3 className="font-heading text-lg font-bold">Request Submitted</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Thank you! We will be in touch shortly to schedule your showing.
+                  </p>
+                  <button
+                    onClick={() => setSubmitSuccess(false)}
+                    className="mt-4 text-sm font-medium text-gold hover:text-gold-light"
+                  >
+                    Schedule Another
+                  </button>
+                </div>
+              ) : (
+                <>
+                  <h3 className="font-heading text-lg font-bold">Schedule a Showing</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Interested in this property? Fill out the form and we will be in touch.
+                  </p>
+                  <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      required
+                      disabled={submitting}
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                    />
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      required
+                      disabled={submitting}
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                    />
+                    <input
+                      type="tel"
+                      placeholder="Phone Number"
+                      disabled={submitting}
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                    />
+                    <textarea
+                      placeholder="Message (optional)"
+                      rows={3}
+                      disabled={submitting}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                    />
+                    <button
+                      type="submit"
+                      disabled={submitting}
+                      className="w-full rounded-lg bg-gold py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {submitting ? "Submitting..." : "Request a Showing"}
+                    </button>
+                    {submitError && (
+                      <p className="mt-2 text-center text-sm text-red-400">{submitError}</p>
+                    )}
+                  </form>
+                </>
+              )}
             </div>
           </div>
         </div>

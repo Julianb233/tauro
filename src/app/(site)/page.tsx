@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { Search, ArrowRight, Home, TrendingUp, Users, Shield, Star, MapPin } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Home, TrendingUp, Users, Shield, Star, MapPin } from "lucide-react";
 import { properties, formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import HeroSearchBar from "@/components/HeroSearchBar";
+import { TiltCard } from "@/components/ui/tilt-card";
 
 const neighborhoods = [
   {
@@ -100,17 +103,19 @@ export default function HomePage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16">
         {/* Background image */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80"
           alt="Philadelphia skyline"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-near-black/70 via-near-black/50 to-near-black" />
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 text-center sm:px-6 lg:px-8">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-gold">
+          <p className="mb-4 font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Premium Philadelphia Real Estate
           </p>
           <h1 className="font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
@@ -124,24 +129,7 @@ export default function HomePage() {
           </p>
 
           {/* Search overlay */}
-          <div className="mx-auto mt-10 max-w-2xl">
-            <div className="flex items-center rounded-xl border border-white/10 bg-near-black/60 p-1.5 shadow-2xl backdrop-blur-md">
-              <div className="flex flex-1 items-center gap-2 px-4">
-                <Search className="size-5 text-gold" />
-                <input
-                  type="text"
-                  placeholder="Search by neighborhood, address, or ZIP..."
-                  className="w-full bg-transparent py-3 text-sm text-white placeholder:text-white/50 focus:outline-none"
-                />
-              </div>
-              <button
-                type="button"
-                className="rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
-              >
-                Search
-              </button>
-            </div>
-          </div>
+          <HeroSearchBar />
 
           {/* Scroll hint */}
           <div className="mt-16 animate-bounce">
@@ -178,7 +166,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                 Featured Listings
               </p>
               <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -196,7 +184,9 @@ export default function HomePage() {
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+              <TiltCard key={property.id}>
+                <PropertyCard property={property} />
+              </TiltCard>
             ))}
           </div>
         </div>
@@ -206,7 +196,7 @@ export default function HomePage() {
       <section className="border-t border-border/40 bg-midnight py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Explore Philadelphia
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -222,15 +212,16 @@ export default function HomePage() {
             {neighborhoods.map((hood) => (
               <Link
                 key={hood.slug}
-                href={`/neighborhoods/${hood.slug}`}
+                href={`/areas/${hood.slug}`}
                 className="group relative overflow-hidden rounded-xl border border-border/40 transition-all hover:border-gold/40 hover:shadow-xl"
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={hood.image}
                     alt={hood.name}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-near-black/90 via-near-black/30 to-transparent" />
                 </div>
@@ -258,7 +249,7 @@ export default function HomePage() {
       <section className="bg-near-black py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               The Tauro Difference
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -272,20 +263,19 @@ export default function HomePage() {
 
           <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {whyTauro.map((item) => (
-              <div
-                key={item.title}
-                className="group rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30 hover:shadow-lg"
-              >
-                <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
-                  <item.icon className="size-6 text-gold" />
+              <TiltCard key={item.title} maxTilt={6}>
+                <div className="group rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30 hover:shadow-lg">
+                  <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                    <item.icon className="size-6 text-gold" />
+                  </div>
+                  <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {item.description}
+                  </p>
                 </div>
-                <h3 className="mt-4 font-heading text-lg font-bold text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {item.description}
-                </p>
-              </div>
+              </TiltCard>
             ))}
           </div>
         </div>
@@ -295,7 +285,7 @@ export default function HomePage() {
       <section className="border-t border-border/40 bg-midnight py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Client Stories
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
@@ -340,15 +330,16 @@ export default function HomePage() {
           <div className="grid gap-6 md:grid-cols-2">
             {/* Buyer CTA */}
             <div className="relative overflow-hidden rounded-2xl border border-border/40">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
                 alt="Luxury home interior"
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-near-black/90 via-near-black/70 to-near-black/40" />
               <div className="relative z-10 p-8 sm:p-10">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                   For Buyers
                 </p>
                 <h3 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">
@@ -360,7 +351,7 @@ export default function HomePage() {
                 </p>
                 <Link
                   href="/properties"
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
+                  className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
                 >
                   Browse Properties
                   <ArrowRight className="size-4" />
@@ -370,15 +361,16 @@ export default function HomePage() {
 
             {/* Seller CTA */}
             <div className="relative overflow-hidden rounded-2xl border border-border/40">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
                 alt="Modern home exterior"
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-near-black/90 via-near-black/70 to-near-black/40" />
               <div className="relative z-10 p-8 sm:p-10">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                   For Sellers
                 </p>
                 <h3 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">
@@ -389,8 +381,8 @@ export default function HomePage() {
                   knows your neighborhood inside and out.
                 </p>
                 <Link
-                  href="/contact"
-                  className="mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
+                  href="/sell"
+                  className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
                 >
                   Get a Free Valuation
                   <ArrowRight className="size-4" />
