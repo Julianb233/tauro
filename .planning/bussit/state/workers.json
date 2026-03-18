@@ -2,20 +2,13 @@
   {
     "id": "worker-Ubun-5319",
     "registeredAt": "2026-03-18T20:23:31Z",
-    "lastHeartbeat": "2026-03-18T20:40:40Z",
-    "status": "working",
-    "currentTask": "phase-1-build-02",
-    "checkpoint": {
-      "taskId": "phase-1-build-02",
-      "phase": "executing",
-      "startedAt": "2026-03-18T20:40:40Z",
-      "lastUpdate": "2026-03-18T20:40:40Z",
-      "progress": 0,
-      "context": {}
-    },
+    "lastHeartbeat": "2026-03-18T20:50:33Z",
+    "status": "idle",
+    "currentTask": null,
+    "checkpoint": null,
     "sessionId": "session-1773865411",
     "stats": {
-      "tasksCompleted": 2,
+      "tasksCompleted": 8,
       "tasksFailed": 0,
       "totalExecutionTime": 0,
       "avgTaskTime": 0
