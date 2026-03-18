@@ -2,13 +2,13 @@
   {
     "id": "worker-Ubun-5319",
     "registeredAt": "2026-03-18T20:23:31Z",
-    "lastHeartbeat": "2026-03-18T22:00:00Z",
+    "lastHeartbeat": "2026-03-18T22:30:00Z",
     "status": "idle",
     "currentTask": "phase-4-plan",
     "checkpoint": null,
     "sessionId": "session-1773865411",
     "stats": {
-      "tasksCompleted": 9,
+      "tasksCompleted": 10,
       "tasksFailed": 0,
       "totalExecutionTime": 0,
       "avgTaskTime": 0
