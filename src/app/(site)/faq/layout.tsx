@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "FAQ | Tauro Realty",
+  title: "Frequently Asked Questions",
   description:
-    "Answers to common questions about buying, selling, and working with Tauro Realty in Philadelphia. Mortgage, pricing, and process FAQs.",
+    "Answers to common questions about buying, selling, and working with Tauro Realty in Philadelphia.",
 };
 
 export default function FaqLayout({

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Book a Tour | Tauro Realty",
+  title: "Book a Tour",
   description:
-    "Schedule a private showing of any Philadelphia property. Choose your preferred date and time, and a Tauro agent will confirm within 24 hours.",
+    "Schedule a private property tour with a Tauro agent. Choose your preferred date, time, and property.",
 };
 
 export default function BookTourLayout({

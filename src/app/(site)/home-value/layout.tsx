@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Free Home Valuation | Tauro Realty",
+  title: "What's My Home Worth?",
   description:
-    "Find out what your Philadelphia home is worth. Get a free, no-obligation market analysis from a Tauro agent within 24 hours.",
+    "Get a free home valuation from Tauro Realty. Find out what your Philadelphia property is worth in today's market.",
 };
 
 export default function HomeValueLayout({

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Join Our Team | Tauro Realty Careers",
+  title: "Join Our Team",
   description:
-    "Join Philadelphia's most elite real estate team. Competitive splits, premium brand, cutting-edge tech, and ongoing training. Apply now.",
+    "Apply to join Tauro Realty. We're looking for licensed Philadelphia real estate agents ready to grow their career.",
 };
 
 export default function JoinLayout({
