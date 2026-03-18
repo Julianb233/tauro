@@ -46,6 +46,9 @@ Recent decisions affecting current work:
 - FOOTER-01: Social icons in bottom bar with GoldShimmer hover effect
 - FOOTER-02: Map placeholder links to Google Maps with Philadelphia query
 - FOOTER-03: Quick links simplified to match nav (Properties, Agents, Sell, About, Contact)
+- NAV-HOOK-01: Extract scroll detection into reusable useScrolled hook
+- NAV-SHIMMER-01: Replace GoldShimmer wrapper with shimmer-gold CSS class on CTA
+- NAV-COLOR-01: Use bg-near-black/95 for scrolled header state
 
 ### Pending Todos
 
