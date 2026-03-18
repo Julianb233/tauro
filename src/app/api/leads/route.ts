@@ -97,7 +97,7 @@ export async function POST(request: NextRequest) {
 
   if (!webhookUrl) {
     // In dev/staging without GHL config, log and return success
-    console.log("[leads/route] GHL_WEBHOOK_URL not set — lead payload:", body);
+    // GHL_WEBHOOK_URL not configured — accept lead silently in dev/staging
     return NextResponse.json(
       { success: true, message: "Lead received (GHL not configured)" },
       { status: 200 }
@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
 
     if (!ghlResponse.ok) {
       const errorText = await ghlResponse.text();
-      console.error("[leads/route] GHL webhook error:", ghlResponse.status, errorText);
+      // GHL webhook returned non-OK status
       return NextResponse.json(
         { error: "CRM submission failed" },
         { status: 502 }
@@ -124,7 +124,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
-    console.error("[leads/route] Unexpected error:", err);
+    // Unexpected error during lead submission
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

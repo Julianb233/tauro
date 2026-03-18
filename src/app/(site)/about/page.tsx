@@ -1,168 +1,148 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Shield, Star, MapPin, Users } from "lucide-react";
+import Image from "next/image";
+import {
+  Award,
+  Heart,
+  Shield,
+  Target,
+  Users,
+  MapPin,
+  ArrowRight,
+  Phone,
+  Mail,
+} from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "About Tauro | Philadelphia Premium Real Estate",
+  title: "About Tauro",
   description:
-    "Tauro is Philadelphia's premier luxury real estate brokerage. Learn about our mission, values, and the team behind our success.",
+    "Tauro is a premium Philadelphia real estate brokerage redefining luxury property services. Meet our team, learn our story, and discover why top agents and clients choose Tauro.",
 };
-
-const stats = [
-  { value: "500+", label: "Properties Sold" },
-  { value: "15", label: "Neighborhoods" },
-  { value: "$2.1B+", label: "Volume" },
-  { value: "98%", label: "Satisfaction" },
-];
 
 const values = [
   {
     icon: Shield,
-    title: "Integrity",
+    title: "Integrity First",
     description:
-      "Every transaction is guided by transparency, honesty, and an unwavering commitment to doing what is right for our clients.",
+      "Every transaction is built on transparency, honesty, and unwavering ethical standards.",
   },
   {
-    icon: Star,
-    title: "Excellence",
+    icon: Target,
+    title: "Results-Driven",
     description:
-      "We hold ourselves to the highest standards in marketing, negotiation, and client service — because premium results demand premium effort.",
+      "We combine market expertise with cutting-edge technology to deliver exceptional outcomes.",
   },
   {
-    icon: MapPin,
-    title: "Local Expertise",
+    icon: Heart,
+    title: "Client-Centered",
     description:
-      "Philadelphia is our home. We know every neighborhood, every block, and every market trend that shapes the city's real estate landscape.",
+      "Your goals become our mission. We listen first, then craft strategies tailored to you.",
   },
   {
-    icon: Users,
-    title: "Client First",
+    icon: Award,
+    title: "Excellence Always",
     description:
-      "Your goals drive every decision we make. We listen, advise, and advocate so you can buy or sell with complete confidence.",
+      "From staging to closing, every detail receives the premium attention it deserves.",
   },
+];
+
+const stats = [
+  { value: "$2.1B+", label: "Total Sales Volume" },
+  { value: "150+", label: "Licensed Agents" },
+  { value: "15", label: "Neighborhoods Served" },
+  { value: "98%", label: "Client Satisfaction" },
 ];
 
 export default function AboutPage() {
   return (
-    <>
-      {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
+    <div className="bg-background text-foreground">
+      {/* Hero */}
+      <section className="relative flex min-h-[50vh] items-center justify-center overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1582407947092-50cf9c1e9944?w=1600&q=80"
+          alt="Philadelphia skyline at dusk"
+          fill
+          priority
+          className="object-cover brightness-[0.35]"
+        />
+        <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+          <p className="font-label mb-3 text-sm uppercase tracking-widest text-gold">
             Our Story
           </p>
-          <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
-            About Tauro
+          <h1 className="font-heading text-4xl font-bold md:text-5xl lg:text-6xl">
+            Redefining Philadelphia Real Estate
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-white/60">
-            Philadelphia&apos;s premier luxury real estate brokerage, built on
-            deep local knowledge and an uncompromising standard of service.
+          <p className="mt-4 text-lg text-muted-foreground md:text-xl">
+            Where luxury meets local expertise. Tauro is the premium brokerage
+            built for Philadelphia&apos;s most discerning buyers, sellers, and
+            agents.
           </p>
         </div>
       </section>
 
-      {/* ── Brand Story ───────────────────────────────────────── */}
-      <section className="bg-midnight py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl">
-            <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
-              Who We Are
-            </p>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-white sm:text-4xl">
-              Born in Philadelphia, Built for Excellence
-            </h2>
-            <div className="mt-8 space-y-5 text-base leading-relaxed text-white/70">
-              <p>
-                Tauro was founded by a team of visionaries who saw
-                Philadelphia&apos;s immense potential long before the rest of the
-                market caught on. From the historic row homes of Society Hill to
-                the modern towers rising along the Schuylkill, we recognized
-                that this city deserved a brokerage as remarkable as its
-                architecture.
+      {/* Stats Bar */}
+      <section className="border-y border-border/40 bg-card/50">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-10 md:grid-cols-4">
+          {stats.map((stat) => (
+            <div key={stat.label} className="text-center">
+              <p className="font-heading text-3xl font-bold text-gold md:text-4xl">
+                {stat.value}
               </p>
-              <p>
-                What started as a boutique operation in Center City has grown
-                into one of the region&apos;s most trusted luxury real estate
-                brands. Our growth was never about scale for its own sake — it
-                was about earning the trust of Philadelphia&apos;s most
-                discerning buyers and sellers, one exceptional experience at a
-                time.
-              </p>
-              <p>
-                Today, Tauro represents a curated portfolio of
-                Philadelphia&apos;s finest properties. Our agents combine
-                neighborhood-level expertise with institutional-grade marketing
-                to deliver results that consistently exceed expectations.
+              <p className="font-label mt-1 text-xs uppercase tracking-wider text-muted-foreground">
+                {stat.label}
               </p>
             </div>
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* ── Mission ───────────────────────────────────────────── */}
-      <section className="bg-near-black py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-border/40 bg-midnight p-10 sm:p-14 text-center">
-            <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
-              Our Mission
-            </p>
-            <h2 className="mt-4 font-heading text-3xl font-bold text-white sm:text-4xl">
-              Elevating Philadelphia Real Estate
-            </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/60">
-              To redefine the Philadelphia real estate experience by combining
-              hyperlocal expertise, modern technology, and white-glove service —
-              so every client feels confident, informed, and empowered throughout
-              their journey.
-            </p>
-          </div>
+      {/* Our Story */}
+      <section className="mx-auto max-w-4xl px-6 py-20">
+        <h2 className="font-heading text-3xl font-bold md:text-4xl">
+          The Tauro Difference
+        </h2>
+        <div className="mt-8 space-y-6 text-muted-foreground leading-relaxed">
+          <p>
+            Founded in Philadelphia, Tauro was born from a simple belief: real
+            estate deserves better. Better service, better technology, better
+            results. We saw an industry ripe for transformation and built a
+            brokerage that raises the standard at every touchpoint.
+          </p>
+          <p>
+            Our name — inspired by the bull, a symbol of strength, determination,
+            and forward momentum — reflects our approach to everything we do.
+            From Center City penthouses to Fishtown rowhouses, we bring the same
+            relentless drive and premium attention to every client, every
+            property, every neighborhood.
+          </p>
+          <p>
+            What sets us apart is our deep Philadelphia roots combined with
+            world-class marketing and technology. Our agents don&apos;t just list
+            homes — they tell stories, build brands, and create experiences that
+            move properties faster and for more.
+          </p>
         </div>
       </section>
 
-      {/* ── Stats ─────────────────────────────────────────────── */}
-      <section className="bg-midnight py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="font-heading text-4xl font-bold text-gold sm:text-5xl">
-                  {stat.value}
-                </p>
-                <p className="mt-2 text-sm font-medium uppercase tracking-wider text-white/60">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Values ────────────────────────────────────────────── */}
-      <section className="bg-near-black py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
-              What Drives Us
-            </p>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-white sm:text-4xl">
-              Our Core Values
-            </h2>
-          </div>
-
-          <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Values */}
+      <section className="border-y border-border/40 bg-card/30 py-20">
+        <div className="mx-auto max-w-6xl px-6">
+          <h2 className="font-heading text-center text-3xl font-bold md:text-4xl">
+            Our Core Values
+          </h2>
+          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {values.map((value) => (
               <div
                 key={value.title}
-                className="rounded-xl border border-border/40 bg-midnight p-7"
+                className="card-tilt rounded-xl border border-border/40 bg-card p-6 text-center"
               >
-                <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
-                  <value.icon className="size-6 text-gold" />
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold">
+                  <value.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-5 font-heading text-lg font-bold text-white">
+                <h3 className="font-heading mt-4 text-lg font-semibold">
                   {value.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                <p className="mt-2 text-sm text-muted-foreground">
                   {value.description}
                 </p>
               </div>
@@ -171,62 +151,88 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── Team Preview ──────────────────────────────────────── */}
-      <section className="bg-midnight py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-border/40 bg-near-black p-10 sm:p-14 text-center">
-            <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
-              Our Team
-            </p>
-            <h2 className="mt-3 font-heading text-3xl font-bold text-white sm:text-4xl">
-              Meet the Agents Behind the Results
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-white/60">
-              Every Tauro agent is a Philadelphia specialist — deeply connected
-              to the neighborhoods they serve and committed to delivering
-              premium outcomes.
-            </p>
-            <div className="mt-8">
-              <Link
-                href="/agents"
-                className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
-              >
-                View Our Agents
-                <ArrowRight className="size-4" />
-              </Link>
-            </div>
+      {/* Neighborhoods */}
+      <section className="mx-auto max-w-4xl px-6 py-20">
+        <div className="flex items-center gap-3">
+          <MapPin className="h-6 w-6 text-gold" />
+          <h2 className="font-heading text-3xl font-bold md:text-4xl">
+            Our Philadelphia
+          </h2>
+        </div>
+        <p className="mt-4 text-muted-foreground leading-relaxed">
+          We serve 15 distinct Philadelphia neighborhoods, each with its own
+          character, market dynamics, and community. Our agents live where they
+          work — giving you hyper-local insight that national brokerages
+          simply can&apos;t match.
+        </p>
+        <Link
+          href="/neighborhoods"
+          className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-colors hover:bg-gold-light"
+        >
+          Explore Neighborhoods <ArrowRight className="h-4 w-4" />
+        </Link>
+      </section>
+
+      {/* Meet the Team CTA */}
+      <section className="border-y border-border/40 bg-card/30 py-20">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <Users className="mx-auto h-10 w-10 text-gold" />
+          <h2 className="font-heading mt-4 text-3xl font-bold md:text-4xl">
+            Meet Our Team
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            Our agents are Philadelphia&apos;s finest — experienced, connected,
+            and committed to delivering extraordinary results for every client.
+          </p>
+          <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+            <Link
+              href="/agents"
+              className="shimmer-gold inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-colors hover:bg-gold-light"
+            >
+              View Our Agents <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/why-join"
+              className="inline-flex items-center gap-2 rounded-lg border border-gold/40 px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-gold transition-colors hover:bg-gold/10"
+            >
+              Join Our Team
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="bg-near-black py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
-            Ready to Get Started?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-white/60">
-            Whether you&apos;re buying your first home or selling a luxury
-            estate, we&apos;re here to make your Philadelphia real estate
-            experience exceptional.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
-            >
-              Contact Us
-              <ArrowRight className="size-4" />
-            </Link>
-            <Link
-              href="/home-value"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
-            >
-              Get Free Valuation
-            </Link>
-          </div>
+      {/* Contact CTA */}
+      <section className="mx-auto max-w-4xl px-6 py-20 text-center">
+        <h2 className="font-heading text-3xl font-bold md:text-4xl">
+          Get in Touch
+        </h2>
+        <p className="mt-4 text-muted-foreground">
+          Whether you&apos;re buying, selling, or exploring your options — we&apos;re
+          here to help.
+        </p>
+        <div className="mt-8 flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
+          <a
+            href="tel:+12155551234"
+            className="flex items-center gap-2 text-gold hover:text-gold-light"
+          >
+            <Phone className="h-5 w-5" />
+            (215) 555-1234
+          </a>
+          <a
+            href="mailto:info@tauro.realty"
+            className="flex items-center gap-2 text-gold hover:text-gold-light"
+          >
+            <Mail className="h-5 w-5" />
+            info@tauro.realty
+          </a>
         </div>
+        <Link
+          href="/contact"
+          className="shimmer-gold mt-8 inline-flex items-center gap-2 rounded-lg bg-gold px-8 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-colors hover:bg-gold-light"
+        >
+          Contact Us <ArrowRight className="h-4 w-4" />
+        </Link>
       </section>
-    </>
+    </div>
   );
 }
