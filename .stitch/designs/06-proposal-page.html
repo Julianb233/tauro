@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tauro × LYL Realty Group — Proposal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0D0D0D; --rich-black: #1A1A1A; --gold: #C9A84C; --gold-light: #E2C97E;
+      --oxblood: #8B0000; --cream: #F5F0E8; --cream-muted: #B8B0A0;
+      --border: rgba(201,168,76,0.18); --border-subtle: rgba(255,255,255,0.06);
+    }
+    body { background: var(--black); color: var(--cream); font-family: 'DM Sans', sans-serif; }
+
+    /* PROPOSAL HEADER */
+    .proposal-header {
+      background: var(--rich-black); border-bottom: 1px solid var(--border);
+      padding: 24px 80px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .ph-logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
+    .ph-badge { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-muted); }
+    .ph-badge span { color: var(--gold); }
+
+    /* HERO */
+    .proposal-hero {
+      padding: 96px 80px 80px;
+      background: linear-gradient(135deg, var(--rich-black) 0%, rgba(26,26,26,0.5) 100%);
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .ph-bg {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(-45deg, transparent, transparent 60px, rgba(201,168,76,0.015) 60px, rgba(201,168,76,0.015) 61px);
+    }
+    .ph-gold-line { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--gold), var(--oxblood), var(--gold)); }
+    .hero-inner { position: relative; z-index: 2; max-width: 800px; }
+    .proposal-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; display: flex; align-items: center; gap: 16px; }
+    .proposal-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+    .proposal-title { font-family: 'Playfair Display', serif; font-size: clamp(40px, 5vw, 64px); font-weight: 900; color: var(--cream); line-height: 1.1; margin-bottom: 24px; }
+    .proposal-title em { font-style: italic; color: var(--gold); }
+    .proposal-sub { font-size: 18px; color: var(--cream-muted); line-height: 1.7; margin-bottom: 36px; max-width: 600px; }
+    .proposal-meta { display: flex; gap: 32px; }
+    .meta-item { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted); }
+    .meta-item strong { display: block; font-size: 14px; color: var(--cream); font-family: 'DM Sans', sans-serif; font-weight: 400; letter-spacing: 0; text-transform: none; margin-top: 4px; }
+
+    /* MAIN LAYOUT */
+    .proposal-layout { max-width: 1200px; margin: 0 auto; padding: 72px 80px; display: grid; grid-template-columns: 1fr 380px; gap: 64px; }
+    .proposal-main {}
+    .proposal-side {}
+
+    .section-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600; color: var(--cream); margin-bottom: 24px; }
+    .section-divider { height: 1px; background: var(--border-subtle); margin: 48px 0; }
+
+    /* DELIVERABLES */
+    .deliverables { display: flex; flex-direction: column; gap: 2px; }
+    .deliverable {
+      background: var(--rich-black); border: 1px solid var(--border-subtle);
+      display: grid; grid-template-columns: 48px 1fr auto; align-items: center; gap: 20px; padding: 24px;
+      transition: border-color 0.2s;
+    }
+    .deliverable:hover { border-color: var(--gold); }
+    .del-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--gold); opacity: 0.4; }
+    .del-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--cream); margin-bottom: 4px; }
+    .del-desc { font-size: 13px; color: var(--cream-muted); line-height: 1.5; }
+    .del-check { width: 28px; height: 28px; background: rgba(201,168,76,0.1); border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); font-size: 14px; }
+
+    /* TIMELINE */
+    .timeline { position: relative; padding-left: 24px; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: var(--border); }
+    .timeline-item { position: relative; padding-bottom: 32px; padding-left: 32px; }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-item::before { content: ''; position: absolute; left: -8px; top: 6px; width: 16px; height: 16px; background: var(--rich-black); border: 2px solid var(--gold); border-radius: 50%; }
+    .timeline-item.done::before { background: var(--gold); }
+    .tl-week { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+    .tl-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--cream); margin-bottom: 6px; }
+    .tl-tasks { list-style: none; }
+    .tl-tasks li { font-size: 13px; color: var(--cream-muted); padding: 3px 0; display: flex; align-items: center; gap: 8px; }
+    .tl-tasks li::before { content: '—'; color: var(--gold); }
+
+    /* TECH STACK */
+    .tech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 20px; }
+    .tech-item { background: var(--rich-black); border: 1px solid var(--border-subtle); padding: 18px; text-align: center; }
+    .tech-name { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--cream); }
+    .tech-role { font-size: 11px; color: var(--cream-muted); margin-top: 4px; }
+
+    /* PRICING BOX */
+    .pricing-card { background: var(--rich-black); border: 1px solid var(--border); padding: 36px; position: sticky; top: 24px; }
+    .pricing-client { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .pricing-name { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+    .pricing-company { font-size: 14px; color: var(--cream-muted); margin-bottom: 28px; }
+    .price-rows { margin-bottom: 24px; }
+    .price-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-subtle); }
+    .price-row:last-child { border-bottom: none; }
+    .price-row-name { font-size: 14px; color: var(--cream-muted); }
+    .price-row-name small { display: block; font-size: 11px; color: rgba(184,176,160,0.6); margin-top: 2px; }
+    .price-row-val { font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--cream); font-weight: 500; }
+    .price-total { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: rgba(201,168,76,0.08); border: 1px solid var(--gold); margin: 20px 0; }
+    .price-total-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+    .price-total-val { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--gold); }
+    .pay-now-btn { width: 100%; padding: 18px; cursor: pointer; background: var(--gold); color: var(--black); border: none; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+    .pay-later-btn { width: 100%; padding: 14px; cursor: pointer; background: transparent; color: var(--gold); border: 1px solid var(--gold); font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
+    .payment-note { font-size: 11px; color: var(--cream-muted); text-align: center; margin-top: 12px; line-height: 1.5; }
+
+    /* GUARANTEE */
+    .guarantee-box { background: rgba(139,0,0,0.1); border: 1px solid rgba(139,0,0,0.4); padding: 20px; margin-top: 20px; }
+    .guarantee-title { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--oxblood); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .guarantee-text { font-size: 12px; color: var(--cream-muted); line-height: 1.6; }
+
+    /* NEXT STEPS */
+    .next-steps { display: flex; flex-direction: column; gap: 2px; }
+    .next-step {
+      display: flex; align-items: center; gap: 20px; padding: 20px 24px;
+      background: var(--rich-black); border: 1px solid var(--border-subtle);
+    }
+    .step-num { width: 36px; height: 36px; background: var(--gold); color: var(--black); font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .step-title { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--cream); margin-bottom: 4px; }
+    .step-desc { font-size: 13px; color: var(--cream-muted); }
+
+    /* AGENCY */
+    .agency-footer { background: var(--rich-black); border-top: 1px solid var(--border); padding: 48px 80px; display: flex; align-items: center; justify-content: space-between; }
+    .af-logo { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--gold); }
+    .af-agency { font-size: 14px; color: var(--cream-muted); margin-top: 4px; }
+    .af-contact { text-align: right; font-size: 14px; color: var(--cream-muted); line-height: 1.7; }
+    .af-contact a { color: var(--gold); text-decoration: none; }
+
+    .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+  </style>
+</head>
+<body>
+
+  <div class="page-label">06 — Proposal & Payment Page · Tauro / LYL Realty Group · Mockup AI-3453</div>
+
+  <!-- HEADER -->
+  <header class="proposal-header">
+    <div class="ph-logo">TAURO</div>
+    <div class="ph-badge">Proposal for <span>LYL Realty Group</span> · Confidential · March 2026</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="proposal-hero">
+    <div class="ph-bg"></div>
+    <div class="ph-gold-line"></div>
+    <div class="hero-inner">
+      <p class="proposal-eyebrow">Premium Real Estate Website</p>
+      <h1 class="proposal-title">
+        A Website as Bold<br>as <em>LYL Realty Group</em>
+      </h1>
+      <p class="proposal-sub">
+        We're building Philadelphia's most compelling real estate platform — cinematic design, seamless lead capture, and the digital presence your brokerage has always deserved.
+      </p>
+      <div class="proposal-meta">
+        <div class="meta-item">Prepared For <strong>LYL Realty Group</strong></div>
+        <div class="meta-item">Project Code <strong>TAURO-2026</strong></div>
+        <div class="meta-item">Date <strong>March 18, 2026</strong></div>
+        <div class="meta-item">Valid Until <strong>April 18, 2026</strong></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN LAYOUT -->
+  <div class="proposal-layout">
+    <div class="proposal-main">
+
+      <!-- DELIVERABLES -->
+      <p class="section-eyebrow">What's Included</p>
+      <h2 class="section-title">Scope of Work</h2>
+      <div class="deliverables">
+        <div class="deliverable">
+          <div class="del-num">01</div>
+          <div>
+            <div class="del-title">Design System & Brand Foundation</div>
+            <div class="del-desc">Tauro design tokens, typography scale (Playfair/DM Sans/Montserrat), color palette, component library, responsive grid system.</div>
+          </div>
+          <div class="del-check">✓</div>
+        </div>
+        <div class="deliverable">
+          <div class="del-num">02</div>
+          <div>
+            <div class="del-title">Homepage — Cinematic Hero Experience</div>
+            <div class="del-desc">Full-bleed hero with video/image background, animated search bar (Buy/Sell/Rent), featured property carousel, neighborhood showcase, why-Tauro section, social proof.</div>
+          </div>
+          <div class="del-check">✓</div>
+        </div>
+        <div class="deliverable">
+          <div class="del-num">03</div>
+          <div>
+            <div class="del-title">Property Listings — Grid & Map Views</div>
+            <div class="del-desc">Advanced filter sidebar (price, type, beds, baths, sqft), responsive card grid, Mapbox map view, sort controls, pagination. 20+ curated Philadelphia properties.</div>
+          </div>
+          <div class="del-check">✓</div>
+        </div>
+        <div class="deliverable">
+          <div class="del-num">04</div>
+          <div>
+            <div class="del-title">Property Detail Pages</div>
+            <div class="del-desc">Full-width gallery lightbox, key stats, features list, neighborhood map, market data, schedule showing date/time picker, agent contact form → GoHighLevel.</div>
+          </div>
+          <div class="del-check">✓</div>
+        </div>
+        <div class="deliverable">
+          <div class="del-num">05</div>
+          <div>
+            <div class="del-title">Agent Team & Profile Pages</div>
+            <div class="del-desc">Team grid page, individual agent profiles with bio, stats, awards, video intro, active listings, contact form. Lead routing per agent → GoHighLevel.</div>
+          </div>
+          <div class="del-check">✓</div>
+        </div>
+        <div class="deliverable">
+          <div class="del-num">06</div>
+          <div>
+            <div class="del-title">15 Philadelphia Neighborhood Pages</div>
+            <div class="del-desc">Cinematic hero, description, lifestyle photos, market data chart, neighborhood map (Mapbox), active listings strip, and area alert sign-up. Full SEO optimization.</div>
+          </div>
+          <div class="del-check">✓</div>
+        </div>
+        <div class="deliverable">
+          <div class="del-num">07</div>
+          <div>
+            <div class="del-title">Lead Capture → GoHighLevel CRM</div>
+            <div class="del-desc">All forms (contact, showing request, seller inquiry, area alerts) route to GHL via webhook. Real-time lead delivery with custom field mapping.</div>
+          </div>
+          <div class="del-check">✓</div>
+        </div>
+        <div class="deliverable">
+          <div class="del-num">08</div>
+          <div>
+            <div class="del-title">SEO + Performance + Deployment</div>
+            <div class="del-desc">JSON-LD schema markup, SSG area pages, metadata system, Core Web Vitals targets (LCP &lt; 2.5s), Vercel deployment with preview environments.</div>
+          </div>
+          <div class="del-check">✓</div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- TIMELINE -->
+      <p class="section-eyebrow">Project Schedule</p>
+      <h2 class="section-title">9-Week Delivery Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="tl-week">Week 1–2</div>
+          <div class="tl-title">Design System & Foundation</div>
+          <ul class="tl-tasks">
+            <li>Brand token implementation (colors, type, spacing)</li>
+            <li>Component library build (buttons, cards, forms, nav)</li>
+            <li>Responsive layout scaffolding</li>
+            <li>Vercel project setup + staging environment</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-week">Week 3</div>
+          <div class="tl-title">Homepage</div>
+          <ul class="tl-tasks">
+            <li>Cinematic hero with search bar</li>
+            <li>Featured properties carousel</li>
+            <li>Neighborhood showcase + Why Tauro sections</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-week">Week 4–5</div>
+          <div class="tl-title">Property Pages</div>
+          <ul class="tl-tasks">
+            <li>Listings grid/map view with advanced filters</li>
+            <li>Property detail with gallery, map, showing scheduler</li>
+            <li>GoHighLevel form integration (showing requests)</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-week">Week 6</div>
+          <div class="tl-title">Agent Pages</div>
+          <ul class="tl-tasks">
+            <li>Team grid + individual agent profiles</li>
+            <li>Video intro embed + awards sections</li>
+            <li>Agent contact forms → GHL routing</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-week">Week 7–8</div>
+          <div class="tl-title">Neighborhood Pages + Lead Capture</div>
+          <ul class="tl-tasks">
+            <li>All 15 Philadelphia neighborhood pages</li>
+            <li>Mapbox integration (property + neighborhood maps)</li>
+            <li>Area alert sign-up + seller inquiry forms</li>
+          </ul>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-week">Week 9</div>
+          <div class="tl-title">SEO, Performance & Launch</div>
+          <ul class="tl-tasks">
+            <li>JSON-LD structured data across all pages</li>
+            <li>Performance audit (Core Web Vitals pass)</li>
+            <li>Production Vercel deployment + domain setup</li>
+            <li>Launch handoff + agent training session</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- TECH STACK -->
+      <p class="section-eyebrow">Technology</p>
+      <h2 class="section-title">Built to Last</h2>
+      <div class="tech-grid">
+        <div class="tech-item"><div class="tech-name">Next.js 15</div><div class="tech-role">React framework, SSG/SSR</div></div>
+        <div class="tech-item"><div class="tech-name">TypeScript</div><div class="tech-role">Type-safe development</div></div>
+        <div class="tech-item"><div class="tech-name">Tailwind CSS</div><div class="tech-role">Utility-first styling</div></div>
+        <div class="tech-item"><div class="tech-name">Mapbox GL</div><div class="tech-role">Interactive maps</div></div>
+        <div class="tech-item"><div class="tech-name">GoHighLevel</div><div class="tech-role">CRM + lead routing</div></div>
+        <div class="tech-item"><div class="tech-name">Vercel</div><div class="tech-role">Hosting + previews</div></div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- NEXT STEPS POST-PAYMENT -->
+      <p class="section-eyebrow">After You Pay</p>
+      <h2 class="section-title">Onboarding Next Steps</h2>
+      <div class="next-steps">
+        <div class="next-step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">Kickoff Call (24 hrs)</div>
+            <div class="step-desc">60-minute strategy session: finalize branding, content plan, GoHighLevel access, domain setup, and project timeline. Calendar link sent immediately after payment.</div>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">Content Collection (Week 1)</div>
+            <div class="step-desc">Provide: agent headshots/bios, property photos, neighborhood descriptions, logo files, GHL webhook URL, and any brand guidelines you have.</div>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">Design Review (Week 2)</div>
+            <div class="step-desc">You'll review the design system and homepage mockup before we build. One round of revisions included. Approval unlocks full development phase.</div>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="step-num">4</div>
+          <div>
+            <div class="step-title">Weekly Progress Reports</div>
+            <div class="step-desc">Staging URL updated weekly. Video walkthroughs of each completed section. Async feedback via shared Loom + comments.</div>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="step-num">5</div>
+          <div>
+            <div class="step-title">Launch + Handoff (Week 9)</div>
+            <div class="step-desc">Production deployment, domain connection, and a 60-min training session with your team. 30-day post-launch support included.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- PRICING SIDEBAR -->
+    <aside class="proposal-side">
+      <div class="pricing-card">
+        <div class="pricing-client">Investment Summary</div>
+        <div class="pricing-name">LYL Realty Group</div>
+        <div class="pricing-company">Tauro Website Project · 2026</div>
+
+        <div class="price-rows">
+          <div class="price-row">
+            <div class="price-row-name">
+              Design System + Homepage
+              <small>Brand tokens, components, hero, search</small>
+            </div>
+            <div class="price-row-val">$2,500</div>
+          </div>
+          <div class="price-row">
+            <div class="price-row-name">
+              Property Pages
+              <small>Grid, map, detail, gallery, GHL forms</small>
+            </div>
+            <div class="price-row-val">$3,000</div>
+          </div>
+          <div class="price-row">
+            <div class="price-row-name">
+              Agent Pages
+              <small>Team grid, profiles, video, contact</small>
+            </div>
+            <div class="price-row-val">$1,500</div>
+          </div>
+          <div class="price-row">
+            <div class="price-row-name">
+              15 Neighborhood Pages
+              <small>Content, maps, SEO, market data</small>
+            </div>
+            <div class="price-row-val">$2,500</div>
+          </div>
+          <div class="price-row">
+            <div class="price-row-name">
+              Lead Capture + GHL Integration
+              <small>All forms, webhooks, routing</small>
+            </div>
+            <div class="price-row-val">$800</div>
+          </div>
+          <div class="price-row">
+            <div class="price-row-name">
+              SEO + Performance + Deploy
+              <small>Structured data, CWV, Vercel setup</small>
+            </div>
+            <div class="price-row-val">$700</div>
+          </div>
+        </div>
+
+        <div class="price-total">
+          <div class="price-total-label">Total Investment</div>
+          <div class="price-total-val">$11,000</div>
+        </div>
+
+        <button class="pay-now-btn">Pay in Full — $11,000</button>
+        <button class="pay-later-btn">Split: $5,500 Now + $5,500 at Launch</button>
+
+        <p class="payment-note">
+          Secure payment via Stripe. Invoices provided for accounting.<br>
+          Work begins within 24 hours of deposit.
+        </p>
+
+        <div class="guarantee-box">
+          <div class="guarantee-title">🛡️ Our Guarantee</div>
+          <div class="guarantee-text">If we miss the 9-week deadline for any reason within our control, you receive a full refund for that phase. No questions asked.</div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="agency-footer">
+    <div>
+      <div class="af-logo">AI Acrobatics</div>
+      <div class="af-agency">Premier AI-Powered Web Development Agency</div>
+    </div>
+    <div class="af-contact">
+      Questions? <a href="#">julian@aiacrobatics.com</a><br>
+      (619) 555-0199 · San Diego, CA<br>
+      <a href="#">aiacrobatics.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>

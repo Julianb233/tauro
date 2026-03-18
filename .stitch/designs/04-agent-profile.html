@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tauro — Agent Profile Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0D0D0D; --rich-black: #1A1A1A; --gold: #C9A84C; --gold-light: #E2C97E;
+      --oxblood: #8B0000; --cream: #F5F0E8; --cream-muted: #B8B0A0;
+      --border: rgba(201,168,76,0.18); --border-subtle: rgba(255,255,255,0.06);
+    }
+    body { background: var(--black); color: var(--cream); font-family: 'DM Sans', sans-serif; }
+
+    nav {
+      background: var(--rich-black); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px; position: sticky; top: 0; z-index: 50;
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-muted); text-decoration: none; }
+    .nav-cta { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 10px 24px; text-decoration: none; }
+
+    /* HERO */
+    .agent-hero {
+      position: relative; height: 420px;
+      background: linear-gradient(135deg, var(--rich-black) 0%, var(--black) 100%);
+      display: flex; align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg-pattern {
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(201,168,76,0.02) 40px, rgba(201,168,76,0.02) 41px);
+    }
+    .gold-accent { position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--gold); }
+    .hero-content { position: relative; z-index: 2; display: flex; align-items: flex-end; gap: 48px; padding: 0 80px 48px; width: 100%; }
+    .agent-photo-wrap { position: relative; flex-shrink: 0; }
+    .agent-photo {
+      width: 200px; height: 260px; object-fit: cover;
+      border: 3px solid var(--gold);
+      display: block;
+    }
+    .agent-photo-accent {
+      position: absolute; bottom: -8px; right: -8px;
+      width: 100%; height: 100%;
+      border: 1px solid var(--gold); opacity: 0.3;
+    }
+    .agent-hero-info { padding-bottom: 8px; }
+    .agent-eyebrow {
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .agent-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+    .agent-name { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: var(--cream); line-height: 1; margin-bottom: 8px; }
+    .agent-title { font-size: 18px; color: var(--cream-muted); margin-bottom: 24px; }
+    .agent-contacts { display: flex; gap: 20px; }
+    .agent-contact-item {
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 1px;
+      color: var(--cream-muted); text-decoration: none; display: flex; align-items: center; gap: 6px;
+    }
+
+    /* STAT BAND */
+    .stat-band { background: var(--rich-black); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .stat-band-inner { max-width: 1200px; margin: 0 auto; display: flex; padding: 0 80px; }
+    .band-stat { flex: 1; padding: 28px 0; text-align: center; border-right: 1px solid var(--border-subtle); }
+    .band-stat:last-child { border-right: none; }
+    .band-value { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--gold); }
+    .band-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-muted); margin-top: 4px; }
+
+    /* MAIN LAYOUT */
+    .agent-layout { display: grid; grid-template-columns: 1fr 380px; gap: 0; max-width: 1200px; margin: 0 auto; padding: 64px 80px; }
+    .agent-main { padding-right: 64px; border-right: 1px solid var(--border-subtle); }
+    .agent-sidebar { padding-left: 56px; }
+
+    .section-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; color: var(--cream); margin-bottom: 20px; }
+    .section-divider { height: 1px; background: var(--border-subtle); margin: 40px 0; }
+
+    .bio-text { font-size: 16px; line-height: 1.8; color: var(--cream-muted); }
+    .bio-text p { margin-bottom: 16px; }
+
+    /* SPECIALTIES */
+    .spec-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .spec-chip { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; border: 1px solid var(--border); color: var(--gold); }
+
+    /* AWARDS */
+    .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 20px; }
+    .award { background: var(--rich-black); border: 1px solid var(--border-subtle); padding: 24px; text-align: center; }
+    .award-icon { font-size: 32px; margin-bottom: 8px; }
+    .award-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 600; color: var(--cream); margin-bottom: 4px; }
+    .award-org { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); }
+    .award-year { font-size: 11px; color: var(--cream-muted); margin-top: 4px; }
+
+    /* VIDEO INTRO */
+    .video-placeholder {
+      width: 100%; height: 200px; background: var(--rich-black); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .video-thumb { position: absolute; inset: 0; background: linear-gradient(135deg, #1a1a2e, #16213e); opacity: 0.7; }
+    .play-btn {
+      position: relative; z-index: 2; width: 64px; height: 64px; background: var(--gold);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 24px; color: var(--black); cursor: pointer;
+    }
+
+    /* LISTINGS GRID */
+    .mini-listings { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 20px; }
+    .mini-card { background: var(--rich-black); border: 1px solid var(--border-subtle); overflow: hidden; }
+    .mini-img { width: 100%; height: 140px; object-fit: cover; display: block; filter: brightness(0.85); }
+    .mini-body { padding: 14px; }
+    .mini-price { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--cream); }
+    .mini-addr { font-size: 11px; color: var(--cream-muted); margin-top: 4px; }
+    .mini-details { display: flex; gap: 10px; margin-top: 8px; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted); }
+
+    /* SIDEBAR CONTACT CARD */
+    .contact-card { background: var(--rich-black); border: 1px solid var(--border); padding: 28px; position: sticky; top: 90px; }
+    .contact-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--cream); margin-bottom: 6px; }
+    .contact-sub { font-size: 13px; color: var(--cream-muted); margin-bottom: 24px; line-height: 1.5; }
+    .form-field { margin-bottom: 12px; }
+    .form-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 5px; }
+    .form-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 14px; outline: none; }
+    textarea.form-input { height: 90px; resize: none; }
+    .submit-btn { width: 100%; padding: 14px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: var(--gold); color: var(--black); border: none; margin-top: 4px; }
+    .contact-links { display: flex; gap: 8px; margin-top: 16px; }
+    .contact-link { flex: 1; padding: 10px; border: 1px solid var(--border); text-align: center; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted); text-decoration: none; }
+
+    /* TESTIMONIALS */
+    .testimonials { margin-top: 40px; }
+    .testimonial { background: var(--rich-black); border: 1px solid var(--border-subtle); border-left: 3px solid var(--gold); padding: 24px; margin-bottom: 16px; }
+    .testimonial-text { font-size: 14px; line-height: 1.7; color: var(--cream-muted); font-style: italic; margin-bottom: 12px; }
+    .testimonial-author { display: flex; align-items: center; gap: 10px; }
+    .testimonial-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .testimonial-name { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cream); }
+    .testimonial-detail { font-size: 11px; color: var(--cream-muted); }
+
+    .stars { color: var(--gold); font-size: 12px; letter-spacing: 2px; margin-bottom: 8px; }
+
+    .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+  </style>
+</head>
+<body>
+
+  <div class="page-label">04 — Agent Profile · Tauro / LYL Realty Group · Mockup AI-3453</div>
+
+  <nav>
+    <div class="nav-logo">TAURO</div>
+    <ul class="nav-links">
+      <li><a href="#">Properties</a></li>
+      <li><a href="#">Agents</a></li>
+      <li><a href="#">Neighborhoods</a></li>
+      <li><a href="#">Sell</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <a href="#" class="nav-cta">List Your Home</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="agent-hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="gold-accent"></div>
+    <div class="hero-content">
+      <div class="agent-photo-wrap">
+        <img class="agent-photo" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&q=80" alt="Sarah Kim">
+        <div class="agent-photo-accent"></div>
+      </div>
+      <div class="agent-hero-info">
+        <p class="agent-eyebrow">Senior Real Estate Agent</p>
+        <h1 class="agent-name">Sarah Kim</h1>
+        <p class="agent-title">Rittenhouse & Old City Specialist · 12 Years Experience</p>
+        <div class="agent-contacts">
+          <a href="#" class="agent-contact-item">📱 (215) 555-0147</a>
+          <a href="#" class="agent-contact-item">✉️ sarah@tauro.com</a>
+          <a href="#" class="agent-contact-item">DRE# PA-2014-0089</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAND -->
+  <div class="stat-band">
+    <div class="stat-band-inner">
+      <div class="band-stat"><div class="band-value">147</div><div class="band-label">Homes Sold</div></div>
+      <div class="band-stat"><div class="band-value">$89M</div><div class="band-label">Total Volume</div></div>
+      <div class="band-stat"><div class="band-value">99%</div><div class="band-label">Client Satisfaction</div></div>
+      <div class="band-stat"><div class="band-value">18</div><div class="band-label">Avg Days on Market</div></div>
+      <div class="band-stat"><div class="band-value">+4.8%</div><div class="band-label">Above Ask (avg)</div></div>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="agent-layout">
+    <div class="agent-main">
+
+      <!-- BIO -->
+      <p class="section-eyebrow">About Sarah</p>
+      <h2 class="section-title">Philadelphia's Most Trusted Buyer's Agent</h2>
+      <div class="bio-text">
+        <p>Sarah Kim has been transforming Philadelphia homeownership dreams into reality for over 12 years. A Center City resident herself, she brings an insider's perspective to every transaction — from navigating the competitive Rittenhouse market to uncovering hidden gems in emerging neighborhoods like Fishtown and Northern Liberties.</p>
+        <p>Before joining Tauro, Sarah served as a portfolio analyst at a Philadelphia real estate investment firm, giving her unmatched insight into property valuations, market timing, and investment potential. That financial acumen, combined with her warmth and tenacity, consistently delivers above-ask results for both buyers and sellers.</p>
+        <p>Sarah's philosophy is simple: every client deserves the same white-glove service she'd want for herself. That commitment has earned her the Tauro "Elite Agent" designation three years running.</p>
+      </div>
+
+      <div class="spec-chips">
+        <div class="spec-chip">Rittenhouse Square</div>
+        <div class="spec-chip">Old City</div>
+        <div class="spec-chip">Luxury Condos</div>
+        <div class="spec-chip">First-Time Buyers</div>
+        <div class="spec-chip">Investment Properties</div>
+        <div class="spec-chip">New Construction</div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- VIDEO INTRO -->
+      <p class="section-eyebrow">Meet Sarah</p>
+      <h2 class="section-title">Agent Introduction Video</h2>
+      <div class="video-placeholder">
+        <div class="video-thumb"></div>
+        <div class="play-btn">▶</div>
+      </div>
+      <p style="font-size:13px;color:var(--cream-muted);margin-top:12px;">2 min · "Why I love helping Philadelphians find home"</p>
+
+      <div class="section-divider"></div>
+
+      <!-- AWARDS -->
+      <p class="section-eyebrow">Recognition</p>
+      <h2 class="section-title">Awards & Achievements</h2>
+      <div class="awards-grid">
+        <div class="award">
+          <div class="award-icon">🏆</div>
+          <div class="award-title">Elite Agent</div>
+          <div class="award-org">Tauro</div>
+          <div class="award-year">2024, 2023, 2022</div>
+        </div>
+        <div class="award">
+          <div class="award-icon">⭐</div>
+          <div class="award-title">Top 1% Producer</div>
+          <div class="award-org">Philadelphia REALTOR® Assoc.</div>
+          <div class="award-year">2024</div>
+        </div>
+        <div class="award">
+          <div class="award-icon">🥇</div>
+          <div class="award-title">Best Buyers Agent</div>
+          <div class="award-org">Philadelphia Magazine</div>
+          <div class="award-year">2023</div>
+        </div>
+        <div class="award">
+          <div class="award-icon">🌟</div>
+          <div class="award-title">Five Star Agent</div>
+          <div class="award-org">Zillow / Realtor.com</div>
+          <div class="award-year">2020–2024</div>
+        </div>
+        <div class="award">
+          <div class="award-icon">📜</div>
+          <div class="award-title">GRI Certified</div>
+          <div class="award-org">Graduate REALTOR® Institute</div>
+          <div class="award-year">2019</div>
+        </div>
+        <div class="award">
+          <div class="award-icon">💼</div>
+          <div class="award-title">$50M+ Sales Club</div>
+          <div class="award-org">Tauro</div>
+          <div class="award-year">2022, 2023, 2024</div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- ACTIVE LISTINGS -->
+      <p class="section-eyebrow">Active Listings</p>
+      <h2 class="section-title">Sarah's Current Properties</h2>
+      <div class="mini-listings">
+        <div class="mini-card">
+          <img class="mini-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" alt="">
+          <div class="mini-body">
+            <div class="mini-price">$1,875,000</div>
+            <div class="mini-addr">218 W Rittenhouse Sq</div>
+            <div class="mini-details"><span>4 Beds</span><span>3.5 Baths</span><span>3,200 sqft</span></div>
+          </div>
+        </div>
+        <div class="mini-card">
+          <img class="mini-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&q=80" alt="">
+          <div class="mini-body">
+            <div class="mini-price">$895,000</div>
+            <div class="mini-addr">412 N 3rd St, Old City</div>
+            <div class="mini-details"><span>3 Beds</span><span>2 Baths</span><span>2,100 sqft</span></div>
+          </div>
+        </div>
+        <div class="mini-card">
+          <img class="mini-img" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=80" alt="">
+          <div class="mini-body">
+            <div class="mini-price">$1,250,000</div>
+            <div class="mini-addr">339 South St, South Philly</div>
+            <div class="mini-details"><span>5 Beds</span><span>4 Baths</span><span>4,100 sqft</span></div>
+          </div>
+        </div>
+        <div class="mini-card">
+          <img class="mini-img" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&q=80" alt="">
+          <div class="mini-body">
+            <div class="mini-price">$2,100,000</div>
+            <div class="mini-addr">1601 Locust St, Rittenhouse</div>
+            <div class="mini-details"><span>4 Beds</span><span>4 Baths</span><span>4,800 sqft</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- TESTIMONIALS -->
+      <p class="section-eyebrow">Client Reviews</p>
+      <h2 class="section-title">What Clients Say</h2>
+      <div class="testimonials">
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"Sarah found us our dream home in Rittenhouse in just 3 weeks. Her market knowledge is unparalleled — she knew every building, every maintenance fee, every school district boundary. We closed $40K under asking. Worth every penny of her expertise."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👤</div>
+            <div><div class="testimonial-name">Michael & Anna T.</div><div class="testimonial-detail">Buyers · Rittenhouse Square · 2024</div></div>
+          </div>
+        </div>
+        <div class="testimonial">
+          <div class="stars">★★★★★</div>
+          <p class="testimonial-text">"We listed on a Thursday, had 14 showings by Saturday, and accepted an offer $55K over asking on Monday. Sarah's staging advice and pricing strategy were flawless. She truly is Philadelphia's best."</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">👤</div>
+            <div><div class="testimonial-name">Jennifer & Carlos R.</div><div class="testimonial-detail">Sellers · Old City · 2023</div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="agent-sidebar">
+      <div class="contact-card">
+        <div class="contact-title">Work with Sarah</div>
+        <p class="contact-sub">Ready to buy or sell in Philadelphia? Send Sarah a message and she'll respond within 2 hours.</p>
+        <div class="form-field">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" placeholder="Full name">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" placeholder="you@email.com">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Phone</label>
+          <input class="form-input" placeholder="(215) 000-0000">
+        </div>
+        <div class="form-field">
+          <label class="form-label">I'm looking to…</label>
+          <select class="form-input">
+            <option>Buy a home</option>
+            <option>Sell my home</option>
+            <option>Both buy and sell</option>
+            <option>Get a valuation</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label">Message</label>
+          <textarea class="form-input" placeholder="Tell Sarah about what you're looking for…"></textarea>
+        </div>
+        <button class="submit-btn">Send Message to Sarah</button>
+        <div class="contact-links">
+          <a href="#" class="contact-link">📞 Call</a>
+          <a href="#" class="contact-link">💬 Text</a>
+          <a href="#" class="contact-link">📧 Email</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+</body>
+</html>

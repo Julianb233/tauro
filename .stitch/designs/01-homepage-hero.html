@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tauro — Homepage Hero Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0D0D0D;
+      --rich-black: #1A1A1A;
+      --gold: #C9A84C;
+      --gold-light: #E2C97E;
+      --oxblood: #8B0000;
+      --cream: #F5F0E8;
+      --cream-muted: #B8B0A0;
+      --border: rgba(201,168,76,0.2);
+    }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 64px;
+      height: 80px;
+      background: linear-gradient(180deg, rgba(13,13,13,0.95) 0%, transparent 100%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .nav-logo span {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background: var(--oxblood);
+      border-radius: 50%;
+      margin: 0 4px 6px;
+      vertical-align: middle;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--black);
+      background: var(--gold);
+      padding: 12px 28px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: var(--gold-light); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* Simulated cinematic background */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(139,0,0,0.15) 0%, transparent 50%),
+        linear-gradient(180deg, rgba(13,13,13,0.3) 0%, rgba(13,13,13,0.85) 70%, var(--black) 100%),
+        url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80') center/cover no-repeat;
+    }
+
+    /* Gold slash accent */
+    .hero-slash {
+      position: absolute;
+      top: 0;
+      right: 20%;
+      width: 2px;
+      height: 100%;
+      background: linear-gradient(180deg, transparent 0%, var(--gold) 40%, var(--gold) 60%, transparent 100%);
+      opacity: 0.3;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      padding: 0 64px 100px;
+      max-width: 1400px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(48px, 6vw, 88px);
+      font-weight: 900;
+      line-height: 1.0;
+      color: var(--cream);
+      margin-bottom: 24px;
+      max-width: 700px;
+    }
+
+    .hero-headline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-subtext {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--cream-muted);
+      margin-bottom: 48px;
+      max-width: 480px;
+      line-height: 1.6;
+    }
+
+    /* ── SEARCH BAR ── */
+    .hero-search {
+      background: rgba(26,26,26,0.92);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: stretch;
+      max-width: 780px;
+      backdrop-filter: blur(12px);
+    }
+
+    .search-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .search-tab {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      padding: 14px 20px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    .search-tab.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    .search-fields {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .search-field {
+      flex: 1;
+      padding: 18px 24px;
+      border-right: 1px solid var(--border);
+    }
+
+    .search-field label {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .search-field select,
+    .search-field input {
+      background: none;
+      border: none;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      outline: none;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .search-field select option { background: var(--rich-black); }
+
+    .search-btn {
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 0 36px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      white-space: nowrap;
+    }
+
+    .search-btn:hover { background: var(--gold-light); }
+
+    /* ── STATS BAR ── */
+    .hero-stats {
+      position: absolute;
+      bottom: 0;
+      right: 64px;
+      display: flex;
+      gap: 0;
+      z-index: 10;
+    }
+
+    .stat-card {
+      background: rgba(26,26,26,0.9);
+      border: 1px solid var(--border);
+      border-bottom: none;
+      padding: 20px 32px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+      margin-top: 4px;
+    }
+
+    /* ── FEATURED PROPERTIES ── */
+    .section {
+      padding: 100px 64px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+
+    .section-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .section-link {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-link::after {
+      content: '→';
+      font-size: 16px;
+    }
+
+    /* ── PROPERTY CARDS ── */
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .property-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--rich-black);
+      cursor: pointer;
+    }
+
+    .property-card:first-child {
+      grid-row: span 2;
+    }
+
+    .property-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85);
+      transition: transform 0.5s, filter 0.3s;
+    }
+
+    .property-card:first-child .property-img {
+      height: 562px;
+    }
+
+    .property-card:hover .property-img {
+      transform: scale(1.05);
+      filter: brightness(0.7);
+    }
+
+    .property-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--black);
+      padding: 6px 12px;
+    }
+
+    .property-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 24px;
+      background: linear-gradient(0deg, rgba(13,13,13,0.95) 0%, transparent 100%);
+    }
+
+    .property-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 6px;
+    }
+
+    .property-address {
+      font-size: 13px;
+      color: var(--cream-muted);
+      margin-bottom: 10px;
+    }
+
+    .property-details {
+      display: flex;
+      gap: 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--cream-muted);
+    }
+
+    .property-details span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── WHY TAURO ── */
+    .why-section {
+      padding: 100px 64px;
+      background: var(--rich-black);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .why-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .why-content .section-eyebrow { margin-bottom: 16px; }
+    .why-content .section-title { font-size: 52px; margin-bottom: 24px; }
+
+    .why-content p {
+      font-size: 17px;
+      line-height: 1.8;
+      color: var(--cream-muted);
+      margin-bottom: 40px;
+    }
+
+    .why-ctas {
+      display: flex;
+      gap: 16px;
+    }
+
+    .btn-primary {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: var(--gold);
+      color: var(--black);
+      padding: 16px 36px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+
+    .btn-secondary {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--gold);
+      padding: 16px 36px;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .why-pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+
+    .pillar {
+      background: rgba(201,168,76,0.05);
+      border: 1px solid var(--border);
+      padding: 32px;
+    }
+
+    .pillar-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .pillar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--cream);
+      margin-bottom: 8px;
+    }
+
+    .pillar-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--cream-muted);
+    }
+
+    /* ── NEIGHBORHOODS ── */
+    .neighborhoods {
+      padding: 100px 0;
+    }
+
+    .neighborhoods-header {
+      padding: 0 64px;
+      margin-bottom: 48px;
+    }
+
+    .neighborhoods-scroll {
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+      padding: 0 64px;
+      scrollbar-width: none;
+    }
+
+    .neighborhood-card {
+      flex-shrink: 0;
+      width: 260px;
+      height: 360px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .neighborhood-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7);
+      transition: transform 0.5s, filter 0.3s;
+    }
+
+    .neighborhood-card:hover .neighborhood-img {
+      transform: scale(1.08);
+      filter: brightness(0.5);
+    }
+
+    .neighborhood-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px 24px 24px;
+      background: linear-gradient(0deg, rgba(13,13,13,0.9) 0%, transparent 100%);
+    }
+
+    .neighborhood-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+
+    .neighborhood-count {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── MOCK ANNOTATION ── */
+    .mockup-badge {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--oxblood);
+      color: var(--cream);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      z-index: 9999;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .page-label {
+      text-align: center;
+      padding: 16px;
+      background: var(--oxblood);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--cream);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mockup-badge">Mockup — AI-3453</div>
+  <div class="page-label">01 — Homepage Hero · Tauro / LYL Realty Group</div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <div class="nav-logo">TAURO<span></span></div>
+    <ul class="nav-links">
+      <li><a href="#">Properties</a></li>
+      <li><a href="#">Agents</a></li>
+      <li><a href="#">Neighborhoods</a></li>
+      <li><a href="#">Sell</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <a href="#" class="nav-cta">List Your Home</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-slash"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Philadelphia's Premier Brokerage</p>
+
+      <h1 class="hero-headline">
+        Find Your<br>
+        <em>Perfect</em><br>
+        Philadelphia Home
+      </h1>
+
+      <p class="hero-subtext">
+        Curated properties. Expert agents. Unmatched neighborhood knowledge. Tauro delivers the premium real estate experience you deserve.
+      </p>
+
+      <!-- SEARCH -->
+      <div class="hero-search">
+        <div class="search-tabs">
+          <div class="search-tab active">Buy</div>
+          <div class="search-tab">Sell</div>
+          <div class="search-tab">Rent</div>
+        </div>
+        <div class="search-fields">
+          <div class="search-field">
+            <label>Neighborhood</label>
+            <select>
+              <option>All Philadelphia</option>
+              <option>Rittenhouse Square</option>
+              <option>Fishtown</option>
+              <option>Old City</option>
+              <option>Center City</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label>Property Type</label>
+            <select>
+              <option>All Types</option>
+              <option>Single Family</option>
+              <option>Condo / Loft</option>
+              <option>Townhouse</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label>Price Range</label>
+            <select>
+              <option>Any Price</option>
+              <option>Under $500K</option>
+              <option>$500K – $1M</option>
+              <option>$1M – $2M</option>
+              <option>$2M+</option>
+            </select>
+          </div>
+          <button class="search-btn">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-value">340+</div>
+        <div class="stat-label">Homes Sold</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">$2.4B</div>
+        <div class="stat-label">Sales Volume</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">15</div>
+        <div class="stat-label">Neighborhoods</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROPERTIES -->
+  <section style="padding: 100px 0; background: var(--black);">
+    <div class="section" style="padding-top: 0; padding-bottom: 0;">
+      <div class="section-header">
+        <div>
+          <p class="section-eyebrow">Curated Selection</p>
+          <h2 class="section-title">Featured Properties</h2>
+        </div>
+        <a href="#" class="section-link">View All Listings</a>
+      </div>
+    </div>
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 64px;">
+      <div class="property-grid">
+        <!-- Card 1 — tall -->
+        <div class="property-card">
+          <img class="property-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Property">
+          <span class="property-badge">Featured</span>
+          <div class="property-info">
+            <div class="property-price">$1,875,000</div>
+            <div class="property-address">218 W Rittenhouse Sq, Philadelphia, PA</div>
+            <div class="property-details">
+              <span>🛏 4 Beds</span>
+              <span>🚿 3.5 Baths</span>
+              <span>📐 3,200 sqft</span>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="property-card">
+          <img class="property-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="Property">
+          <div class="property-info">
+            <div class="property-price">$895,000</div>
+            <div class="property-address">412 N 3rd St, Old City</div>
+            <div class="property-details">
+              <span>🛏 3 Beds</span>
+              <span>🚿 2 Baths</span>
+              <span>📐 2,100 sqft</span>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="property-card">
+          <img class="property-img" src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=80" alt="Property">
+          <span class="property-badge" style="background: var(--oxblood); color: var(--cream);">New</span>
+          <div class="property-info">
+            <div class="property-price">$625,000</div>
+            <div class="property-address">1847 Frankford Ave, Fishtown</div>
+            <div class="property-details">
+              <span>🛏 2 Beds</span>
+              <span>🚿 2 Baths</span>
+              <span>📐 1,450 sqft</span>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="property-card">
+          <img class="property-img" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="Property">
+          <div class="property-info">
+            <div class="property-price">$1,250,000</div>
+            <div class="property-address">339 South St, South Philly</div>
+            <div class="property-details">
+              <span>🛏 5 Beds</span>
+              <span>🚿 4 Baths</span>
+              <span>📐 4,100 sqft</span>
+            </div>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="property-card">
+          <img class="property-img" src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80" alt="Property">
+          <div class="property-info">
+            <div class="property-price">$745,000</div>
+            <div class="property-address">4412 Main St, Manayunk</div>
+            <div class="property-details">
+              <span>🛏 3 Beds</span>
+              <span>🚿 2.5 Baths</span>
+              <span>📐 1,980 sqft</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY TAURO -->
+  <section class="why-section">
+    <div class="why-inner">
+      <div class="why-content">
+        <p class="section-eyebrow">Why Choose Tauro</p>
+        <h2 class="section-title">Philadelphia's Most Trusted Brokerage</h2>
+        <p>
+          For over a decade, Tauro has redefined what it means to buy and sell real estate in Philadelphia. Our agents don't just know the city — they live it, breathe it, and champion every neighborhood with unmatched passion.
+        </p>
+        <div class="why-ctas">
+          <a href="#" class="btn-primary">Buy a Home</a>
+          <a href="#" class="btn-secondary">Sell Your Home</a>
+        </div>
+      </div>
+      <div class="why-pillars">
+        <div class="pillar">
+          <div class="pillar-number">01</div>
+          <div class="pillar-title">Local Expertise</div>
+          <div class="pillar-text">Deep neighborhood knowledge across all 15 Philadelphia districts.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-number">02</div>
+          <div class="pillar-title">Premium Negotiation</div>
+          <div class="pillar-text">Clients close an average of 4.2% above asking price with Tauro.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-number">03</div>
+          <div class="pillar-title">Concierge Service</div>
+          <div class="pillar-text">White-glove support from first showing to closing day and beyond.</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-number">04</div>
+          <div class="pillar-title">Digital-First</div>
+          <div class="pillar-text">3D tours, instant scheduling, and real-time market data at your fingertips.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEIGHBORHOODS -->
+  <section class="neighborhoods">
+    <div class="neighborhoods-header">
+      <p class="section-eyebrow">Explore the City</p>
+      <h2 class="section-title">Philadelphia Neighborhoods</h2>
+    </div>
+    <div class="neighborhoods-scroll">
+      <div class="neighborhood-card">
+        <img class="neighborhood-img" src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=400&q=80" alt="Rittenhouse">
+        <div class="neighborhood-label">
+          <div class="neighborhood-name">Rittenhouse</div>
+          <div class="neighborhood-count">24 Listings</div>
+        </div>
+      </div>
+      <div class="neighborhood-card">
+        <img class="neighborhood-img" src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=400&q=80" alt="Fishtown">
+        <div class="neighborhood-label">
+          <div class="neighborhood-name">Fishtown</div>
+          <div class="neighborhood-count">18 Listings</div>
+        </div>
+      </div>
+      <div class="neighborhood-card">
+        <img class="neighborhood-img" src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=80" alt="Old City">
+        <div class="neighborhood-label">
+          <div class="neighborhood-name">Old City</div>
+          <div class="neighborhood-count">12 Listings</div>
+        </div>
+      </div>
+      <div class="neighborhood-card">
+        <img class="neighborhood-img" src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=400&q=80" alt="Center City">
+        <div class="neighborhood-label">
+          <div class="neighborhood-name">Center City</div>
+          <div class="neighborhood-count">31 Listings</div>
+        </div>
+      </div>
+      <div class="neighborhood-card">
+        <img class="neighborhood-img" src="https://images.unsplash.com/photo-1432888498266-38ffec3eaf0a?w=400&q=80" alt="South Philly">
+        <div class="neighborhood-label">
+          <div class="neighborhood-name">South Philly</div>
+          <div class="neighborhood-count">22 Listings</div>
+        </div>
+      </div>
+      <div class="neighborhood-card">
+        <img class="neighborhood-img" src="https://images.unsplash.com/photo-1542361345-89e58247f2d5?w=400&q=80" alt="Northern Liberties">
+        <div class="neighborhood-label">
+          <div class="neighborhood-name">Northern Liberties</div>
+          <div class="neighborhood-count">15 Listings</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</body>
+</html>

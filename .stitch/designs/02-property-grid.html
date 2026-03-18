@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tauro — Property Grid Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0D0D0D;
+      --rich-black: #1A1A1A;
+      --gold: #C9A84C;
+      --gold-light: #E2C97E;
+      --oxblood: #8B0000;
+      --cream: #F5F0E8;
+      --cream-muted: #B8B0A0;
+      --border: rgba(201,168,76,0.18);
+      --border-subtle: rgba(255,255,255,0.06);
+    }
+    body { background: var(--black); color: var(--cream); font-family: 'DM Sans', sans-serif; }
+
+    /* NAV */
+    nav {
+      background: var(--rich-black);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-muted); text-decoration: none; }
+    .nav-links a.active { color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 2px; }
+    .nav-cta { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 10px 24px; text-decoration: none; }
+
+    /* PAGE HEADER */
+    .page-header {
+      background: var(--rich-black);
+      padding: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .breadcrumb {
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--cream-muted); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .breadcrumb a { color: var(--gold); text-decoration: none; }
+    .breadcrumb span { color: var(--cream-muted); }
+    .page-title { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--cream); margin-bottom: 8px; }
+    .result-count { font-size: 14px; color: var(--cream-muted); }
+    .result-count strong { color: var(--gold); }
+
+    /* LAYOUT */
+    .layout { display: flex; min-height: calc(100vh - 72px); }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 300px; flex-shrink: 0;
+      background: var(--rich-black);
+      border-right: 1px solid var(--border);
+      padding: 32px 24px;
+      position: sticky; top: 72px; height: calc(100vh - 72px); overflow-y: auto;
+    }
+    .filter-section { margin-bottom: 32px; }
+    .filter-label {
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .filter-label span { color: var(--cream-muted); font-size: 9px; cursor: pointer; }
+    .filter-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px;
+      padding: 8px 14px; border: 1px solid var(--border-subtle); color: var(--cream-muted);
+      cursor: pointer; transition: all 0.2s; text-transform: uppercase;
+    }
+    .chip.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+    .range-track { position: relative; height: 2px; background: var(--border-subtle); margin: 20px 0; }
+    .range-fill { position: absolute; left: 10%; right: 30%; height: 100%; background: var(--gold); }
+    .range-thumb {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 16px; height: 16px; background: var(--gold); border-radius: 50%; cursor: pointer;
+    }
+    .range-thumb.left { left: 10%; transform: translate(-50%, -50%); }
+    .range-thumb.right { right: 30%; transform: translate(50%, -50%); }
+    .range-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--cream-muted); }
+    .range-labels strong { color: var(--cream); }
+    .filter-input {
+      width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle);
+      color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 13px;
+      padding: 10px 14px; outline: none;
+    }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .toggle-name { font-size: 13px; color: var(--cream-muted); }
+    .toggle {
+      width: 36px; height: 20px; background: var(--border-subtle); border-radius: 10px;
+      position: relative; cursor: pointer;
+    }
+    .toggle.on { background: var(--gold); }
+    .toggle::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 14px; height: 14px; background: white; border-radius: 50%; transition: left 0.2s;
+    }
+    .toggle.on::after { left: 19px; }
+    .apply-btn {
+      width: 100%; background: var(--gold); color: var(--black);
+      border: none; padding: 14px; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    /* MAIN CONTENT */
+    .main-content { flex: 1; padding: 32px 48px; }
+
+    /* TOOLBAR */
+    .toolbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 32px;
+    }
+    .sort-select {
+      display: flex; align-items: center; gap: 12px;
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted);
+    }
+    select.sort {
+      background: var(--rich-black); border: 1px solid var(--border);
+      color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 13px;
+      padding: 8px 14px; outline: none; cursor: pointer;
+    }
+    .view-toggle { display: flex; gap: 2px; }
+    .view-btn {
+      background: var(--rich-black); border: 1px solid var(--border);
+      color: var(--cream-muted); padding: 8px 12px; cursor: pointer; font-size: 16px;
+      transition: all 0.2s;
+    }
+    .view-btn.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
+    .active-filters { display: flex; gap: 8px; flex-wrap: wrap; }
+    .active-filter {
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(201,168,76,0.1); border: 1px solid var(--border);
+      color: var(--gold); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; padding: 6px 12px;
+    }
+    .active-filter button { background: none; border: none; color: var(--gold); cursor: pointer; font-size: 14px; line-height: 1; }
+
+    /* PROPERTY GRID */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+
+    .prop-card {
+      background: var(--rich-black);
+      cursor: pointer;
+      transition: transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .prop-card:hover { transform: translateY(-4px); }
+    .prop-card:hover .prop-img { filter: brightness(0.75); }
+
+    .prop-img-wrap { position: relative; overflow: hidden; height: 220px; }
+    .prop-img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: brightness(0.9); transition: filter 0.3s, transform 0.4s;
+      display: block;
+    }
+    .prop-card:hover .prop-img { transform: scale(1.06); }
+
+    .prop-badge {
+      position: absolute; top: 16px; left: 16px;
+      font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 10px;
+    }
+    .badge-gold { background: var(--gold); color: var(--black); }
+    .badge-red { background: var(--oxblood); color: var(--cream); }
+    .badge-dark { background: rgba(13,13,13,0.9); color: var(--cream); border: 1px solid var(--border); }
+
+    .prop-save {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(13,13,13,0.8); border: 1px solid var(--border);
+      color: var(--cream-muted); width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      font-size: 16px; transition: all 0.2s;
+    }
+    .prop-save:hover { background: var(--gold); color: var(--black); border-color: var(--gold); }
+
+    .prop-body { padding: 20px; }
+    .prop-price {
+      font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
+      color: var(--cream); margin-bottom: 6px;
+    }
+    .prop-address { font-size: 13px; color: var(--cream-muted); margin-bottom: 12px; }
+    .prop-meta {
+      display: flex; gap: 0; border-top: 1px solid var(--border-subtle); padding-top: 12px;
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted);
+    }
+    .prop-meta-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+      border-right: 1px solid var(--border-subtle);
+    }
+    .prop-meta-item:last-child { border-right: none; }
+    .prop-meta-icon { font-size: 14px; }
+    .prop-meta-label { font-size: 9px; color: var(--cream-muted); }
+    .prop-meta-value { font-size: 12px; color: var(--cream); }
+
+    .prop-agent {
+      display: flex; align-items: center; gap: 10px;
+      padding: 12px 20px; border-top: 1px solid var(--border-subtle);
+      background: rgba(255,255,255,0.02);
+    }
+    .agent-avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; border: 1px solid var(--gold); }
+    .agent-name { font-size: 12px; color: var(--cream-muted); }
+    .agent-name strong { color: var(--cream); font-weight: 500; }
+
+    /* PAGINATION */
+    .pagination { display: flex; justify-content: center; align-items: center; gap: 4px; margin-top: 56px; }
+    .page-num {
+      width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 600;
+      border: 1px solid var(--border-subtle); color: var(--cream-muted); cursor: pointer;
+    }
+    .page-num.active { background: var(--gold); color: var(--black); border-color: var(--gold); }
+    .page-num:hover:not(.active) { border-color: var(--gold); color: var(--gold); }
+
+    /* ANNOTATION */
+    .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+  </style>
+</head>
+<body>
+
+  <div class="page-label">02 — Property Grid · Tauro / LYL Realty Group · Mockup AI-3453</div>
+
+  <nav>
+    <div class="nav-logo">TAURO</div>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Properties</a></li>
+      <li><a href="#">Agents</a></li>
+      <li><a href="#">Neighborhoods</a></li>
+      <li><a href="#">Sell</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <a href="#" class="nav-cta">List Your Home</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="breadcrumb">
+      <a href="#">Home</a> <span>/</span> Properties
+    </div>
+    <h1 class="page-title">Philadelphia Properties</h1>
+    <p class="result-count"><strong>127 homes</strong> available · Sorted by Newest</p>
+  </div>
+
+  <div class="layout">
+    <!-- SIDEBAR FILTERS -->
+    <aside class="sidebar">
+      <div class="filter-section">
+        <div class="filter-label">Property Type <span>Clear</span></div>
+        <div class="filter-chips">
+          <div class="chip active">All</div>
+          <div class="chip">Single Family</div>
+          <div class="chip active">Condo</div>
+          <div class="chip">Townhouse</div>
+          <div class="chip">Multi-Family</div>
+          <div class="chip">Loft</div>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Price Range</div>
+        <div class="range-track">
+          <div class="range-fill"></div>
+          <div class="range-thumb left"></div>
+          <div class="range-thumb right"></div>
+        </div>
+        <div class="range-labels">
+          <span><strong>$200K</strong></span>
+          <span><strong>$2.5M</strong></span>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Bedrooms</div>
+        <div class="filter-chips">
+          <div class="chip">Studio</div>
+          <div class="chip">1+</div>
+          <div class="chip active">2+</div>
+          <div class="chip">3+</div>
+          <div class="chip">4+</div>
+          <div class="chip">5+</div>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Bathrooms</div>
+        <div class="filter-chips">
+          <div class="chip">1+</div>
+          <div class="chip active">2+</div>
+          <div class="chip">3+</div>
+          <div class="chip">4+</div>
+        </div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Neighborhood</div>
+        <input class="filter-input" placeholder="Type a neighborhood..." value="All Philadelphia">
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Min. Square Feet</div>
+        <input class="filter-input" placeholder="Any size..." value="1,000+ sqft">
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Features</div>
+        <div class="toggle-row"><span class="toggle-name">Parking Included</span><div class="toggle on"></div></div>
+        <div class="toggle-row"><span class="toggle-name">Outdoor Space</span><div class="toggle"></div></div>
+        <div class="toggle-row"><span class="toggle-name">New Construction</span><div class="toggle"></div></div>
+        <div class="toggle-row"><span class="toggle-name">3D Tour Available</span><div class="toggle on"></div></div>
+      </div>
+      <button class="apply-btn">Apply Filters</button>
+    </aside>
+
+    <!-- MAIN GRID -->
+    <main class="main-content">
+      <div class="toolbar">
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div class="active-filters">
+            <div class="active-filter">Condo <button>×</button></div>
+            <div class="active-filter">2+ Beds <button>×</button></div>
+            <div class="active-filter">2+ Baths <button>×</button></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center;">
+          <div class="sort-select">
+            Sort:
+            <select class="sort">
+              <option>Newest First</option>
+              <option>Price: Low–High</option>
+              <option>Price: High–Low</option>
+              <option>Most Square Feet</option>
+            </select>
+          </div>
+          <div class="view-toggle">
+            <button class="view-btn active">⊞</button>
+            <button class="view-btn">▦</button>
+            <button class="view-btn">⊟</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid">
+        <!-- Card 1 -->
+        <div class="prop-card">
+          <div class="prop-img-wrap">
+            <img class="prop-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&q=80" alt="">
+            <span class="prop-badge badge-gold">Featured</span>
+            <button class="prop-save">♡</button>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$1,875,000</div>
+            <div class="prop-address">218 W Rittenhouse Sq, Philadelphia, PA 19103</div>
+            <div class="prop-meta">
+              <div class="prop-meta-item"><span class="prop-meta-icon">🛏</span><span class="prop-meta-value">4</span><span class="prop-meta-label">Beds</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🚿</span><span class="prop-meta-value">3.5</span><span class="prop-meta-label">Baths</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">📐</span><span class="prop-meta-value">3,200</span><span class="prop-meta-label">Sqft</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🅿️</span><span class="prop-meta-value">Yes</span><span class="prop-meta-label">Parking</span></div>
+            </div>
+          </div>
+          <div class="prop-agent">
+            <img class="agent-avatar" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=60&q=80" alt="">
+            <span class="agent-name"><strong>Sarah K.</strong> · Listing Agent</span>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="prop-card">
+          <div class="prop-img-wrap">
+            <img class="prop-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80" alt="">
+            <span class="prop-badge badge-red">New</span>
+            <button class="prop-save">♡</button>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$895,000</div>
+            <div class="prop-address">412 N 3rd St, Old City, PA 19106</div>
+            <div class="prop-meta">
+              <div class="prop-meta-item"><span class="prop-meta-icon">🛏</span><span class="prop-meta-value">3</span><span class="prop-meta-label">Beds</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🚿</span><span class="prop-meta-value">2</span><span class="prop-meta-label">Baths</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">📐</span><span class="prop-meta-value">2,100</span><span class="prop-meta-label">Sqft</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🏙</span><span class="prop-meta-value">Loft</span><span class="prop-meta-label">Type</span></div>
+            </div>
+          </div>
+          <div class="prop-agent">
+            <img class="agent-avatar" src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=60&q=80" alt="">
+            <span class="agent-name"><strong>Marcus D.</strong> · Listing Agent</span>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="prop-card">
+          <div class="prop-img-wrap">
+            <img class="prop-img" src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&q=80" alt="">
+            <span class="prop-badge badge-dark">3D Tour</span>
+            <button class="prop-save">♡</button>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$625,000</div>
+            <div class="prop-address">1847 Frankford Ave, Fishtown, PA 19125</div>
+            <div class="prop-meta">
+              <div class="prop-meta-item"><span class="prop-meta-icon">🛏</span><span class="prop-meta-value">2</span><span class="prop-meta-label">Beds</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🚿</span><span class="prop-meta-value">2</span><span class="prop-meta-label">Baths</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">📐</span><span class="prop-meta-value">1,450</span><span class="prop-meta-label">Sqft</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🌿</span><span class="prop-meta-value">Roof</span><span class="prop-meta-label">Deck</span></div>
+            </div>
+          </div>
+          <div class="prop-agent">
+            <img class="agent-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&q=80" alt="">
+            <span class="agent-name"><strong>James W.</strong> · Listing Agent</span>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="prop-card">
+          <div class="prop-img-wrap">
+            <img class="prop-img" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=80" alt="">
+            <button class="prop-save">♡</button>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$1,250,000</div>
+            <div class="prop-address">339 South St, South Philly, PA 19147</div>
+            <div class="prop-meta">
+              <div class="prop-meta-item"><span class="prop-meta-icon">🛏</span><span class="prop-meta-value">5</span><span class="prop-meta-label">Beds</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🚿</span><span class="prop-meta-value">4</span><span class="prop-meta-label">Baths</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">📐</span><span class="prop-meta-value">4,100</span><span class="prop-meta-label">Sqft</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🏡</span><span class="prop-meta-value">Yard</span><span class="prop-meta-label">Garden</span></div>
+            </div>
+          </div>
+          <div class="prop-agent">
+            <img class="agent-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&q=80" alt="">
+            <span class="agent-name"><strong>Elena R.</strong> · Listing Agent</span>
+          </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="prop-card">
+          <div class="prop-img-wrap">
+            <img class="prop-img" src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&q=80" alt="">
+            <span class="prop-badge badge-dark">Price Drop</span>
+            <button class="prop-save">♡</button>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$745,000</div>
+            <div class="prop-address">4412 Main St, Manayunk, PA 19127</div>
+            <div class="prop-meta">
+              <div class="prop-meta-item"><span class="prop-meta-icon">🛏</span><span class="prop-meta-value">3</span><span class="prop-meta-label">Beds</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🚿</span><span class="prop-meta-value">2.5</span><span class="prop-meta-label">Baths</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">📐</span><span class="prop-meta-value">1,980</span><span class="prop-meta-label">Sqft</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🅿️</span><span class="prop-meta-value">2</span><span class="prop-meta-label">Garage</span></div>
+            </div>
+          </div>
+          <div class="prop-agent">
+            <img class="agent-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&q=80" alt="">
+            <span class="agent-name"><strong>David L.</strong> · Listing Agent</span>
+          </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="prop-card">
+          <div class="prop-img-wrap">
+            <img class="prop-img" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80" alt="">
+            <span class="prop-badge badge-gold">Exclusive</span>
+            <button class="prop-save">♡</button>
+          </div>
+          <div class="prop-body">
+            <div class="prop-price">$2,100,000</div>
+            <div class="prop-address">1601 Locust St, Rittenhouse, PA 19103</div>
+            <div class="prop-meta">
+              <div class="prop-meta-item"><span class="prop-meta-icon">🛏</span><span class="prop-meta-value">4</span><span class="prop-meta-label">Beds</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🚿</span><span class="prop-meta-value">4</span><span class="prop-meta-label">Baths</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">📐</span><span class="prop-meta-value">4,800</span><span class="prop-meta-label">Sqft</span></div>
+              <div class="prop-meta-item"><span class="prop-meta-icon">🏊</span><span class="prop-meta-value">Pool</span><span class="prop-meta-label">Amenity</span></div>
+            </div>
+          </div>
+          <div class="prop-agent">
+            <img class="agent-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&q=80" alt="">
+            <span class="agent-name"><strong>Christine M.</strong> · Listing Agent</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAGINATION -->
+      <div class="pagination">
+        <div class="page-num">‹</div>
+        <div class="page-num active">1</div>
+        <div class="page-num">2</div>
+        <div class="page-num">3</div>
+        <div class="page-num">···</div>
+        <div class="page-num">12</div>
+        <div class="page-num">›</div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>
