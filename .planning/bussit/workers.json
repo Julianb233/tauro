@@ -1,0 +1,40 @@
+{
+  "workers": [
+    {
+      "id": "worker-Ubun-5321",
+      "registeredAt": "2026-03-18T09:30:00Z",
+      "lastHeartbeat": "2026-03-18T20:42:11Z",
+      "status": "running",
+      "currentTask": "01-build",
+      "checkpoint": {
+        "taskId": "01-build",
+        "phase": "executing",
+        "startedAt": "2026-03-18T20:42:11Z",
+        "lastUpdate": "2026-03-18T20:42:11Z",
+        "progress": 0,
+        "context": {}
+      },
+      "sessionId": "agent5-session-1",
+      "stats": {
+        "tasksCompleted": 1,
+        "tasksFailed": 0,
+        "totalExecutionTime": 840,
+        "avgTaskTime": 0
+      },
+      "capabilities": {
+        "preferredTypes": [
+          "plan",
+          "build"
+        ],
+        "avoidTypes": [],
+        "maxComplexity": 10
+      },
+      "health": {
+        "consecutiveFailures": 0,
+        "lastError": null,
+        "circuitBreakerOpen": false
+      },
+      "shutdownRequested": false
+    }
+  ]
+}

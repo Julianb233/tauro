@@ -127,8 +127,9 @@ The React component is a thin wrapper that applies the `.gold-shimmer` class plu
 File exists: `ls src/components/ui/gold-shimmer.tsx`
 CSS keyframes exist: `grep "gold-shimmer-sweep" src/app/globals.css`
 Component exports: `grep "export function GoldShimmer" src/components/ui/gold-shimmer.tsx`
+Build check: `npx next build 2>&1 | tail -5` — build should succeed
   </verify>
-  <done>GoldShimmer component exists and applies a diagonal gold sweep animation on hover. CSS keyframes defined in globals.css. Component is importable from @/components/ui/gold-shimmer.</done>
+  <done>GoldShimmer component exists and applies a diagonal gold sweep animation on hover. CSS keyframes defined in globals.css. Component is importable from @/components/ui/gold-shimmer. Build passes.</done>
 </task>
 
 <task type="auto">
@@ -161,8 +162,9 @@ File exists: `ls src/components/ui/tilt-card.tsx`
 Component exports: `grep "export function TiltCard" src/components/ui/tilt-card.tsx`
 Uses perspective: `grep "perspective" src/components/ui/tilt-card.tsx`
 Uses mouse events: `grep "onMouseMove" src/components/ui/tilt-card.tsx`
+Build check: `npx next build 2>&1 | tail -5` — build should succeed
   </verify>
-  <done>TiltCard component exists, applies 3D perspective tilt on mouse move with configurable max angle, smooth transitions on hover and leave. No external dependencies. Importable from @/components/ui/tilt-card.</done>
+  <done>TiltCard component exists, applies 3D perspective tilt on mouse move with configurable max angle, smooth transitions on hover and leave. No external dependencies. Importable from @/components/ui/tilt-card. Build passes.</done>
 </task>
 
 </tasks>
