@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
 
@@ -158,6 +158,17 @@ export function Footer() {
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
+              </a>
+            </GoldShimmer>
+            <GoldShimmer>
+              <a
+                href="https://x.com/taurorealty"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                aria-label="X (Twitter)"
+              >
+                <Twitter className="size-5" />
               </a>
             </GoldShimmer>
           </div>
