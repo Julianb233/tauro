@@ -37,6 +37,7 @@ function buildGhlContact(data: LeadPayload) {
   if (data.type === "showing") tags.push("showing-request");
   if (data.type === "seller") tags.push("seller-lead");
   if (data.type === "agent-application") tags.push("agent-application");
+  if (data.type === "agent-contact") tags.push("agent-contact");
 
   const customFields: Record<string, string> = {};
 
@@ -55,6 +56,7 @@ function buildGhlContact(data: LeadPayload) {
   if (data.yearsExperience) customFields.years_experience = data.yearsExperience;
   if (data.currentBrokerage) customFields.current_brokerage = data.currentBrokerage;
   if (data.whyJoin) customFields.why_join = data.whyJoin;
+  if (data.agentName) customFields.agent_name = data.agentName;
 
   return {
     firstName: data.firstName,
