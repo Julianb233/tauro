@@ -23,6 +23,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tauro.com"),
   title: {
     default: "Tauro | Premium Philadelphia Real Estate",
     template: "%s | Tauro",
@@ -36,6 +37,20 @@ export const metadata: Metadata = {
     "Tauro",
     "LYL Realty Group",
   ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Tauro Realty",
+    title: "Tauro | Premium Philadelphia Real Estate",
+    description:
+      "Premium real estate brokerage serving Philadelphia. Luxury homes, expert agents, and neighborhood guides.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tauro | Premium Philadelphia Real Estate",
+    description:
+      "Premium real estate brokerage serving Philadelphia. Luxury homes, expert agents, and neighborhood guides.",
+  },
 };
 
 export default function RootLayout({
