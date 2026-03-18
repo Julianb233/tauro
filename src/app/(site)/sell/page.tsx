@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Home, TrendingUp, Shield, Star, CheckCircle, AlertCircle, ArrowRight } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
 
@@ -132,11 +133,12 @@ export default function SellPage() {
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
         <div className="absolute inset-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
             alt="Luxury home"
-            className="h-full w-full object-cover opacity-20"
+            fill
+            className="object-cover opacity-20"
+            sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-near-black/80 via-near-black/70 to-near-black" />
         </div>

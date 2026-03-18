@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
@@ -117,12 +118,13 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
             {/* Photo */}
             <div className="lg:col-span-1">
               <div className="overflow-hidden rounded-2xl border border-gold/20">
-                <div className="aspect-[3/4]">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                <div className="relative aspect-[3/4]">
+                  <Image
                     src={agent.photo}
                     alt={agent.fullName}
-                    className="h-full w-full object-cover"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
                   />
                 </div>
               </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense, useState, useEffect } from "react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Calendar, Clock, Home, User, CheckCircle, AlertCircle } from "lucide-react";
 import { properties } from "@/data/properties";
@@ -244,11 +245,13 @@ function BookTourContent() {
                 {/* Property preview */}
                 {selectedProperty && (
                   <div className="mt-3 flex items-center gap-4 rounded-lg border border-gold/20 bg-midnight p-3">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <Image
                       src={selectedProperty.images[0]}
                       alt={selectedProperty.address}
-                      className="h-16 w-20 shrink-0 rounded-md object-cover"
+                      width={80}
+                      height={64}
+                      className="shrink-0 rounded-md object-cover"
+                      sizes="80px"
                     />
                     <div className="min-w-0">
                       <p className="truncate text-sm font-semibold text-white">

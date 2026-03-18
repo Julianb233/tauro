@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -280,11 +281,13 @@ export default function PropertyDetailClient({
             {/* Agent card */}
             <div className="rounded-xl border border-border bg-card p-6">
               <div className="flex items-center gap-4">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={property.agent.photo}
                   alt={property.agent.name}
-                  className="h-16 w-16 rounded-full border-2 border-gold object-cover"
+                  width={64}
+                  height={64}
+                  className="rounded-full border-2 border-gold object-cover"
+                  sizes="64px"
                 />
                 <div>
                   <p className="font-heading text-lg font-bold">{property.agent.name}</p>
