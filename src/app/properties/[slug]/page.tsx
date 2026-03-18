@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { properties, formatPriceFull } from "@/data/properties";
-import PropertyJsonLd from "@/components/PropertyJsonLd";
+import { RealEstateListingJsonLd } from "@/components/JsonLd";
 import PropertyDetailClient from "./PropertyDetailClient";
 
 export function generateStaticParams() {
@@ -29,7 +29,7 @@ export default async function PropertyDetailPage({
 
   return (
     <>
-      <PropertyJsonLd property={property} />
+      <RealEstateListingJsonLd property={property} />
       <PropertyDetailClient property={property} similar={similar} />
     </>
   );
