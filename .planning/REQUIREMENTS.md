@@ -129,9 +129,9 @@
 | AGENT-04 | Phase 4 | Complete |
 | AGENT-05 | Phase 4 | Complete |
 | AGENT-06 | Phase 4 | Complete |
-| AREA-01 | Phase 5 | Pending |
-| AREA-02 | Phase 5 | Pending |
-| AREA-03 | Phase 5 | Pending |
+| AREA-01 | Phase 5 | Complete |
+| AREA-02 | Phase 5 | Complete |
+| AREA-03 | Phase 5 | Complete |
 | LEAD-01 | Phase 6 | Complete |
 | LEAD-02 | Phase 6 | Complete |
 | LEAD-03 | Phase 6 | Complete |
