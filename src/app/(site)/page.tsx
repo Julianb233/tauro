@@ -1,7 +1,9 @@
 import Link from "next/link";
-import { Search, ArrowRight, Home, TrendingUp, Users, Shield, Star, MapPin } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Home, TrendingUp, Users, Shield, Star, MapPin } from "lucide-react";
 import { properties, formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import HeroSearchBar from "@/components/HeroSearchBar";
 
 const neighborhoods = [
   {
@@ -100,11 +102,13 @@ export default function HomePage() {
       {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16">
         {/* Background image */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80"
           alt="Philadelphia skyline"
-          className="absolute inset-0 h-full w-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-near-black/70 via-near-black/50 to-near-black" />
@@ -124,24 +128,7 @@ export default function HomePage() {
           </p>
 
           {/* Search overlay */}
-          <div className="mx-auto mt-10 max-w-2xl">
-            <div className="flex items-center rounded-xl border border-white/10 bg-near-black/60 p-1.5 shadow-2xl backdrop-blur-md">
-              <div className="flex flex-1 items-center gap-2 px-4">
-                <Search className="size-5 text-gold" />
-                <input
-                  type="text"
-                  placeholder="Search by neighborhood, address, or ZIP..."
-                  className="w-full bg-transparent py-3 text-sm text-white placeholder:text-white/50 focus:outline-none"
-                />
-              </div>
-              <button
-                type="button"
-                className="shimmer-gold rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
-              >
-                Search
-              </button>
-            </div>
-          </div>
+          <HeroSearchBar />
 
           {/* Scroll hint */}
           <div className="mt-16 animate-bounce">
