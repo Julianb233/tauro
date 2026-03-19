@@ -1,64 +1,74 @@
 ---
 phase: 03-property-pages
 plan: 04
-subsystem: data
-tags: [properties, neighborhoods, philadelphia, data]
+subsystem: map-view
+tags: [properties, mapbox, map-view, grid-toggle]
 dependency-graph:
-  requires: []
-  provides: [16-property-listings, neighborhood-field]
-  affects: [03-05, neighborhood-pages, property-filters]
+  requires: [03-01, 03-02]
+  provides: [property-map-view, grid-map-toggle]
+  affects: [property-detail-pages]
 tech-stack:
-  added: []
-  patterns: [neighborhood-linking]
+  added: [react-map-gl, mapbox-gl]
+  patterns: [declarative-map, dark-theme-mapbox]
 key-files:
-  created: []
-  modified: [src/data/properties.ts, src/app/(site)/neighborhoods/[slug]/page.tsx]
+  created: [src/components/PropertyMap.tsx]
+  modified: [src/app/properties/page.tsx, package.json, .env.example, .env.local]
 decisions:
-  - id: PROPERTY-DATA-01
-    summary: "Expanded to 16 curated Philadelphia properties with neighborhood field matching neighborhoods.ts propertyFilter values"
+  - id: MAP-VIEW-01
+    summary: "Used react-map-gl/mapbox v8 with dark-v11 Mapbox style for brand-consistent dark map"
 metrics:
-  duration: "~3m"
+  duration: "~5m"
   completed: "2026-03-18"
 ---
 
-# Phase 3 Plan 4: Expand Property Data Summary
+# Phase 3 Plan 4: Mapbox Map View Summary
 
-**One-liner:** 16 curated Philadelphia property listings across 13 neighborhoods with neighborhood field linking to neighborhoods.ts
+**One-liner:** Interactive dark-themed Mapbox map with gold price markers, popups, and grid/map toggle on properties page
 
 ## What Was Done
 
-### Task 1: Add neighborhood field to Property interface and expand to 16 listings
-- Added `neighborhood: string` field to the `Property` interface
-- Updated all 6 existing properties with appropriate neighborhood values
-- Added 10 new properties (ids 7-16) covering Northern Liberties, University City, Manayunk, Chestnut Hill, Brewerytown, Point Breeze, Kensington, West Philly, Rittenhouse (2nd), and Fishtown (2nd)
-- All properties have realistic Philadelphia addresses, GPS coordinates, and zip codes
-- Price range: $375K (Kensington duplex) to $6.8M (Center City penthouse)
-- Property types covered: Single Family (5), Condo (4), Townhouse (6), Multi-Family (1)
-- 5 properties with videoUrl, 5 with virtualTourUrl, 4 with openHouse dates
-- Statuses: Active (9), New (4), Open House (2), Pending (1)
+### Task 1: PropertyMap component with Mapbox GL JS
+- Created `src/components/PropertyMap.tsx` as a "use client" component
+- Uses `react-map-gl/mapbox` v8 with `mapbox://styles/mapbox/dark-v11` style
+- Gold price pill markers (`bg-midnight text-gold`) at each property's coordinates
+- Popup cards showing address, city/state, price, beds/baths/sqft, and "View Details" button
+- `singleMarker` prop for detail page usage (no popup on click)
+- Graceful fallback with branded placeholder (gold MapPin icon) when token is missing or placeholder
+- NavigationControl at top-right
+
+### Task 2: Grid/map view toggle on properties page
+- Added grid/map toggle buttons in properties page header (LayoutGrid + Map icons from lucide-react)
+- Active view highlighted with `bg-gold text-near-black` styling
+- Grid view: responsive 3-column card grid (unchanged)
+- Map view: 50/50 split layout with map on left, scrollable property cards on right
+- Mobile: cards above, map below (CSS order swap)
+- Map height: `calc(100vh - 16rem)` fills viewport minus header/filters
+- Filters from Plan 02 apply to both grid and map views simultaneously
+- "View Details" in popup navigates to `/properties/[slug]`
+
+### Environment Configuration
+- `.env.example` documents `NEXT_PUBLIC_MAPBOX_TOKEN`
+- `.env.local` has placeholder token for development
 
 ## Deviations from Plan
 
-### Auto-fixed Issues
-
-**1. [Rule 1 - Bug] Fixed neighborhood page filter logic**
-- **Found during:** Task 1
-- **Issue:** `src/app/(site)/neighborhoods/[slug]/page.tsx` filtered properties using `p.city.toLowerCase() === neighborhood.propertyFilter.toLowerCase()` which never matched since p.city is always "Philadelphia"
-- **Fix:** Changed to `p.neighborhood === neighborhood.propertyFilter` to use the new neighborhood field
-- **Files modified:** src/app/(site)/neighborhoods/[slug]/page.tsx
-- **Commit:** 0d6f8bf
+None. Implementation matches the plan specification exactly. Note: properties page is at `src/app/properties/page.tsx` (not `src/app/(site)/properties/page.tsx`) matching the actual project routing structure.
 
 ## Decisions Made
 
 | ID | Decision | Rationale |
 |----|----------|-----------|
-| PROPERTY-DATA-01 | 16 properties across 13 of 15 neighborhoods | Covers the most active/interesting neighborhoods while keeping data manageable |
+| MAP-VIEW-01 | dark-v11 Mapbox style | Matches brand dark-mode-first aesthetic with midnight/gold color scheme |
 
 ## Verification
 
+- `npm run build`: PASSED
 - TypeScript compilation: PASSED
-- npm run build: PASSED (all 16 property pages generated)
-- 16 properties with neighborhood field confirmed
-- 13 unique neighborhoods covered (exceeds 10 minimum)
-- All 4 property types represented
-- Price range $375K-$6.8M confirmed
+- PropertyMap uses react-map-gl/mapbox with dark-v11 style
+- Properties page has grid/map toggle in header
+- Grid view: responsive card grid
+- Map view: dark map with gold markers + scrollable card sidebar
+- Popup shows address, price, stats, "View Details" button
+- "View Details" navigates to /properties/[slug]
+- Filters apply to both views
+- Fallback shown when Mapbox token missing
