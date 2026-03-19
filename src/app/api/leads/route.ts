@@ -42,7 +42,7 @@ const LeadCreateSchema = z.object({
 export type LeadPayload = z.infer<typeof LeadCreateSchema>;
 
 // ---------------------------------------------------------------------------
-// POST /api/leads
+// POST /api/leads — persist to DB, send emails, forward to GHL
 // ---------------------------------------------------------------------------
 
 export async function POST(request: NextRequest) {
@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  // Honeypot check - bots fill this hidden field, humans never see it
+  // Honeypot check — bots fill this hidden field, humans never see it
   if (body && typeof body === "object" && "website" in body && body.website) {
     return NextResponse.json({ success: true });
   }
@@ -76,7 +76,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: turnstileResult.error }, { status: 400 });
   }
 
-  // --- Input sanitization ---
+  // --- Input sanitization (strip HTML tags) ---
   data.firstName = sanitize(data.firstName);
   data.lastName = sanitize(data.lastName);
   data.email = sanitize(data.email);
@@ -159,7 +159,6 @@ export async function POST(request: NextRequest) {
   // ---------------------------------------------------------------------------
   // 2. Send emails (best effort — never block response on email failure)
   // ---------------------------------------------------------------------------
-
   try {
     if (data.type !== "agent-application") {
       sendLeadConfirmation(data.email, {
@@ -206,11 +205,10 @@ export async function POST(request: NextRequest) {
   }
 
   // ---------------------------------------------------------------------------
-  // 3. Forward to GHL (best effort — uses dedicated GHL client module)
+  // 3. Forward to GHL (best effort — uses ghl.ts module)
   // ---------------------------------------------------------------------------
   const ghlResult = await createGhlContact(data);
   const ghlSynced = ghlResult.success;
-
   if (!ghlSynced && ghlResult.error) {
     console.error("GHL sync failed:", ghlResult.error);
   }
@@ -228,7 +226,8 @@ export async function POST(request: NextRequest) {
   // ---------------------------------------------------------------------------
   // 4. Fallback: if neither DB nor GHL is configured, log lead to console
   // ---------------------------------------------------------------------------
-  if (!supabase && !ghlSynced) {
+  const hasGhl = !!(process.env.GHL_WEBHOOK_URL || process.env.GHL_API_KEY);
+  if (!supabase && !hasGhl) {
     console.log("POST /api/leads [NO BACKEND] — lead data:", JSON.stringify(data, null, 2));
   }
 
@@ -276,9 +275,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ data, count, limit, offset });
   } catch (err) {
     console.error("GET /api/leads error:", err);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
