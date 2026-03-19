@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Terms of Service for Tauro, a premium real estate brokerage serving Philadelphia.",
+    "Terms of Service for Tauro, a premium Philadelphia real estate brokerage. Read our policies on website usage, property listings, agent services, and client agreements.",
 };
 
 const sections = [

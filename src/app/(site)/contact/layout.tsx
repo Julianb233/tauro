@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Us",
   description:
-    "Get in touch with Tauro Realty. Reach our Philadelphia real estate team for buying, selling, or general inquiries.",
+    "Contact Tauro Realty for buying, selling, or real estate inquiries in Philadelphia. Reach our agents for property showings, home valuations, and expert market guidance.",
 };
 
 export default function ContactLayout({

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Tauro",
+  title: "Privacy Policy",
   description:
-    "Learn how Tauro collects, uses, and protects your personal information when you use our real estate services and website.",
+    "Learn how Tauro Realty collects, uses, and protects your personal information. Our privacy practices for Philadelphia real estate services, property inquiries, and website usage.",
 };
 
 export default function PrivacyPage() {
