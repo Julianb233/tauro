@@ -8,8 +8,7 @@ export const alt = "Tauro Realty — Premium Philadelphia Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default async function OGImage() {
-  // Read the logo from public/ and convert to a data-URI for embedding
+export default async function TwitterImage() {
   const logoBuffer = await readFile(
     join(process.cwd(), "public", "tauro-logo.png"),
   );

@@ -31,8 +31,7 @@ export async function POST(request: NextRequest) {
   const supabase = await createClient();
 
   if (!supabase) {
-    // Graceful degradation: log the subscription and return success
-    console.log("POST /api/newsletter [NO DB] — email:", email);
+    // Graceful degradation: return success even without DB
     return NextResponse.json(
       { success: true, message: "Thanks for subscribing!" },
       { status: 200 },

@@ -223,11 +223,7 @@ export async function POST(request: NextRequest) {
       .limit(1);
   }
 
-  // 4. Fallback logging
-  const hasGhl = !!(process.env.GHL_WEBHOOK_URL || process.env.GHL_API_KEY);
-  if (!supabase && !hasGhl) {
-    console.log("POST /api/leads [NO BACKEND]:", JSON.stringify(data, null, 2));
-  }
+
 
   return NextResponse.json(
     { success: true, db_saved: dbSaved, ghl_synced: ghlSynced },
