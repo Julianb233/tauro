@@ -63,7 +63,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
+            <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Quick Links
             </h3>
             <ul className="space-y-1">
@@ -71,7 +71,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-flex min-h-[44px] items-center text-sm text-white/60 transition-colors hover:text-gold sm:min-h-0"
+                    className="group/link inline-flex min-h-[44px] items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1 sm:min-h-0"
                   >
                     {link.label}
                   </Link>
@@ -82,7 +82,7 @@ export function Footer() {
 
           {/* Neighborhoods */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
+            <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Neighborhoods
             </h3>
             <div className="grid grid-cols-2 gap-2.5">
@@ -111,17 +111,17 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
+            <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Contact
             </h3>
             <ul className="space-y-3">
               <li>
                 <a
-                  href="tel:+12158394172"
+                  href="tel:+12155550100"
                   className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Phone className="size-4 shrink-0" />
-                  (215) 839-4172
+                  (215) 555-0100
                 </a>
               </li>
               <li>
@@ -140,35 +140,25 @@ export function Footer() {
                 </span>
               </li>
             </ul>
-            {/* Office map */}
-            <div className="mt-4 overflow-hidden rounded-md border border-white/10">
-              <iframe
-                title="Tauro office location"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-75.2052%2C39.9226%2C-75.1252%2C39.9826&layer=mapnik&marker=39.9526%2C-75.1652"
-                width="100%"
-                height={128}
-                className="block"
-                style={{
-                  filter:
-                    "invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9)",
-                }}
-                loading="lazy"
-              />
-            </div>
+            {/* Office map placeholder */}
             <a
               href="https://maps.google.com/?q=Philadelphia+PA"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-flex items-center gap-1.5 text-xs text-gold/70 transition-colors hover:text-gold"
+              className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-white/10 bg-white/5 transition-colors hover:border-gold/40"
             >
-              <MapPin className="size-3.5" />
-              View on Google Maps
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-white/60">
+                <MapPin className="size-5 text-gold" />
+                <span>Philadelphia, PA</span>
+                <span className="text-gold/70">View on Map</span>
+              </div>
             </a>
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 md:flex-row">
+        <div className="gold-divider mt-8 sm:mt-10" />
+        <div className="mt-0 flex flex-col items-center justify-between gap-4 pt-6 sm:pt-8 md:flex-row">
           <p className="text-xs text-white/50">
             &copy; {new Date().getFullYear()} Tauro. All rights reserved.
           </p>
@@ -178,7 +168,7 @@ export function Footer() {
                 href="https://instagram.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="Instagram"
               >
                 <Instagram className="size-5" />
@@ -189,7 +179,7 @@ export function Footer() {
                 href="https://facebook.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="Facebook"
               >
                 <Facebook className="size-5" />
@@ -200,7 +190,7 @@ export function Footer() {
                 href="https://linkedin.com/company/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
@@ -211,7 +201,7 @@ export function Footer() {
                 href="https://x.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="X (Twitter)"
               >
                 <Twitter className="size-5" />

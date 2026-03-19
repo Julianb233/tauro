@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { CheckCircle, AlertCircle } from "lucide-react";
-import { Turnstile } from "@/components/turnstile";
 import type { LeadPayload } from "@/app/api/leads/route";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -30,7 +29,6 @@ export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [errorMsg, setErrorMsg] = useState("");
-  const [turnstileToken, setTurnstileToken] = useState<string>("");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -67,17 +65,13 @@ export function ContactForm() {
     return Object.keys(newErrors).length === 0;
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErrorMsg("");
 
     if (!validate()) return;
 
     setFormState("submitting");
-
-    // Read honeypot field from form element
-    const formData = new FormData(e.currentTarget);
-    const honeypot = formData.get("website") as string;
 
     const payload: LeadPayload = {
       type: "contact",
@@ -86,14 +80,13 @@ export function ContactForm() {
       email: form.email,
       phone: form.phone,
       message: form.message,
-      captchaToken: turnstileToken || undefined,
     };
 
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, website: honeypot }),
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) {
@@ -104,7 +97,6 @@ export function ContactForm() {
       setFormState("success");
       setForm(initialForm);
       setErrors({});
-      setTurnstileToken("");
     } catch (err) {
       setFormState("error");
       setErrorMsg(
@@ -138,11 +130,6 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      {/* Honeypot - hidden from humans, bots fill it */}
-      <div className="absolute -left-[9999px]" aria-hidden="true">
-        <input type="text" name="website" tabIndex={-1} autoComplete="off" />
-      </div>
-
       <div>
         <h2 className="font-heading text-2xl font-bold text-foreground">
           Send a Message
@@ -162,7 +149,7 @@ export function ContactForm() {
       {/* Name row */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-foreground">
+          <label htmlFor="firstName" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
             First Name <span className="text-gold">*</span>
           </label>
           <input
@@ -174,14 +161,14 @@ export function ContactForm() {
             value={form.firstName}
             onChange={handleChange}
             placeholder="Jane"
-            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
           />
           {errors.firstName && (
             <p className="text-red-400 text-xs mt-1">{errors.firstName}</p>
           )}
         </div>
         <div>
-          <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-foreground">
+          <label htmlFor="lastName" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
             Last Name <span className="text-gold">*</span>
           </label>
           <input
@@ -193,7 +180,7 @@ export function ContactForm() {
             value={form.lastName}
             onChange={handleChange}
             placeholder="Smith"
-            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
           />
           {errors.lastName && (
             <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>
@@ -203,7 +190,7 @@ export function ContactForm() {
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
+        <label htmlFor="email" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
           Email Address <span className="text-gold">*</span>
         </label>
         <input
@@ -215,7 +202,7 @@ export function ContactForm() {
           value={form.email}
           onChange={handleChange}
           placeholder="jane@example.com"
-          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
         />
         {errors.email && (
           <p className="text-red-400 text-xs mt-1">{errors.email}</p>
@@ -224,7 +211,7 @@ export function ContactForm() {
 
       {/* Phone */}
       <div>
-        <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-foreground">
+        <label htmlFor="phone" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
           Phone Number <span className="text-gold">*</span>
         </label>
         <input
@@ -235,8 +222,8 @@ export function ContactForm() {
           autoComplete="tel"
           value={form.phone}
           onChange={handleChange}
-          placeholder="(215) 839-4172"
-          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          placeholder="(215) 555-0100"
+          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
         />
         {errors.phone && (
           <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
@@ -245,7 +232,7 @@ export function ContactForm() {
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
+        <label htmlFor="message" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
           Message
         </label>
         <textarea
@@ -255,23 +242,21 @@ export function ContactForm() {
           value={form.message}
           onChange={handleChange}
           placeholder="Tell us how we can help..."
-          className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
         />
       </div>
 
-      <Turnstile onVerify={setTurnstileToken} onExpire={() => setTurnstileToken("")} className="mt-4" />
-
       <button
         type="submit"
-        disabled={formState === "submitting" || !turnstileToken}
-        className="shimmer-gold min-h-[48px] w-full rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+        disabled={formState === "submitting"}
+        className="shimmer-gold min-h-[48px] w-full rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {formState === "submitting" ? "Sending..." : "Send Message"}
       </button>
 
       <p className="text-center text-xs text-muted-foreground">
         By submitting, you agree to our{" "}
-        <a href="/privacy" className="text-gold-dark hover:underline">
+        <a href="/privacy" className="text-gold hover:underline">
           Privacy Policy
         </a>
         .
