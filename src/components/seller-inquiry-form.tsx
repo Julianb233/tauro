@@ -221,7 +221,7 @@ export function SellerInquiryForm() {
               autoComplete="tel"
               value={form.phone}
               onChange={handleChange}
-              placeholder="(215) 555-0100"
+              placeholder="(215) 839-4172"
               className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
           </div>

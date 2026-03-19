@@ -65,13 +65,17 @@ export function ContactForm() {
     return Object.keys(newErrors).length === 0;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrorMsg("");
 
     if (!validate()) return;
 
     setFormState("submitting");
+
+    // Read honeypot field from form element
+    const formData = new FormData(e.currentTarget);
+    const honeypot = formData.get("website") as string;
 
     const payload: LeadPayload = {
       type: "contact",
@@ -86,7 +90,7 @@ export function ContactForm() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, website: honeypot }),
       });
 
       if (!res.ok) {
@@ -130,6 +134,11 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
+      {/* Honeypot - hidden from humans, bots fill it */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div>
         <h2 className="font-heading text-2xl font-bold text-foreground">
           Send a Message
@@ -222,7 +231,7 @@ export function ContactForm() {
           autoComplete="tel"
           value={form.phone}
           onChange={handleChange}
-          placeholder="(215) 555-0100"
+          placeholder="(215) 839-4172"
           className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
         />
         {errors.phone && (

@@ -1,39 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+// Email helpers — loaded at top level, but each function returns gracefully
+// when RESEND_API_KEY is not configured (no crash).
 import { sendLeadConfirmation, sendAgentNotification, sendApplicationConfirmation } from "@/lib/email";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+import { sanitize } from "@/lib/sanitize";
+import { getClientIp } from "@/lib/rate-limit";
+import { createGhlContact } from "@/lib/ghl";
 
-// ---------------------------------------------------------------------------
-// Rate limiting (in-memory, per IP)
-// ---------------------------------------------------------------------------
-
-const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
-const RATE_LIMIT_MAX = 5; // max submissions per window
-
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-
-// Cleanup stale entries every 5 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [key, entry] of rateLimitMap) {
-    if (now > entry.resetAt) {
-      rateLimitMap.delete(key);
-    }
-  }
-}, 5 * 60_000);
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-
-  if (!entry || now > entry.resetAt) {
-    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-
-  entry.count++;
-  return entry.count > RATE_LIMIT_MAX;
-}
 
 // ---------------------------------------------------------------------------
 // Validation
@@ -68,76 +43,27 @@ const LeadCreateSchema = z.object({
   // Agent contact-specific
   agentName: z.string().optional(),
   agentSlug: z.string().optional(),
+  captchaToken: z.string().optional(),
 });
 
 export type LeadPayload = z.infer<typeof LeadCreateSchema>;
-
-// ---------------------------------------------------------------------------
-// GHL webhook helper (preserved from original implementation)
-// ---------------------------------------------------------------------------
-
-function buildGhlContact(data: LeadPayload) {
-  const tags: string[] = [];
-
-  if (data.type === "contact") tags.push("website-contact");
-  if (data.type === "showing") tags.push("showing-request");
-  if (data.type === "seller") tags.push("seller-lead");
-  if (data.type === "agent-application") tags.push("agent-application");
-  if (data.type === "agent-contact") tags.push("agent-contact");
-
-  const customFields: Record<string, string> = {};
-
-  if (data.message) customFields.message = data.message;
-  if (data.propertyAddress) customFields.property_address = data.propertyAddress;
-  if (data.preferredDate) customFields.preferred_date = data.preferredDate;
-  if (data.preferredTime) customFields.preferred_time = data.preferredTime;
-  if (data.agentPreference) customFields.agent_preference = data.agentPreference;
-  if (data.homeAddress) customFields.home_address = data.homeAddress;
-  if (data.beds) customFields.bedrooms = data.beds;
-  if (data.baths) customFields.bathrooms = data.baths;
-  if (data.sqft) customFields.square_feet = data.sqft;
-  if (data.timeline) customFields.selling_timeline = data.timeline;
-  if (data.reason) customFields.selling_reason = data.reason;
-  if (data.licenseNumber) customFields.license_number = data.licenseNumber;
-  if (data.yearsExperience) customFields.years_experience = data.yearsExperience;
-  if (data.currentBrokerage) customFields.current_brokerage = data.currentBrokerage;
-  if (data.whyJoin) customFields.why_join = data.whyJoin;
-  if (data.agentName) customFields.agent_name = data.agentName;
-
-  return {
-    firstName: data.firstName,
-    lastName: data.lastName,
-    email: data.email,
-    phone: data.phone,
-    tags,
-    customFields,
-    source: "Tauro Website",
-  };
-}
 
 // ---------------------------------------------------------------------------
 // POST  /api/leads  — persist to DB, then forward to GHL
 // ---------------------------------------------------------------------------
 
 export async function POST(request: NextRequest) {
-  // Rate limit by IP
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    request.headers.get("x-real-ip") ??
-    "unknown";
-
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too many requests. Please try again later." },
-      { status: 429 },
-    );
-  }
-
-  let body: unknown;
+  let body: Record<string, unknown>;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  // Honeypot check - bots fill this hidden field, humans never see it
+  if (body && typeof body === "object" && "website" in body && body.website) {
+    // Return 200 to avoid tipping off the bot, but don't process
+    return NextResponse.json({ success: true });
   }
 
   // Validate input
@@ -150,6 +76,25 @@ export async function POST(request: NextRequest) {
   }
 
   const data = result.data;
+
+  // --- Turnstile CAPTCHA verification ---
+  const ip = getClientIp(request.headers);
+  const turnstileResult = await verifyTurnstileToken(data.captchaToken, ip);
+  if (!turnstileResult.success) {
+    return NextResponse.json({ error: turnstileResult.error }, { status: 400 });
+  }
+
+  // --- Input sanitization ---
+  data.firstName = sanitize(data.firstName);
+  data.lastName = sanitize(data.lastName);
+  data.email = sanitize(data.email);
+  data.phone = sanitize(data.phone);
+  if (data.message) data.message = sanitize(data.message);
+  if (data.homeAddress) data.homeAddress = sanitize(data.homeAddress);
+  if (data.propertyAddress) data.propertyAddress = sanitize(data.propertyAddress);
+  if (data.whyJoin) data.whyJoin = sanitize(data.whyJoin);
+  if (data.currentBrokerage) data.currentBrokerage = sanitize(data.currentBrokerage);
+  if (data.agentName) data.agentName = sanitize(data.agentName);
 
   // ---------------------------------------------------------------------------
   // 1. Persist to database (if Supabase is configured)
@@ -226,93 +171,80 @@ export async function POST(request: NextRequest) {
   // 2. Send emails (best effort — never block response on email failure)
   // ---------------------------------------------------------------------------
 
-  // 2a. Visitor confirmation email (all lead types except agent-application)
-  if (data.type !== "agent-application") {
-    sendLeadConfirmation(data.email, {
-      firstName: data.firstName,
-      type: data.type,
-      message: data.message,
-    }).catch((err) => console.error("Lead confirmation email failed:", err));
-  }
-
-  // 2b. Agent-application gets application confirmation instead
-  if (data.type === "agent-application") {
-    sendApplicationConfirmation(data.email, {
-      firstName: data.firstName,
-      licenseNumber: data.licenseNumber,
-    }).catch((err) => console.error("Application confirmation email failed:", err));
-  }
-
-  // 2c. Agent notification (or admin fallback)
-  if (data.type !== "agent-application") {
-    let notifyEmail: string | null = null;
-
-    if (supabase && agentId) {
-      const { data: agentRow } = await supabase
-        .from("agents")
-        .select("email")
-        .eq("id", agentId)
-        .single();
-      notifyEmail = agentRow?.email ?? null;
+  try {
+    // 2a. Visitor confirmation email (all lead types except agent-application)
+    if (data.type !== "agent-application") {
+      sendLeadConfirmation(data.email, {
+        firstName: data.firstName,
+        type: data.type,
+        message: data.message,
+      }).catch((err) => console.error("Lead confirmation email failed:", err));
     }
 
-    if (!notifyEmail) {
-      notifyEmail = process.env.ADMIN_EMAIL || "admin@lylrealty.com";
+    // 2b. Agent-application gets application confirmation instead
+    if (data.type === "agent-application") {
+      sendApplicationConfirmation(data.email, {
+        firstName: data.firstName,
+        licenseNumber: data.licenseNumber,
+      }).catch((err) => console.error("Application confirmation email failed:", err));
     }
 
-    sendAgentNotification(notifyEmail, {
-      leadName: `${data.firstName} ${data.lastName}`,
-      leadEmail: data.email,
-      leadPhone: data.phone,
-      leadType: data.type,
-      message: data.message,
-      propertyAddress: data.propertyAddress || data.homeAddress,
-    }).catch((err) => console.error("Agent notification email failed:", err));
-  }
+    // 2c. Agent notification (or admin fallback)
+    if (data.type !== "agent-application") {
+      let notifyEmail: string | null = null;
 
-  // ---------------------------------------------------------------------------
-  // 3. Forward to GHL webhook (best effort)
-  // ---------------------------------------------------------------------------
-  const webhookUrl = process.env.GHL_WEBHOOK_URL;
-  let ghlSynced = false;
-
-  if (webhookUrl) {
-    try {
-      const contact = buildGhlContact(data);
-      const ghlResponse = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(contact),
-      });
-      ghlSynced = ghlResponse.ok;
-
-      if (!ghlSynced) {
-        console.error(
-          "GHL webhook returned non-OK:",
-          ghlResponse.status,
-          await ghlResponse.text(),
-        );
+      if (supabase && agentId) {
+        const { data: agentRow } = await supabase
+          .from("agents")
+          .select("email")
+          .eq("id", agentId)
+          .single();
+        notifyEmail = agentRow?.email ?? null;
       }
-    } catch (ghlErr) {
-      console.error("GHL webhook error:", ghlErr);
-    }
 
-    // Update ghl_synced flag in DB if both are available
-    if (ghlSynced && supabase && dbSaved) {
-      await supabase
-        .from("leads")
-        .update({ ghl_synced: true })
-        .eq("email", data.email)
-        .eq("type", data.type)
-        .order("created_at", { ascending: false })
-        .limit(1);
+      if (!notifyEmail) {
+        notifyEmail = process.env.ADMIN_EMAIL || "admin@lylrealty.com";
+      }
+
+      sendAgentNotification(notifyEmail, {
+        leadName: `${data.firstName} ${data.lastName}`,
+        leadEmail: data.email,
+        leadPhone: data.phone,
+        leadType: data.type,
+        message: data.message,
+        propertyAddress: data.propertyAddress || data.homeAddress,
+      }).catch((err) => console.error("Agent notification email failed:", err));
     }
+  } catch (emailErr) {
+    // Email sending is best-effort; never let it crash the lead submission
+    console.error("POST /api/leads email section error:", emailErr);
+  }
+
+  // ---------------------------------------------------------------------------
+  // 3. Forward to GHL (best effort — uses ghl.ts module)
+  // ---------------------------------------------------------------------------
+  const ghlResult = await createGhlContact(data);
+  const ghlSynced = ghlResult.success;
+  if (!ghlSynced && ghlResult.error) {
+    console.error("GHL sync failed:", ghlResult.error);
+  }
+
+  // Update ghl_synced flag in DB if sync succeeded
+  if (ghlSynced && supabase && dbSaved) {
+    await supabase
+      .from("leads")
+      .update({ ghl_synced: true })
+      .eq("email", data.email)
+      .eq("type", data.type)
+      .order("created_at", { ascending: false })
+      .limit(1);
   }
 
   // ---------------------------------------------------------------------------
   // 4. Fallback: if neither DB nor GHL is configured, log lead to console
   // ---------------------------------------------------------------------------
-  if (!supabase && !webhookUrl) {
+  const hasGhl = !!(process.env.GHL_WEBHOOK_URL || process.env.GHL_API_KEY);
+  if (!supabase && !hasGhl) {
     console.log("POST /api/leads [NO BACKEND] — lead data:", JSON.stringify(data, null, 2));
   }
 

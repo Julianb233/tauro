@@ -8,7 +8,8 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
   title: "Our Agents",
-  description: "Meet the Tauro team — Philadelphia's premier luxury real estate agents.",
+  description:
+    "Meet the Tauro Realty team of expert Philadelphia real estate agents. Local market specialists across Rittenhouse, Center City, Fishtown, and all neighborhoods. Find your perfect agent today.",
 };
 
 export default async function AgentsPage() {

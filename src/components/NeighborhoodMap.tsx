@@ -1,9 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
-import { MapPin } from "lucide-react";
+import { MapPin, ExternalLink } from "lucide-react";
 
 interface NeighborhoodMapProps {
   name: string;
@@ -11,7 +8,6 @@ interface NeighborhoodMapProps {
   zoom?: number;
 }
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 const GOLD = "#C9A96E";
 
 export default function NeighborhoodMap({
@@ -19,95 +15,57 @@ export default function NeighborhoodMap({
   center,
   zoom = 14,
 }: NeighborhoodMapProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<mapboxgl.Map | null>(null);
-  const [error, setError] = useState(false);
+  const { lat, lng } = center;
+  const osmZoom = Math.min(Math.max(Math.round(zoom), 1), 19);
 
-  useEffect(() => {
-    if (!MAPBOX_TOKEN || MAPBOX_TOKEN.includes("placeholder")) {
-      setError(true);
-      return;
-    }
-
-    if (!containerRef.current || mapRef.current) return;
-
-    mapboxgl.accessToken = MAPBOX_TOKEN;
-
-    try {
-      const map = new mapboxgl.Map({
-        container: containerRef.current,
-        style: "mapbox://styles/mapbox/dark-v11",
-        center: [center.lng, center.lat],
-        zoom,
-        attributionControl: false,
-      });
-
-      map.addControl(
-        new mapboxgl.NavigationControl({ showCompass: false }),
-        "top-right"
-      );
-
-      map.on("load", () => {
-        // Add neighborhood center marker
-        const el = document.createElement("div");
-        el.style.width = "36px";
-        el.style.height = "36px";
-        el.style.borderRadius = "50%";
-        el.style.backgroundColor = GOLD;
-        el.style.border = "4px solid #111111";
-        el.style.boxShadow = `0 0 12px ${GOLD}88`;
-
-        const popup = new mapboxgl.Popup({
-          offset: 24,
-          closeButton: false,
-        }).setHTML(
-          `<div style="background:#1A1A1A;color:#F5F0E8;padding:8px 14px;border-radius:8px;font-family:sans-serif;">
-            <p style="font-weight:600;font-size:14px;margin:0;">${name}</p>
-            <p style="font-size:12px;color:${GOLD};margin:4px 0 0;">Philadelphia, PA</p>
-          </div>`
-        );
-
-        new mapboxgl.Marker({ element: el })
-          .setLngLat([center.lng, center.lat])
-          .setPopup(popup)
-          .addTo(map);
-      });
-
-      mapRef.current = map;
-    } catch {
-      setError(true);
-    }
-
-    return () => {
-      if (mapRef.current) {
-        mapRef.current.remove();
-        mapRef.current = null;
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  if (error) {
-    return (
-      <div className="flex aspect-video items-center justify-center rounded-xl border border-border bg-card">
-        <div className="text-center">
-          <MapPin className="mx-auto size-12 text-gold/30" />
-          <p className="mt-4 font-heading text-lg font-bold text-foreground">
-            Map of {name}
-          </p>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Map unavailable. Please configure your Mapbox token.
-          </p>
-        </div>
-      </div>
-    );
-  }
+  const embedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.015},${lat - 0.009},${lng + 0.015},${lat + 0.009}&layer=mapnik&marker=${lat},${lng}`;
+  const osmLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=${osmZoom}/${lat}/${lng}`;
 
   return (
-    <div
-      ref={containerRef}
-      className="aspect-video w-full rounded-xl"
-      style={{ minHeight: "300px" }}
-    />
+    <div className="relative aspect-video w-full overflow-hidden rounded-xl border border-border bg-card">
+      <iframe
+        title={`Map of ${name} neighborhood`}
+        src={embedUrl}
+        className="h-full w-full border-0"
+        style={{
+          minHeight: "300px",
+          filter: "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.1) saturate(0.3) sepia(0.15)",
+        }}
+        loading="lazy"
+        allowFullScreen
+      />
+      <div
+        className="absolute left-4 top-4 flex items-center gap-2.5 rounded-lg border px-4 py-2.5 shadow-xl backdrop-blur-sm"
+        style={{
+          backgroundColor: "rgba(17, 17, 17, 0.92)",
+          borderColor: `${GOLD}33`,
+        }}
+      >
+        <div
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full"
+          style={{ backgroundColor: `${GOLD}18`, border: `2px solid ${GOLD}` }}
+        >
+          <MapPin className="h-4 w-4" style={{ color: GOLD }} />
+        </div>
+        <div>
+          <p className="font-heading text-sm font-bold text-foreground">{name}</p>
+          <p className="text-xs text-muted-foreground">Philadelphia, PA</p>
+        </div>
+      </div>
+      <a
+        href={osmLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-4 right-4 flex items-center gap-1.5 rounded-md border px-3 py-2 text-xs font-medium shadow-lg transition-colors hover:brightness-110"
+        style={{
+          backgroundColor: "rgba(17, 17, 17, 0.92)",
+          color: GOLD,
+          borderColor: `${GOLD}33`,
+        }}
+      >
+        <ExternalLink className="h-3.5 w-3.5" />
+        Open in OpenStreetMap
+      </a>
+    </div>
   );
 }

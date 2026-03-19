@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Why Join TAURO | Careers",
+  title: "Real Estate Careers in Philadelphia",
   description:
     "Discover why top Philadelphia real estate agents choose Tauro Realty. Competitive splits, premium branding, cutting-edge tools, and a collaborative culture.",
 };

@@ -352,10 +352,53 @@ export type Database = {
         };
         Relationships: [];
       };
+      profiles: {
+        Row: {
+          id: string;
+          email: string;
+          full_name: string;
+          role: Database["public"]["Enums"]["user_role"];
+          agent_id: string | null;
+          avatar_url: string | null;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id: string;
+          email: string;
+          full_name: string;
+          role?: Database["public"]["Enums"]["user_role"];
+          agent_id?: string | null;
+          avatar_url?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          email?: string;
+          full_name?: string;
+          role?: Database["public"]["Enums"]["user_role"];
+          agent_id?: string | null;
+          avatar_url?: string | null;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "profiles_agent_id_fkey";
+            columns: ["agent_id"];
+            isOneToOne: true;
+            referencedRelation: "agents";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
-    Enums: Record<string, never>;
+    Enums: {
+      user_role: "admin" | "agent" | "viewer";
+    };
     CompositeTypes: Record<string, never>;
   };
 };
@@ -366,3 +409,5 @@ export type NeighborhoodRow = Database["public"]["Tables"]["neighborhoods"]["Row
 export type LeadRow = Database["public"]["Tables"]["leads"]["Row"];
 export type TestimonialRow = Database["public"]["Tables"]["testimonials"]["Row"];
 export type FaqRow = Database["public"]["Tables"]["faq"]["Row"];
+export type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
+export type UserRole = Database["public"]["Enums"]["user_role"];

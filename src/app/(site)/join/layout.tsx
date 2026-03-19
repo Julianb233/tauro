@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Join Our Team",
   description:
-    "Apply to join Tauro Realty. We're looking for licensed Philadelphia real estate agents ready to grow their career.",
+    "Apply to join Tauro Realty in Philadelphia. We offer competitive splits, lead generation, advanced technology, and mentorship for licensed real estate agents at every career stage.",
 };
 
 export default function JoinLayout({

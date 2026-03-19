@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Terms of Service for Tauro, a premium real estate brokerage serving Philadelphia.",
+    "Terms of Service for Tauro, a premium Philadelphia real estate brokerage. Read our policies on website usage, property listings, agent services, and client agreements.",
 };
 
 const sections = [
@@ -56,7 +56,7 @@ const sections = [
   {
     title: "10. Contact",
     content:
-      "If you have questions about these Terms of Service, please contact us at info@taurorealty.com or call (215) 555-0100.",
+      "If you have questions about these Terms of Service, please contact us at info@taurorealty.com or call (215) 839-4172.",
   },
 ];
 
