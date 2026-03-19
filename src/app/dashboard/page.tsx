@@ -115,58 +115,27 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      {/* Greeting */}
       <div>
         <h1 className="text-2xl font-bold text-off-white lg:text-3xl">
           Welcome back, {firstName}
         </h1>
-        <p className="mt-1 text-sm text-off-white/50">
-          Dashboard Overview
-        </p>
+        <p className="mt-1 text-sm text-off-white/50">Dashboard Overview</p>
       </div>
 
-      {/* Stat cards */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard
-          title="Leads This Month"
-          value={stats.leadsThisMonth}
-          icon={Inbox}
-          href="/dashboard/leads"
-        />
-        <StatCard
-          title="Active Listings"
-          value={stats.activeListings}
-          icon={Building2}
-          href="/dashboard/properties"
-        />
-        <StatCard
-          title="Showings Scheduled"
-          value={stats.showingsScheduled}
-          icon={Calendar}
-          href="/dashboard/calendar"
-        />
-        <StatCard
-          title="New Leads"
-          value={stats.newLeads}
-          icon={Bell}
-          href="/dashboard/leads?status=new"
-        />
+        <StatCard title="Leads This Month" value={stats.leadsThisMonth} icon={Inbox} href="/dashboard/leads" />
+        <StatCard title="Active Listings" value={stats.activeListings} icon={Building2} href="/dashboard/properties" />
+        <StatCard title="Showings Scheduled" value={stats.showingsScheduled} icon={Calendar} href="/dashboard/calendar" />
+        <StatCard title="New Leads" value={stats.newLeads} icon={Bell} href="/dashboard/leads?status=new" />
       </div>
 
-      {/* Recent leads */}
       <div className="rounded-xl border border-white/10 bg-[#1E1E32]">
         <div className="flex items-center justify-between border-b border-white/5 px-5 py-4">
-          <h2 className="font-heading text-lg font-semibold text-off-white">
-            Recent Leads
-          </h2>
-          <a
-            href="/dashboard/leads"
-            className="text-xs font-medium text-gold hover:text-gold-light transition-colors"
-          >
+          <h2 className="font-heading text-lg font-semibold text-off-white">Recent Leads</h2>
+          <a href="/dashboard/leads" className="text-xs font-medium text-gold hover:text-gold-light transition-colors">
             View all leads &rarr;
           </a>
         </div>
-
         {recentLeads.length === 0 ? (
           <p className="px-5 py-8 text-center text-sm text-off-white/40">
             No leads yet. They&apos;ll appear here once submitted.
@@ -174,10 +143,7 @@ export default async function DashboardPage() {
         ) : (
           <div className="divide-y divide-white/5">
             {recentLeads.map((lead) => (
-              <div
-                key={lead.id}
-                className="flex items-center justify-between px-5 py-3"
-              >
+              <div key={lead.id} className="flex items-center justify-between px-5 py-3">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-medium text-off-white">
                     {lead.firstName} {lead.lastName}
@@ -194,9 +160,7 @@ export default async function DashboardPage() {
                   >
                     {lead.status}
                   </span>
-                  <span className="text-xs text-off-white/40">
-                    {relativeTime(lead.createdAt)}
-                  </span>
+                  <span className="text-xs text-off-white/40">{relativeTime(lead.createdAt)}</span>
                 </div>
               </div>
             ))}

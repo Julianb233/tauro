@@ -7,6 +7,7 @@ import { sendLeadConfirmation, sendAgentNotification, sendApplicationConfirmatio
 import { verifyTurnstileToken } from "@/lib/turnstile";
 import { sanitize } from "@/lib/sanitize";
 import { getClientIp } from "@/lib/rate-limit";
+import { createGhlContact } from "@/lib/ghl";
 
 
 // ---------------------------------------------------------------------------
@@ -46,49 +47,6 @@ const LeadCreateSchema = z.object({
 });
 
 export type LeadPayload = z.infer<typeof LeadCreateSchema>;
-
-// ---------------------------------------------------------------------------
-// GHL webhook helper (preserved from original implementation)
-// ---------------------------------------------------------------------------
-
-function buildGhlContact(data: LeadPayload) {
-  const tags: string[] = [];
-
-  if (data.type === "contact") tags.push("website-contact");
-  if (data.type === "showing") tags.push("showing-request");
-  if (data.type === "seller") tags.push("seller-lead");
-  if (data.type === "agent-application") tags.push("agent-application");
-  if (data.type === "agent-contact") tags.push("agent-contact");
-
-  const customFields: Record<string, string> = {};
-
-  if (data.message) customFields.message = data.message;
-  if (data.propertyAddress) customFields.property_address = data.propertyAddress;
-  if (data.preferredDate) customFields.preferred_date = data.preferredDate;
-  if (data.preferredTime) customFields.preferred_time = data.preferredTime;
-  if (data.agentPreference) customFields.agent_preference = data.agentPreference;
-  if (data.homeAddress) customFields.home_address = data.homeAddress;
-  if (data.beds) customFields.bedrooms = data.beds;
-  if (data.baths) customFields.bathrooms = data.baths;
-  if (data.sqft) customFields.square_feet = data.sqft;
-  if (data.timeline) customFields.selling_timeline = data.timeline;
-  if (data.reason) customFields.selling_reason = data.reason;
-  if (data.licenseNumber) customFields.license_number = data.licenseNumber;
-  if (data.yearsExperience) customFields.years_experience = data.yearsExperience;
-  if (data.currentBrokerage) customFields.current_brokerage = data.currentBrokerage;
-  if (data.whyJoin) customFields.why_join = data.whyJoin;
-  if (data.agentName) customFields.agent_name = data.agentName;
-
-  return {
-    firstName: data.firstName,
-    lastName: data.lastName,
-    email: data.email,
-    phone: data.phone,
-    tags,
-    customFields,
-    source: "Tauro Website",
-  };
-}
 
 // ---------------------------------------------------------------------------
 // POST  /api/leads  — persist to DB, then forward to GHL
@@ -263,48 +221,30 @@ export async function POST(request: NextRequest) {
   }
 
   // ---------------------------------------------------------------------------
-  // 3. Forward to GHL webhook (best effort)
+  // 3. Forward to GHL (best effort — uses ghl.ts module)
   // ---------------------------------------------------------------------------
-  const webhookUrl = process.env.GHL_WEBHOOK_URL;
-  let ghlSynced = false;
+  const ghlResult = await createGhlContact(data);
+  const ghlSynced = ghlResult.success;
+  if (!ghlSynced && ghlResult.error) {
+    console.error("GHL sync failed:", ghlResult.error);
+  }
 
-  if (webhookUrl) {
-    try {
-      const contact = buildGhlContact(data);
-      const ghlResponse = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(contact),
-      });
-      ghlSynced = ghlResponse.ok;
-
-      if (!ghlSynced) {
-        console.error(
-          "GHL webhook returned non-OK:",
-          ghlResponse.status,
-          await ghlResponse.text(),
-        );
-      }
-    } catch (ghlErr) {
-      console.error("GHL webhook error:", ghlErr);
-    }
-
-    // Update ghl_synced flag in DB if both are available
-    if (ghlSynced && supabase && dbSaved) {
-      await supabase
-        .from("leads")
-        .update({ ghl_synced: true })
-        .eq("email", data.email)
-        .eq("type", data.type)
-        .order("created_at", { ascending: false })
-        .limit(1);
-    }
+  // Update ghl_synced flag in DB if sync succeeded
+  if (ghlSynced && supabase && dbSaved) {
+    await supabase
+      .from("leads")
+      .update({ ghl_synced: true })
+      .eq("email", data.email)
+      .eq("type", data.type)
+      .order("created_at", { ascending: false })
+      .limit(1);
   }
 
   // ---------------------------------------------------------------------------
   // 4. Fallback: if neither DB nor GHL is configured, log lead to console
   // ---------------------------------------------------------------------------
-  if (!supabase && !webhookUrl) {
+  const hasGhl = !!(process.env.GHL_WEBHOOK_URL || process.env.GHL_API_KEY);
+  if (!supabase && !hasGhl) {
     console.log("POST /api/leads [NO BACKEND] — lead data:", JSON.stringify(data, null, 2));
   }
 
