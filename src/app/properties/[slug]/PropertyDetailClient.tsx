@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -20,9 +20,13 @@ import {
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import OpenHouseBanner from "@/components/OpenHouseBanner";
 import ImageGallery from "@/components/ImageGallery";
+import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PropertyMap from "@/components/PropertyMap";
+import PriceHistory from "@/components/PriceHistory";
 import { cn } from "@/lib/utils";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { siteUrl } from "@/lib/site-config";
 import { Logo } from "@/components/logo";
 
@@ -89,6 +93,24 @@ export default function PropertyDetailClient({
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const { track } = useRecentlyViewed();
+
+  // Track this property as recently viewed
+  useEffect(() => {
+    track({
+      id: property.id,
+      slug: property.slug,
+      address: property.address,
+      city: property.city,
+      state: property.state,
+      zip: property.zip,
+      price: property.price,
+      beds: property.beds,
+      baths: property.baths,
+      sqft: property.sqft,
+      image: property.images[0],
+    });
+  }, [property.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -301,6 +323,11 @@ export default function PropertyDetailClient({
               )}
             </div>
 
+            {/* Open House Banner */}
+            {property.openHouseEvent && (
+              <OpenHouseBanner property={property} />
+            )}
+
             {/* Description */}
             <div>
               <h2 className="font-heading text-xl font-bold">About This Property</h2>
@@ -332,22 +359,11 @@ export default function PropertyDetailClient({
             </div>
 
             {/* Video Tour (PROP-08) */}
-            {property.videoUrl && (
-              <div>
-                <h2 className="font-heading text-xl font-bold">
-                  <Play className="mr-2 inline-block h-5 w-5 text-gold" />
-                  Video Tour
-                </h2>
-                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-cream">
-                  <iframe
-                    src={property.videoUrl}
-                    title={`Video tour of ${property.address}`}
-                    className="h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              </div>
+            {property.videoTourUrl && (
+              <PropertyVideoTour
+                videoId={property.videoTourUrl}
+                address={property.address}
+              />
             )}
 
             {/* 3D Virtual Tour (PROP-09) */}

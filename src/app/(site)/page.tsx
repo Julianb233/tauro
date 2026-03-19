@@ -6,6 +6,8 @@ import NeighborhoodShowcase from "@/components/neighborhood-showcase";
 import WhyTauro from "@/components/why-tauro";
 import Testimonials from "@/components/testimonials";
 import HomepageCTAs from "@/components/homepage-ctas";
+import RecentlyViewed from "@/components/RecentlyViewed";
+import { NewsletterCTA } from "@/components/NewsletterCTA";
 
 export const metadata: Metadata = {
   title: "Premium Philadelphia Real Estate",
@@ -19,6 +21,7 @@ export default function HomePage() {
       <Hero />
       <StatsBar />
       <FeaturedProperties />
+      <RecentlyViewed />
       <div className="gold-divider mx-auto max-w-7xl" />
       <NeighborhoodShowcase />
       <WhyTauro />
@@ -26,6 +29,7 @@ export default function HomePage() {
       <Testimonials />
       <div className="gold-divider mx-auto max-w-7xl" />
       <HomepageCTAs />
+      <NewsletterCTA variant="homepage" />
     </>
   );
 }
