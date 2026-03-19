@@ -1,19 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
-  CheckCircle, AlertCircle, ArrowRight, Upload, X, FileText,
+  CheckCircle, AlertCircle, ArrowRight,
 } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
-
-const ACCEPTED_FILE_TYPES = [
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-];
-const ACCEPTED_EXTENSIONS = ".pdf,.doc,.docx";
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -60,39 +52,11 @@ export default function JoinPage() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [fileError, setFileError] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  }
-
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setFileError("");
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
-      setFileError("Please upload a PDF, DOC, or DOCX file.");
-      e.target.value = "";
-      return;
-    }
-    if (file.size > MAX_FILE_SIZE) {
-      setFileError("File must be under 5 MB.");
-      e.target.value = "";
-      return;
-    }
-
-    setResumeFile(file);
-  }
-
-  function removeFile() {
-    setResumeFile(null);
-    setFileError("");
-    if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -114,20 +78,11 @@ export default function JoinPage() {
     };
 
     try {
-      let res: Response;
-
-      if (resumeFile) {
-        const fd = new globalThis.FormData();
-        fd.append("payload", JSON.stringify(payload));
-        fd.append("resume", resumeFile);
-        res = await fetch("/api/leads", { method: "POST", body: fd });
-      } else {
-        res = await fetch("/api/leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-      }
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -136,7 +91,6 @@ export default function JoinPage() {
 
       setState("success");
       setForm(initialForm);
-      removeFile();
     } catch (err) {
       setState("error");
       setErrorMsg(
@@ -416,57 +370,9 @@ export default function JoinPage() {
                       rows={3}
                       value={form.message}
                       onChange={handleChange}
-                      placeholder="Portfolio links or anything else you'd like to share..."
+                      placeholder="Link to your resume, portfolio, or anything else you'd like to share..."
                       className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
-                  </div>
-
-                  {/* Resume Upload */}
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium text-foreground">
-                      Resume
-                    </label>
-                    {resumeFile ? (
-                      <div className="flex items-center gap-3 rounded-lg border border-gold/30 bg-gold/5 px-4 py-3">
-                        <FileText className="size-5 shrink-0 text-gold" />
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-medium text-foreground">
-                            {resumeFile.name}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {(resumeFile.size / 1024 / 1024).toFixed(1)} MB
-                          </p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={removeFile}
-                          className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
-                          aria-label="Remove file"
-                        >
-                          <X className="size-4" />
-                        </button>
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => fileInputRef.current?.click()}
-                        className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border/60 bg-white px-4 py-4 text-sm text-muted-foreground transition-colors hover:border-gold/40 hover:bg-gold/5 hover:text-foreground"
-                      >
-                        <Upload className="size-4" />
-                        Upload resume (PDF, DOC, DOCX &mdash; max 5 MB)
-                      </button>
-                    )}
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept={ACCEPTED_EXTENSIONS}
-                      onChange={handleFileChange}
-                      className="hidden"
-                      aria-label="Upload resume"
-                    />
-                    {fileError && (
-                      <p className="mt-1.5 text-xs text-destructive">{fileError}</p>
-                    )}
                   </div>
 
                   <button
