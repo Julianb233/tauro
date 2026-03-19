@@ -1,5 +1,7 @@
 import { Building2, LineChart, HeartHandshake, Award } from "lucide-react";
 import { TiltCard } from "@/components/ui/tilt-card";
+import FadeInView from "@/components/animations/FadeInView";
+import StaggerReveal from "@/components/animations/StaggerReveal";
 
 const whyTauro = [
   {
@@ -32,20 +34,22 @@ export default function WhyTauro() {
   return (
     <section className="bg-foreground py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <p className="font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold sm:text-sm">
-            The Tauro Difference
-          </p>
-          <h2 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-            Why Philadelphia Trusts Tauro
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-white/60 sm:mt-4 sm:text-base">
-            We&apos;re not the biggest brokerage in Philadelphia. We&apos;re the most intentional.
-            Every client, every listing, every deal — handled with precision.
-          </p>
-        </div>
+        <FadeInView direction="up">
+          <div className="text-center">
+            <p className="font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold sm:text-sm">
+              The Tauro Difference
+            </p>
+            <h2 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+              Why Philadelphia Trusts Tauro
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm text-white/60 sm:mt-4 sm:text-base">
+              We&apos;re not the biggest brokerage in Philadelphia. We&apos;re the most intentional.
+              Every client, every listing, every deal — handled with precision.
+            </p>
+          </div>
+        </FadeInView>
 
-        <div className="mt-8 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8">
+        <StaggerReveal className="mt-8 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8" stagger={0.12}>
           {whyTauro.map((item) => (
             <TiltCard key={item.title} maxTilt={6}>
               <div className="group glass-card rounded-xl p-6">
@@ -61,7 +65,7 @@ export default function WhyTauro() {
               </div>
             </TiltCard>
           ))}
-        </div>
+        </StaggerReveal>
       </div>
     </section>
   );

@@ -12,6 +12,7 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
+import { AboutCountUp, AboutStaggerReveal, FadeInView } from "./AboutAnimations";
 
 export const metadata: Metadata = {
   title: "About Tauro | Philadelphia's Premier Real Estate Brokerage",
@@ -102,25 +103,27 @@ export default function AboutPage() {
 
       {/* Stats Bar */}
       <section className="border-y border-border/40 bg-card/50">
-        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-10 md:grid-cols-4">
+        <AboutStaggerReveal className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-10 md:grid-cols-4">
           {stats.map((stat) => (
             <div key={stat.label} className="text-center">
               <p className="font-heading text-3xl font-bold text-gold md:text-4xl">
-                {stat.value}
+                <AboutCountUp value={stat.value} />
               </p>
               <p className="font-label mt-1 text-xs uppercase tracking-wider text-muted-foreground">
                 {stat.label}
               </p>
             </div>
           ))}
-        </div>
+        </AboutStaggerReveal>
       </section>
 
       {/* Our Story */}
       <section className="mx-auto max-w-4xl px-6 py-20">
-        <h2 className="font-heading text-3xl font-bold md:text-4xl">
-          The Tauro Difference
-        </h2>
+        <FadeInView direction="up">
+          <h2 className="font-heading text-3xl font-bold md:text-4xl">
+            The Tauro Difference
+          </h2>
+        </FadeInView>
         <div className="mt-8 space-y-6 text-muted-foreground leading-relaxed">
           <p>
             Founded in the heart of Philadelphia, Tauro was born from a simple
@@ -153,12 +156,14 @@ export default function AboutPage() {
       {/* Philadelphia Commitment */}
       <section className="border-t border-border/40 bg-gradient-to-b from-card/50 to-background">
         <div className="mx-auto max-w-4xl px-6 py-20">
-          <div className="flex items-center gap-3">
-            <Heart className="h-6 w-6 text-gold" />
-            <h2 className="font-heading text-3xl font-bold md:text-4xl">
-              Our Commitment to Philadelphia
-            </h2>
-          </div>
+          <FadeInView direction="up">
+            <div className="flex items-center gap-3">
+              <Heart className="h-6 w-6 text-gold" />
+              <h2 className="font-heading text-3xl font-bold md:text-4xl">
+                Our Commitment to Philadelphia
+              </h2>
+            </div>
+          </FadeInView>
           <div className="mt-8 space-y-6 text-muted-foreground leading-relaxed">
             <p>
               Philadelphia isn&apos;t just where we do business — it&apos;s our
@@ -181,10 +186,12 @@ export default function AboutPage() {
       {/* Values */}
       <section className="border-y border-border/40 bg-card/30 py-20">
         <div className="mx-auto max-w-6xl px-6">
-          <h2 className="font-heading text-center text-3xl font-bold md:text-4xl">
-            Our Core Values
-          </h2>
-          <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <FadeInView direction="up">
+            <h2 className="font-heading text-center text-3xl font-bold md:text-4xl">
+              Our Core Values
+            </h2>
+          </FadeInView>
+          <AboutStaggerReveal className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {values.map((value) => (
               <div
                 key={value.title}
@@ -201,25 +208,27 @@ export default function AboutPage() {
                 </p>
               </div>
             ))}
-          </div>
+          </AboutStaggerReveal>
         </div>
       </section>
 
       {/* Philadelphia Neighborhoods */}
       <section className="mx-auto max-w-6xl px-6 py-20">
-        <div className="flex items-center gap-3">
-          <MapPin className="h-6 w-6 text-gold" />
-          <h2 className="font-heading text-3xl font-bold md:text-4xl">
-            Philadelphia Neighborhoods We Serve
-          </h2>
-        </div>
+        <FadeInView direction="up">
+          <div className="flex items-center gap-3">
+            <MapPin className="h-6 w-6 text-gold" />
+            <h2 className="font-heading text-3xl font-bold md:text-4xl">
+              Philadelphia Neighborhoods We Serve
+            </h2>
+          </div>
+        </FadeInView>
         <p className="mt-4 max-w-3xl text-muted-foreground leading-relaxed">
           From the cobblestone streets of Society Hill to the vibrant arts
           corridor of Fishtown, we have agents embedded in every major
           Philadelphia neighborhood — giving you hyper-local insight that
           national brokerages simply cannot match.
         </p>
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <AboutStaggerReveal className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {neighborhoods.map((n) => (
             <div
               key={n.name}
@@ -238,7 +247,7 @@ export default function AboutPage() {
               </div>
             </div>
           ))}
-        </div>
+        </AboutStaggerReveal>
         <Link
           href="/neighborhoods"
           className="shimmer-gold mt-8 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-colors hover:bg-gold-light"
@@ -249,7 +258,7 @@ export default function AboutPage() {
 
       {/* Meet the Team CTA */}
       <section className="border-y border-border/40 bg-card/30 py-20">
-        <div className="mx-auto max-w-4xl px-6 text-center">
+        <FadeInView direction="up" className="mx-auto max-w-4xl px-6 text-center">
           <Users className="mx-auto h-10 w-10 text-gold" />
           <h2 className="font-heading mt-4 text-3xl font-bold md:text-4xl">
             Meet Our Team
@@ -272,11 +281,11 @@ export default function AboutPage() {
               Join Our Team
             </Link>
           </div>
-        </div>
+        </FadeInView>
       </section>
 
       {/* Contact CTA */}
-      <section className="mx-auto max-w-4xl px-6 py-20 text-center">
+      <FadeInView direction="up" className="mx-auto max-w-4xl px-6 py-20 text-center">
         <h2 className="font-heading text-3xl font-bold md:text-4xl">
           Get in Touch
         </h2>
@@ -306,7 +315,7 @@ export default function AboutPage() {
         >
           Contact Us <ArrowRight className="h-4 w-4" />
         </Link>
-      </section>
+      </FadeInView>
     </div>
   );
 }
