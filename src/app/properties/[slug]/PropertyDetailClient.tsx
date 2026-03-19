@@ -17,6 +17,26 @@ import {
   Play,
   View,
   Heart,
+  Flame,
+  TreePine,
+  Wind,
+  Car,
+  Wine,
+  Sun,
+  Waves,
+  Zap,
+  Lock,
+  Bike,
+  Sparkles,
+  Eye,
+  DoorOpen,
+  Building2,
+  Dumbbell,
+  ShowerHead,
+  Columns3,
+  BookOpen,
+  Sofa,
+  type LucideIcon,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -25,6 +45,51 @@ import PropertyMap from "@/components/PropertyMap";
 import ShareButton from "@/components/ShareButton";
 import { useFavorites } from "@/hooks/useFavorites";
 import { cn } from "@/lib/utils";
+
+const amenityIcons: Record<string, LucideIcon> = {
+  "Fireplace": Flame,
+  "Hardwood Floors": Columns3,
+  "Central Air": Wind,
+  "Garage": Car,
+  "Wine Cellar": Wine,
+  "Rooftop Terrace": Sun,
+  "Heated Floors": Sparkles,
+  "Exposed Brick": Building2,
+  "Carriage House": Home,
+  "Off-Street Parking": Car,
+  "Pool": Waves,
+  "Smart Home": Zap,
+  "Concierge": DoorOpen,
+  "Private Elevator": Building2,
+  "Terrace": Sun,
+  "In-Unit Laundry": Sparkles,
+  "Balcony": Sun,
+  "Secured Parking": Lock,
+  "Rooftop Deck": Sun,
+  "Updated Kitchen": Sparkles,
+  "EV Charging": Zap,
+  "Home Office": BookOpen,
+  "Custom Tile": Sparkles,
+  "Bike Storage": Bike,
+  "Secured Entry": Lock,
+  "Fenced Yard": TreePine,
+  "Built-In Bookshelves": BookOpen,
+  "Open Floor Plan": Sofa,
+  "River Views": Eye,
+  "Conservatory": Sun,
+  "Patio": Sun,
+  "Recessed Lighting": Sparkles,
+  "Separate Utilities": Zap,
+  "New Windows": Eye,
+  "Yard": TreePine,
+  "Street Parking": Car,
+  "Stained Glass": Eye,
+  "Wrap-Around Porch": Home,
+  "High Ceilings": Columns3,
+  "Valet Parking": Car,
+  "Fitness Center": Dumbbell,
+  "Spa Bath": ShowerHead,
+};
 
 export default function PropertyDetailClient({
   property,
@@ -222,6 +287,27 @@ export default function PropertyDetailClient({
                 </div>
               </div>
             </div>
+
+            {/* Amenities chips */}
+            {property.amenities.length > 0 && (
+              <div>
+                <h2 className="font-heading text-xl font-bold">Amenities</h2>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {property.amenities.map((amenity) => {
+                    const Icon = amenityIcons[amenity] || Check;
+                    return (
+                      <span
+                        key={amenity}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-gold/5 px-3 py-1 text-xs font-medium text-gold"
+                      >
+                        <Icon className="h-3 w-3" />
+                        {amenity}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Video Tour (PROP-08) */}
             {property.videoUrl && (

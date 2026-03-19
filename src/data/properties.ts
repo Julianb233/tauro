@@ -35,6 +35,7 @@ export interface Property {
     startTime: string;  // HH:MM (24h)
     endTime: string;    // HH:MM (24h)
   };
+  amenities: string[];
   videoUrl?: string;
   virtualTourUrl?: string;
 }
@@ -97,6 +98,7 @@ export const properties: Property[] = [
     lat: 39.9493,
     lng: -75.1718,
     openHouse: "Sat, Mar 22 · 1:00 PM - 4:00 PM",
+    amenities: ["Fireplace", "Hardwood Floors", "Central Air", "Garage", "Wine Cellar", "Rooftop Terrace"],
     videoUrl: "https://www.youtube.com/embed/2lPGf1gJwb4",
     virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyoDo",
   },
@@ -156,6 +158,7 @@ export const properties: Property[] = [
     },
     lat: 39.9431,
     lng: -75.1479,
+    amenities: ["Fireplace", "Hardwood Floors", "Heated Floors", "Exposed Brick", "Carriage House", "Off-Street Parking"],
     videoUrl: "https://www.youtube.com/embed/9k3iFqLGmOo",
     virtualTourUrl: "https://my.matterport.com/show/?m=oj3GnqCwEvR",
   },
@@ -215,6 +218,7 @@ export const properties: Property[] = [
     },
     lat: 39.9615,
     lng: -75.1756,
+    amenities: ["Pool", "Smart Home", "Central Air", "Concierge", "Private Elevator", "Terrace"],
     videoUrl: "https://www.youtube.com/embed/gXGnIFzJsQ4",
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
   },
@@ -268,6 +272,7 @@ export const properties: Property[] = [
     lat: 39.951,
     lng: -75.166,
     openHouse: "Sun, Mar 23 · 11:00 AM - 2:00 PM",
+    amenities: ["Pool", "Central Air", "In-Unit Laundry", "Balcony", "Concierge", "Secured Parking"],
     videoUrl: "https://www.youtube.com/embed/QhHBvBsW_GE",
   },
   {
@@ -319,6 +324,7 @@ export const properties: Property[] = [
     },
     lat: 39.9378,
     lng: -75.1442,
+    amenities: ["Garage", "Rooftop Deck", "Updated Kitchen", "Hardwood Floors", "EV Charging", "Home Office"],
     videoUrl: "https://www.youtube.com/embed/VXJkNrnKVqA",
   },
   {
@@ -373,6 +379,7 @@ export const properties: Property[] = [
       email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
+    amenities: ["Smart Home", "Rooftop Deck", "Central Air", "Garage", "Updated Kitchen", "Custom Tile"],
     lat: 39.9735,
     lng: -75.1268,
   },
@@ -428,6 +435,7 @@ export const properties: Property[] = [
       email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
+    amenities: ["Central Air", "In-Unit Laundry", "Rooftop Deck", "Bike Storage", "Secured Entry", "Hardwood Floors"],
     lat: 39.9657,
     lng: -75.1419,
   },
@@ -484,6 +492,7 @@ export const properties: Property[] = [
       email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
+    amenities: ["Hardwood Floors", "Fireplace", "Updated Kitchen", "Fenced Yard", "Off-Street Parking", "Built-In Bookshelves"],
     lat: 39.9522,
     lng: -75.2032,
   },
@@ -539,6 +548,7 @@ export const properties: Property[] = [
       email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
+    amenities: ["Hardwood Floors", "Rooftop Deck", "Garage", "In-Unit Laundry", "Open Floor Plan", "River Views"],
     lat: 40.0261,
     lng: -75.2243,
   },
@@ -599,6 +609,7 @@ export const properties: Property[] = [
     },
     lat: 40.0781,
     lng: -75.2085,
+    amenities: ["Fireplace", "Hardwood Floors", "Heated Floors", "Garage", "Updated Kitchen", "Conservatory"],
     videoTourUrl: "dFBMEurPml4",
   },
   {
@@ -656,6 +667,7 @@ export const properties: Property[] = [
     },
     lat: 39.9775,
     lng: -75.1756,
+    amenities: ["Smart Home", "Rooftop Deck", "EV Charging", "Garage", "Central Air", "Open Floor Plan"],
     openHouse: "Sat, Mar 29 · 12:00 PM - 3:00 PM",
   },
   {
@@ -710,6 +722,7 @@ export const properties: Property[] = [
       email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
+    amenities: ["Central Air", "Exposed Brick", "Updated Kitchen", "Fenced Yard", "Patio", "Recessed Lighting"],
     lat: 39.9343,
     lng: -75.1824,
   },
@@ -765,6 +778,7 @@ export const properties: Property[] = [
       email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
+    amenities: ["Hardwood Floors", "Updated Kitchen", "Separate Utilities", "New Windows", "Yard", "Street Parking"],
     lat: 39.9867,
     lng: -75.1277,
   },
@@ -821,6 +835,7 @@ export const properties: Property[] = [
       email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
+    amenities: ["Hardwood Floors", "Stained Glass", "Garage", "Fenced Yard", "Wrap-Around Porch", "High Ceilings"],
     lat: 39.9507,
     lng: -75.2213,
   },
@@ -879,6 +894,7 @@ export const properties: Property[] = [
       email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
+    amenities: ["Smart Home", "Private Elevator", "Concierge", "Valet Parking", "Fitness Center", "Hardwood Floors"],
     lat: 39.9487,
     lng: -75.1725,
   },
@@ -939,6 +955,7 @@ export const properties: Property[] = [
     },
     lat: 39.9721,
     lng: -75.1305,
+    amenities: ["Rooftop Deck", "Garage", "EV Charging", "Updated Kitchen", "Hardwood Floors", "Spa Bath"],
     openHouse: "Sun, Mar 30 · 1:00 PM - 4:00 PM",
   },
 ];
