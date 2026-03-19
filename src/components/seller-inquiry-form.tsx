@@ -113,6 +113,7 @@ export function SellerInquiryForm() {
 
       setState("success");
       setForm(initialForm);
+      setErrors({});
     } catch (err) {
       setState("error");
       setErrorMsg(
@@ -153,9 +154,9 @@ export function SellerInquiryForm() {
       </div>
 
       {state === "error" && (
-        <div role="alert" className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
-          <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
-          <p className="text-sm text-destructive">{errorMsg}</p>
+        <div role="alert" className="flex items-start gap-2.5 rounded-lg border border-red-400/40 bg-red-400/10 p-3.5">
+          <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-400" />
+          <p className="text-sm text-red-400">{errorMsg}</p>
         </div>
       )}
 
@@ -181,6 +182,7 @@ export function SellerInquiryForm() {
                 placeholder="Jane"
                 className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
               />
+              {errors.firstName && (<p className="text-red-400 text-xs mt-1">{errors.firstName}</p>)}
             </div>
             <div>
               <label htmlFor="seller-lastName" className="mb-1.5 block text-sm font-medium text-foreground">
@@ -197,6 +199,7 @@ export function SellerInquiryForm() {
                 placeholder="Smith"
                 className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
               />
+              {errors.lastName && (<p className="text-red-400 text-xs mt-1">{errors.lastName}</p>)}
             </div>
           </div>
 
@@ -215,6 +218,7 @@ export function SellerInquiryForm() {
               placeholder="jane@example.com"
               className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
+            {errors.email && (<p className="text-red-400 text-xs mt-1">{errors.email}</p>)}
           </div>
 
           <div>
@@ -232,6 +236,7 @@ export function SellerInquiryForm() {
               placeholder="(215) 555-0100"
               className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
+            {errors.phone && (<p className="text-red-400 text-xs mt-1">{errors.phone}</p>)}
           </div>
         </div>
       </div>
@@ -257,6 +262,7 @@ export function SellerInquiryForm() {
               placeholder="123 Main St, Philadelphia, PA"
               className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
+            {errors.homeAddress && (<p className="text-red-400 text-xs mt-1">{errors.homeAddress}</p>)}
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">

@@ -56,9 +56,12 @@ const requirements = [
   "Desire to grow within a team environment",
 ];
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function JoinPage() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [errorMsg, setErrorMsg] = useState("");
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState("");
@@ -139,6 +142,7 @@ export default function JoinPage() {
 
       setState("success");
       setForm(initialForm);
+      setErrors({});
       removeFile();
     } catch (err) {
       setState("error");
@@ -166,10 +170,10 @@ export default function JoinPage() {
             want to hear from you.
           </p>
           <Link
-            href="/why-join"
+            href="/about"
             className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
           >
-            Learn why agents choose Tauro
+            Learn more about Tauro
             <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -216,7 +220,7 @@ export default function JoinPage() {
                   and agent-first culture.
                 </p>
                 <Link
-                  href="/why-join"
+                  href="/about"
                   className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
                 >
                   Why Join Tauro
@@ -264,9 +268,9 @@ export default function JoinPage() {
                   </div>
 
                   {state === "error" && (
-                    <div className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
-                      <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
-                      <p className="text-sm text-destructive">{errorMsg}</p>
+                    <div className="flex items-start gap-2.5 rounded-lg border border-red-400/40 bg-red-400/10 p-3.5">
+                      <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-400" />
+                      <p className="text-sm text-red-400">{errorMsg}</p>
                     </div>
                   )}
 
@@ -287,6 +291,7 @@ export default function JoinPage() {
                         placeholder="Jane"
                         className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                       />
+                      {errors.firstName && (<p className="text-red-400 text-xs mt-1">{errors.firstName}</p>)}
                     </div>
                     <div>
                       <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-foreground">
@@ -303,6 +308,7 @@ export default function JoinPage() {
                         placeholder="Smith"
                         className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                       />
+                      {errors.lastName && (<p className="text-red-400 text-xs mt-1">{errors.lastName}</p>)}
                     </div>
                   </div>
 
@@ -322,6 +328,7 @@ export default function JoinPage() {
                       placeholder="jane@example.com"
                       className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
+                    {errors.email && (<p className="text-red-400 text-xs mt-1">{errors.email}</p>)}
                   </div>
 
                   {/* Phone */}
@@ -340,6 +347,7 @@ export default function JoinPage() {
                       placeholder="(215) 555-0100"
                       className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
+                    {errors.phone && (<p className="text-red-400 text-xs mt-1">{errors.phone}</p>)}
                   </div>
 
                   {/* License Number */}
@@ -357,6 +365,7 @@ export default function JoinPage() {
                       placeholder="RS-XXXXXX"
                       className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
+                    {errors.licenseNumber && (<p className="text-red-400 text-xs mt-1">{errors.licenseNumber}</p>)}
                   </div>
 
                   {/* Years of Experience */}
@@ -379,6 +388,7 @@ export default function JoinPage() {
                         </option>
                       ))}
                     </select>
+                    {errors.yearsExperience && (<p className="text-red-400 text-xs mt-1">{errors.yearsExperience}</p>)}
                   </div>
 
                   {/* Current Brokerage */}
@@ -448,7 +458,7 @@ export default function JoinPage() {
                         <button
                           type="button"
                           onClick={removeFile}
-                          className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                          className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-red-400"
                           aria-label="Remove file"
                         >
                           <X className="size-4" />
@@ -473,7 +483,7 @@ export default function JoinPage() {
                       aria-label="Upload resume"
                     />
                     {fileError && (
-                      <p className="mt-1.5 text-xs text-destructive">{fileError}</p>
+                      <p className="mt-1.5 text-xs text-red-400">{fileError}</p>
                     )}
                   </div>
 

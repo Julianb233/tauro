@@ -117,6 +117,7 @@ export default function HomeValuePage() {
 
       setState("success");
       setForm(initialForm);
+      setErrors({});
     } catch (err) {
       setState("error");
       setErrorMsg(
@@ -168,7 +169,7 @@ export default function HomeValuePage() {
                   <item.icon className="size-5 text-gold" />
                 </div>
                 <div>
-                  <h3 className="font-heading text-sm font-bold text-white">
+                  <h3 className="font-heading text-sm font-bold text-foreground">
                     {item.title}
                   </h3>
                   <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
@@ -188,7 +189,7 @@ export default function HomeValuePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Get Your Free Report
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               Request Your Valuation
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
@@ -202,7 +203,7 @@ export default function HomeValuePage() {
               <div className="flex size-20 items-center justify-center rounded-full bg-gold/10">
                 <CheckCircle className="size-10 text-gold" />
               </div>
-              <h3 className="mt-6 font-heading text-2xl font-bold text-white">
+              <h3 className="mt-6 font-heading text-2xl font-bold text-foreground">
                 Valuation Request Received!
               </h3>
               <p className="mt-3 max-w-sm text-muted-foreground">
@@ -237,9 +238,9 @@ export default function HomeValuePage() {
               </div>
 
               {state === "error" && (
-                <div className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
-                  <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
-                  <p className="text-sm text-destructive">{errorMsg}</p>
+                <div className="flex items-start gap-2.5 rounded-lg border border-red-400/40 bg-red-400/10 p-3.5">
+                  <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-400" />
+                  <p className="text-sm text-red-400">{errorMsg}</p>
                 </div>
               )}
 
@@ -247,7 +248,7 @@ export default function HomeValuePage() {
               <div>
                 <label
                   htmlFor="homeAddress"
-                  className="mb-1.5 block text-sm font-medium text-white"
+                  className="mb-1.5 block text-sm font-medium text-foreground"
                 >
                   Property Address <span className="text-gold">*</span>
                 </label>
@@ -262,9 +263,10 @@ export default function HomeValuePage() {
                     value={form.homeAddress}
                     onChange={handleChange}
                     placeholder="123 Walnut St, Philadelphia, PA 19103"
-                    className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 text-base text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 text-base text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
                 </div>
+                {errors.homeAddress && (<p className="text-red-400 text-xs mt-1">{errors.homeAddress}</p>)}
               </div>
 
               {/* Name row */}
@@ -272,7 +274,7 @@ export default function HomeValuePage() {
                 <div>
                   <label
                     htmlFor="firstName"
-                    className="mb-1.5 block text-sm font-medium text-white"
+                    className="mb-1.5 block text-sm font-medium text-foreground"
                   >
                     First Name <span className="text-gold">*</span>
                   </label>
@@ -285,13 +287,14 @@ export default function HomeValuePage() {
                     value={form.firstName}
                     onChange={handleChange}
                     placeholder="Jane"
-                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
+                  {errors.firstName && (<p className="text-red-400 text-xs mt-1">{errors.firstName}</p>)}
                 </div>
                 <div>
                   <label
                     htmlFor="lastName"
-                    className="mb-1.5 block text-sm font-medium text-white"
+                    className="mb-1.5 block text-sm font-medium text-foreground"
                   >
                     Last Name <span className="text-gold">*</span>
                   </label>
@@ -304,8 +307,9 @@ export default function HomeValuePage() {
                     value={form.lastName}
                     onChange={handleChange}
                     placeholder="Smith"
-                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
+                  {errors.lastName && (<p className="text-red-400 text-xs mt-1">{errors.lastName}</p>)}
                 </div>
               </div>
 
@@ -313,7 +317,7 @@ export default function HomeValuePage() {
               <div>
                 <label
                   htmlFor="email"
-                  className="mb-1.5 block text-sm font-medium text-white"
+                  className="mb-1.5 block text-sm font-medium text-foreground"
                 >
                   Email Address <span className="text-gold">*</span>
                 </label>
@@ -326,15 +330,16 @@ export default function HomeValuePage() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="jane@example.com"
-                  className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                  className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                 />
+                {errors.email && (<p className="text-red-400 text-xs mt-1">{errors.email}</p>)}
               </div>
 
               {/* Phone */}
               <div>
                 <label
                   htmlFor="phone"
-                  className="mb-1.5 block text-sm font-medium text-white"
+                  className="mb-1.5 block text-sm font-medium text-foreground"
                 >
                   Phone Number <span className="text-gold">*</span>
                 </label>
@@ -347,15 +352,16 @@ export default function HomeValuePage() {
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="(215) 555-0100"
-                  className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                  className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                 />
+                {errors.phone && (<p className="text-red-400 text-xs mt-1">{errors.phone}</p>)}
               </div>
 
               {/* Optional message */}
               <div>
                 <label
                   htmlFor="message"
-                  className="mb-1.5 block text-sm font-medium text-white"
+                  className="mb-1.5 block text-sm font-medium text-foreground"
                 >
                   Anything else we should know?
                 </label>
@@ -366,7 +372,7 @@ export default function HomeValuePage() {
                   value={form.message}
                   onChange={handleChange}
                   placeholder="Recent renovations, timeline to sell, special circumstances..."
-                  className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                  className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                 />
               </div>
 
@@ -399,7 +405,7 @@ export default function HomeValuePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Simple Process
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               How It Works
             </h2>
           </div>
@@ -412,7 +418,7 @@ export default function HomeValuePage() {
                 <p className="mt-4 font-heading text-2xl font-bold text-gold">
                   {step.number}
                 </p>
-                <h3 className="mt-1 font-heading text-lg font-bold text-white">
+                <h3 className="mt-1 font-heading text-lg font-bold text-foreground">
                   {step.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
