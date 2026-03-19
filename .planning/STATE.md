@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-03-18)
 
 **Core value:** Premium Philadelphia real estate brokerage website rivaling Compass, Serhant, and The Agency
-**Current focus:** Phase 4 enhancement -- Premium agent pages (04-05)
+**Current focus:** Phase 3 hotfix -- Property data expansion and filter fix (COMPLETE)
 
 ## Current Position
 
-Phase: 4 of 9 (Agent Pages - Enhancement)
-Plan: 05 -- Premium agent pages enhancement (COMPLETE)
-Status: Enhancement plan complete
-Last activity: 2026-03-19 -- Completed 04-05 Premium Agent Pages Enhancement
+Phase: 3 of 9 (Property Pages - Hotfix)
+Plan: 03-04 and 03-05 property data fixes (COMPLETE)
+Status: Hotfix plans complete
+Last activity: 2026-03-19 -- Completed 03-04 (expand property data) and 03-05 (fix area filter)
 
-Progress: ██████████████████████████████ 100% (base) + 04-05 enhancement
+Progress: ██████████████████████████████ 100% (base) + 04-05 + 03-04/03-05 hotfixes
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 19
+- Total plans completed: 21
 - Average duration: ~2m 15s
 - Total execution time: ~0.7 hours
 
@@ -55,6 +55,7 @@ Recent decisions affecting current work:
 - IMAGE-01: Add Unsplash remote patterns to next.config.ts for Next.js Image optimization
 - AGENT-CARD-EMAIL-01: Email uses onClick with stopPropagation instead of nested anchor
 - NEIGHBORHOOD-DATA-01: Used neighborhood name as propertyFilter value since current properties are placeholder San Diego data
+- PROPERTY-DATA-01: Expanded to 16 curated Philadelphia properties with neighborhood field matching neighborhoods.ts propertyFilter values
 - SEO-TITLE-TEMPLATE-01: Page titles use short form (e.g. "Contact Us") since root layout template appends "| Tauro" automatically
 - AGENT-SERVER-CLIENT-01: agents/[slug] split into server page.tsx (metadata/SSG) + AgentProfileClient.tsx (interactivity)
 - JSONLD-01: Consolidated PropertyJsonLd into JsonLd.tsx with named exports (OrganizationJsonLd, RealEstateListingJsonLd)
@@ -71,5 +72,5 @@ None -- all phases delivered.
 ## Session Continuity
 
 Last session: 2026-03-19T01:20Z
-Stopped at: Completed 04-05 Premium Agent Pages Enhancement
+Stopped at: Completed 03-04 and 03-05 property data hotfixes
 Resume file: None
