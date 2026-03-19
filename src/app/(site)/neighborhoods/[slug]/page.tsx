@@ -83,8 +83,7 @@ export default async function NeighborhoodDetailPage({
   if (!neighborhood) notFound();
 
   const neighborhoodProperties = properties.filter(
-    (p) =>
-      p.city.toLowerCase() === neighborhood.propertyFilter.toLowerCase()
+    (p) => p.neighborhood === neighborhood.propertyFilter
   );
 
   return (
