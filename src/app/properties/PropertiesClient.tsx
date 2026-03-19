@@ -52,6 +52,8 @@ export default function PropertiesClient({
   }, [router]);
 
   const filtered = useMemo(() => {
+    // Reset visible count when filters change
+    setVisibleCount(PAGE_SIZE);
     let result = [...properties];
     if (filters.priceMin) result = result.filter((p) => p.price >= Number(filters.priceMin));
     if (filters.priceMax) result = result.filter((p) => p.price <= Number(filters.priceMax));
@@ -69,7 +71,14 @@ export default function PropertiesClient({
       case "sqft": result.sort((a, b) => b.sqft - a.sqft); break;
     }
     return result;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters, properties]);
+
+  const visibleProperties = useMemo(
+    () => filtered.slice(0, visibleCount),
+    [filtered, visibleCount],
+  );
+  const hasMore = visibleCount < filtered.length;
 
   return (
     <div className="min-h-screen pt-16">
@@ -91,8 +100,26 @@ export default function PropertiesClient({
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {view === "grid" ? (
           filtered.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((p) => (<PropertyCard key={p.id} property={p} />))}
+            <div className="space-y-8">
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {visibleProperties.map((p) => (<PropertyCard key={p.id} property={p} />))}
+              </div>
+
+              {/* Pagination footer */}
+              <div className="flex flex-col items-center gap-4 pt-4">
+                <p className="text-sm text-muted-foreground">
+                  Showing <span className="font-semibold text-foreground">{visibleProperties.length}</span> of{" "}
+                  <span className="font-semibold text-foreground">{filtered.length}</span> properties
+                </p>
+                {hasMore && (
+                  <button
+                    onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
+                    className="rounded-md border border-gold/30 bg-gold/5 px-8 py-3 text-sm font-semibold text-gold transition-all hover:border-gold hover:bg-gold/10 hover:shadow-lg hover:shadow-gold/5"
+                  >
+                    Load More Properties
+                  </button>
+                )}
+              </div>
             </div>
           ) : (
             <div className="py-20 text-center">
