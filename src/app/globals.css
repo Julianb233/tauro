@@ -381,6 +381,109 @@ h1, h2, h3, h4, h5, h6 {
   animation: scale-in 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
+/* ─── Print Styles ─── */
+@media print {
+  /* Hide non-essential UI elements */
+  nav,
+  footer,
+  [data-cookie-consent],
+  .cookie-consent,
+  [role="banner"] nav,
+  .sticky,
+  #schedule,
+  .no-print,
+  a[href="#schedule"],
+  iframe,
+  video {
+    display: none !important;
+  }
+
+  /* Reset backgrounds/colors for ink saving */
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* Ensure images print properly */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    background: transparent !important;
+  }
+
+  /* Page breaks before major sections */
+  h2 {
+    page-break-after: avoid;
+  }
+
+  .print-page-break {
+    page-break-before: always;
+  }
+
+  /* Black text on white background */
+  a {
+    color: #000 !important;
+    text-decoration: underline;
+  }
+
+  /* Show URLs after links */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    font-weight: normal;
+    color: #555 !important;
+  }
+
+  /* Don't show URL for internal/anchor links */
+  a[href^="#"]::after,
+  a[href^="/"]::after,
+  a[href^="tel:"]::after,
+  a[href^="mailto:"]::after {
+    content: "";
+  }
+
+  /* Remove fixed/sticky positioning */
+  .sticky,
+  .fixed {
+    position: static !important;
+  }
+
+  /* Reset grid for single-column print */
+  .grid {
+    display: block !important;
+  }
+
+  /* Print-only layout */
+  .print-only {
+    display: block !important;
+  }
+
+  /* Page margins */
+  @page {
+    margin: 1.5cm;
+  }
+}
+
+/* Hide print-only elements on screen */
+.print-only {
+  display: none;
+}
+
 /* Reduced motion accessibility — disable ALL animations */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
