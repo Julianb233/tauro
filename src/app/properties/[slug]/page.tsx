@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { loadPropertyBySlug, loadProperties } from "@/lib/data";
 import { formatPriceFull } from "@/data/properties";
 import { RealEstateListingJsonLd } from "@/components/JsonLd";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { siteUrl } from "@/lib/site-config";
 import PropertyDetailClient from "./PropertyDetailClient";
 
 export const revalidate = 3600;

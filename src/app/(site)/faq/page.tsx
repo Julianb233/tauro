@@ -9,5 +9,32 @@ export default async function FaqPage() {
     loadFaqs("seller"),
     loadFaqs("general"),
   ]);
-  return <FaqClient buyerFaqs={buyerFaqs} sellerFaqs={sellerFaqs} generalFaqs={generalFaqs} />;
+
+  const allFaqs = [...buyerFaqs, ...sellerFaqs, ...generalFaqs];
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: allFaqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+      <FaqClient
+        buyerFaqs={buyerFaqs}
+        sellerFaqs={sellerFaqs}
+        generalFaqs={generalFaqs}
+      />
+    </>
+  );
 }
