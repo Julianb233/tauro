@@ -363,7 +363,7 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RS-521976",
-    testimonials: [
+testimonials: [
       { quote: "Chris is the condo expert in Center City. He knew the HOA fees, building history, and upcoming assessments for every building we visited.", clientName: "Jennifer A.", rating: 5, date: "2025-11" },
       { quote: "Bought and sold with Chris within the same month. His coordination between both transactions was flawless.", clientName: "Mike & Dana S.", rating: 5, date: "2025-08" },
       { quote: "Chris turned what could have been a stressful short sale into a smooth process. His experience with complex transactions really showed.", clientName: "Terrence W.", rating: 4, date: "2025-05" },
@@ -375,7 +375,6 @@ neighborhoods: [
       "Germantown",
       "Mount Airy",
       "Fishtown",
-    ],
     stats: {
       propertiesSold: 145,
       totalVolume: "$28M+",
