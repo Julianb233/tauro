@@ -19,6 +19,7 @@ export async function getProperties(options?: {
   featured?: boolean;
 }) {
   const supabase = await createClient();
+  if (!supabase) return null;
   let query = supabase
     .from("properties")
     .select(
@@ -50,6 +51,7 @@ export async function getProperties(options?: {
 
 export async function getPropertyBySlug(slug: string) {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("properties")
     .select(
@@ -63,6 +65,7 @@ export async function getPropertyBySlug(slug: string) {
 
 export async function getFeaturedProperties(limit = 6) {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("properties")
     .select(
@@ -80,6 +83,7 @@ export async function getFeaturedProperties(limit = 6) {
 
 export async function getAgents() {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("agents")
     .select("*")
@@ -90,6 +94,7 @@ export async function getAgents() {
 
 export async function getAgentBySlug(slug: string) {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("agents")
     .select("*, properties!listing_agent_id(*)")
@@ -105,6 +110,7 @@ export async function getAgentBySlug(slug: string) {
 
 export async function getNeighborhoods() {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("neighborhoods")
     .select("*")
@@ -115,6 +121,7 @@ export async function getNeighborhoods() {
 
 export async function getNeighborhoodBySlug(slug: string) {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("neighborhoods")
     .select("*")
@@ -126,6 +133,7 @@ export async function getNeighborhoodBySlug(slug: string) {
 
 export async function getFeaturedNeighborhoods() {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("neighborhoods")
     .select("*")
@@ -141,6 +149,7 @@ export async function getFeaturedNeighborhoods() {
 
 export async function getTestimonials() {
   const supabase = await createClient();
+  if (!supabase) return null;
   const { data, error } = await supabase
     .from("testimonials")
     .select("*")
@@ -155,6 +164,7 @@ export async function getTestimonials() {
 
 export async function getFaqs(category?: "buyer" | "seller" | "general") {
   const supabase = await createClient();
+  if (!supabase) return null;
   let query = supabase
     .from("faq")
     .select("*")

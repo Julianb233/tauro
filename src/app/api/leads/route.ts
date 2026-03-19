@@ -150,6 +150,7 @@ export async function POST(request: NextRequest) {
 
   const data = result.data;
   const supabase = await createClient();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
 
   // Resolve optional property_id and agent_id from slugs or IDs
   let propertyId: string | null = data.propertyId ?? null;
@@ -270,6 +271,7 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get("offset") || "0", 10);
 
     const supabase = await createClient();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
     let query = supabase.from("leads").select("*", { count: "exact" });
 
     if (status) query = query.eq("status", status);

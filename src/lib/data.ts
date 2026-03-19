@@ -83,6 +83,7 @@ export async function loadPropertyBySlug(
     const queries = await getQueries();
     const mappers = await getMappers();
     const row = await queries.getPropertyBySlug(slug);
+    if (!row) return staticGetPropertyBySlug(slug);
     return mappers.mapPropertyRow(row);
   } catch {
     return staticGetPropertyBySlug(slug);
@@ -94,8 +95,9 @@ export async function loadFeaturedProperties(): Promise<Property[]> {
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const result = await queries.getFeaturedProperties(6);
-    return (result ?? []).map(mappers.mapPropertyRow);
+    const data = await queries.getFeaturedProperties(6);
+    if (!data) return staticProperties.slice(0, 6);
+    return data.map(mappers.mapPropertyRow);
   } catch {
     return staticProperties.slice(0, 6);
   }
@@ -110,8 +112,9 @@ export async function loadAgents(): Promise<Agent[]> {
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const result = await queries.getAgents();
-    return (result ?? []).map(mappers.mapAgentRow);
+    const data = await queries.getAgents();
+    if (!data) return staticAgents;
+    return data.map(mappers.mapAgentRow);
   } catch {
     return staticAgents;
   }
@@ -132,6 +135,14 @@ export async function loadAgentBySlug(
     const queries = await getQueries();
     const mappers = await getMappers();
     const row = await queries.getAgentBySlug(slug);
+    if (!row) {
+      const agent = staticGetAgentBySlug(slug);
+      if (!agent) return null;
+      const listings = staticProperties.filter((p) =>
+        agent.activeListingIds.includes(p.id),
+      );
+      return { agent, listings };
+    }
     const agent = mappers.mapAgentRow(row);
     const rawProperties = (row as Record<string, unknown>).properties;
     const listings = Array.isArray(rawProperties)
@@ -157,8 +168,9 @@ export async function loadNeighborhoods(): Promise<Neighborhood[]> {
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const result = await queries.getNeighborhoods();
-    return (result ?? []).map(mappers.mapNeighborhoodRow);
+    const data = await queries.getNeighborhoods();
+    if (!data) return staticNeighborhoods;
+    return data.map(mappers.mapNeighborhoodRow);
   } catch {
     return staticNeighborhoods;
   }
@@ -172,6 +184,7 @@ export async function loadNeighborhoodBySlug(
     const queries = await getQueries();
     const mappers = await getMappers();
     const row = await queries.getNeighborhoodBySlug(slug);
+    if (!row) return staticGetNeighborhoodBySlug(slug);
     return mappers.mapNeighborhoodRow(row);
   } catch {
     return staticGetNeighborhoodBySlug(slug);
@@ -183,8 +196,9 @@ export async function loadFeaturedNeighborhoods(): Promise<Neighborhood[]> {
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const result = await queries.getFeaturedNeighborhoods();
-    return (result ?? []).map(mappers.mapNeighborhoodRow);
+    const data = await queries.getFeaturedNeighborhoods();
+    if (!data) return staticGetFeaturedNeighborhoods();
+    return data.map(mappers.mapNeighborhoodRow);
   } catch {
     return staticGetFeaturedNeighborhoods();
   }
@@ -199,8 +213,9 @@ export async function loadTestimonials(): Promise<Testimonial[]> {
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const result = await queries.getTestimonials();
-    return (result ?? []).map(mappers.mapTestimonialRow);
+    const data = await queries.getTestimonials();
+    if (!data) return staticTestimonials;
+    return data.map(mappers.mapTestimonialRow);
   } catch {
     return staticTestimonials;
   }
@@ -230,8 +245,9 @@ export async function loadFaqs(
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const result = await queries.getFaqs(category);
-    return (result ?? []).map(mappers.mapFaqRow);
+    const data = await queries.getFaqs(category);
+    if (!data) return staticFallback();
+    return data.map(mappers.mapFaqRow);
   } catch {
     return staticFallback();
   }
@@ -248,8 +264,10 @@ export async function loadHomepageNeighborhoods(): Promise<
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const result = await queries.getFeaturedNeighborhoods();
-    return (result ?? []).map((row): HomepageNeighborhood => {
+    const data = await queries.getFeaturedNeighborhoods();
+    if (!data) return staticHomepageNeighborhoods;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return data.map((row: any): HomepageNeighborhood => {
       const n = mappers.mapNeighborhoodRow(row);
       return {
         name: n.name,

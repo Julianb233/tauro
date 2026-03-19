@@ -71,9 +71,15 @@ export async function POST(request: NextRequest) {
 
   try {
     const supabase = await createServerClient();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: "Storage is not configured" },
+        { status: 503 }
+      );
+    }
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    const { error: uploadError } = await supabase!.storage
+    const { error: uploadError } = await supabase.storage
       .from(bucket)
       .upload(filePath, fileBuffer, {
         contentType: file.type,
@@ -89,7 +95,7 @@ export async function POST(request: NextRequest) {
 
     const {
       data: { publicUrl },
-    } = supabase!.storage.from(bucket).getPublicUrl(filePath);
+    } = supabase.storage.from(bucket).getPublicUrl(filePath);
 
     return NextResponse.json(
       { url: publicUrl, path: filePath, bucket },

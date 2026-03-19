@@ -66,6 +66,7 @@ export async function PUT(
     }
 
     const supabase = await createClient();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
     const updateData: AgentUpdate = {
       ...result.data,
       updated_at: new Date().toISOString(),
@@ -105,6 +106,7 @@ export async function DELETE(
   try {
     const { slug } = await params;
     const supabase = await createClient();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
     const { error } = await supabase
       .from("agents")
       .delete()

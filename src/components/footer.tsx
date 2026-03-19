@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Phone, MapPin, Mail, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
 import { NewsletterForm } from "@/components/NewsletterForm";

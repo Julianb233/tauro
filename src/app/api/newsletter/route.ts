@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
 
   const { email } = result.data;
   const supabase = await createClient();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
 
   // Store as a lead with type "newsletter"
   const { error: dbError } = await supabase.from("leads").insert({
