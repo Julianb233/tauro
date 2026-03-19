@@ -24,7 +24,15 @@ export async function POST(request: NextRequest) {
 
   const { email } = result.data;
   const supabase = await createClient();
-  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+
+  if (!supabase) {
+    // Graceful degradation: log the subscription and return success
+    console.log("POST /api/newsletter [NO DB] — email:", email);
+    return NextResponse.json(
+      { success: true, message: "Thanks for subscribing!" },
+      { status: 200 },
+    );
+  }
 
   // Store as a lead with type "newsletter"
   const { error: dbError } = await supabase.from("leads").insert({

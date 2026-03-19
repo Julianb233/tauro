@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+// Email helpers — loaded at top level, but each function returns gracefully
+// when RESEND_API_KEY is not configured (no crash).
 import { sendLeadConfirmation, sendAgentNotification, sendApplicationConfirmation } from "@/lib/email";
 
 // ---------------------------------------------------------------------------
@@ -226,48 +228,53 @@ export async function POST(request: NextRequest) {
   // 2. Send emails (best effort — never block response on email failure)
   // ---------------------------------------------------------------------------
 
-  // 2a. Visitor confirmation email (all lead types except agent-application)
-  if (data.type !== "agent-application") {
-    sendLeadConfirmation(data.email, {
-      firstName: data.firstName,
-      type: data.type,
-      message: data.message,
-    }).catch((err) => console.error("Lead confirmation email failed:", err));
-  }
-
-  // 2b. Agent-application gets application confirmation instead
-  if (data.type === "agent-application") {
-    sendApplicationConfirmation(data.email, {
-      firstName: data.firstName,
-      licenseNumber: data.licenseNumber,
-    }).catch((err) => console.error("Application confirmation email failed:", err));
-  }
-
-  // 2c. Agent notification (or admin fallback)
-  if (data.type !== "agent-application") {
-    let notifyEmail: string | null = null;
-
-    if (supabase && agentId) {
-      const { data: agentRow } = await supabase
-        .from("agents")
-        .select("email")
-        .eq("id", agentId)
-        .single();
-      notifyEmail = agentRow?.email ?? null;
+  try {
+    // 2a. Visitor confirmation email (all lead types except agent-application)
+    if (data.type !== "agent-application") {
+      sendLeadConfirmation(data.email, {
+        firstName: data.firstName,
+        type: data.type,
+        message: data.message,
+      }).catch((err) => console.error("Lead confirmation email failed:", err));
     }
 
-    if (!notifyEmail) {
-      notifyEmail = process.env.ADMIN_EMAIL || "admin@lylrealty.com";
+    // 2b. Agent-application gets application confirmation instead
+    if (data.type === "agent-application") {
+      sendApplicationConfirmation(data.email, {
+        firstName: data.firstName,
+        licenseNumber: data.licenseNumber,
+      }).catch((err) => console.error("Application confirmation email failed:", err));
     }
 
-    sendAgentNotification(notifyEmail, {
-      leadName: `${data.firstName} ${data.lastName}`,
-      leadEmail: data.email,
-      leadPhone: data.phone,
-      leadType: data.type,
-      message: data.message,
-      propertyAddress: data.propertyAddress || data.homeAddress,
-    }).catch((err) => console.error("Agent notification email failed:", err));
+    // 2c. Agent notification (or admin fallback)
+    if (data.type !== "agent-application") {
+      let notifyEmail: string | null = null;
+
+      if (supabase && agentId) {
+        const { data: agentRow } = await supabase
+          .from("agents")
+          .select("email")
+          .eq("id", agentId)
+          .single();
+        notifyEmail = agentRow?.email ?? null;
+      }
+
+      if (!notifyEmail) {
+        notifyEmail = process.env.ADMIN_EMAIL || "admin@lylrealty.com";
+      }
+
+      sendAgentNotification(notifyEmail, {
+        leadName: `${data.firstName} ${data.lastName}`,
+        leadEmail: data.email,
+        leadPhone: data.phone,
+        leadType: data.type,
+        message: data.message,
+        propertyAddress: data.propertyAddress || data.homeAddress,
+      }).catch((err) => console.error("Agent notification email failed:", err));
+    }
+  } catch (emailErr) {
+    // Email sending is best-effort; never let it crash the lead submission
+    console.error("POST /api/leads email section error:", emailErr);
   }
 
   // ---------------------------------------------------------------------------
