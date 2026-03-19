@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { LOGO_BASE64 } from "@/lib/logo-data";
 
 export const runtime = "edge";
 
@@ -6,14 +7,7 @@ export const alt = "Tauro Realty — Premium Philadelphia Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const LOGO_URL =
-  "https://raw.githubusercontent.com/Julianb233/tauro/main/public/tauro-logo.png";
-
 export default async function TwitterImage() {
-  const logoResponse = await fetch(LOGO_URL);
-  const logoBuffer = await logoResponse.arrayBuffer();
-  const logoBase64 = `data:image/png;base64,${Buffer.from(logoBuffer).toString("base64")}`;
-
   return new ImageResponse(
     (
       <div
@@ -66,7 +60,7 @@ export default async function TwitterImage() {
           {/* Logo image */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={logoBase64}
+            src={LOGO_BASE64}
             alt=""
             width={160}
             height={160}
