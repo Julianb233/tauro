@@ -1,13 +1,15 @@
 import { ImageResponse } from "next/og";
-import { LOGO_BASE64 } from "@/lib/logo-data";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
-export const runtime = "edge";
-
-export const alt = "Tauro Realty — Premium Philadelphia Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function TwitterImage() {
+  const logoPath = join(process.cwd(), "public", "tauro-logo.png");
+  const logoBuffer = await readFile(logoPath);
+  const logoBase64 = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -22,7 +24,6 @@ export default async function TwitterImage() {
           position: "relative",
         }}
       >
-        {/* Top gold border */}
         <div
           style={{
             position: "absolute",
@@ -33,8 +34,6 @@ export default async function TwitterImage() {
             background: "linear-gradient(90deg, transparent, #C9A96E, transparent)",
           }}
         />
-
-        {/* Corner accent frame */}
         <div
           style={{
             position: "absolute",
@@ -46,8 +45,6 @@ export default async function TwitterImage() {
             display: "flex",
           }}
         />
-
-        {/* Content */}
         <div
           style={{
             display: "flex",
@@ -57,17 +54,13 @@ export default async function TwitterImage() {
             gap: 0,
           }}
         >
-          {/* Logo image */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={LOGO_BASE64}
+            src={logoBase64}
             alt=""
             width={160}
             height={160}
             style={{ objectFit: "contain", marginBottom: 24 }}
           />
-
-          {/* Brand name */}
           <div
             style={{
               fontSize: 72,
@@ -80,8 +73,6 @@ export default async function TwitterImage() {
           >
             TAURO
           </div>
-
-          {/* Divider with diamond */}
           <div
             style={{
               display: "flex",
@@ -90,31 +81,10 @@ export default async function TwitterImage() {
               marginBottom: 24,
             }}
           >
-            <div
-              style={{
-                width: 60,
-                height: 1,
-                backgroundColor: "rgba(201, 169, 110, 0.5)",
-              }}
-            />
-            <div
-              style={{
-                width: 8,
-                height: 8,
-                backgroundColor: "#C9A96E",
-                transform: "rotate(45deg)",
-              }}
-            />
-            <div
-              style={{
-                width: 60,
-                height: 1,
-                backgroundColor: "rgba(201, 169, 110, 0.5)",
-              }}
-            />
+            <div style={{ width: 60, height: 1, backgroundColor: "rgba(201, 169, 110, 0.5)" }} />
+            <div style={{ width: 8, height: 8, backgroundColor: "#C9A96E", transform: "rotate(45deg)" }} />
+            <div style={{ width: 60, height: 1, backgroundColor: "rgba(201, 169, 110, 0.5)" }} />
           </div>
-
-          {/* Tagline */}
           <div
             style={{
               fontSize: 24,
@@ -126,8 +96,6 @@ export default async function TwitterImage() {
             Premium Philadelphia Real Estate
           </div>
         </div>
-
-        {/* Bottom gold border */}
         <div
           style={{
             position: "absolute",

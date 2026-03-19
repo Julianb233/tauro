@@ -1,13 +1,15 @@
 import { ImageResponse } from "next/og";
-import { LOGO_BASE64 } from "@/lib/logo-data";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 
-export const runtime = "edge";
-
-export const alt = "Tauro Realty — Premium Philadelphia Real Estate";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function OGImage() {
+  const logoPath = join(process.cwd(), "public", "tauro-logo.png");
+  const logoBuffer = await readFile(logoPath);
+  const logoBase64 = `data:image/png;base64,${logoBuffer.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -58,9 +60,8 @@ export default async function OGImage() {
           }}
         >
           {/* Logo image */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={LOGO_BASE64}
+            src={logoBase64}
             alt=""
             width={160}
             height={160}
