@@ -73,14 +73,14 @@ export function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden items-center gap-3 lg:flex">
             <a
-              href="tel:+12155550100"
+              href="tel:+12158394172"
               className={cn(
                 "flex items-center gap-1.5 text-sm transition-all duration-300 hover:text-gold",
                 scrolled ? "text-muted-foreground" : "text-white/70"
               )}
             >
               <Phone className="size-4" />
-              <span>(215) 555-0100</span>
+              <span>(215) 839-4172</span>
             </a>
             <Link
               href="/contact"
@@ -159,11 +159,11 @@ export function Navbar() {
               Schedule a Showing
             </Link>
             <a
-              href="tel:+12155550100"
+              href="tel:+12158394172"
               className="flex items-center gap-2 text-sm text-white/60 hover:text-gold"
             >
               <Phone className="size-4" />
-              (215) 555-0100
+              (215) 839-4172
             </a>
           </div>
         </div>

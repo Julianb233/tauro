@@ -56,7 +56,7 @@ const sections = [
   {
     title: "10. Contact",
     content:
-      "If you have questions about these Terms of Service, please contact us at info@taurorealty.com or call (215) 555-0100.",
+      "If you have questions about these Terms of Service, please contact us at info@taurorealty.com or call (215) 839-4172.",
   },
 ];
 

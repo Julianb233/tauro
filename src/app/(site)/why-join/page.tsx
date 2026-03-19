@@ -305,7 +305,7 @@ export default function WhyJoinPage() {
           </div>
           <p className="mt-6 flex items-center justify-center gap-2 text-muted-foreground">
             <Phone className="size-4" />
-            Or call us at (215) 555-0100 to learn more
+            Or call us at (215) 839-4172 to learn more
           </p>
         </div>
       </section>
