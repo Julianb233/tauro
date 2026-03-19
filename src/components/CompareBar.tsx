@@ -15,7 +15,7 @@ export function CompareBar() {
     .filter(Boolean);
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 border-t border-gold/30 bg-near-black/95 backdrop-blur-md shadow-[0_-4px_24px_rgba(0,0,0,.35)]">
+    <div role="region" aria-label={`Property comparison: ${count} properties selected`} className="fixed inset-x-0 bottom-0 z-50 border-t border-gold/30 bg-near-black/95 backdrop-blur-md shadow-[0_-4px_24px_rgba(0,0,0,.35)]">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
         {/* Thumbnails */}
         <div className="flex items-center gap-3 overflow-x-auto">
@@ -61,9 +61,10 @@ export function CompareBar() {
             className="inline-flex items-center gap-1.5 rounded-lg bg-gold px-5 py-2.5 text-sm font-semibold text-near-black shadow transition hover:bg-gold-light"
           >
             Compare Now
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-near-black/20 text-xs font-bold">
+            <span aria-hidden="true" className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-near-black/20 text-xs font-bold">
               {count}
             </span>
+            <span className="sr-only">{count} properties</span>
           </Link>
         </div>
       </div>

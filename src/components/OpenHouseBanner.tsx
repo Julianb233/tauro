@@ -166,7 +166,7 @@ function RsvpModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div
         ref={focusTrapRef}
         role="dialog"
@@ -174,6 +174,8 @@ function RsvpModal({
         aria-label="RSVP for Open House"
         className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl"
       >
+<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="RSVP for Open House">
+      <div className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl">
         <button
           onClick={onClose}
           className="absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -209,6 +211,7 @@ function RsvpModal({
                 ref={nameInputRef}
                 type="text"
                 placeholder="Full Name"
+                aria-label="Full Name"
                 required
                 disabled={submitting}
                 value={form.name}
@@ -218,6 +221,7 @@ function RsvpModal({
               <input
                 type="email"
                 placeholder="Email Address"
+                aria-label="Email Address"
                 required
                 disabled={submitting}
                 value={form.email}
@@ -227,6 +231,7 @@ function RsvpModal({
               <input
                 type="tel"
                 placeholder="Phone Number (optional)"
+                aria-label="Phone Number (optional)"
                 disabled={submitting}
                 value={form.phone}
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
@@ -240,7 +245,7 @@ function RsvpModal({
                 {submitting ? "Submitting..." : "Confirm RSVP"}
               </button>
               {error && (
-                <p className="text-center text-sm text-red-400">{error}</p>
+                <p role="alert" className="text-center text-sm text-red-400">{error}</p>
               )}
             </form>
           </>

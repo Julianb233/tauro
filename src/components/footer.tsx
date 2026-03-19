@@ -63,7 +63,7 @@ export function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <nav aria-label="Footer navigation">
             <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Quick Links
             </h3>
@@ -79,10 +79,10 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
           {/* Neighborhoods */}
-          <div>
+          <nav aria-label="Neighborhoods">
             <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Neighborhoods
             </h3>
@@ -108,7 +108,7 @@ export function Footer() {
                 </Link>
               ))}
             </div>
-          </div>
+          </nav>
 
           {/* Contact */}
           <div>
@@ -146,6 +146,7 @@ export function Footer() {
               href="https://maps.google.com/?q=Philadelphia+PA"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="View our office location on Google Maps (opens in new tab)"
               className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-white/10 bg-white/5 transition-colors hover:border-gold/40"
             >
               <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-white/60">

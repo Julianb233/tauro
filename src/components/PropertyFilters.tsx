@@ -73,9 +73,11 @@ export default function PropertyFilters({
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <button
           onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="property-filter-panel"
           className="flex min-h-[44px] items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-foreground"
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
           Filters {activeCount > 0 && `(${activeCount})`}
         </button>
         <select
@@ -96,6 +98,9 @@ export default function PropertyFilters({
 
       {/* Filter bar */}
       <div
+        id="property-filter-panel"
+        role="region"
+        aria-label="Property filters"
         className={`${open ? "block" : "hidden"} px-4 pb-4 lg:flex lg:items-end lg:gap-3 lg:px-6 lg:py-4`}
       >
         <div className="grid grid-cols-2 gap-3 lg:flex lg:flex-wrap lg:items-end lg:gap-3">

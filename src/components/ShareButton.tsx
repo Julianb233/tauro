@@ -86,25 +86,28 @@ export default function ShareButton({ url, title, description }: ShareButtonProp
         }}
         className="flex items-center gap-1.5 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-muted-foreground transition-all duration-200 hover:border-gold/40 hover:text-gold"
         aria-label="Share this property"
+        aria-expanded={open}
+        aria-haspopup="true"
       >
-        <Share2 className="h-4 w-4" />
+        <Share2 className="h-4 w-4" aria-hidden="true" />
         Share
       </button>
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 top-full z-50 mt-2 w-56 overflow-hidden rounded-xl border border-border/60 bg-white/95 shadow-lg backdrop-blur-xl">
+        <div role="menu" aria-label="Share options" className="absolute right-0 top-full z-50 mt-2 w-56 overflow-hidden rounded-xl border border-border/60 bg-white/95 shadow-lg backdrop-blur-xl">
           <div className="p-1.5">
             {/* Copy link */}
             <button
               type="button"
+              role="menuitem"
               onClick={handleCopyLink}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
               {copied ? (
-                <Check className="h-4 w-4 text-emerald-500" />
+                <Check className="h-4 w-4 text-emerald-500" aria-hidden="true" />
               ) : (
-                <Link2 className="h-4 w-4" />
+                <Link2 className="h-4 w-4" aria-hidden="true" />
               )}
               {copied ? "Copied!" : "Copy Link"}
             </button>
@@ -112,20 +115,22 @@ export default function ShareButton({ url, title, description }: ShareButtonProp
             {/* Email */}
             <a
               href={`mailto:?subject=${emailSubject}&body=${emailBody}`}
+              role="menuitem"
               onClick={() => setOpen(false)}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
-              <Mail className="h-4 w-4" />
+              <Mail className="h-4 w-4" aria-hidden="true" />
               Share via Email
             </a>
 
             {/* SMS */}
             <a
               href={`sms:?body=${smsBody}`}
+              role="menuitem"
               onClick={() => setOpen(false)}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
-              <MessageSquare className="h-4 w-4" />
+              <MessageSquare className="h-4 w-4" aria-hidden="true" />
               Share via SMS
             </a>
 
@@ -133,10 +138,11 @@ export default function ShareButton({ url, title, description }: ShareButtonProp
             {hasNativeShare && (
               <button
                 type="button"
+                role="menuitem"
                 onClick={handleNativeShare}
                 className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
               >
-                <Share2 className="h-4 w-4" />
+                <Share2 className="h-4 w-4" aria-hidden="true" />
                 More Options...
               </button>
             )}

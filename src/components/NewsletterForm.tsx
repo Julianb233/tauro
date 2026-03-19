@@ -69,7 +69,7 @@ export function NewsletterForm({ source: _source, showName: _showName, showInter
           <input type="text" name="website" tabIndex={-1} autoComplete="off" />
         </div>
         <div className="relative flex-1">
-          <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/40" />
+          <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/40" aria-hidden="true" />
           <input
             type="email"
             value={email}
@@ -78,6 +78,7 @@ export function NewsletterForm({ source: _source, showName: _showName, showInter
               if (status !== "idle" && status !== "loading") setStatus("idle");
             }}
             placeholder="Enter your email"
+            aria-label="Email address for newsletter"
             required
             disabled={status === "loading"}
             className="w-full rounded-md border border-white/10 bg-white/5 py-2 pl-10 pr-3 text-sm text-white placeholder:text-white/40 transition-colors focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20 disabled:opacity-50"
@@ -92,10 +93,10 @@ export function NewsletterForm({ source: _source, showName: _showName, showInter
         </button>
       </form>
       {status === "success" && (
-        <p className="text-xs text-green-400">{message}</p>
+        <p role="status" className="text-xs text-green-400">{message}</p>
       )}
       {status === "error" && (
-        <p className="text-xs text-red-400">{message}</p>
+        <p role="alert" className="text-xs text-red-400">{message}</p>
       )}
     </div>
   );

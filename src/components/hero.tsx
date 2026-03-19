@@ -29,7 +29,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
+<section className="relative flex min-h-screen items-center justify-center overflow-hidden">
 {/* Cinematic video background with image fallback */}
       <HeroVideo />
 {/* Parallax image container — oversized vertically so parallax shift stays in frame */}
@@ -50,6 +50,27 @@ export default function Hero() {
 
       {/* Gradient overlay — magazine cover feel */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
+<section aria-label="Hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      {!videoFailed && (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden="true"
+          poster={HERO_IMAGE}
+          onError={() => setVideoFailed(true)}
+          className="absolute inset-0 h-full w-full object-cover"
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
+      )}
+      {/* Fallback image — shown if video fails or while poster loads */}
+        src={HERO_IMAGE}
+        alt="Philadelphia skyline"
+        className={`object-cover ${!videoFailed ? "opacity-0" : ""}`}
+        aria-hidden={!videoFailed}
+      {/* Lighter gradient overlay — magazine cover feel */}
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
         <p className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.25em] text-gold sm:text-sm">
@@ -86,7 +107,7 @@ export default function Hero() {
         <HeroSearchBar />
 
         {/* Scroll hint */}
-        <div className="mt-16 animate-bounce">
+        <div className="mt-16 animate-bounce" aria-hidden="true">
           <div className="mx-auto h-8 w-5 rounded-full border-2 border-white/30">
             <div className="mx-auto mt-1.5 h-2 w-1 rounded-full bg-gold" />
           </div>

@@ -86,14 +86,23 @@ export default function TestimonialCarousel({
       onKeyDown={handleKeyDown}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
+      className="relative"
+      aria-label="Client testimonials"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
     >
       {/* Cards */}
       <div
-        className="relative"
+className="relative"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
+aria-live="polite"
+        aria-atomic="true"
+        className={`grid gap-4 sm:gap-6 md:grid-cols-3 transition-opacity duration-500 ease-in-out ${
+          isTransitioning ? "opacity-0" : "opacity-100"
+        }`}
       >
         {/* Cards */}
         <div
@@ -173,9 +182,23 @@ export default function TestimonialCarousel({
                   ? "w-6 bg-gold"
                   : "w-2 bg-border hover:bg-muted-foreground"
               }`}
-            />
+/>
           ))}
         </div>
+>
+              <div className="flex gap-1" role="img" aria-label={`Rating: ${t.rating} out of 5 stars`}>
+                {Array.from({ length: t.rating }).map((_, i) => (
+                  <Star key={i} className="size-4 fill-gold text-gold" aria-hidden="true" />
+              <blockquote className="mt-3 text-sm leading-relaxed text-foreground sm:mt-4">
+                &ldquo;{t.quote}&rdquo;
+              </blockquote>
+              <div className="mt-3 border-t border-border/50 pt-3 sm:mt-4 sm:pt-4">
+                <p className="text-sm font-semibold text-foreground">
+                  {t.name}
+                </p>
+                <p className="text-xs text-muted-foreground">{t.role}</p>
+          );
+        })}
       </div>
 
       {/* Video modal */}

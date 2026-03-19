@@ -86,6 +86,9 @@ function ImageCarousel({
   return (
     <div
       className="group/carousel relative aspect-[4/3] overflow-hidden bg-muted"
+      role="region"
+      aria-label={`${alt} photo gallery`}
+      aria-roledescription="carousel"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
@@ -151,11 +154,11 @@ function ImageCarousel({
         )}
         {videoTourUrl && (
           <span className="flex items-center gap-1 rounded-md bg-gold/90 px-2 py-1 text-xs font-semibold text-near-black backdrop-blur-sm">
-            <Video className="h-3 w-3" />
+            <Video className="h-3 w-3" aria-hidden="true" />
             Video Tour
           </span>
         )}
-        <span className="rounded-md bg-black/60 px-2 py-1 text-xs text-white backdrop-blur-sm">
+        <span className="rounded-md bg-black/60 px-2 py-1 text-xs text-white backdrop-blur-sm" aria-label={`${total} photos`}>
           {total} photos
         </span>
       </div>
@@ -189,10 +192,13 @@ function ImageCarousel({
           </button>
 
           {/* ---- dot indicators ---- */}
-          <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1">
+          <div className="absolute bottom-3 left-1/2 z-10 flex -translate-x-1/2 gap-1" role="tablist" aria-label="Image slides">
             {images.map((_, i) => (
               <span
                 key={i}
+                role="tab"
+                aria-selected={i === current}
+                aria-label={`Photo ${i + 1} of ${total}`}
                 className={cn(
                   "block h-1.5 w-1.5 rounded-full transition-colors duration-200",
                   i === current ? "bg-white" : "bg-white/50",
@@ -321,11 +327,11 @@ export default function PropertyCard({ property }: { property: Property }) {
         </p>
         <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
         <div className="mt-1 flex flex-wrap items-center gap-1.5 font-label text-xs tracking-wider text-muted-foreground sm:gap-2">
-          <span>{property.beds} BD</span>
-          <span className="text-gold/30">|</span>
-          <span>{property.baths} BA</span>
-          <span className="text-gold/30">|</span>
-          <span>{property.sqft.toLocaleString()} SF</span>
+          <span><span className="sr-only">Bedrooms: </span>{property.beds} BD</span>
+          <span className="text-gold/30" aria-hidden="true">|</span>
+          <span><span className="sr-only">Bathrooms: </span>{property.baths} BA</span>
+          <span className="text-gold/30" aria-hidden="true">|</span>
+          <span><span className="sr-only">Square feet: </span>{property.sqft.toLocaleString()} SF</span>
         </div>
         <p className="mt-2 truncate font-medium text-foreground">
           {property.address}
