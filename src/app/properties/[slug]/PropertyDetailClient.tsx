@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -11,19 +11,18 @@ import {
   Calendar,
   MapPin,
   Phone,
+  PhoneCall,
   Mail,
   Home,
   Check,
   Play,
   View,
-  Heart,
+  MessageSquare,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import ImageGallery from "@/components/ImageGallery";
 import PropertyMap from "@/components/PropertyMap";
-import ShareButton from "@/components/ShareButton";
-import { useFavorites } from "@/hooks/useFavorites";
 import { cn } from "@/lib/utils";
 
 export default function PropertyDetailClient({
@@ -37,13 +36,17 @@ export default function PropertyDetailClient({
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const { toggle, isFavorite } = useFavorites();
-  const favorited = isFavorite(property.id);
+  const [showMobileBar, setShowMobileBar] = useState(false);
+  const similarRef = useRef<HTMLDivElement>(null);
 
-  const propertyUrl = typeof window !== "undefined"
-    ? window.location.href
-    : `https://taurorealty.com/properties/${property.slug}`;
-  const shareTitle = `${property.address}, ${property.city} - ${formatPriceFull(property.price)}`;
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show mobile bar after scrolling past the gallery area (~400px)
+      setShowMobileBar(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,7 +85,7 @@ export default function PropertyDetailClient({
   };
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen pt-16 pb-0 md:pb-0">
       {/* Back link */}
       <div className="border-b border-border bg-white">
         <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
@@ -125,38 +128,12 @@ export default function PropertyDetailClient({
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              onClick={() => toggle(property.id)}
-              aria-label={favorited ? "Remove from saved" : "Save property"}
-              className={cn(
-                "flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-200",
-                favorited
-                  ? "border-gold/40 bg-gold/10 text-gold"
-                  : "border-border bg-card text-muted-foreground hover:border-gold/40 hover:text-gold"
-              )}
-            >
-              <Heart
-                className={cn(
-                  "h-4 w-4",
-                  favorited ? "fill-gold" : "fill-none"
-                )}
-              />
-              {favorited ? "Saved" : "Save"}
-            </button>
-            <ShareButton
-              url={propertyUrl}
-              title={shareTitle}
-              description={property.description.slice(0, 160)}
-            />
-            <a
-              href="#schedule"
-              className="rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
-            >
-              Schedule a Showing
-            </a>
-          </div>
+          <a
+            href="#schedule"
+            className="rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
+          >
+            Schedule a Showing
+          </a>
         </div>
       </div>
 
@@ -301,7 +278,7 @@ export default function PropertyDetailClient({
 
             {/* Similar properties */}
             {similar.length > 0 && (
-              <div>
+              <div ref={similarRef}>
                 <h2 className="font-heading text-xl font-bold">Similar Properties</h2>
                 <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {similar.map((p) => (
@@ -313,9 +290,9 @@ export default function PropertyDetailClient({
           </div>
 
           {/* Right column - Agent card + Schedule form */}
-          <div className="space-y-6 lg:sticky lg:top-36 lg:self-start">
+          <div className="space-y-6 lg:sticky lg:top-[100px] lg:self-start lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto">
             {/* Agent card */}
-            <div className="rounded-xl border border-border bg-card p-6">
+            <div className="rounded-xl border border-border bg-card p-6 shadow-lg shadow-black/5">
               <div className="flex items-center gap-4">
                 <Image
                   src={property.agent.photo}
@@ -423,17 +400,37 @@ export default function PropertyDetailClient({
             </div>
           </div>
         </div>
+      </div>
 
-        {/* MLS Disclaimer */}
-        <div className="mt-10 border-t border-border pt-6">
-          <p className="text-xs leading-relaxed text-muted-foreground">
-            Listing information deemed reliable but not guaranteed. All
-            measurements are approximate. Data sourced from Bright MLS.
-            Information is provided exclusively for consumers&apos; personal,
-            non-commercial use and may not be used for any purpose other than to
-            identify prospective properties consumers may be interested in
-            purchasing.
-          </p>
+      {/* Mobile floating bottom bar */}
+      <div
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-50 border-t border-border/50 bg-card/80 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-out md:hidden",
+          showMobileBar ? "translate-y-0" : "translate-y-full"
+        )}
+      >
+        <div className="flex items-center gap-3 px-4 py-3 safe-bottom">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-semibold">{property.agent.name}</p>
+            <p className="text-xs text-muted-foreground">Listing Agent</p>
+          </div>
+          <a
+            href={`tel:${property.agent.phone}`}
+            className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-emerald-700 active:bg-emerald-800"
+          >
+            <PhoneCall className="h-4 w-4" />
+            Call Now
+          </a>
+          <a
+            href="#schedule"
+            onClick={() => {
+              document.getElementById("schedule")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="flex items-center gap-1.5 rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-near-black shadow-md transition-colors hover:bg-gold-light active:bg-gold-light"
+          >
+            <MessageSquare className="h-4 w-4" />
+            Contact
+          </a>
         </div>
       </div>
     </div>
