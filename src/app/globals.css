@@ -229,6 +229,34 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), system-ui, sans-serif;
 }
 
+/* Hero slideshow — ken-burns zoom effect */
+@keyframes ken-burns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-ken-burns {
+  animation: ken-burns 6s ease-out forwards;
+}
+
+/* Hero slideshow — slide indicator progress bar */
+@keyframes slide-progress {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+.animate-slide-progress {
+  animation: slide-progress 5s linear forwards;
+}
+
 /* Reduced motion accessibility */
 @media (prefers-reduced-motion: reduce) {
   .gold-shimmer::before,
@@ -237,7 +265,9 @@ h1, h2, h3, h4, h5, h6 {
   .diagonal-wipe,
   .slash-reveal,
   .diagonal-wipe-transition,
-  .animate-skeleton-shimmer {
+  .animate-skeleton-shimmer,
+  .animate-ken-burns,
+  .animate-slide-progress {
     animation: none !important;
     transition: none !important;
     transform: none !important;
