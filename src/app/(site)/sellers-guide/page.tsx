@@ -223,8 +223,83 @@ export default function SellersGuidePage() {
         </div>
       </section>
 
-      {/* -- Tauro's Value Proposition ------------------------------ */}
+      {/* -- Pricing Strategy --------------------------------------- */}
       <section className="bg-midnight py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              Pricing Strategy
+            </p>
+            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+              The Art and Science of Pricing Your Home
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              Pricing is the single most important factor in how quickly your
+              home sells and how much you net. Here&apos;s how Tauro approaches
+              it.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-12 max-w-4xl space-y-10">
+            <div>
+              <h3 className="font-heading text-xl font-bold text-white">
+                Comparative Market Analysis (CMA)
+              </h3>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                Every pricing recommendation starts with a deep-dive CMA. Your
+                agent analyzes recently sold properties, active and pending
+                listings, expired listings, and market absorption rates in your
+                specific neighborhood. This data-driven approach ensures your
+                price reflects real buyer behavior, not guesswork.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-heading text-xl font-bold text-white">
+                Market Conditions and Timing
+              </h3>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                Philadelphia&apos;s real estate market shifts by season,
+                neighborhood, and price point. In a seller&apos;s market with
+                low inventory, aggressive pricing can trigger bidding wars. In a
+                balanced or buyer&apos;s market, strategic pricing slightly
+                below comparable sales attracts more showings and can still
+                generate multiple offers.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-heading text-xl font-bold text-white">
+                Pricing Psychology
+              </h3>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                Buyers search in price brackets. A home listed at $505,000
+                misses every buyer searching up to $500,000. Strategic price
+                positioning ensures your listing appears in the maximum number
+                of search results. The first two weeks on market generate the
+                most activity, so getting the price right from day one is
+                critical to maximizing competition and final sale price.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-gold/20 bg-near-black p-6">
+              <p className="text-sm font-semibold text-gold">
+                The Overpricing Trap
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Overpriced homes sit on the market, accumulate days on market,
+                and eventually sell for less than they would have at the correct
+                price. Buyers view stale listings with suspicion and submit
+                lowball offers. Tauro&apos;s data-first approach avoids this
+                trap and positions your home to sell quickly at maximum value.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* -- Tauro's Value Proposition ------------------------------ */}
+      <section className="bg-near-black py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
@@ -290,17 +365,17 @@ export default function SellersGuidePage() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
-              href="/sell"
+              href="/home-value"
               className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
             >
               Get Free Valuation
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/contact"
+              href="/sell"
               className="inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
             >
-              Talk to an Agent
+              Start Selling
             </Link>
           </div>
         </div>

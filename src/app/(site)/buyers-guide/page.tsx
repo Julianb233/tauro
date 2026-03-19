@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
-import { DollarSign, FileSearch, Home, MapPin, ArrowRight } from "lucide-react";
+import {
+  DollarSign,
+  FileSearch,
+  Home,
+  MapPin,
+  ArrowRight,
+  Clock,
+  FileText,
+  CheckCircle2,
+} from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -231,6 +240,36 @@ export default function BuyersGuidePage() {
               </p>
             </div>
 
+            <div>
+              <h3 className="font-heading text-xl font-bold text-white">
+                USDA Loans
+              </h3>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                USDA loans are designed for buyers in eligible rural and
+                suburban areas. They offer zero down payment, reduced mortgage
+                insurance, and competitive rates. While most of Philadelphia
+                proper doesn&apos;t qualify, several surrounding areas in
+                Montgomery, Bucks, and Chester counties are eligible, making
+                this an excellent option for buyers flexible on location.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-heading text-xl font-bold text-white">
+                PHFA Down Payment Assistance
+              </h3>
+              <p className="mt-3 leading-relaxed text-muted-foreground">
+                The Pennsylvania Housing Finance Agency (PHFA) offers several
+                programs specifically for first-time and qualifying buyers.
+                The Keystone Advantage Assistance Loan provides up to
+                $6,000 toward down payment and closing costs as a
+                no-interest second mortgage. The HFA Preferred program
+                offers reduced mortgage insurance and below-market rates.
+                Philadelphia&apos;s own Philly First Home grant provides
+                additional assistance for city residents.
+              </p>
+            </div>
+
             <div className="rounded-xl border border-border/40 bg-near-black p-6">
               <h3 className="font-heading text-xl font-bold text-white">
                 Key Terms to Know
@@ -274,8 +313,86 @@ export default function BuyersGuidePage() {
         </div>
       </section>
 
+      {/* -- What to Expect at Closing ----------------------------- */}
+      <section className="bg-near-black py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              The Finish Line
+            </p>
+            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+              What to Expect at Closing
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              Closing day is when everything comes together. Here&apos;s what
+              you need to know so there are no surprises.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-3">
+            <div className="rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                <Clock className="size-6 text-gold" />
+              </div>
+              <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                Timeline
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Closing typically happens 30-45 days after your offer is
+                accepted. The settlement meeting itself takes one to two hours.
+                Your agent will confirm the date, time, and location well in
+                advance.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                <DollarSign className="size-6 text-gold" />
+              </div>
+              <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                Closing Costs
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Budget 2-5% of the purchase price for closing costs. In
+                Philadelphia, these include title insurance, lender fees,
+                recording fees, and the city&apos;s 2.075% buyer transfer tax.
+                Your lender will provide a Closing Disclosure at least three
+                days before settlement.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                <FileText className="size-6 text-gold" />
+              </div>
+              <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                Documents You&apos;ll Need
+              </h3>
+              <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-gold/60" />
+                  Government-issued photo ID
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-gold/60" />
+                  Proof of homeowner&apos;s insurance
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-gold/60" />
+                  Certified or cashier&apos;s check for closing costs
+                </li>
+                <li className="flex items-start gap-2">
+                  <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-gold/60" />
+                  Signed loan documents and disclosures
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* -- CTA --------------------------------------------------- */}
-      <section className="bg-near-black py-16">
+      <section className="bg-midnight py-16">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
             Ready to Start Your Home Search?
@@ -286,17 +403,17 @@ export default function BuyersGuidePage() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Link
-              href="/properties"
+              href="/contact"
               className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
             >
-              Browse Listings
+              Talk to an Agent
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/contact"
+              href="/book-tour"
               className="inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
             >
-              Talk to an Agent
+              Schedule a Showing
             </Link>
           </div>
         </div>
