@@ -1,7 +1,3 @@
-// ---------------------------------------------------------------------------
-// Server-side Cloudflare Turnstile token verification
-// ---------------------------------------------------------------------------
-
 const VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
 interface TurnstileResult {
@@ -9,19 +5,12 @@ interface TurnstileResult {
   error?: string;
 }
 
-/**
- * Verify a Turnstile CAPTCHA token server-side.
- * Returns { success: true } when valid, or { success: false, error } otherwise.
- *
- * If TURNSTILE_SECRET_KEY is not set, returns success (graceful skip for dev).
- */
 export async function verifyTurnstileToken(
   token: string | undefined,
   remoteIp: string,
 ): Promise<TurnstileResult> {
   const secret = process.env.TURNSTILE_SECRET_KEY;
 
-  // Graceful skip when not configured (dev mode)
   if (!secret) {
     return { success: true };
   }
