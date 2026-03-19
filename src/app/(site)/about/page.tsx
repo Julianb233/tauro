@@ -13,6 +13,7 @@ import {
   Mail,
 } from "lucide-react";
 import { AboutCountUp, AboutStaggerReveal, AboutParallax, FadeInView } from "./AboutAnimations";
+import { GoogleReviewBadge } from "@/components/GoogleReviewBadge";
 
 export const metadata: Metadata = {
   title: "About Tauro | Philadelphia's Premier Real Estate Brokerage",
@@ -129,6 +130,9 @@ export default function AboutPage() {
               </div>
             ))}
           </AboutStaggerReveal>
+          <div className="mt-8 flex justify-center">
+            <GoogleReviewBadge />
+          </div>
         </div>
       </section>
 
