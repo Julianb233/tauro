@@ -28,7 +28,7 @@ export function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
-              <Logo width={100} height={34} />
+              <Logo size="md" variant="light" />
             </Link>
             <p className="max-w-xs text-sm leading-relaxed text-white/60">
               Premium real estate brokerage serving Philadelphia&apos;s most

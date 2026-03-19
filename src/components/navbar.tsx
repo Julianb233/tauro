@@ -50,7 +50,7 @@ export function Navbar() {
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <Logo width={100} height={34} className={scrolled ? "[&_text]:fill-foreground" : ""} />
+            <Logo size="sm" variant={scrolled ? "dark" : "light"} />
           </Link>
 
           {/* Desktop nav */}
@@ -124,7 +124,7 @@ export function Navbar() {
         >
           {/* Overlay header with logo and close button */}
           <div className="flex h-16 items-center justify-between px-4 sm:px-6">
-            <Logo width={100} height={34} />
+            <Logo size="sm" variant="light" />
             <button
               type="button"
               onClick={() => setMobileOpen(false)}
