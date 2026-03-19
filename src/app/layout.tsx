@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans, Montserrat } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { OrganizationJsonLd } from "@/components/JsonLd";
-import { Analytics } from "@/components/Analytics";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
 
@@ -83,7 +85,9 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
+        <GoogleAnalytics />
         <Analytics />
+        <SpeedInsights />
         <OrganizationJsonLd />
         <main id="main-content">
           {children}
