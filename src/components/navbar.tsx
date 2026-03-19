@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
+import { useFavorites } from "@/hooks/useFavorites";
 
 const primaryLinks = [
   { href: "/properties", label: "Buy" },
@@ -24,6 +25,7 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const scrolled = useScrolled();
+  const { count } = useFavorites();
 
   // Escape key closes overlay
   useEffect(() => {
@@ -91,6 +93,21 @@ export function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden items-center gap-3 lg:flex">
+            <Link
+              href="/favorites"
+              aria-label="Saved properties"
+              className={cn(
+                "relative flex items-center gap-1.5 rounded-md px-2 py-2 text-sm transition-all duration-300 hover:text-gold",
+                scrolled ? "text-foreground/70" : "text-white/80"
+              )}
+            >
+              <Heart className="size-4" />
+              {count > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-gold text-[10px] font-bold text-near-black">
+                  {count > 9 ? "9+" : count}
+                </span>
+              )}
+            </Link>
             <a
               href="tel:+12158394172"
               className={cn(
@@ -185,6 +202,19 @@ export function Navbar() {
                   {link.label}
                 </Link>
               ))}
+            <Link
+              href="/favorites"
+              className="flex items-center gap-2 font-heading text-3xl font-bold text-off-white transition-colors hover:text-gold"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Heart className="size-6" />
+              Saved
+              {count > 0 && (
+                <span className="ml-1 rounded-full bg-gold px-2 py-0.5 text-sm font-bold text-near-black">
+                  {count}
+                </span>
+              )}
+            </Link>
           </nav>
 
           {/* Bottom section with CTA and phone */}
