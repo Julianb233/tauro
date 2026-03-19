@@ -6,7 +6,7 @@ export default function Hero() {
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
       {/* Swap to <video> for cinematic reel later */}
       <Image
-        src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80"
+        src="https://images.unsplash.com/photo-1506636489208-f1d6c865744e?w=1920&q=80"
         alt="Philadelphia skyline"
         fill
         priority
