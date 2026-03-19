@@ -12,19 +12,19 @@
 ## What Was Built
 
 ### OpenGraph and Twitter Metadata (Task 1)
-- Added `metadataBase: new URL("https://tauro.com")` to root layout for absolute URL resolution
+- Added `metadataBase: new URL("https://tauro.realty")` to root layout for absolute URL resolution
 - Added `openGraph` metadata: type, locale, siteName, title, description
 - Added `twitter` metadata: summary_large_image card with title and description
 - Homepage hero image already had `priority` prop -- no change needed
 
 ### Production Build Verification (Task 2)
-- Full `next build` completes successfully (exit 0) with Turbopack
-- 46 static pages generated across all routes
+- Full `next build` completes successfully (exit 0) with Next.js 16.1.7 Turbopack
+- 62 static pages generated across all routes
 
 **SSG Confirmed (SEO-03):**
-- `/agents/[slug]` -- 4 agent pages (julian-bradley, sofia-martinez, marcus-thompson, ava-chen)
-- `/neighborhoods/[slug]` -- 15+ neighborhood pages (center-city, rittenhouse, fishtown, etc.)
-- `/properties/[slug]` -- 6 property pages
+- `/agents/[slug]` -- 6 agent pages (julian-bradley, sofia-martinez, marcus-thompson, +3 more)
+- `/neighborhoods/[slug]` -- 15 neighborhood pages (center-city, rittenhouse, fishtown, etc.)
+- `/properties/[slug]` -- 16 property pages
 
 **Routes Verified:**
 - `/sitemap.xml` -- static route present
@@ -46,7 +46,7 @@ None -- plan executed exactly as written.
 
 | Decision | Rationale |
 |----------|-----------|
-| OPENGRAPH-01: metadataBase set to https://tauro.com | Provides absolute URL base for OpenGraph image resolution and canonical URLs |
+| OPENGRAPH-01: metadataBase set to https://tauro.realty | Provides absolute URL base for OpenGraph image resolution and canonical URLs |
 
 ## Success Criteria Verification
 
