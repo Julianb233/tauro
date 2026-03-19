@@ -2,9 +2,10 @@ import { MetadataRoute } from "next";
 import { properties } from "@/data/properties";
 import { neighborhoods } from "@/data/neighborhoods";
 import { agents } from "@/data/agents";
+import { siteUrl } from "@/lib/site-config";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://tauro.realty";
+  const baseUrl = siteUrl;
 
   const staticPages = [
     "", "/properties", "/agents", "/join", "/contact", "/book-tour", "/sell",

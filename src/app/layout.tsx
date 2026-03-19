@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans, Montserrat } from "next/font/google";
 import { OrganizationJsonLd } from "@/components/JsonLd";
+import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -23,7 +24,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tauro.realty"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "Tauro | Premium Philadelphia Real Estate",
     template: "%s | Tauro",
@@ -41,13 +42,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: "Tauro Realty",
-    url: "https://tauro.realty",
+    url: siteUrl,
     title: "Tauro | Premium Philadelphia Real Estate",
     description:
       "Premium real estate brokerage serving Philadelphia. Luxury homes, expert agents, and neighborhood guides.",
     images: [
       {
-        url: "https://tauro.realty/og-image.jpg",
+        url: `${siteUrl}/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: "Tauro Realty — Premium Philadelphia Real Estate",

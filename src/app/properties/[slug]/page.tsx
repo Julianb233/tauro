@@ -1,15 +1,19 @@
 import { notFound } from "next/navigation";
-import { properties, formatPriceFull } from "@/data/properties";
+import { loadPropertyBySlug, loadProperties } from "@/lib/data";
+import { formatPriceFull } from "@/data/properties";
 import { RealEstateListingJsonLd } from "@/components/JsonLd";
 import PropertyDetailClient from "./PropertyDetailClient";
 
-export function generateStaticParams() {
+export const revalidate = 3600;
+
+export async function generateStaticParams() {
+  const properties = await loadProperties();
   return properties.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const property = properties.find((p) => p.slug === slug);
+  const property = await loadPropertyBySlug(slug);
   if (!property) return { title: "Property Not Found" };
   return {
     title: `${property.address}, ${property.city} | ${formatPriceFull(property.price)}`,
@@ -17,16 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function PropertyDetailPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function PropertyDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const property = properties.find((p) => p.slug === slug);
+  const property = await loadPropertyBySlug(slug);
   if (!property) notFound();
-  const similar = properties.filter((p) => p.id !== property.id).slice(0, 3);
-
+  const allProperties = await loadProperties();
+  const similar = allProperties.filter((p) => p.id !== property.id).slice(0, 3);
   return (
     <>
       <RealEstateListingJsonLd property={property} />

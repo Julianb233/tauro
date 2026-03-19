@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { createServerClient } from "@/lib/supabase/server";
+import { createClient as createServerClient } from "@/lib/supabase/server";
 
 const ALLOWED_BUCKETS = ["property-images", "agent-photos"] as const;
 type Bucket = (typeof ALLOWED_BUCKETS)[number];
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
   const filePath = `${Date.now()}-${randomUUID().slice(0, 8)}-${originalName}`;
 
   try {
-    const supabase = createServerClient();
+    const supabase = await createServerClient();
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
     const { error: uploadError } = await supabase.storage

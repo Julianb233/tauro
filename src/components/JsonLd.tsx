@@ -1,12 +1,13 @@
 import { Property } from "@/data/properties";
+import { siteUrl } from "@/lib/site-config";
 
 export function OrganizationJsonLd() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
     name: "Tauro | LYL Realty Group",
-    url: "https://tauro.realty",
-    logo: "https://tauro.realty/logo.png",
+    url: siteUrl,
+    logo: `${siteUrl}/logo.png`,
     description:
       "Premium Philadelphia real estate brokerage serving Center City, Rittenhouse, Fishtown, and surrounding neighborhoods.",
     address: {
@@ -39,7 +40,7 @@ export function RealEstateListingJsonLd({
     "@type": "RealEstateListing",
     name: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
     description: property.description.slice(0, 200),
-    url: `https://tauro.realty/properties/${property.slug}`,
+    url: `${siteUrl}/properties/${property.slug}`,
     image: property.images[0],
     datePosted: new Date().toISOString().split("T")[0],
     offers: {
