@@ -100,7 +100,7 @@ export default function PropertiesClient({
           </div>
         </div>
       </div>
-      <PropertyFilters filters={filters} onChange={updateFilter} onClear={clearFilters} />
+      <PropertyFilters filters={filters} onChange={updateFilter} onClear={clearFilters} neighborhoods={neighborhoods} />
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
         {view === "grid" ? (
           filtered.length > 0 ? (

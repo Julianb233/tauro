@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { loadProperties } from "@/lib/data";
+import { loadProperties, loadNeighborhoods } from "@/lib/data";
 import PropertiesClient from "./PropertiesClient";
 import { PropertiesGridSkeleton } from "@/components/ui/skeleton";
 
@@ -13,11 +13,20 @@ export const metadata: Metadata = {
 export const revalidate = 3600;
 
 export default async function PropertiesPage() {
-  const properties = await loadProperties();
+  const [properties, neighborhoods] = await Promise.all([
+    loadProperties(),
+    loadNeighborhoods(),
+  ]);
+
+  const neighborhoodOptions = neighborhoods.map((n) => ({
+    id: n.id,
+    name: n.name,
+    propertyFilter: n.propertyFilter,
+  }));
 
   return (
     <Suspense fallback={<PropertiesGridSkeleton />}>
-      <PropertiesClient properties={properties} />
+      <PropertiesClient properties={properties} neighborhoods={neighborhoodOptions} />
     </Suspense>
   );
 }
