@@ -117,7 +117,7 @@ const onboardingSteps = [
   {
     step: "01",
     title: "Secure Your Spot",
-    description: "Complete payment to lock in your build slot. We only take 2 builds per month to ensure quality.",
+    description: "Complete your $5,500 deposit to lock in your build slot. We only take 2 builds per month to ensure quality.",
   },
   {
     step: "02",
@@ -399,10 +399,17 @@ export default function ProposalPage() {
             <p className="mt-2 font-heading text-5xl font-bold text-foreground">
               $5,500
             </p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Everything in the standard package plus 15 neighborhood pages,
-              advanced automations, and 30 days post-launch support.
+            <p className="mt-1 text-sm font-semibold text-gold">
+              deposit to start
             </p>
+            <div className="mt-4 rounded-lg border border-gold/20 bg-gold/5 p-3">
+              <p className="text-sm text-foreground">
+                Then <span className="font-heading text-xl font-bold text-gold">$977</span><span className="text-muted-foreground">/month</span> ongoing
+              </p>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                CRM hosting, automation management, SEO monitoring, and priority support
+              </p>
+            </div>
             <ul className="mt-6 space-y-2 text-sm text-foreground">
               <li className="flex items-center gap-2"><span className="text-gold">&#10003;</span> Custom premium website (8+ pages)</li>
               <li className="flex items-center gap-2"><span className="text-gold">&#10003;</span> 15 neighborhood landing pages</li>
@@ -417,7 +424,7 @@ export default function ProposalPage() {
               rel="noopener noreferrer"
               className="mt-8 block w-full rounded-lg bg-gold py-3 text-center text-base font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-md hover:shadow-gold/20"
             >
-              Lock In This Price
+              Pay $5,500 Deposit
             </a>
           </div>
         </div>
@@ -426,19 +433,19 @@ export default function ProposalPage() {
         <div className="mt-12 grid gap-6 sm:grid-cols-3">
           {[
             {
-              label: "Pay in Full",
+              label: "Deposit",
               detail: "$5,500",
-              note: "Best value. Build starts within 48 hours.",
+              note: "One-time. Build starts within 48 hours.",
             },
             {
-              label: "50/50 Split",
-              detail: "$2,750 x 2",
-              note: "Half now, half at launch.",
+              label: "Monthly",
+              detail: "$977/mo",
+              note: "Ongoing after launch. CRM, automations, support.",
             },
             {
-              label: "Financing",
-              detail: "~$510/mo",
-              note: "12 months via Klarna. 0-24.99% APR.",
+              label: "Total Year 1",
+              detail: "$17,224",
+              note: "$5,500 deposit + 12 months at $977/mo.",
             },
           ].map((opt) => (
             <div key={opt.label} className="rounded-lg border border-border bg-card/50 p-5 text-center">
@@ -450,7 +457,7 @@ export default function ProposalPage() {
         </div>
 
         <p className="mt-6 text-center text-xs text-muted-foreground">
-          Ongoing: $200/month after launch for CRM hosting, automation management, and priority support.
+          Ongoing: $977/month after launch for CRM hosting, automation management, and priority support.
         </p>
       </section>
 
@@ -503,7 +510,7 @@ export default function ProposalPage() {
           Ongoing Partnership
         </h2>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          We don&apos;t disappear after launch. Your $200/month includes:
+          We don&apos;t disappear after launch. Your $977/month includes:
         </p>
 
         <div className="mt-10 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
@@ -539,7 +546,7 @@ export default function ProposalPage() {
             rel="noopener noreferrer"
             className="mt-8 inline-block rounded-lg bg-gold px-10 py-4 text-lg font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg hover:shadow-gold/20"
           >
-            Accept Proposal and Pay
+            Pay $5,500 Deposit and Get Started
           </a>
           <div className="mt-8 flex flex-col items-center gap-3 text-sm text-muted-foreground sm:flex-row sm:justify-center sm:gap-6">
             <a href={`mailto:${CONTACT_EMAIL}`} className="transition-colors hover:text-gold">
