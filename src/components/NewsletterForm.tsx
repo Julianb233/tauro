@@ -10,18 +10,22 @@ export function NewsletterForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
-  async function handleSubmit(e: FormEvent) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!email.trim()) return;
 
     setStatus("loading");
     setMessage("");
 
+    // Read honeypot field from form element
+    const formData = new FormData(e.currentTarget);
+    const honeypot = formData.get("website") as string;
+
     try {
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim() }),
+        body: JSON.stringify({ email: email.trim(), website: honeypot }),
       });
 
       const data = await res.json();
@@ -53,6 +57,10 @@ export function NewsletterForm() {
         Get market updates and new listings delivered to your inbox.
       </p>
       <form onSubmit={handleSubmit} className="flex gap-2">
+        {/* Honeypot - hidden from humans, bots fill it */}
+        <div className="absolute -left-[9999px]" aria-hidden="true">
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        </div>
         <div className="relative flex-1">
           <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-white/40" />
           <input

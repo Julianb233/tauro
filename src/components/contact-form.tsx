@@ -73,6 +73,7 @@ export function ContactForm() {
 
     setFormState("submitting");
 
+    // Read honeypot field from form element
     const formData = new FormData(e.currentTarget);
     const honeypot = formData.get("website") as string;
 
