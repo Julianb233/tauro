@@ -220,6 +220,8 @@ export const properties: Property[] = [
     },
     lat: 39.9615,
     lng: -75.1756,
+    openHouse: "Sat, Mar 22 · 12:00 PM - 2:00 PM",
+    openHouseEvent: { date: "2026-03-22", startTime: "12:00", endTime: "14:00" },
     amenities: ["Pool", "Smart Home", "Central Air", "Concierge", "Private Elevator", "Terrace"],
     videoUrl: "https://www.youtube.com/embed/gXGnIFzJsQ4",
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
