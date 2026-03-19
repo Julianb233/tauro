@@ -2,12 +2,13 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { LayoutGrid, Map } from "lucide-react";
+import { LayoutGrid, Map, Bookmark, Check } from "lucide-react";
 import type { Property } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilters, { FilterState } from "@/components/PropertyFilters";
 import PropertyMap from "@/components/PropertyMap";
 import { cn } from "@/lib/utils";
+import { useSavedSearches, hasActiveFilters } from "@/hooks/useSavedSearches";
 
 type ViewMode = "grid" | "map";
 
@@ -50,6 +51,16 @@ export default function PropertiesClient({
   const clearFilters = useCallback(() => {
     router.replace("/properties", { scroll: false });
   }, [router]);
+
+  const { save: saveSearch } = useSavedSearches();
+  const [justSaved, setJustSaved] = useState(false);
+  const filtersActive = hasActiveFilters(filters);
+
+  const handleSaveSearch = useCallback(() => {
+    saveSearch(filters);
+    setJustSaved(true);
+    setTimeout(() => setJustSaved(false), 2000);
+  }, [filters, saveSearch]);
 
   const searchQuery = searchParams.get("search") || "";
 
@@ -94,9 +105,26 @@ export default function PropertiesClient({
               {filtered.length} {filtered.length === 1 ? "listing" : "listings"} available
             </p>
           </div>
-          <div className="flex shrink-0 items-center gap-1 rounded-lg border border-border p-1">
+          <div className="flex shrink-0 items-center gap-3">
+            {filtersActive && (
+              <button
+                onClick={handleSaveSearch}
+                disabled={justSaved}
+                className={cn(
+                  "inline-flex items-center gap-1.5 rounded-lg border px-3 py-2 text-sm font-medium transition-colors",
+                  justSaved
+                    ? "border-green-300 bg-green-50 text-green-700"
+                    : "border-gold/30 bg-gold/10 text-gold hover:bg-gold/20"
+                )}
+              >
+                {justSaved ? <Check className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
+                <span className="hidden sm:inline">{justSaved ? "Saved!" : "Save This Search"}</span>
+              </button>
+            )}
+          <div className="flex items-center gap-1 rounded-lg border border-border p-1">
             <button onClick={() => setView("grid")} className={cn("rounded-md p-2.5 transition-colors", view === "grid" ? "bg-gold text-near-black" : "text-muted-foreground hover:text-foreground")} aria-label="Grid view"><LayoutGrid className="h-4 w-4" /></button>
             <button onClick={() => setView("map")} className={cn("rounded-md p-2.5 transition-colors", view === "map" ? "bg-gold text-near-black" : "text-muted-foreground hover:text-foreground")} aria-label="Map view"><Map className="h-4 w-4" /></button>
+          </div>
           </div>
         </div>
       </div>
