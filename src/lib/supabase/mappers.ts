@@ -55,6 +55,8 @@ export function mapPropertyRow(row: any): Property {
     openHouse: row.open_house ?? undefined,
     videoUrl: row.video_url ?? undefined,
     virtualTourUrl: row.virtual_tour_url ?? undefined,
+    tax_annual: row.tax_annual ?? 0,
+    tax_year: row.tax_year ?? 2025,
   };
 }
 

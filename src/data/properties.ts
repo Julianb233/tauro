@@ -1,10 +1,3 @@
-export interface Room {
-  name: string;
-  dimensions: string;
-  level: string;
-  description: string;
-}
-
 export interface Property {
   id: string;
   slug: string;
@@ -28,7 +21,6 @@ export interface Property {
     exterior: string[];
     community: string[];
   };
-  rooms?: Room[];
   agent: {
     name: string;
     phone: string;
@@ -43,11 +35,10 @@ export interface Property {
     startTime: string;  // HH:MM (24h)
     endTime: string;    // HH:MM (24h)
   };
-  amenities: string[];
   videoUrl?: string;
-  videoTourUrl?: string;
   virtualTourUrl?: string;
-  priceHistory?: { date: string; price: number; event: string }[];
+  tax_annual: number;
+  tax_year: number;
 }
 
 export const properties: Property[] = [
@@ -99,29 +90,18 @@ export const properties: Property[] = [
         "Museum District",
       ],
     },
-    rooms: [
-      { name: "Primary Suite", dimensions: "18x14", level: "3rd Floor", description: "Vaulted ceilings, walk-in closet, en-suite bath with soaking tub" },
-      { name: "Living Room", dimensions: "22x16", level: "1st Floor", description: "Marble fireplace, original crown moldings, Square views" },
-      { name: "Chef's Kitchen", dimensions: "20x14", level: "1st Floor", description: "Custom cabinetry, Sub-Zero fridge, Wolf range, butler's pantry" },
-      { name: "Formal Dining Room", dimensions: "16x14", level: "1st Floor", description: "Crystal chandelier, wainscoting, seats twelve" },
-      { name: "Home Office", dimensions: "14x12", level: "2nd Floor", description: "Built-in bookshelves, fireplace, garden views" },
-      { name: "Wine Cellar", dimensions: "12x10", level: "Basement", description: "Climate-controlled, 500-bottle capacity, tasting area" },
-      { name: "Bedroom 2", dimensions: "15x12", level: "2nd Floor", description: "En-suite bath, walk-in closet, park views" },
-      { name: "Bedroom 3", dimensions: "14x12", level: "2nd Floor", description: "Bay window, hardwood floors, adjoining bath" },
-    ],
     agent: {
       name: "Julian Bradley",
-      phone: "(215) 839-4172",
-      email: "julian@taurorealty.com",
+      phone: "(215) 555-0100",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
     lat: 39.9493,
     lng: -75.1718,
+    tax_annual: 45500,
+    tax_year: 2025,
     openHouse: "Sat, Mar 22 · 1:00 PM - 4:00 PM",
-    openHouseEvent: { date: "2026-03-22", startTime: "13:00", endTime: "16:00" },
-    amenities: ["Fireplace", "Hardwood Floors", "Central Air", "Garage", "Wine Cellar", "Rooftop Terrace"],
     videoUrl: "https://www.youtube.com/embed/2lPGf1gJwb4",
-    videoTourUrl: "2lPGf1gJwb4",
     virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyoDo",
   },
   {
@@ -172,26 +152,17 @@ export const properties: Property[] = [
         "Fine Dining",
       ],
     },
-    rooms: [
-      { name: "Primary Suite", dimensions: "20x16", level: "3rd Floor", description: "Spa-like en-suite, heated floors, skylight, dual walk-in closets" },
-      { name: "Grand Parlor", dimensions: "24x18", level: "1st Floor", description: "Twin fireplaces, 12-foot ceilings, exposed brick, pine floors" },
-      { name: "Chef's Kitchen", dimensions: "18x15", level: "1st Floor", description: "Marble counters, professional range, farmhouse sink, breakfast nook" },
-      { name: "Library", dimensions: "16x12", level: "2nd Floor", description: "Floor-to-ceiling bookshelves, fireplace, original millwork" },
-      { name: "Bedroom 2", dimensions: "16x14", level: "2nd Floor", description: "Fireplace, pine floors, en-suite bath" },
-      { name: "Bedroom 3", dimensions: "14x12", level: "2nd Floor", description: "Garden views, wide-plank floors, ample closet space" },
-      { name: "Carriage House", dimensions: "20x16", level: "Detached", description: "Private studio with kitchenette, full bath, separate entrance" },
-    ],
     agent: {
       name: "Sofia Martinez",
-      phone: "(215) 647-2938",
-      email: "sofia@taurorealty.com",
+      phone: "(215) 555-0200",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
     lat: 39.9431,
     lng: -75.1479,
-    amenities: ["Fireplace", "Hardwood Floors", "Heated Floors", "Exposed Brick", "Carriage House", "Off-Street Parking"],
+    tax_annual: 66500,
+    tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/9k3iFqLGmOo",
-    videoTourUrl: "9k3iFqLGmOo",
     virtualTourUrl: "https://my.matterport.com/show/?m=oj3GnqCwEvR",
   },
   {
@@ -242,28 +213,17 @@ export const properties: Property[] = [
         "Fine Dining",
       ],
     },
-    rooms: [
-      { name: "Primary Suite", dimensions: "22x18", level: "Penthouse", description: "Terrace access, dual walk-ins, freestanding soaking tub, skyline views" },
-      { name: "Great Room", dimensions: "30x22", level: "Penthouse", description: "Floor-to-ceiling glass, gas fireplace, river and museum views" },
-      { name: "Italian Kitchen", dimensions: "20x16", level: "Penthouse", description: "Custom Italian cabinetry, Gaggenau appliances, waterfall island" },
-      { name: "Bedroom 2", dimensions: "16x14", level: "Penthouse", description: "En-suite bath, built-in desk, city views" },
-      { name: "Bedroom 3", dimensions: "15x13", level: "Penthouse", description: "Walk-in closet, en-suite bath, park views" },
-      { name: "Wine Room", dimensions: "10x8", level: "Penthouse", description: "Temperature-controlled, 300-bottle capacity, tasting counter" },
-      { name: "Media Room", dimensions: "18x14", level: "Penthouse", description: "Acoustic paneling, blackout shades, built-in surround sound" },
-    ],
     agent: {
       name: "Julian Bradley",
-      phone: "(215) 839-4172",
-      email: "julian@taurorealty.com",
+      phone: "(215) 555-0100",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
     lat: 39.9615,
     lng: -75.1756,
-    openHouse: "Sat, Mar 22 · 12:00 PM - 2:00 PM",
-    openHouseEvent: { date: "2026-03-22", startTime: "12:00", endTime: "14:00" },
-    amenities: ["Pool", "Smart Home", "Central Air", "Concierge", "Private Elevator", "Terrace"],
+    tax_annual: 95200,
+    tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/gXGnIFzJsQ4",
-    videoTourUrl: "gXGnIFzJsQ4",
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
   },
   {
@@ -309,17 +269,16 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Sofia Martinez",
-      phone: "(215) 647-2938",
-      email: "sofia@taurorealty.com",
+      phone: "(215) 555-0200",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
     lat: 39.951,
     lng: -75.166,
+    tax_annual: 12530,
+    tax_year: 2025,
     openHouse: "Sun, Mar 23 · 11:00 AM - 2:00 PM",
-    amenities: ["Pool", "Central Air", "In-Unit Laundry", "Balcony", "Concierge", "Secured Parking"],
-    openHouseEvent: { date: "2026-03-23", startTime: "11:00", endTime: "14:00" },
     videoUrl: "https://www.youtube.com/embed/QhHBvBsW_GE",
-    videoTourUrl: "QhHBvBsW_GE",
   },
   {
     id: "5",
@@ -362,26 +321,17 @@ export const properties: Property[] = [
         "Parks & Trails",
       ],
     },
-    rooms: [
-      { name: "Primary Suite", dimensions: "18x14", level: "3rd Floor", description: "Vaulted ceilings, walk-in closet, en-suite with rainfall shower" },
-      { name: "Open Living/Dining", dimensions: "24x18", level: "1st Floor", description: "Custom millwork, gas fireplace, flows to chef's kitchen" },
-      { name: "Chef's Kitchen", dimensions: "16x14", level: "1st Floor", description: "Waterfall quartz island, paneled fridge, pot-filler, walk-in pantry" },
-      { name: "Home Office", dimensions: "12x10", level: "2nd Floor", description: "Built-in desk and shelving, natural light, quiet retreat" },
-      { name: "Bedroom 2", dimensions: "14x12", level: "2nd Floor", description: "Double closets, hardwood floors, garden views" },
-      { name: "Bedroom 3", dimensions: "13x11", level: "2nd Floor", description: "Street views, ample closet, adjacent full bath" },
-      { name: "Rooftop Deck", dimensions: "20x16", level: "Roof", description: "Built-in grill, pergola, panoramic skyline views" },
-    ],
     agent: {
       name: "Julian Bradley",
-      phone: "(215) 839-4172",
-      email: "julian@taurorealty.com",
+      phone: "(215) 555-0100",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
     lat: 39.9378,
     lng: -75.1442,
-    amenities: ["Garage", "Rooftop Deck", "Updated Kitchen", "Hardwood Floors", "EV Charging", "Home Office"],
+    tax_annual: 27300,
+    tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/VXJkNrnKVqA",
-    videoTourUrl: "VXJkNrnKVqA",
   },
   {
     id: "6",
@@ -431,13 +381,14 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Sofia Martinez",
-      phone: "(215) 647-2938",
-      email: "sofia@taurorealty.com",
+      phone: "(215) 555-0200",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
-    amenities: ["Smart Home", "Rooftop Deck", "Central Air", "Garage", "Updated Kitchen", "Custom Tile"],
     lat: 39.9735,
     lng: -75.1268,
+    tax_annual: 17850,
+    tax_year: 2025,
   },
   {
     id: "7",
@@ -487,13 +438,14 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Sofia Martinez",
-      phone: "(215) 647-2938",
-      email: "sofia@taurorealty.com",
+      phone: "(215) 555-0200",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
-    amenities: ["Central Air", "In-Unit Laundry", "Rooftop Deck", "Bike Storage", "Secured Entry", "Hardwood Floors"],
     lat: 39.9657,
     lng: -75.1419,
+    tax_annual: 9086,
+    tax_year: 2025,
   },
   {
     id: "8",
@@ -542,24 +494,16 @@ export const properties: Property[] = [
         "Schuylkill River Trail",
       ],
     },
-    rooms: [
-      { name: "Primary Bedroom", dimensions: "16x14", level: "2nd Floor", description: "Ornate mantel, bay window, walk-in closet, en-suite bath" },
-      { name: "Living Room", dimensions: "20x16", level: "1st Floor", description: "Original hardwood floors, fireplace, built-in bookshelves" },
-      { name: "Updated Kitchen", dimensions: "16x12", level: "1st Floor", description: "Stainless appliances, granite counters, breakfast bar" },
-      { name: "Formal Dining", dimensions: "14x12", level: "1st Floor", description: "Wainscoting, chair rail, original pocket doors to living room" },
-      { name: "Third-Floor Suite", dimensions: "20x14", level: "3rd Floor", description: "Full bath, skylight, flexible space — bedroom or studio" },
-      { name: "Bedroom 2", dimensions: "14x12", level: "2nd Floor", description: "Hardwood floors, double closet, garden views" },
-      { name: "Bedroom 3", dimensions: "13x11", level: "2nd Floor", description: "Bright corner room, original trim, ample storage" },
-    ],
     agent: {
       name: "Julian Bradley",
-      phone: "(215) 839-4172",
-      email: "julian@taurorealty.com",
+      phone: "(215) 555-0100",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
-    amenities: ["Hardwood Floors", "Fireplace", "Updated Kitchen", "Fenced Yard", "Off-Street Parking", "Built-In Bookshelves"],
     lat: 39.9522,
     lng: -75.2032,
+    tax_annual: 15400,
+    tax_year: 2025,
   },
   {
     id: "9",
@@ -609,13 +553,14 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Sofia Martinez",
-      phone: "(215) 647-2938",
-      email: "sofia@taurorealty.com",
+      phone: "(215) 555-0200",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
-    amenities: ["Hardwood Floors", "Rooftop Deck", "Garage", "In-Unit Laundry", "Open Floor Plan", "River Views"],
     lat: 40.0261,
     lng: -75.2243,
+    tax_annual: 7350,
+    tax_year: 2025,
   },
   {
     id: "10",
@@ -666,25 +611,16 @@ export const properties: Property[] = [
         "Regional Rail to Center City",
       ],
     },
-    rooms: [
-      { name: "Primary Suite", dimensions: "20x16", level: "2nd Floor", description: "Fireplace, sitting area, dual closets, renovated en-suite" },
-      { name: "Sun Conservatory", dimensions: "18x14", level: "1st Floor", description: "Floor-to-ceiling windows, heated tile floor, garden access" },
-      { name: "Chef's Kitchen", dimensions: "18x14", level: "1st Floor", description: "Chestnut cabinetry, marble island, professional-grade appliances" },
-      { name: "Library", dimensions: "16x14", level: "1st Floor", description: "Fireplace, built-in shelving, original chestnut woodwork" },
-      { name: "Formal Dining", dimensions: "16x14", level: "1st Floor", description: "Butler's pantry access, crown molding, seats ten" },
-      { name: "Bedroom 2", dimensions: "16x14", level: "2nd Floor", description: "En-suite bath, walk-in closet, garden views" },
-      { name: "Bedroom 3", dimensions: "14x12", level: "2nd Floor", description: "Original woodwork, double closets, tree-top views" },
-      { name: "Bedroom 4", dimensions: "14x12", level: "3rd Floor", description: "Dormer windows, eave storage, cozy retreat" },
-    ],
     agent: {
       name: "Julian Bradley",
-      phone: "(215) 839-4172",
-      email: "julian@taurorealty.com",
+      phone: "(215) 555-0100",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
     lat: 40.0781,
     lng: -75.2085,
-    amenities: ["Fireplace", "Hardwood Floors", "Heated Floors", "Garage", "Updated Kitchen", "Conservatory"],
+    tax_annual: 25200,
+    tax_year: 2025,
     videoTourUrl: "dFBMEurPml4",
   },
   {
@@ -736,16 +672,16 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Sofia Martinez",
-      phone: "(215) 647-2938",
-      email: "sofia@taurorealty.com",
+      phone: "(215) 555-0200",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
     lat: 39.9775,
     lng: -75.1756,
-    amenities: ["Smart Home", "Rooftop Deck", "EV Charging", "Garage", "Central Air", "Open Floor Plan"],
+    tax_annual: 6790,
+    tax_year: 2025,
     openHouse: "Sat, Mar 29 · 12:00 PM - 3:00 PM",
   },
-    openHouseEvent: { date: "2026-03-29", startTime: "12:00", endTime: "15:00" },
   {
     id: "12",
     slug: "1847-mifflin-st-point-breeze",
@@ -794,13 +730,14 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Julian Bradley",
-      phone: "(215) 839-4172",
-      email: "julian@taurorealty.com",
+      phone: "(215) 555-0100",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
-    amenities: ["Central Air", "Exposed Brick", "Updated Kitchen", "Fenced Yard", "Patio", "Recessed Lighting"],
     lat: 39.9343,
     lng: -75.1824,
+    tax_annual: 5880,
+    tax_year: 2025,
   },
   {
     id: "13",
@@ -850,13 +787,14 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Sofia Martinez",
-      phone: "(215) 647-2938",
-      email: "sofia@taurorealty.com",
+      phone: "(215) 555-0200",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
-    amenities: ["Hardwood Floors", "Updated Kitchen", "Separate Utilities", "New Windows", "Yard", "Street Parking"],
     lat: 39.9867,
     lng: -75.1277,
+    tax_annual: 5250,
+    tax_year: 2025,
   },
   {
     id: "14",
@@ -907,13 +845,14 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Julian Bradley",
-      phone: "(215) 839-4172",
-      email: "julian@taurorealty.com",
+      phone: "(215) 555-0100",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
-    amenities: ["Hardwood Floors", "Stained Glass", "Garage", "Fenced Yard", "Wrap-Around Porch", "High Ceilings"],
     lat: 39.9507,
     lng: -75.2213,
+    tax_annual: 8120,
+    tax_year: 2025,
   },
   {
     id: "15",
@@ -966,13 +905,14 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Sofia Martinez",
-      phone: "(215) 647-2938",
-      email: "sofia@taurorealty.com",
+      phone: "(215) 555-0200",
+      email: "sofia@tauro.realty",
       photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
     },
-    amenities: ["Smart Home", "Private Elevator", "Concierge", "Valet Parking", "Fitness Center", "Hardwood Floors"],
     lat: 39.9487,
     lng: -75.1725,
+    tax_annual: 33600,
+    tax_year: 2025,
   },
   {
     id: "16",
@@ -1025,16 +965,16 @@ export const properties: Property[] = [
     },
     agent: {
       name: "Julian Bradley",
-      phone: "(215) 839-4172",
-      email: "julian@taurorealty.com",
+      phone: "(215) 555-0100",
+      email: "julian@tauro.realty",
       photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
     },
     lat: 39.9721,
     lng: -75.1305,
-    amenities: ["Rooftop Deck", "Garage", "EV Charging", "Updated Kitchen", "Hardwood Floors", "Spa Bath"],
+    tax_annual: 13300,
+    tax_year: 2025,
     openHouse: "Sun, Mar 30 · 1:00 PM - 4:00 PM",
   },
-    openHouseEvent: { date: "2026-03-30", startTime: "13:00", endTime: "16:00" },
 ];
 
 export function formatPrice(price: number): string {

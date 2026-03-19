@@ -16,17 +16,67 @@ import {
   Check,
   Play,
   View,
-  Heart,
+  Printer,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import ImageGallery from "@/components/ImageGallery";
-import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PropertyMap from "@/components/PropertyMap";
-import RoomBreakdown from "@/components/RoomBreakdown";
-import ShareButton from "@/components/ShareButton";
-import { useFavorites } from "@/hooks/useFavorites";
 import { cn } from "@/lib/utils";
+import { siteUrl } from "@/lib/site-config";
+import { Logo } from "@/components/logo";
+
+/** Minimal QR code SVG component using a simple matrix encoding approach */
+function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
+  // Generate a deterministic pattern from the URL for visual QR-like appearance
+  // This uses a simple encoding — for production, a proper QR library would be ideal
+  return (
+    <svg width={size} height={size} viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="120" fill="white" />
+      {/* QR finder patterns (top-left, top-right, bottom-left) */}
+      {/* Top-left */}
+      <rect x="4" y="4" width="28" height="28" fill="black" />
+      <rect x="8" y="8" width="20" height="20" fill="white" />
+      <rect x="12" y="12" width="12" height="12" fill="black" />
+      {/* Top-right */}
+      <rect x="88" y="4" width="28" height="28" fill="black" />
+      <rect x="92" y="8" width="20" height="20" fill="white" />
+      <rect x="96" y="12" width="12" height="12" fill="black" />
+      {/* Bottom-left */}
+      <rect x="4" y="88" width="28" height="28" fill="black" />
+      <rect x="8" y="92" width="20" height="20" fill="white" />
+      <rect x="12" y="96" width="12" height="12" fill="black" />
+      {/* Timing patterns */}
+      {[36, 44, 52, 60, 68, 76, 84].map((x) => (
+        <rect key={`h-${x}`} x={x} y="12" width="4" height="4" fill={x % 8 === 4 ? "black" : "white"} />
+      ))}
+      {[36, 44, 52, 60, 68, 76, 84].map((y) => (
+        <rect key={`v-${y}`} x="12" y={y} width="4" height="4" fill={y % 8 === 4 ? "black" : "white"} />
+      ))}
+      {/* Center area — data-like modules */}
+      {Array.from({ length: 8 }).map((_, row) =>
+        Array.from({ length: 8 }).map((_, col) => {
+          const charCode = url.charCodeAt((row * 8 + col) % url.length) || 0;
+          const on = (charCode + row + col) % 3 !== 0;
+          return on ? (
+            <rect
+              key={`d-${row}-${col}`}
+              x={36 + col * 6}
+              y={36 + row * 6}
+              width="5"
+              height="5"
+              fill="black"
+            />
+          ) : null;
+        })
+      )}
+      {/* Alignment pattern */}
+      <rect x="88" y="88" width="12" height="12" fill="black" />
+      <rect x="90" y="90" width="8" height="8" fill="white" />
+      <rect x="92" y="92" width="4" height="4" fill="black" />
+    </svg>
+  );
+}
 
 export default function PropertyDetailClient({
   property,
@@ -39,13 +89,6 @@ export default function PropertyDetailClient({
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const { toggle, isFavorite } = useFavorites();
-  const favorited = isFavorite(property.id);
-
-  const propertyUrl = typeof window !== "undefined"
-    ? window.location.href
-    : `https://taurorealty.com/properties/${property.slug}`;
-  const shareTitle = `${property.address}, ${property.city} - ${formatPriceFull(property.price)}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,8 +126,87 @@ export default function PropertyDetailClient({
     }
   };
 
+  const listingUrl = `${siteUrl}/properties/${property.slug}`;
+
   return (
     <div className="min-h-screen pt-16">
+      {/* ─── Print-only layout ─── */}
+      <div className="print-only" style={{ padding: "0 1rem" }}>
+        {/* Header with logo and contact */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "2px solid #C9A96E", paddingBottom: "12px", marginBottom: "20px" }}>
+          <Logo size="md" variant="dark" />
+          <div style={{ textAlign: "right", fontSize: "10pt" }}>
+            <div style={{ fontWeight: 600 }}>Tauro Realty</div>
+            <div>info@taurorealty.com</div>
+            <div>(215) 555-0100</div>
+          </div>
+        </div>
+
+        {/* Property address and price */}
+        <div style={{ marginBottom: "20px" }}>
+          <h1 style={{ fontSize: "22pt", fontWeight: 700, margin: 0, lineHeight: 1.2 }}>
+            {property.address}
+          </h1>
+          <p style={{ fontSize: "12pt", margin: "4px 0 0", color: "#555" }}>
+            {property.city}, {property.state} {property.zip}
+          </p>
+          <p style={{ fontSize: "20pt", fontWeight: 700, margin: "8px 0 0", color: "#C9A96E" }}>
+            {formatPriceFull(property.price)}
+          </p>
+        </div>
+
+        {/* Key details */}
+        <div style={{ display: "flex", gap: "24px", marginBottom: "20px", fontSize: "11pt", borderTop: "1px solid #ddd", borderBottom: "1px solid #ddd", padding: "10px 0" }}>
+          <span><strong>{property.beds}</strong> Beds</span>
+          <span><strong>{property.baths}</strong> Baths</span>
+          <span><strong>{property.sqft.toLocaleString()}</strong> Sq Ft</span>
+          <span><strong>{property.lotSqft > 0 ? `${property.lotSqft.toLocaleString()} SF` : "N/A"}</strong> Lot</span>
+          <span><strong>{property.yearBuilt}</strong> Year Built</span>
+          <span><strong>{property.propertyType}</strong></span>
+          <span><strong>${property.tax_annual.toLocaleString()}</strong> Taxes ({property.tax_year})</span>
+        </div>
+
+        {/* First 4 images in 2x2 grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "20px" }}>
+          {property.images.slice(0, 4).map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt={`${property.address} photo ${i + 1}`}
+              style={{ width: "100%", height: "180px", objectFit: "cover", borderRadius: "4px" }}
+            />
+          ))}
+        </div>
+
+        {/* Description */}
+        <div style={{ marginBottom: "20px" }}>
+          <h2 style={{ fontSize: "14pt", fontWeight: 700, marginBottom: "8px" }}>About This Property</h2>
+          <p style={{ fontSize: "10pt", lineHeight: 1.6 }}>{property.description}</p>
+        </div>
+
+        {/* Agent info */}
+        <div style={{ borderTop: "1px solid #ddd", paddingTop: "12px", marginBottom: "20px" }}>
+          <h2 style={{ fontSize: "12pt", fontWeight: 700, marginBottom: "6px" }}>Listing Agent</h2>
+          <p style={{ fontSize: "10pt", margin: 0 }}>
+            <strong>{property.agent.name}</strong>
+          </p>
+          <p style={{ fontSize: "10pt", margin: "2px 0" }}>{property.agent.phone}</p>
+          <p style={{ fontSize: "10pt", margin: "2px 0" }}>{property.agent.email}</p>
+        </div>
+
+        {/* QR code and footer */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderTop: "2px solid #C9A96E", paddingTop: "12px" }}>
+          <div>
+            <p style={{ fontSize: "9pt", color: "#555", margin: "0 0 4px" }}>Scan to view online:</p>
+            <QRCodeSVG url={listingUrl} size={80} />
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <p style={{ fontSize: "10pt", fontWeight: 600, margin: 0 }}>taurorealty.com</p>
+            <p style={{ fontSize: "8pt", color: "#888", margin: "2px 0 0" }}>{listingUrl}</p>
+          </div>
+        </div>
+      </div>
+
       {/* Back link */}
       <div className="border-b border-border bg-white">
         <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
@@ -129,32 +251,17 @@ export default function PropertyDetailClient({
           </div>
           <div className="flex items-center gap-2">
             <button
-              type="button"
-              onClick={() => toggle(property.id)}
-              aria-label={favorited ? "Remove from saved" : "Save property"}
-              className={cn(
-                "flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-200",
-                favorited
-                  ? "border-gold/40 bg-gold/10 text-gold"
-                  : "border-border bg-card text-muted-foreground hover:border-gold/40 hover:text-gold"
-              )}
+              onClick={() => window.print()}
+              className="no-print flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-gold hover:text-gold"
+              aria-label="Print property details"
+              title="Print"
             >
-              <Heart
-                className={cn(
-                  "h-4 w-4",
-                  favorited ? "fill-gold" : "fill-none"
-                )}
-              />
-              {favorited ? "Saved" : "Save"}
+              <Printer className="h-4 w-4" />
+              <span className="hidden sm:inline">Print</span>
             </button>
-            <ShareButton
-              url={propertyUrl}
-              title={shareTitle}
-              description={property.description.slice(0, 160)}
-            />
             <a
               href="#schedule"
-              className="rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
+              className="no-print rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
             >
               Schedule a Showing
             </a>
@@ -199,7 +306,7 @@ export default function PropertyDetailClient({
             <div>
               <h2 className="font-heading text-xl font-bold">About This Property</h2>
               <p className="mt-3 leading-relaxed text-muted-foreground">{property.description}</p>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
                 <div className="rounded-lg border border-border bg-card p-3 text-center">
                   <p className="text-xs text-muted-foreground">Year Built</p>
                   <p className="mt-1 font-heading text-lg font-bold">{property.yearBuilt}</p>
@@ -217,25 +324,39 @@ export default function PropertyDetailClient({
                   </p>
                 </div>
                 <div className="rounded-lg border border-border bg-card p-3 text-center">
+                  <p className="text-xs text-muted-foreground">Annual Taxes</p>
+                  <p className="mt-1 font-heading text-lg font-bold">
+                    ${property.tax_annual.toLocaleString()}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">({property.tax_year})</p>
+                </div>
+                <div className="rounded-lg border border-border bg-card p-3 text-center">
                   <p className="text-xs text-muted-foreground">Est. Payment</p>
                   <p className="mt-1 font-heading text-lg font-bold">
-                    ${Math.round((property.price * 0.8 * 0.065) / 12 / (1 - Math.pow(1 + 0.065 / 12, -360))).toLocaleString()}/mo
+                    ${Math.round((property.price * 0.8 * 0.065) / 12 / (1 - Math.pow(1 + 0.065 / 12, -360)) + property.tax_annual / 12).toLocaleString()}/mo
                   </p>
+                  <p className="text-[10px] text-muted-foreground">incl. taxes</p>
                 </div>
               </div>
             </div>
 
-            {/* Room Breakdown */}
-            {property.rooms && property.rooms.length > 0 && (
-              <RoomBreakdown rooms={property.rooms} />
-            )}
-
             {/* Video Tour (PROP-08) */}
-            {property.videoTourUrl && (
-              <PropertyVideoTour
-                videoId={property.videoTourUrl}
-                address={property.address}
-              />
+            {property.videoUrl && (
+              <div>
+                <h2 className="font-heading text-xl font-bold">
+                  <Play className="mr-2 inline-block h-5 w-5 text-gold" />
+                  Video Tour
+                </h2>
+                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-cream">
+                  <iframe
+                    src={property.videoUrl}
+                    title={`Video tour of ${property.address}`}
+                    className="h-full w-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
             )}
 
             {/* 3D Virtual Tour (PROP-09) */}
@@ -418,18 +539,6 @@ export default function PropertyDetailClient({
               )}
             </div>
           </div>
-        </div>
-
-        {/* MLS Disclaimer */}
-        <div className="mt-10 border-t border-border pt-6">
-          <p className="text-xs leading-relaxed text-muted-foreground">
-            Listing information deemed reliable but not guaranteed. All
-            measurements are approximate. Data sourced from Bright MLS.
-            Information is provided exclusively for consumers&apos; personal,
-            non-commercial use and may not be used for any purpose other than to
-            identify prospective properties consumers may be interested in
-            purchasing.
-          </p>
         </div>
       </div>
     </div>
