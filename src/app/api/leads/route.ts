@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { sendLeadConfirmation, sendAgentNotification, sendApplicationConfirmation } from "@/lib/email";
+import { createGhlContact } from "@/lib/ghl";
 
 // ---------------------------------------------------------------------------
 // Rate limiting (in-memory, per IP)
@@ -12,7 +13,6 @@ const RATE_LIMIT_MAX = 5; // max submissions per window
 
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 
-// Cleanup stale entries every 5 minutes
 setInterval(() => {
   const now = Date.now();
   for (const [key, entry] of rateLimitMap) {
@@ -46,26 +46,22 @@ const LeadCreateSchema = z.object({
   email: z.string().email(),
   phone: z.string().min(1),
   message: z.string().optional(),
-  // Showing-specific
   propertyAddress: z.string().optional(),
   propertyId: z.string().optional(),
   propertySlug: z.string().optional(),
   preferredDate: z.string().optional(),
   preferredTime: z.string().optional(),
   agentPreference: z.string().optional(),
-  // Seller-specific
   homeAddress: z.string().optional(),
   beds: z.string().optional(),
   baths: z.string().optional(),
   sqft: z.string().optional(),
   timeline: z.string().optional(),
   reason: z.string().optional(),
-  // Agent application-specific
   licenseNumber: z.string().optional(),
   yearsExperience: z.string().optional(),
   currentBrokerage: z.string().optional(),
   whyJoin: z.string().optional(),
-  // Agent contact-specific
   agentName: z.string().optional(),
   agentSlug: z.string().optional(),
 });
@@ -73,54 +69,10 @@ const LeadCreateSchema = z.object({
 export type LeadPayload = z.infer<typeof LeadCreateSchema>;
 
 // ---------------------------------------------------------------------------
-// GHL webhook helper (preserved from original implementation)
-// ---------------------------------------------------------------------------
-
-function buildGhlContact(data: LeadPayload) {
-  const tags: string[] = [];
-
-  if (data.type === "contact") tags.push("website-contact");
-  if (data.type === "showing") tags.push("showing-request");
-  if (data.type === "seller") tags.push("seller-lead");
-  if (data.type === "agent-application") tags.push("agent-application");
-  if (data.type === "agent-contact") tags.push("agent-contact");
-
-  const customFields: Record<string, string> = {};
-
-  if (data.message) customFields.message = data.message;
-  if (data.propertyAddress) customFields.property_address = data.propertyAddress;
-  if (data.preferredDate) customFields.preferred_date = data.preferredDate;
-  if (data.preferredTime) customFields.preferred_time = data.preferredTime;
-  if (data.agentPreference) customFields.agent_preference = data.agentPreference;
-  if (data.homeAddress) customFields.home_address = data.homeAddress;
-  if (data.beds) customFields.bedrooms = data.beds;
-  if (data.baths) customFields.bathrooms = data.baths;
-  if (data.sqft) customFields.square_feet = data.sqft;
-  if (data.timeline) customFields.selling_timeline = data.timeline;
-  if (data.reason) customFields.selling_reason = data.reason;
-  if (data.licenseNumber) customFields.license_number = data.licenseNumber;
-  if (data.yearsExperience) customFields.years_experience = data.yearsExperience;
-  if (data.currentBrokerage) customFields.current_brokerage = data.currentBrokerage;
-  if (data.whyJoin) customFields.why_join = data.whyJoin;
-  if (data.agentName) customFields.agent_name = data.agentName;
-
-  return {
-    firstName: data.firstName,
-    lastName: data.lastName,
-    email: data.email,
-    phone: data.phone,
-    tags,
-    customFields,
-    source: "Tauro Website",
-  };
-}
-
-// ---------------------------------------------------------------------------
-// POST  /api/leads  — persist to DB, then forward to GHL
+// POST /api/leads
 // ---------------------------------------------------------------------------
 
 export async function POST(request: NextRequest) {
-  // Rate limit by IP
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
     request.headers.get("x-real-ip") ??
@@ -140,7 +92,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  // Validate input
   const result = LeadCreateSchema.safeParse(body);
   if (!result.success) {
     return NextResponse.json(
@@ -151,15 +102,12 @@ export async function POST(request: NextRequest) {
 
   const data = result.data;
 
-  // ---------------------------------------------------------------------------
-  // 1. Persist to database (if Supabase is configured)
-  // ---------------------------------------------------------------------------
+  // 1. Persist to database
   const supabase = await createClient();
   let dbSaved = false;
   let agentId: string | null = null;
 
   if (supabase) {
-    // Resolve optional property_id and agent_id from slugs or IDs
     let propertyId: string | null = data.propertyId ?? null;
 
     if (!propertyId && data.propertySlug) {
@@ -180,7 +128,6 @@ export async function POST(request: NextRequest) {
       if (agent) agentId = agent.id;
     }
 
-    // Build metadata from extra fields
     const metadata: Record<string, unknown> = {};
     if (data.propertyAddress) metadata.propertyAddress = data.propertyAddress;
     if (data.preferredDate) metadata.preferredDate = data.preferredDate;
@@ -214,19 +161,14 @@ export async function POST(request: NextRequest) {
 
     if (dbError) {
       console.error("POST /api/leads DB insert error:", dbError);
-      // Don't return 500 — fall through to GHL webhook so the lead isn't lost
     } else {
       dbSaved = true;
     }
   } else {
-    console.warn("POST /api/leads: Supabase not configured — skipping DB insert");
+    console.warn("POST /api/leads: Supabase not configured");
   }
 
-  // ---------------------------------------------------------------------------
-  // 2. Send emails (best effort — never block response on email failure)
-  // ---------------------------------------------------------------------------
-
-  // 2a. Visitor confirmation email (all lead types except agent-application)
+  // 2. Send emails (best effort)
   if (data.type !== "agent-application") {
     sendLeadConfirmation(data.email, {
       firstName: data.firstName,
@@ -235,7 +177,6 @@ export async function POST(request: NextRequest) {
     }).catch((err) => console.error("Lead confirmation email failed:", err));
   }
 
-  // 2b. Agent-application gets application confirmation instead
   if (data.type === "agent-application") {
     sendApplicationConfirmation(data.email, {
       firstName: data.firstName,
@@ -243,7 +184,6 @@ export async function POST(request: NextRequest) {
     }).catch((err) => console.error("Application confirmation email failed:", err));
   }
 
-  // 2c. Agent notification (or admin fallback)
   if (data.type !== "agent-application") {
     let notifyEmail: string | null = null;
 
@@ -270,50 +210,26 @@ export async function POST(request: NextRequest) {
     }).catch((err) => console.error("Agent notification email failed:", err));
   }
 
-  // ---------------------------------------------------------------------------
-  // 3. Forward to GHL webhook (best effort)
-  // ---------------------------------------------------------------------------
-  const webhookUrl = process.env.GHL_WEBHOOK_URL;
-  let ghlSynced = false;
+  // 3. Forward to GHL (best effort -- uses dedicated GHL client module)
+  const ghlResult = await createGhlContact(data);
+  const ghlSynced = ghlResult.success;
 
-  if (webhookUrl) {
-    try {
-      const contact = buildGhlContact(data);
-      const ghlResponse = await fetch(webhookUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(contact),
-      });
-      ghlSynced = ghlResponse.ok;
-
-      if (!ghlSynced) {
-        console.error(
-          "GHL webhook returned non-OK:",
-          ghlResponse.status,
-          await ghlResponse.text(),
-        );
-      }
-    } catch (ghlErr) {
-      console.error("GHL webhook error:", ghlErr);
-    }
-
-    // Update ghl_synced flag in DB if both are available
-    if (ghlSynced && supabase && dbSaved) {
-      await supabase
-        .from("leads")
-        .update({ ghl_synced: true })
-        .eq("email", data.email)
-        .eq("type", data.type)
-        .order("created_at", { ascending: false })
-        .limit(1);
-    }
+  if (!ghlSynced && ghlResult.error) {
+    console.error("GHL sync failed:", ghlResult.error);
   }
 
-  // ---------------------------------------------------------------------------
-  // 4. Fallback: if neither DB nor GHL is configured, log lead to console
-  // ---------------------------------------------------------------------------
-  if (!supabase && !webhookUrl) {
-    console.log("POST /api/leads [NO BACKEND] — lead data:", JSON.stringify(data, null, 2));
+  if (ghlSynced && supabase && dbSaved) {
+    await supabase
+      .from("leads")
+      .update({ ghl_synced: true })
+      .eq("email", data.email)
+      .eq("type", data.type)
+      .order("created_at", { ascending: false })
+      .limit(1);
+  }
+
+  if (!supabase && !ghlSynced) {
+    console.log("POST /api/leads [NO BACKEND]:", JSON.stringify(data, null, 2));
   }
 
   return NextResponse.json(
@@ -323,7 +239,7 @@ export async function POST(request: NextRequest) {
 }
 
 // ---------------------------------------------------------------------------
-// GET  /api/leads  — paginated lead list (for dashboard)
+// GET /api/leads
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {
@@ -360,9 +276,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ data, count, limit, offset });
   } catch (err) {
     console.error("GET /api/leads error:", err);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
