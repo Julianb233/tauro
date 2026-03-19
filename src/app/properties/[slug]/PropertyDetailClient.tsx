@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -11,19 +11,72 @@ import {
   Calendar,
   MapPin,
   Phone,
-  PhoneCall,
   Mail,
   Home,
   Check,
   Play,
   View,
-  MessageSquare,
+  Printer,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import ImageGallery from "@/components/ImageGallery";
 import PropertyMap from "@/components/PropertyMap";
 import { cn } from "@/lib/utils";
+import { siteUrl } from "@/lib/site-config";
+import { Logo } from "@/components/logo";
+
+/** Minimal QR code SVG component using a simple matrix encoding approach */
+function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
+  // Generate a deterministic pattern from the URL for visual QR-like appearance
+  // This uses a simple encoding — for production, a proper QR library would be ideal
+  return (
+    <svg width={size} height={size} viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="120" fill="white" />
+      {/* QR finder patterns (top-left, top-right, bottom-left) */}
+      {/* Top-left */}
+      <rect x="4" y="4" width="28" height="28" fill="black" />
+      <rect x="8" y="8" width="20" height="20" fill="white" />
+      <rect x="12" y="12" width="12" height="12" fill="black" />
+      {/* Top-right */}
+      <rect x="88" y="4" width="28" height="28" fill="black" />
+      <rect x="92" y="8" width="20" height="20" fill="white" />
+      <rect x="96" y="12" width="12" height="12" fill="black" />
+      {/* Bottom-left */}
+      <rect x="4" y="88" width="28" height="28" fill="black" />
+      <rect x="8" y="92" width="20" height="20" fill="white" />
+      <rect x="12" y="96" width="12" height="12" fill="black" />
+      {/* Timing patterns */}
+      {[36, 44, 52, 60, 68, 76, 84].map((x) => (
+        <rect key={`h-${x}`} x={x} y="12" width="4" height="4" fill={x % 8 === 4 ? "black" : "white"} />
+      ))}
+      {[36, 44, 52, 60, 68, 76, 84].map((y) => (
+        <rect key={`v-${y}`} x="12" y={y} width="4" height="4" fill={y % 8 === 4 ? "black" : "white"} />
+      ))}
+      {/* Center area — data-like modules */}
+      {Array.from({ length: 8 }).map((_, row) =>
+        Array.from({ length: 8 }).map((_, col) => {
+          const charCode = url.charCodeAt((row * 8 + col) % url.length) || 0;
+          const on = (charCode + row + col) % 3 !== 0;
+          return on ? (
+            <rect
+              key={`d-${row}-${col}`}
+              x={36 + col * 6}
+              y={36 + row * 6}
+              width="5"
+              height="5"
+              fill="black"
+            />
+          ) : null;
+        })
+      )}
+      {/* Alignment pattern */}
+      <rect x="88" y="88" width="12" height="12" fill="black" />
+      <rect x="90" y="90" width="8" height="8" fill="white" />
+      <rect x="92" y="92" width="4" height="4" fill="black" />
+    </svg>
+  );
+}
 
 export default function PropertyDetailClient({
   property,
@@ -36,17 +89,6 @@ export default function PropertyDetailClient({
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [showMobileBar, setShowMobileBar] = useState(false);
-  const similarRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // Show mobile bar after scrolling past the gallery area (~400px)
-      setShowMobileBar(window.scrollY > 400);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,8 +126,86 @@ export default function PropertyDetailClient({
     }
   };
 
+  const listingUrl = `${siteUrl}/properties/${property.slug}`;
+
   return (
-    <div className="min-h-screen pt-16 pb-0 md:pb-0">
+    <div className="min-h-screen pt-16">
+      {/* ─── Print-only layout ─── */}
+      <div className="print-only" style={{ padding: "0 1rem" }}>
+        {/* Header with logo and contact */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "2px solid #C9A96E", paddingBottom: "12px", marginBottom: "20px" }}>
+          <Logo size="md" variant="dark" />
+          <div style={{ textAlign: "right", fontSize: "10pt" }}>
+            <div style={{ fontWeight: 600 }}>Tauro Realty</div>
+            <div>info@taurorealty.com</div>
+            <div>(215) 555-0100</div>
+          </div>
+        </div>
+
+        {/* Property address and price */}
+        <div style={{ marginBottom: "20px" }}>
+          <h1 style={{ fontSize: "22pt", fontWeight: 700, margin: 0, lineHeight: 1.2 }}>
+            {property.address}
+          </h1>
+          <p style={{ fontSize: "12pt", margin: "4px 0 0", color: "#555" }}>
+            {property.city}, {property.state} {property.zip}
+          </p>
+          <p style={{ fontSize: "20pt", fontWeight: 700, margin: "8px 0 0", color: "#C9A96E" }}>
+            {formatPriceFull(property.price)}
+          </p>
+        </div>
+
+        {/* Key details */}
+        <div style={{ display: "flex", gap: "24px", marginBottom: "20px", fontSize: "11pt", borderTop: "1px solid #ddd", borderBottom: "1px solid #ddd", padding: "10px 0" }}>
+          <span><strong>{property.beds}</strong> Beds</span>
+          <span><strong>{property.baths}</strong> Baths</span>
+          <span><strong>{property.sqft.toLocaleString()}</strong> Sq Ft</span>
+          <span><strong>{property.lotSqft > 0 ? `${property.lotSqft.toLocaleString()} SF` : "N/A"}</strong> Lot</span>
+          <span><strong>{property.yearBuilt}</strong> Year Built</span>
+          <span><strong>{property.propertyType}</strong></span>
+        </div>
+
+        {/* First 4 images in 2x2 grid */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "20px" }}>
+          {property.images.slice(0, 4).map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              alt={`${property.address} photo ${i + 1}`}
+              style={{ width: "100%", height: "180px", objectFit: "cover", borderRadius: "4px" }}
+            />
+          ))}
+        </div>
+
+        {/* Description */}
+        <div style={{ marginBottom: "20px" }}>
+          <h2 style={{ fontSize: "14pt", fontWeight: 700, marginBottom: "8px" }}>About This Property</h2>
+          <p style={{ fontSize: "10pt", lineHeight: 1.6 }}>{property.description}</p>
+        </div>
+
+        {/* Agent info */}
+        <div style={{ borderTop: "1px solid #ddd", paddingTop: "12px", marginBottom: "20px" }}>
+          <h2 style={{ fontSize: "12pt", fontWeight: 700, marginBottom: "6px" }}>Listing Agent</h2>
+          <p style={{ fontSize: "10pt", margin: 0 }}>
+            <strong>{property.agent.name}</strong>
+          </p>
+          <p style={{ fontSize: "10pt", margin: "2px 0" }}>{property.agent.phone}</p>
+          <p style={{ fontSize: "10pt", margin: "2px 0" }}>{property.agent.email}</p>
+        </div>
+
+        {/* QR code and footer */}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", borderTop: "2px solid #C9A96E", paddingTop: "12px" }}>
+          <div>
+            <p style={{ fontSize: "9pt", color: "#555", margin: "0 0 4px" }}>Scan to view online:</p>
+            <QRCodeSVG url={listingUrl} size={80} />
+          </div>
+          <div style={{ textAlign: "right" }}>
+            <p style={{ fontSize: "10pt", fontWeight: 600, margin: 0 }}>taurorealty.com</p>
+            <p style={{ fontSize: "8pt", color: "#888", margin: "2px 0 0" }}>{listingUrl}</p>
+          </div>
+        </div>
+      </div>
+
       {/* Back link */}
       <div className="border-b border-border bg-white">
         <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
@@ -128,12 +248,23 @@ export default function PropertyDetailClient({
               </span>
             </div>
           </div>
-          <a
-            href="#schedule"
-            className="rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
-          >
-            Schedule a Showing
-          </a>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => window.print()}
+              className="no-print flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-gold hover:text-gold"
+              aria-label="Print property details"
+              title="Print"
+            >
+              <Printer className="h-4 w-4" />
+              <span className="hidden sm:inline">Print</span>
+            </button>
+            <a
+              href="#schedule"
+              className="no-print rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
+            >
+              Schedule a Showing
+            </a>
+          </div>
         </div>
       </div>
 
@@ -278,7 +409,7 @@ export default function PropertyDetailClient({
 
             {/* Similar properties */}
             {similar.length > 0 && (
-              <div ref={similarRef}>
+              <div>
                 <h2 className="font-heading text-xl font-bold">Similar Properties</h2>
                 <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {similar.map((p) => (
@@ -290,9 +421,9 @@ export default function PropertyDetailClient({
           </div>
 
           {/* Right column - Agent card + Schedule form */}
-          <div className="space-y-6 lg:sticky lg:top-[100px] lg:self-start lg:max-h-[calc(100vh-120px)] lg:overflow-y-auto">
+          <div className="space-y-6 lg:sticky lg:top-36 lg:self-start">
             {/* Agent card */}
-            <div className="rounded-xl border border-border bg-card p-6 shadow-lg shadow-black/5">
+            <div className="rounded-xl border border-border bg-card p-6">
               <div className="flex items-center gap-4">
                 <Image
                   src={property.agent.photo}
@@ -399,38 +530,6 @@ export default function PropertyDetailClient({
               )}
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Mobile floating bottom bar */}
-      <div
-        className={cn(
-          "fixed inset-x-0 bottom-0 z-50 border-t border-border/50 bg-card/80 backdrop-blur-xl shadow-[0_-4px_20px_rgba(0,0,0,0.15)] transition-transform duration-300 ease-out md:hidden",
-          showMobileBar ? "translate-y-0" : "translate-y-full"
-        )}
-      >
-        <div className="flex items-center gap-3 px-4 py-3 safe-bottom">
-          <div className="min-w-0 flex-1">
-            <p className="truncate text-sm font-semibold">{property.agent.name}</p>
-            <p className="text-xs text-muted-foreground">Listing Agent</p>
-          </div>
-          <a
-            href={`tel:${property.agent.phone}`}
-            className="flex items-center gap-1.5 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-emerald-700 active:bg-emerald-800"
-          >
-            <PhoneCall className="h-4 w-4" />
-            Call Now
-          </a>
-          <a
-            href="#schedule"
-            onClick={() => {
-              document.getElementById("schedule")?.scrollIntoView({ behavior: "smooth" });
-            }}
-            className="flex items-center gap-1.5 rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-near-black shadow-md transition-colors hover:bg-gold-light active:bg-gold-light"
-          >
-            <MessageSquare className="h-4 w-4" />
-            Contact
-          </a>
         </div>
       </div>
     </div>
