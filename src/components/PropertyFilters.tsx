@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
+import { neighborhoods } from "@/data/neighborhoods";
 
 export interface FilterState {
   priceMin: string;
@@ -186,10 +187,9 @@ export default function PropertyFilters({
               className={selectClasses}
             >
               <option value="">All Areas</option>
-              <option value="Mission Beach">Mission Beach</option>
-              <option value="La Jolla">La Jolla</option>
-              <option value="San Diego">San Diego</option>
-              <option value="Carlsbad">Carlsbad</option>
+              {neighborhoods.map((n) => (
+                <option key={n.id} value={n.propertyFilter}>{n.name}</option>
+              ))}
             </select>
           </div>
           <div>

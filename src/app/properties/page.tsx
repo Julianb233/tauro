@@ -67,7 +67,7 @@ function PropertiesContent() {
       result = result.filter((p) => p.sqft <= Number(filters.sqftMax));
     }
     if (filters.area) {
-      result = result.filter((p) => p.city === filters.area);
+      result = result.filter((p) => p.neighborhood === filters.area);
     }
     if (filters.propertyType) {
       result = result.filter((p) => p.propertyType === filters.propertyType);
