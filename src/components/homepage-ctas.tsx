@@ -4,11 +4,11 @@ import { ArrowRight } from "lucide-react";
 
 export default function HomepageCTAs() {
   return (
-    <section className="bg-cream py-20">
+    <section className="bg-cream py-12 sm:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
           {/* Buyer CTA */}
-          <div className="relative overflow-hidden rounded-2xl">
+          <div className="relative min-h-[280px] overflow-hidden rounded-2xl sm:min-h-0">
             <Image
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
               alt="Luxury home interior"
@@ -41,7 +41,7 @@ export default function HomepageCTAs() {
           </div>
 
           {/* Seller CTA */}
-          <div className="relative overflow-hidden rounded-2xl">
+          <div className="relative min-h-[280px] overflow-hidden rounded-2xl sm:min-h-0">
             <Image
               src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
               alt="Modern home exterior"
