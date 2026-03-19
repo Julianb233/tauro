@@ -23,13 +23,15 @@ export function TourBookingForm({ preselectedPropertyId, properties, agents }: T
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) { setForm((prev) => ({ ...prev, [e.target.name]: e.target.value })); }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault(); setState("submitting"); setErrorMsg("");
+    const formData = new FormData(e.currentTarget);
+    const honeypot = formData.get("website") as string;
     const selectedProperty = properties.find((p) => p.id === form.propertyId);
     const propertyAddress = selectedProperty ? `${selectedProperty.address}, ${selectedProperty.city}, ${selectedProperty.state}` : undefined;
     const payload: LeadPayload = { type: "showing", firstName: form.firstName, lastName: form.lastName, email: form.email, phone: form.phone, propertyId: form.propertyId || undefined, propertyAddress, preferredDate: form.preferredDate || undefined, preferredTime: form.preferredTime || undefined, agentPreference: form.agentPreference || undefined, message: form.message || undefined };
     try {
-      const res = await fetch("/api/leads", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      const res = await fetch("/api/leads", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...payload, website: honeypot }) });
       if (!res.ok) { const data = await res.json().catch(() => ({})); throw new Error(data.error ?? "Submission failed"); }
       setState("success"); setForm(initialForm);
     } catch (err) { setState("error"); setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again."); }
@@ -43,6 +45,10 @@ export function TourBookingForm({ preselectedPropertyId, properties, agents }: T
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-0">
+      {/* Honeypot - hidden from humans, bots fill it */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+      </div>
       <h2 className="font-heading text-2xl font-bold text-foreground">Schedule Your Showing</h2>
       <p className="mt-1 text-sm text-muted-foreground">All fields marked with <span className="text-gold">*</span> are required.</p>
       {state === "error" && (<div role="alert" className="mt-5 flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5"><AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" /><p className="text-sm text-destructive">{errorMsg}</p></div>)}

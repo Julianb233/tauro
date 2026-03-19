@@ -95,10 +95,13 @@ export default function JoinPage() {
     if (fileInputRef.current) fileInputRef.current.value = "";
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setState("submitting");
     setErrorMsg("");
+
+    const formElem = new FormData(e.currentTarget);
+    const honeypot = formElem.get("website") as string;
 
     const payload: LeadPayload = {
       type: "agent-application",
@@ -118,14 +121,14 @@ export default function JoinPage() {
 
       if (resumeFile) {
         const fd = new globalThis.FormData();
-        fd.append("payload", JSON.stringify(payload));
+        fd.append("payload", JSON.stringify({ ...payload, website: honeypot }));
         fd.append("resume", resumeFile);
         res = await fetch("/api/leads", { method: "POST", body: fd });
       } else {
         res = await fetch("/api/leads", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
+          body: JSON.stringify({ ...payload, website: honeypot }),
         });
       }
 
@@ -246,6 +249,11 @@ export default function JoinPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                  {/* Honeypot - hidden from humans, bots fill it */}
+                  <div className="absolute -left-[9999px]" aria-hidden="true">
+                    <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                  </div>
+
                   <div>
                     <h2 className="font-heading text-2xl font-bold text-foreground">
                       Apply Now

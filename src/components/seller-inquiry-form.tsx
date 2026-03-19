@@ -62,10 +62,13 @@ export function SellerInquiryForm() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setState("submitting");
     setErrorMsg("");
+
+    const formElem = new FormData(e.currentTarget);
+    const honeypot = formElem.get("website") as string;
 
     // Client-side validation
     if (!form.firstName || !form.lastName || !form.email || !form.phone || !form.homeAddress) {
@@ -100,7 +103,7 @@ export function SellerInquiryForm() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, website: honeypot }),
       });
 
       if (!res.ok) {
@@ -144,6 +147,11 @@ export function SellerInquiryForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
+      {/* Honeypot - hidden from humans, bots fill it */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+      </div>
+
       {state === "error" && (
         <div role="alert" className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
           <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />

@@ -7,11 +7,16 @@ const NewsletterSchema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  let body: unknown;
+  let body: Record<string, unknown>;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  // Honeypot check - bots fill this hidden field, humans never see it
+  if (body && typeof body === "object" && "website" in body && body.website) {
+    return NextResponse.json({ success: true, message: "Thanks for subscribing!" });
   }
 
   const result = NewsletterSchema.safeParse(body);

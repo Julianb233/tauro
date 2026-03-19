@@ -65,13 +65,16 @@ export function ContactForm() {
     return Object.keys(newErrors).length === 0;
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrorMsg("");
 
     if (!validate()) return;
 
     setFormState("submitting");
+
+    const formData = new FormData(e.currentTarget);
+    const honeypot = formData.get("website") as string;
 
     const payload: LeadPayload = {
       type: "contact",
@@ -86,7 +89,7 @@ export function ContactForm() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, website: honeypot }),
       });
 
       if (!res.ok) {
@@ -130,6 +133,11 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
+      {/* Honeypot - hidden from humans, bots fill it */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div>
         <h2 className="font-heading text-2xl font-bold text-foreground">
           Send a Message

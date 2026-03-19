@@ -85,10 +85,13 @@ export default function HomeValuePage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setState("submitting");
     setErrorMsg("");
+
+    const formElem = new FormData(e.currentTarget);
+    const honeypot = formElem.get("website") as string;
 
     const payload: LeadPayload = {
       type: "seller",
@@ -104,7 +107,7 @@ export default function HomeValuePage() {
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, website: honeypot }),
       });
 
       if (!res.ok) {
@@ -228,6 +231,11 @@ export default function HomeValuePage() {
               noValidate
               className="space-y-6 rounded-2xl border border-border/40 bg-cream p-8 shadow-xl"
             >
+              {/* Honeypot - hidden from humans, bots fill it */}
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+              </div>
+
               {state === "error" && (
                 <div className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
                   <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
