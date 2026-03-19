@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sell Your Home",
   description:
-    "List your Philadelphia home with Tauro Realty. Get a free market analysis, expert pricing strategy, and premium marketing.",
+    "List your home with Tauro Real Estate. Get a free market analysis, expert pricing strategy, and premium marketing for your Philadelphia property.",
 };
 
 export default function SellLayout({
