@@ -8,7 +8,7 @@ import Testimonials from "@/components/testimonials";
 import HomepageCTAs from "@/components/homepage-ctas";
 
 export const metadata: Metadata = {
-  title: "Tauro | Premium Philadelphia Real Estate",
+  title: "Premium Philadelphia Real Estate",
   description:
     "Discover luxury homes in Philadelphia with Tauro. Browse premium properties, explore neighborhoods, and connect with top agents across Center City, Rittenhouse, Fishtown, and more.",
 };
