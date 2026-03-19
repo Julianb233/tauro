@@ -15,6 +15,10 @@ Build a premium real estate brokerage website for LYL Realty Group (Philadelphia
 - [x] **Phase 7: Resource & Education Pages** - Buyer/seller guides, market insights, FAQ, home valuation, agent opportunity
 - [x] **Phase 8: Proposal & Payment** - Client proposal page, Stripe/GHL payment, onboarding flow
 - [x] **Phase 9: SEO, Performance & Deploy** - Structured data, meta tags, Core Web Vitals, Vercel deploy
+- [ ] **Phase 10: Database & Supabase** - PostgreSQL via Supabase, migrate static data, image storage, property/agent CRUD API
+- [ ] **Phase 11: Auth & Agent Portal** - Supabase Auth, agent dashboard, lead inbox, property manager, tour calendar
+- [ ] **Phase 12: Email & Notifications** - Resend integration, lead alerts, confirmation emails, agent notifications
+- [ ] **Phase 13: GHL Sync & Production Hardening** - Two-way GoHighLevel sync, rate limiting, CAPTCHA, Mapbox token, analytics, error tracking
 
 ## Phase Details
 
@@ -135,6 +139,68 @@ Build a premium real estate brokerage website for LYL Realty Group (Philadelphia
 **Research**: Unlikely — standard Next.js SSG + Vercel deployment
 **Plans**: TBD
 
+### Phase 10: Database & Supabase
+**Goal**: Replace all static data with a real database so LYL can manage their own properties, agents, and content without code deploys
+**Depends on**: Phase 9
+**Requirements**: DB-01, DB-02, DB-03, DB-04, DB-05, DB-06
+**Success Criteria** (what must be TRUE):
+  1. Supabase project created with PostgreSQL database and proper schema (properties, agents, neighborhoods, leads, testimonials)
+  2. All static data from src/data/*.ts migrated to database with seed script
+  3. Supabase Storage bucket configured for property images and agent photos (replaces Unsplash placeholders)
+  4. API routes exist for property CRUD (create, read, update, delete) with proper validation
+  5. API routes exist for agent CRUD
+  6. Frontend pages fetch from database instead of static imports (properties, agents, neighborhoods)
+  7. Lead submissions persist to database as fallback (not just GHL webhook)
+**Research**: Likely — Supabase + Next.js App Router integration patterns, Row Level Security policies
+**Plans**: TBD
+
+### Phase 11: Auth & Agent Portal
+**Goal**: Authenticated agent dashboard where LYL staff can manage leads, properties, agents, and view analytics — the operational backend
+**Depends on**: Phase 10
+**Requirements**: AUTH-01, AUTH-02, AUTH-03, AUTH-04, AUTH-05, AUTH-06, AUTH-07
+**Success Criteria** (what must be TRUE):
+  1. Supabase Auth configured with email/password login for agents and admin
+  2. Role-based access: admin (full CRUD), agent (own leads + own profile), viewer (read-only)
+  3. Protected /dashboard route with auth guard middleware
+  4. Lead Inbox page: view all leads, filter by type/status/agent, assign leads to agents, update lead status (new → contacted → qualified → closed)
+  5. Property Manager page: add/edit/delete listings, upload photos, set status (active/pending/sold), bulk operations
+  6. Agent Manager page (admin only): add/edit agents, view agent performance, manage roles
+  7. Tour Calendar page: view booked showings by date, agent, and property with day/week/month views
+  8. Dashboard home: lead count this month, active listings, showings scheduled, conversion funnel
+**Research**: Likely — Supabase Auth + RLS, Next.js middleware auth guards, dashboard UI patterns
+**Plans**: TBD
+
+### Phase 12: Email & Notifications
+**Goal**: Every form submission triggers real-time notifications — visitors get confirmation, agents get lead alerts, admins get daily digests
+**Depends on**: Phase 10, Phase 11
+**Requirements**: EMAIL-01, EMAIL-02, EMAIL-03, EMAIL-04, EMAIL-05
+**Success Criteria** (what must be TRUE):
+  1. Resend configured with verified sending domain (noreply@tauro.com or similar)
+  2. Lead confirmation email sent to visitor immediately on form submit (branded Tauro template)
+  3. Agent notification email sent when new lead is assigned or new showing booked
+  4. Admin daily digest email: new leads, showings scheduled, form submissions summary
+  5. Application confirmation email sent to realtor applicants
+  6. All emails use branded HTML templates matching Tauro design (dark mode, gold accents)
+**Research**: Likely — Resend API + React Email for templates
+**Plans**: TBD
+
+### Phase 13: GHL Sync & Production Hardening
+**Goal**: Production-grade integration — GoHighLevel two-way sync, security hardening, real Mapbox maps, analytics, and monitoring
+**Depends on**: Phase 10, Phase 11, Phase 12
+**Requirements**: GHL-01, GHL-02, GHL-03, SEC-01, SEC-02, SEC-03, PROD-01, PROD-02, PROD-03
+**Success Criteria** (what must be TRUE):
+  1. GoHighLevel webhook properly configured — all lead types flow into GHL contacts with correct field mapping and tags
+  2. GHL → Tauro reverse sync: when lead status changes in GHL, it updates in Tauro database
+  3. Rate limiting on /api/leads (10 requests/minute per IP)
+  4. CAPTCHA (Turnstile or hCaptcha) on all public forms
+  5. Real Mapbox API token configured — maps render with dark theme and property markers
+  6. Google Analytics 4 + Vercel Analytics installed and tracking
+  7. Sentry error tracking configured for production monitoring
+  8. All environment variables documented and production secrets configured
+  9. Custom domain configured on Vercel (tauro.com or lylrealty.com)
+**Research**: Likely — GHL API v2 integration, Cloudflare Turnstile, Sentry Next.js plugin
+**Plans**: TBD
+
 ## Progress
 
 | Phase | Plans Complete | Status | Completed |
@@ -148,3 +214,7 @@ Build a premium real estate brokerage website for LYL Realty Group (Philadelphia
 | 7. Resource & Education Pages | 4/4 | Complete | 2026-03-18 |
 | 8. Proposal & Payment | 1/1 | Complete | 2026-03-18 |
 | 9. SEO, Performance & Deploy | 1/1 | Complete | 2026-03-18 |
+| 10. Database & Supabase | 0/TBD | Not started | - |
+| 11. Auth & Agent Portal | 0/TBD | Not started | - |
+| 12. Email & Notifications | 0/TBD | Not started | - |
+| 13. GHL Sync & Production Hardening | 0/TBD | Not started | - |

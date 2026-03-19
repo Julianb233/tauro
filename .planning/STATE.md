@@ -5,16 +5,22 @@
 See: .planning/PROJECT.md (updated 2026-03-18)
 
 **Core value:** Premium Philadelphia real estate brokerage website rivaling Compass, Serhant, and The Agency
-**Current focus:** ALL PHASES COMPLETE — Deployed to Vercel
+**Current focus:** Phase 10 — Database & Supabase (backend infrastructure)
 
 ## Current Position
 
-Phase: 9 of 9 — ALL COMPLETE
-Plan: 34/34 plans executed
-Status: SHIPPED — Live at https://tauro-henna.vercel.app
-Last activity: 2026-03-18 — Full swarm ship: 34 plans, 9 phases, deployed to Vercel
+Phase: 10 of 13 (Database & Supabase)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-03-18 — Added 4 backend phases (10-13) for database, auth, email, and production hardening
 
-Progress: ██████████████████████████████ 100%
+Progress: █████████████████░░░░░ 69% (9/13 phases)
+
+### Milestone: v1 Frontend — COMPLETE
+Phases 1-9 shipped and deployed to https://tauro-henna.vercel.app
+
+### Milestone: v2 Backend — IN PROGRESS
+Phases 10-13: database, auth portal, email, GHL sync, production hardening
 
 ## Performance Metrics
 
@@ -62,13 +68,24 @@ Recent decisions affecting current work:
 - OPENGRAPH-01: metadataBase set to https://tauro.com for absolute URL resolution
 - HOMEPAGE-REFACTOR-01: Homepage decomposed into 7 section components with separated data files
 
+### Roadmap Evolution
+
+- Phases 10-13 added: Backend infrastructure (database, auth, email, production hardening)
+- Supabase chosen for database + auth + storage (all-in-one)
+- Resend chosen for transactional email
+- GHL two-way sync scoped for Phase 13
+
 ### Pending Todos
 
-None -- project complete.
+- FanBasis payment link needs to be swapped into proposal (Product ID: qI1D7)
+- Mapbox production API token needed
+- Custom domain configuration on Vercel
+- GHL webhook URL from LYL's GoHighLevel account
 
 ### Blockers/Concerns
 
-None -- all phases delivered.
+- GHL webhook URL required from client before Phase 13 can complete
+- Custom domain requires DNS access from client
 
 ## Session Continuity
 
