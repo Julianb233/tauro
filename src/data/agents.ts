@@ -24,6 +24,7 @@ export interface Agent {
     issuer: string;
   }[];
   videoIntroUrl: string | null;
+  videoIntroId: string | null;
   activeListingIds: string[];
   soldListingIds: string[];
   social: {

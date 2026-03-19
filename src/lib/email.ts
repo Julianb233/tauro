@@ -15,6 +15,18 @@ import {
   renderDailyDigest,
   type DailyDigestProps,
 } from "@/emails/daily-digest";
+import {
+  renderNewsletterConfirmation,
+  type NewsletterConfirmationProps,
+} from "@/emails/newsletter-confirmation";
+import {
+  renderNewsletterWelcome,
+  type NewsletterWelcomeProps,
+} from "@/emails/newsletter-welcome";
+import {
+  renderMonthlyNewsletter,
+  type MonthlyNewsletterProps,
+} from "@/emails/monthly-newsletter";
 
 // ---------------------------------------------------------------------------
 // Resend client — lazily initialized, gracefully degrades if no API key
@@ -142,6 +154,88 @@ export async function sendDailyDigest(data: DailyDigestProps): Promise<EmailResu
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[email] sendDailyDigest failed:", message);
+    return { success: false, error: message };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// sendNewsletterConfirmation — double opt-in confirmation email
+// ---------------------------------------------------------------------------
+
+export async function sendNewsletterConfirmation(
+  to: string,
+  data: NewsletterConfirmationProps,
+): Promise<EmailResult> {
+  const client = getResend();
+  if (!client) return { success: false, error: "Email client not configured" };
+
+  try {
+    const html = renderNewsletterConfirmation(data);
+    await client.emails.send({
+      from: EMAIL_FROM,
+      to,
+      subject: "Confirm your Tauro Realty newsletter subscription",
+      html,
+    });
+    return { success: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[email] sendNewsletterConfirmation failed:", message);
+    return { success: false, error: message };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// sendNewsletterWelcome — sent after subscriber confirms email
+// ---------------------------------------------------------------------------
+
+export async function sendNewsletterWelcome(
+  to: string,
+  data: NewsletterWelcomeProps,
+): Promise<EmailResult> {
+  const client = getResend();
+  if (!client) return { success: false, error: "Email client not configured" };
+
+  try {
+    const html = renderNewsletterWelcome(data);
+    await client.emails.send({
+      from: EMAIL_FROM,
+      to,
+      subject: "Welcome to the Tauro Realty Newsletter",
+      html,
+    });
+    return { success: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[email] sendNewsletterWelcome failed:", message);
+    return { success: false, error: message };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// sendMonthlyNewsletter — curated monthly real estate digest
+// ---------------------------------------------------------------------------
+
+export async function sendMonthlyNewsletter(
+  to: string,
+  data: MonthlyNewsletterProps,
+): Promise<EmailResult> {
+  const client = getResend();
+  if (!client) return { success: false, error: "Email client not configured" };
+
+  try {
+    const html = renderMonthlyNewsletter(data);
+    const { month, year } = data;
+    await client.emails.send({
+      from: EMAIL_FROM,
+      to,
+      subject: `Tauro Realty - ${month} ${year} Philadelphia Real Estate Update`,
+      html,
+    });
+    return { success: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[email] sendMonthlyNewsletter failed:", message);
     return { success: false, error: message };
   }
 }

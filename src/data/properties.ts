@@ -30,6 +30,11 @@ export interface Property {
   lat: number;
   lng: number;
   openHouse?: string;
+  openHouseEvent?: {
+    date: string;       // YYYY-MM-DD
+    startTime: string;  // HH:MM (24h)
+    endTime: string;    // HH:MM (24h)
+  };
   videoUrl?: string;
   virtualTourUrl?: string;
 }
@@ -594,6 +599,7 @@ export const properties: Property[] = [
     },
     lat: 40.0781,
     lng: -75.2085,
+    videoTourUrl: "dFBMEurPml4",
   },
   {
     id: "11",
