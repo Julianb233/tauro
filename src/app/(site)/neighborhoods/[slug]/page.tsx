@@ -8,19 +8,15 @@ import {
   TrainFront,
   Trees,
   Sparkles,
-  DollarSign,
-  TrendingUp,
-  Clock,
-  BarChart3,
   ArrowRight,
-  ChevronRight,
 } from "lucide-react";
 import {
   neighborhoods,
   getNeighborhoodBySlug,
 } from "@/data/neighborhoods";
-import { properties } from "@/data/properties";
-import PropertyCard from "@/components/PropertyCard";
+import { AreaHero } from "@/components/area-hero";
+import { MarketStats } from "@/components/market-stats";
+import { AreaListings } from "@/components/area-listings";
 
 /* ── SSG ─────────────────────────────────────────────────── */
 
@@ -37,7 +33,7 @@ export async function generateMetadata({
   const neighborhood = getNeighborhoodBySlug(slug);
   if (!neighborhood) return { title: "Neighborhood Not Found | Tauro" };
   return {
-    title: `${neighborhood.name} Homes for Sale | Tauro`,
+    title: `${neighborhood.name} Homes for Sale`,
     description: `Explore homes for sale in ${neighborhood.name}, Philadelphia. ${neighborhood.tagline} Browse listings, local insights, and market data with Tauro Real Estate.`,
   };
 }
@@ -58,21 +54,6 @@ const lifestyleLabels: Record<string, string> = {
   parks: "Parks & Outdoors",
 };
 
-const statConfig = [
-  { key: "medianPrice" as const, label: "Median Price", icon: DollarSign },
-  { key: "avgPricePerSqft" as const, label: "Avg $/Sqft", icon: TrendingUp },
-  {
-    key: "avgDaysOnMarket" as const,
-    label: "Avg Days on Market",
-    icon: Clock,
-  },
-  {
-    key: "inventoryLevel" as const,
-    label: "Inventory Level",
-    icon: BarChart3,
-  },
-];
-
 export default async function NeighborhoodDetailPage({
   params,
 }: {
@@ -82,49 +63,10 @@ export default async function NeighborhoodDetailPage({
   const neighborhood = getNeighborhoodBySlug(slug);
   if (!neighborhood) notFound();
 
-  const neighborhoodProperties = properties.filter(
-    (p) => p.neighborhood === neighborhood.propertyFilter
-  );
-
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="relative min-h-[50vh] overflow-hidden pt-16">
-        <Image
-          src={neighborhood.image}
-          alt={neighborhood.name}
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-near-black via-near-black/60 to-near-black/30" />
-
-        <div className="relative z-10 mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-end px-4 pb-12 sm:px-6 lg:px-8">
-          {/* Breadcrumb */}
-          <nav className="mb-6 flex items-center gap-2 text-sm text-white/60">
-            <Link href="/" className="transition-colors hover:text-gold">
-              Home
-            </Link>
-            <ChevronRight className="size-3" />
-            <Link
-              href="/neighborhoods"
-              className="transition-colors hover:text-gold"
-            >
-              Neighborhoods
-            </Link>
-            <ChevronRight className="size-3" />
-            <span className="text-gold">{neighborhood.name}</span>
-          </nav>
-
-          <h1 className="font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-            {neighborhood.name}
-          </h1>
-          <p className="mt-3 max-w-xl text-lg text-white/70">
-            {neighborhood.tagline}
-          </p>
-        </div>
-      </section>
+      <AreaHero neighborhood={neighborhood} />
 
       {/* ── About ────────────────────────────────────────── */}
       <section className="bg-near-black py-16">
@@ -208,69 +150,16 @@ export default async function NeighborhoodDetailPage({
       </section>
 
       {/* ── Market Stats ─────────────────────────────────── */}
-      <section className="border-t border-border/40 bg-midnight py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-            Market Data
-          </p>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
-            {neighborhood.name} by the Numbers
-          </h2>
-
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {statConfig.map(({ key, label, icon: Icon }) => (
-              <div
-                key={key}
-                className="rounded-xl border border-border bg-card p-6 text-center"
-              >
-                <Icon className="mx-auto size-6 text-muted-foreground" />
-                <p className="mt-3 font-heading text-2xl font-bold text-gold">
-                  {neighborhood.stats[key]}
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">{label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <MarketStats
+        stats={neighborhood.stats}
+        neighborhoodName={neighborhood.name}
+      />
 
       {/* ── Properties ───────────────────────────────────── */}
-      <section className="bg-near-black py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-            Available Listings
-          </p>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
-            Properties in {neighborhood.name}
-          </h2>
-
-          {neighborhoodProperties.length > 0 ? (
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {neighborhoodProperties.map((property) => (
-                <PropertyCard key={property.id} property={property} />
-              ))}
-            </div>
-          ) : (
-            <div className="mt-8 rounded-xl border border-border/40 bg-card p-10 text-center">
-              <MapPin className="mx-auto size-10 text-gold/40" />
-              <p className="mt-4 font-heading text-lg font-bold text-foreground">
-                New listings in {neighborhood.name} coming soon.
-              </p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Contact us to be the first to know when properties become
-                available in this neighborhood.
-              </p>
-              <Link
-                href="/contact"
-                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
-              >
-                Get Notified
-                <ArrowRight className="size-4" />
-              </Link>
-            </div>
-          )}
-        </div>
-      </section>
+      <AreaListings
+        neighborhoodName={neighborhood.name}
+        propertyFilter={neighborhood.propertyFilter}
+      />
 
       {/* ── Map Placeholder ──────────────────────────────── */}
       <section className="border-t border-border/40 bg-midnight py-16">
