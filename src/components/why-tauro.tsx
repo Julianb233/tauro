@@ -1,3 +1,5 @@
+"use client";
+
 import { Home, TrendingUp, Users, Shield } from "lucide-react";
 import { TiltCard } from "@/components/ui/tilt-card";
 
@@ -5,22 +7,26 @@ const whyTauro = [
   {
     icon: Home,
     title: "Curated Portfolio",
-    description: "We don\u2019t list everything \u2014 we list the right things. Every property is vetted for quality, value, and investment potential.",
+    description:
+      "We don't list everything — we list the right things. Every property is vetted for quality, value, and investment potential.",
   },
   {
     icon: TrendingUp,
     title: "Market Intelligence",
-    description: "Hyperlocal data across 15 Philadelphia neighborhoods. We know pricing trends before they hit the market.",
+    description:
+      "Hyperlocal data across 15 Philadelphia neighborhoods. We know pricing trends before they hit the market.",
   },
   {
     icon: Users,
     title: "Concierge Service",
-    description: "Dedicated agents who know your name, your goals, and your timeline. Not a call center \u2014 a partnership.",
+    description:
+      "Dedicated agents who know your name, your goals, and your timeline. Not a call center — a partnership.",
   },
   {
     icon: Shield,
     title: "Proven Results",
-    description: "98% client satisfaction, $2.1B in total volume, and a reputation built on delivering what we promise.",
+    description:
+      "98% client satisfaction, $2.1B in total volume, and a reputation built on delivering what we promise.",
   },
 ];
 

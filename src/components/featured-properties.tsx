@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { featuredProperties } from "@/data/featured-properties";
+import { properties } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import { TiltCard } from "@/components/ui/tilt-card";
+
+const featuredProperties = properties.slice(0, 3);
 
 export default function FeaturedProperties() {
   return (

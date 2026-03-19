@@ -4,7 +4,7 @@ import HeroSearchBar from "@/components/HeroSearchBar";
 export default function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16">
-      {/* Background image — swap to <video> for cinematic reel later */}
+      {/* Background image */}
       <Image
         src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80"
         alt="Philadelphia skyline"
