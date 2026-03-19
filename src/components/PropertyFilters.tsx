@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
+import PriceRangeSlider from "@/components/PriceRangeSlider";
 interface NeighborhoodOption {
   id: string;
   name: string;
@@ -85,41 +86,13 @@ export default function PropertyFilters({
       <div
         className={`${open ? "block" : "hidden"} px-4 pb-4 lg:flex lg:items-end lg:gap-3 lg:px-6 lg:py-4`}
       >
-        <div className="grid grid-cols-2 gap-3 lg:flex lg:items-end lg:gap-3">
-          <div>
-            <label className="mb-1 block text-xs font-medium text-muted-foreground">
-              Min Price
-            </label>
-            <select
-              value={filters.priceMin}
-              onChange={(e) => update("priceMin", e.target.value)}
-              className={selectClasses}
-            >
-              <option value="">No Min</option>
-              <option value="500000">$500K</option>
-              <option value="1000000">$1M</option>
-              <option value="2000000">$2M</option>
-              <option value="3000000">$3M</option>
-              <option value="5000000">$5M</option>
-            </select>
-          </div>
-          <div>
-            <label className="mb-1 block text-xs font-medium text-muted-foreground">
-              Max Price
-            </label>
-            <select
-              value={filters.priceMax}
-              onChange={(e) => update("priceMax", e.target.value)}
-              className={selectClasses}
-            >
-              <option value="">No Max</option>
-              <option value="1000000">$1M</option>
-              <option value="2000000">$2M</option>
-              <option value="3000000">$3M</option>
-              <option value="5000000">$5M</option>
-              <option value="10000000">$10M</option>
-            </select>
-          </div>
+        <div className="grid grid-cols-2 gap-3 lg:flex lg:flex-wrap lg:items-end lg:gap-3">
+          <PriceRangeSlider
+            minValue={filters.priceMin}
+            maxValue={filters.priceMax}
+            onMinChange={(v) => update("priceMin", v)}
+            onMaxChange={(v) => update("priceMax", v)}
+          />
           <div>
             <label className="mb-1 block text-xs font-medium text-muted-foreground">Beds</label>
             <select
