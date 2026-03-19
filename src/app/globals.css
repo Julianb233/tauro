@@ -334,6 +334,16 @@ h1, h2, h3, h4, h5, h6 {
   .glass-stat { background: rgba(255, 255, 255, 0.85); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
+/* ─── Typewriter cursor blink ─── */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typewriter-cursor {
+  animation: blink-cursor 0.75s step-end infinite;
+}
+
 /* ─── CSS Animation Utilities ─── */
 
 @keyframes fade-in {
@@ -517,5 +527,10 @@ h1, h2, h3, h4, h5, h6 {
   .animate-scale-in {
     opacity: 1 !important;
     transform: none !important;
+  }
+
+  .typewriter-cursor {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }
