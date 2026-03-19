@@ -13,12 +13,12 @@ const quickLinks = [
 ];
 
 const neighborhoods = [
-  "Center City",
-  "Rittenhouse",
-  "Fishtown",
-  "Northern Liberties",
-  "Old City",
-  "South Philadelphia",
+  { name: "Center City", slug: "center-city" },
+  { name: "Rittenhouse", slug: "rittenhouse" },
+  { name: "Fishtown", slug: "fishtown" },
+  { name: "Northern Liberties", slug: "northern-liberties" },
+  { name: "Old City", slug: "old-city" },
+  { name: "South Philly", slug: "south-philly" },
 ];
 
 export function Footer() {
@@ -63,12 +63,12 @@ export function Footer() {
             </h3>
             <ul className="space-y-2.5">
               {neighborhoods.map((area) => (
-                <li key={area}>
+                <li key={area.slug}>
                   <Link
-                    href={`/neighborhoods/${area.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/neighborhoods/${area.slug}`}
                     className="text-sm text-white/60 transition-colors hover:text-gold"
                   >
-                    {area}
+                    {area.name}
                   </Link>
                 </li>
               ))}
