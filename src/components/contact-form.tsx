@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CheckCircle, AlertCircle } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { useUtm } from "@/hooks/useUtm";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -29,6 +30,7 @@ export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [errorMsg, setErrorMsg] = useState("");
+  const utm = useUtm();
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -80,6 +82,7 @@ export function ContactForm() {
       email: form.email,
       phone: form.phone,
       message: form.message,
+      ...utm,
     };
 
     try {

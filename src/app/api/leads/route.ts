@@ -37,6 +37,9 @@ const LeadCreateSchema = z.object({
   agentName: z.string().optional(),
   agentSlug: z.string().optional(),
   captchaToken: z.string().optional(),
+  utm_source: z.string().optional(),
+  utm_medium: z.string().optional(),
+  utm_campaign: z.string().optional(),
 });
 
 export type LeadPayload = z.infer<typeof LeadCreateSchema>;
@@ -129,6 +132,9 @@ export async function POST(request: NextRequest) {
     if (data.currentBrokerage) metadata.currentBrokerage = data.currentBrokerage;
     if (data.whyJoin) metadata.whyJoin = data.whyJoin;
     if (data.agentName) metadata.agentName = data.agentName;
+    if (data.utm_source) metadata.utm_source = data.utm_source;
+    if (data.utm_medium) metadata.utm_medium = data.utm_medium;
+    if (data.utm_campaign) metadata.utm_campaign = data.utm_campaign;
 
     const { error: dbError } = await supabase.from("leads").insert({
       type: data.type,

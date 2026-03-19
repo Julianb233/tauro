@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
+import { GoogleReviewBadge } from "@/components/GoogleReviewBadge";
 
 const quickLinks = [
   { href: "/properties", label: "Properties" },
@@ -98,7 +99,7 @@ export function Footer() {
                       alt={area.name}
                       fill
                       sizes="64px"
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <span className="text-xs font-medium leading-tight text-white/60 transition-colors group-hover:text-gold">
@@ -159,9 +160,12 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="gold-divider mt-8 sm:mt-10" />
         <div className="mt-0 flex flex-col items-center justify-between gap-4 pt-6 sm:pt-8 md:flex-row">
-          <p className="text-xs text-white/50">
-            &copy; {new Date().getFullYear()} Tauro. All rights reserved.
-          </p>
+          <div className="flex items-center gap-4">
+            <p className="text-xs text-white/50">
+              &copy; {new Date().getFullYear()} Tauro. All rights reserved.
+            </p>
+            <GoogleReviewBadge variant="light" />
+          </div>
           <div className="flex items-center gap-1 sm:gap-3">
             <GoldShimmer>
               <a

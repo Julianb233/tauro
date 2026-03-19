@@ -54,16 +54,19 @@ export async function POST(request: NextRequest) {
       ].join("");
     }
 
-    // Render PDF
+    // Render PDF — cast required: renderToBuffer expects DocumentProps but BrochurePDF wraps Document internally
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const pdfBuffer = await renderToBuffer(
-      createElement(BrochurePDF, { property, qrCodeDataUrl, mapImageUrl })
+      createElement(BrochurePDF, { property, qrCodeDataUrl, mapImageUrl }) as any
     );
 
     // Track download (best-effort, non-blocking)
     trackBrochureDownload(property.slug).catch(() => {});
 
     const filename = `tauro-${property.slug}.pdf`;
-    return new NextResponse(pdfBuffer, {
+    // Slice to exact bounds — Buffer may share a larger ArrayBuffer
+    const arrayBuffer = pdfBuffer.buffer.slice(pdfBuffer.byteOffset, pdfBuffer.byteOffset + pdfBuffer.byteLength) as ArrayBuffer;
+    return new Response(arrayBuffer, {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",

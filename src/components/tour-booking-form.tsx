@@ -6,6 +6,7 @@ import { Calendar, Clock, Home, User, CheckCircle, AlertCircle } from "lucide-re
 import type { Property } from "@/data/properties";
 import type { Agent } from "@/data/agents";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { useUtm } from "@/hooks/useUtm";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 interface TourFormData { firstName: string; lastName: string; email: string; phone: string; propertyId: string; preferredDate: string; preferredTime: string; agentPreference: string; message: string; }
@@ -20,6 +21,7 @@ export function TourBookingForm({ preselectedPropertyId, properties, agents }: T
   const [form, setForm] = useState<TourFormData>(() => ({ ...initialForm, propertyId: preselectedPropertyId ?? "" }));
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const utm = useUtm();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) { setForm((prev) => ({ ...prev, [e.target.name]: e.target.value })); }
 
