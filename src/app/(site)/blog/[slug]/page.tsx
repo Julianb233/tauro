@@ -9,6 +9,7 @@ import {
   getRelatedPosts,
 } from "@/data/blog-posts";
 import { siteUrl } from "@/lib/site-config";
+import { ReadingProgress } from "@/components/ReadingProgress";
 
 /* ------------------------------------------------------------------ */
 /*  Static params for SSG                                              */
@@ -117,6 +118,8 @@ export default async function BlogPostPage({
 
   return (
     <>
+      <ReadingProgress />
+
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-foreground pt-24 pb-16 lg:pb-24">
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
