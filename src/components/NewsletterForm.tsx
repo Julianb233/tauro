@@ -73,13 +73,13 @@ export function NewsletterForm() {
             placeholder="Enter your email"
             required
             disabled={status === "loading"}
-            className="w-full rounded-md border border-white/10 bg-white/5 py-2 pl-10 pr-3 text-sm text-white placeholder:text-white/40 transition-colors focus:border-gold/60 focus:outline-none disabled:opacity-50"
+            className="w-full rounded-md border border-white/10 bg-white/5 py-2 pl-10 pr-3 text-sm text-white placeholder:text-white/40 transition-colors focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20 disabled:opacity-50"
           />
         </div>
         <button
           type="submit"
           disabled={status === "loading"}
-          className="shrink-0 rounded-md bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light disabled:opacity-50"
+          className="shrink-0 rounded-md bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
         >
           {status === "loading" ? "..." : "Subscribe"}
         </button>

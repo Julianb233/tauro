@@ -5,6 +5,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
+import { CookieConsent } from "@/components/CookieConsent";
 import { loadTestimonials } from "@/lib/data";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
@@ -98,6 +99,7 @@ export default async function RootLayout({
           {children}
         </main>
         <AccessibilityWidget />
+        <CookieConsent />
       </body>
     </html>
   );

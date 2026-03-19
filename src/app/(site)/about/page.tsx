@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { AboutCountUp, AboutStaggerReveal, AboutParallax, FadeInView } from "./AboutAnimations";
 import { GoogleReviewBadge } from "@/components/GoogleReviewBadge";
+import { AsSeenInStrip } from "@/components/SocialProof";
 
 export const metadata: Metadata = {
   title: "About Tauro | Philadelphia's Premier Real Estate Brokerage",
@@ -171,6 +172,9 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+
+      {/* As Seen In */}
+      <AsSeenInStrip />
 
       {/* Philadelphia Commitment */}
       <section className="border-t border-border/40 bg-gradient-to-b from-card/50 to-background">

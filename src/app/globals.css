@@ -494,6 +494,33 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+/* ─── Focus-visible states for all interactive elements ─── */
+
+/*
+ * Consistent gold focus rings across all interactive elements.
+ * Uses :focus-visible so rings only appear on keyboard navigation,
+ * not on mouse clicks, for a clean UX.
+ */
+
+/* Buttons, links, and interactive elements */
+button:focus-visible,
+a:focus-visible,
+[role="button"]:focus-visible,
+[role="switch"]:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid rgba(201, 169, 110, 0.5);
+  outline-offset: 2px;
+}
+
+/* Form inputs, selects, and textareas */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: #C9A96E;
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.15);
+}
+
 /* ─── Accessibility Widget Overrides ─── */
 
 /* Font size increases */

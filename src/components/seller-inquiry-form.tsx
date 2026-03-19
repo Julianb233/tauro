@@ -141,7 +141,7 @@ export function SellerInquiryForm() {
         <button
           type="button"
           onClick={() => setState("idle")}
-          className="mt-8 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
+          className="mt-8 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
         >
           Submit Another
         </button>
@@ -178,7 +178,7 @@ export function SellerInquiryForm() {
                 value={form.firstName}
                 onChange={handleChange}
                 placeholder="Jane"
-                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
               />
             </div>
             <div>
@@ -194,7 +194,7 @@ export function SellerInquiryForm() {
                 value={form.lastName}
                 onChange={handleChange}
                 placeholder="Smith"
-                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
               />
             </div>
           </div>
@@ -212,7 +212,7 @@ export function SellerInquiryForm() {
               value={form.email}
               onChange={handleChange}
               placeholder="jane@example.com"
-              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
             />
           </div>
 
@@ -229,7 +229,7 @@ export function SellerInquiryForm() {
               value={form.phone}
               onChange={handleChange}
               placeholder="(215) 839-4172"
-              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
             />
           </div>
         </div>
@@ -254,7 +254,7 @@ export function SellerInquiryForm() {
               value={form.homeAddress}
               onChange={handleChange}
               placeholder="123 Main St, Philadelphia, PA"
-              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
             />
           </div>
 
@@ -268,7 +268,7 @@ export function SellerInquiryForm() {
                 name="beds"
                 value={form.beds}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
               >
                 <option value="">Select</option>
                 {["1", "2", "3", "4", "5", "6+"].map((v) => (
@@ -287,7 +287,7 @@ export function SellerInquiryForm() {
                 name="baths"
                 value={form.baths}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
               >
                 <option value="">Select</option>
                 {["1", "1.5", "2", "2.5", "3", "3.5", "4+"].map((v) => (
@@ -310,7 +310,7 @@ export function SellerInquiryForm() {
               value={form.sqft}
               onChange={handleChange}
               placeholder="e.g., 2,000"
-              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
             />
           </div>
         </div>
@@ -331,7 +331,7 @@ export function SellerInquiryForm() {
               name="timeline"
               value={form.timeline}
               onChange={handleChange}
-              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
             >
               <option value="">Select a timeline</option>
               {timelines.map((t) => (
@@ -351,7 +351,7 @@ export function SellerInquiryForm() {
               name="reason"
               value={form.reason}
               onChange={handleChange}
-              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
             >
               <option value="">Select a reason</option>
               {reasons.map((r) => (
@@ -373,7 +373,7 @@ export function SellerInquiryForm() {
               value={form.message}
               onChange={handleChange}
               placeholder="Recent renovations, special circumstances, current tenants, etc."
-              className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
             />
           </div>
         </div>
@@ -384,14 +384,14 @@ export function SellerInquiryForm() {
       <button
         type="submit"
         disabled={state === "submitting" || !turnstileToken}
-        className="w-full rounded-lg bg-gold px-6 py-3.5 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-lg bg-gold px-6 py-3.5 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
       >
         {state === "submitting" ? "Submitting..." : "Get My Free Valuation"}
       </button>
 
       <p className="text-center text-xs text-muted-foreground">
         Free. No obligation. By submitting, you agree to our{" "}
-        <a href="/privacy" className="text-gold-dark hover:underline">
+        <a href="/privacy" className="text-gold-dark hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-1">
           Privacy Policy
         </a>
         .

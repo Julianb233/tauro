@@ -28,6 +28,7 @@ import ImageGallery from "@/components/ImageGallery";
 import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PropertyMap from "@/components/PropertyMap";
 import PriceHistory from "@/components/PriceHistory";
+import MortgageCalculator from "@/components/MortgageCalculator";
 import { cn } from "@/lib/utils";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { siteUrl } from "@/lib/site-config";
@@ -599,6 +600,9 @@ export default function PropertyDetailClient({
                 />
               </div>
             </div>
+
+            {/* Mortgage Calculator */}
+            <MortgageCalculator homePrice={property.price} />
 
             {/* Similar properties */}
             {similar.length > 0 && (

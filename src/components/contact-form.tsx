@@ -123,7 +123,7 @@ export function ContactForm() {
         <button
           type="button"
           onClick={() => setFormState("idle")}
-          className="mt-8 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
+          className="mt-8 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
         >
           Send Another
         </button>
@@ -164,7 +164,7 @@ export function ContactForm() {
             value={form.firstName}
             onChange={handleChange}
             placeholder="Jane"
-            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
+            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20 transition-all duration-300"
           />
           {errors.firstName && (
             <p className="text-red-400 text-xs mt-1">{errors.firstName}</p>
@@ -183,7 +183,7 @@ export function ContactForm() {
             value={form.lastName}
             onChange={handleChange}
             placeholder="Smith"
-            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
+            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20 transition-all duration-300"
           />
           {errors.lastName && (
             <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>
@@ -205,7 +205,7 @@ export function ContactForm() {
           value={form.email}
           onChange={handleChange}
           placeholder="jane@example.com"
-          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
+          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20 transition-all duration-300"
         />
         {errors.email && (
           <p className="text-red-400 text-xs mt-1">{errors.email}</p>
@@ -226,7 +226,7 @@ export function ContactForm() {
           value={form.phone}
           onChange={handleChange}
           placeholder="(215) 555-0100"
-          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
+          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20 transition-all duration-300"
         />
         {errors.phone && (
           <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
@@ -245,21 +245,21 @@ export function ContactForm() {
           value={form.message}
           onChange={handleChange}
           placeholder="Tell us how we can help..."
-          className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
+          className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20 transition-all duration-300"
         />
       </div>
 
       <button
         type="submit"
         disabled={formState === "submitting"}
-        className="shimmer-gold min-h-[48px] w-full rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
+        className="shimmer-gold min-h-[48px] w-full rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
       >
         {formState === "submitting" ? "Sending..." : "Send Message"}
       </button>
 
       <p className="text-center text-xs text-muted-foreground">
         By submitting, you agree to our{" "}
-        <a href="/privacy" className="text-gold hover:underline">
+        <a href="/privacy" className="text-gold hover:underline rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-1">
           Privacy Policy
         </a>
         .
