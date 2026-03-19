@@ -25,14 +25,21 @@ export default function PropertyCard({ property }: { property: Property }) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
-        <span
-          className={cn(
-            "absolute top-3 left-3 rounded-md px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white",
-            statusStyles[property.status] ?? "bg-muted-foreground"
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+          <span
+            className={cn(
+              "rounded-md px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white",
+              statusStyles[property.status] ?? "bg-muted-foreground"
+            )}
+          >
+            {property.status}
+          </span>
+          {property.isComingSoon && (
+            <span className="rounded-md bg-gradient-to-r from-purple-600 to-gold px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+              Coming Soon
+            </span>
           )}
-        >
-          {property.status}
-        </span>
+        </div>
         <div className="absolute right-3 bottom-3 flex items-center gap-1.5">
           {property.videoTourUrl && (
             <span className="flex items-center gap-1 rounded-md bg-gold/90 px-2 py-1 text-xs font-semibold text-near-black backdrop-blur-sm">

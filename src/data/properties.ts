@@ -40,6 +40,7 @@ export interface Property {
   virtualTourUrl?: string;
   tax_annual: number;
   tax_year: number;
+  isComingSoon?: boolean;
 }
 
 export const properties: Property[] = [
@@ -232,6 +233,7 @@ export const properties: Property[] = [
     videoUrl: "https://www.youtube.com/embed/gXGnIFzJsQ4",
     videoTourUrl: "gXGnIFzJsQ4",
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
+    isComingSoon: true,
   },
   {
     id: "4",
@@ -632,6 +634,7 @@ export const properties: Property[] = [
     tax_annual: 25200,
     tax_year: 2025,
     videoTourUrl: "dFBMEurPml4",
+    isComingSoon: true,
   },
   {
     id: "11",
@@ -924,6 +927,7 @@ export const properties: Property[] = [
     lng: -75.1725,
     tax_annual: 33600,
     tax_year: 2025,
+    isComingSoon: true,
   },
   {
     id: "16",
