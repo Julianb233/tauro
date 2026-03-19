@@ -156,11 +156,11 @@ export async function POST(request: NextRequest) {
   // ---------------------------------------------------------------------------
   const supabase = await createClient();
   let dbSaved = false;
+  let agentId: string | null = null;
 
   if (supabase) {
     // Resolve optional property_id and agent_id from slugs or IDs
     let propertyId: string | null = data.propertyId ?? null;
-    let agentId: string | null = null;
 
     if (!propertyId && data.propertySlug) {
       const { data: prop } = await supabase
@@ -310,7 +310,7 @@ export async function POST(request: NextRequest) {
   }
 
   // ---------------------------------------------------------------------------
-  // 3. Fallback: if neither DB nor GHL is configured, log lead to console
+  // 4. Fallback: if neither DB nor GHL is configured, log lead to console
   // ---------------------------------------------------------------------------
   if (!supabase && !webhookUrl) {
     console.log("POST /api/leads [NO BACKEND] — lead data:", JSON.stringify(data, null, 2));
