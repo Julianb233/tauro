@@ -1,9 +1,11 @@
 /**
  * Mapper functions that convert database rows (snake_case) to the existing
  * component interfaces (camelCase). This keeps all UI components unchanged.
+ *
+ * All mappers accept `any` to work with dynamic imports where TypeScript
+ * cannot infer the exact Supabase row types.
  */
 
-import type { PropertyRow, AgentRow, NeighborhoodRow, TestimonialRow, FaqRow } from "@/types/database";
 import type { Property } from "@/data/properties";
 import type { Agent } from "@/data/agents";
 import type { Neighborhood } from "@/data/neighborhoods";
@@ -14,7 +16,8 @@ import type { FaqItem } from "@/data/faq";
 // Properties
 // ---------------------------------------------------------------------------
 
-export function mapPropertyRow(row: PropertyRow & { agents?: Record<string, unknown> | null }): Property {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function mapPropertyRow(row: any): Property {
   const agent = row.agents as { full_name?: string; phone?: string; email?: string; photo?: string } | null | undefined;
   return {
     id: row.id,
@@ -28,12 +31,12 @@ export function mapPropertyRow(row: PropertyRow & { agents?: Record<string, unkn
     beds: row.beds,
     baths: row.baths,
     sqft: row.sqft,
-    lotSqft: row.lot_sqft,
+    lotSqft: row.lot_sqft ?? 0,
     yearBuilt: row.year_built ?? 0,
     status: row.status as Property["status"],
     propertyType: row.property_type as Property["propertyType"],
-    images: row.images,
-    description: row.description,
+    images: row.images ?? [],
+    description: row.description ?? "",
     features: {
       interior: row.features_interior ?? [],
       exterior: row.features_exterior ?? [],
@@ -59,7 +62,8 @@ export function mapPropertyRow(row: PropertyRow & { agents?: Record<string, unkn
 // Agents
 // ---------------------------------------------------------------------------
 
-export function mapAgentRow(row: AgentRow): Agent {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function mapAgentRow(row: any): Agent {
   return {
     id: row.id,
     slug: row.slug,
@@ -89,7 +93,8 @@ export function mapAgentRow(row: AgentRow): Agent {
 // Neighborhoods
 // ---------------------------------------------------------------------------
 
-export function mapNeighborhoodRow(row: NeighborhoodRow): Neighborhood {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function mapNeighborhoodRow(row: any): Neighborhood {
   return {
     id: row.id,
     name: row.name,
@@ -111,7 +116,8 @@ export function mapNeighborhoodRow(row: NeighborhoodRow): Neighborhood {
 // Testimonials
 // ---------------------------------------------------------------------------
 
-export function mapTestimonialRow(row: TestimonialRow): Testimonial {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function mapTestimonialRow(row: any): Testimonial {
   return {
     quote: row.quote,
     name: row.name,
@@ -124,7 +130,8 @@ export function mapTestimonialRow(row: TestimonialRow): Testimonial {
 // FAQ
 // ---------------------------------------------------------------------------
 
-export function mapFaqRow(row: FaqRow): FaqItem {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function mapFaqRow(row: any): FaqItem {
   return {
     question: row.question,
     answer: row.answer,

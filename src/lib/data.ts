@@ -1,7 +1,11 @@
 /**
  * Data loading module — the single entry point for all data fetching.
  *
- * Returns static data from @/data/* modules.
+ * Tries Supabase first via dynamic imports; gracefully falls back to static
+ * data if environment variables are not set or the query fails.
+ *
+ * Dynamic imports are used intentionally to prevent the linter from stripping
+ * the Supabase imports (which appear unused when env vars are not configured).
  */
 
 import {
@@ -37,21 +41,64 @@ import { homepageNeighborhoods as staticHomepageNeighborhoods } from "@/data/hom
 import type { HomepageNeighborhood } from "@/data/homepage-neighborhoods";
 
 // ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+function hasSupabase(): boolean {
+  return !!(
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
+}
+
+async function getQueries() {
+  return import("@/lib/supabase/queries");
+}
+
+async function getMappers() {
+  return import("@/lib/supabase/mappers");
+}
+
+// ---------------------------------------------------------------------------
 // Properties
 // ---------------------------------------------------------------------------
 
 export async function loadProperties(): Promise<Property[]> {
-  return staticProperties;
+  if (!hasSupabase()) return staticProperties;
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const { data } = await queries.getProperties({ limit: 1000 });
+    return data.map(mappers.mapPropertyRow);
+  } catch {
+    return staticProperties;
+  }
 }
 
 export async function loadPropertyBySlug(
   slug: string,
 ): Promise<Property | undefined> {
-  return staticGetPropertyBySlug(slug);
+  if (!hasSupabase()) return staticGetPropertyBySlug(slug);
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const row = await queries.getPropertyBySlug(slug);
+    return mappers.mapPropertyRow(row);
+  } catch {
+    return staticGetPropertyBySlug(slug);
+  }
 }
 
 export async function loadFeaturedProperties(): Promise<Property[]> {
-  return staticProperties.slice(0, 6);
+  if (!hasSupabase()) return staticProperties.slice(0, 6);
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const data = await queries.getFeaturedProperties(6);
+    return data.map(mappers.mapPropertyRow);
+  } catch {
+    return staticProperties.slice(0, 6);
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -59,18 +106,46 @@ export async function loadFeaturedProperties(): Promise<Property[]> {
 // ---------------------------------------------------------------------------
 
 export async function loadAgents(): Promise<Agent[]> {
-  return staticAgents;
+  if (!hasSupabase()) return staticAgents;
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const data = await queries.getAgents();
+    return data.map(mappers.mapAgentRow);
+  } catch {
+    return staticAgents;
+  }
 }
 
 export async function loadAgentBySlug(
   slug: string,
 ): Promise<{ agent: Agent; listings: Property[] } | null> {
-  const agent = staticGetAgentBySlug(slug);
-  if (!agent) return null;
-  const listings = staticProperties.filter((p) =>
-    agent.activeListingIds.includes(p.id),
-  );
-  return { agent, listings };
+  if (!hasSupabase()) {
+    const agent = staticGetAgentBySlug(slug);
+    if (!agent) return null;
+    const listings = staticProperties.filter((p) =>
+      agent.activeListingIds.includes(p.id),
+    );
+    return { agent, listings };
+  }
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const row = await queries.getAgentBySlug(slug);
+    const agent = mappers.mapAgentRow(row);
+    const rawProperties = (row as Record<string, unknown>).properties;
+    const listings = Array.isArray(rawProperties)
+      ? rawProperties.map(mappers.mapPropertyRow)
+      : [];
+    return { agent, listings };
+  } catch {
+    const agent = staticGetAgentBySlug(slug);
+    if (!agent) return null;
+    const listings = staticProperties.filter((p) =>
+      agent.activeListingIds.includes(p.id),
+    );
+    return { agent, listings };
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -78,17 +153,41 @@ export async function loadAgentBySlug(
 // ---------------------------------------------------------------------------
 
 export async function loadNeighborhoods(): Promise<Neighborhood[]> {
-  return staticNeighborhoods;
+  if (!hasSupabase()) return staticNeighborhoods;
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const data = await queries.getNeighborhoods();
+    return data.map(mappers.mapNeighborhoodRow);
+  } catch {
+    return staticNeighborhoods;
+  }
 }
 
 export async function loadNeighborhoodBySlug(
   slug: string,
 ): Promise<Neighborhood | undefined> {
-  return staticGetNeighborhoodBySlug(slug);
+  if (!hasSupabase()) return staticGetNeighborhoodBySlug(slug);
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const row = await queries.getNeighborhoodBySlug(slug);
+    return mappers.mapNeighborhoodRow(row);
+  } catch {
+    return staticGetNeighborhoodBySlug(slug);
+  }
 }
 
 export async function loadFeaturedNeighborhoods(): Promise<Neighborhood[]> {
-  return staticGetFeaturedNeighborhoods();
+  if (!hasSupabase()) return staticGetFeaturedNeighborhoods();
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const data = await queries.getFeaturedNeighborhoods();
+    return data.map(mappers.mapNeighborhoodRow);
+  } catch {
+    return staticGetFeaturedNeighborhoods();
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -96,7 +195,15 @@ export async function loadFeaturedNeighborhoods(): Promise<Neighborhood[]> {
 // ---------------------------------------------------------------------------
 
 export async function loadTestimonials(): Promise<Testimonial[]> {
-  return staticTestimonials;
+  if (!hasSupabase()) return staticTestimonials;
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const data = await queries.getTestimonials();
+    return data.map(mappers.mapTestimonialRow);
+  } catch {
+    return staticTestimonials;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -106,15 +213,27 @@ export async function loadTestimonials(): Promise<Testimonial[]> {
 export async function loadFaqs(
   category?: "buyer" | "seller" | "general",
 ): Promise<FaqItem[]> {
-  switch (category) {
-    case "buyer":
-      return staticBuyerFaqs;
-    case "seller":
-      return staticSellerFaqs;
-    case "general":
-      return staticGeneralFaqs;
-    default:
-      return [...staticBuyerFaqs, ...staticSellerFaqs, ...staticGeneralFaqs];
+  const staticFallback = () => {
+    switch (category) {
+      case "buyer":
+        return staticBuyerFaqs;
+      case "seller":
+        return staticSellerFaqs;
+      case "general":
+        return staticGeneralFaqs;
+      default:
+        return [...staticBuyerFaqs, ...staticSellerFaqs, ...staticGeneralFaqs];
+    }
+  };
+
+  if (!hasSupabase()) return staticFallback();
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const data = await queries.getFaqs(category);
+    return data.map(mappers.mapFaqRow);
+  } catch {
+    return staticFallback();
   }
 }
 
@@ -125,5 +244,22 @@ export async function loadFaqs(
 export async function loadHomepageNeighborhoods(): Promise<
   HomepageNeighborhood[]
 > {
-  return staticHomepageNeighborhoods;
+  if (!hasSupabase()) return staticHomepageNeighborhoods;
+  try {
+    const queries = await getQueries();
+    const mappers = await getMappers();
+    const data = await queries.getFeaturedNeighborhoods();
+    return data.map((row): HomepageNeighborhood => {
+      const n = mappers.mapNeighborhoodRow(row);
+      return {
+        name: n.name,
+        slug: n.slug,
+        description: n.tagline,
+        image: n.cardImage || n.image,
+        listings: 0,
+      };
+    });
+  } catch {
+    return staticHomepageNeighborhoods;
+  }
 }
