@@ -45,7 +45,7 @@ export function OrganizationJsonLd({
     "@type": "RealEstateAgent",
     name: "Tauro | LYL Realty Group",
     url: siteUrl,
-    logo: `${siteUrl}/tauro-logo.png`,
+    logo: "https://raw.githubusercontent.com/Julianb233/tauro/main/public/tauro-logo.png",
     image: `${siteUrl}/opengraph-image`,
     description:
       "Premium Philadelphia real estate brokerage serving Center City, Rittenhouse, Fishtown, and surrounding neighborhoods.",

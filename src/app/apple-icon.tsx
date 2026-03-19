@@ -1,14 +1,15 @@
 import { ImageResponse } from "next/og";
-import { siteUrl } from "@/lib/site-config";
 
 export const runtime = "edge";
 
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
+const LOGO_URL =
+  "https://raw.githubusercontent.com/Julianb233/tauro/main/public/tauro-logo.png";
+
 export default async function AppleIcon() {
-  const logoUrl = new URL("/tauro-logo.png", siteUrl);
-  const logoResponse = await fetch(logoUrl);
+  const logoResponse = await fetch(LOGO_URL);
   const logoBuffer = await logoResponse.arrayBuffer();
   const logoBase64 = `data:image/png;base64,${Buffer.from(logoBuffer).toString("base64")}`;
 
