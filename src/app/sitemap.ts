@@ -9,12 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     "", "/properties", "/agents", "/join", "/contact", "/book-tour", "/sell",
     "/neighborhoods", "/buyers-guide", "/sellers-guide", "/market-insights",
-    "/faq", "/home-value", "/why-join", "/about",
+    "/faq", "/home-value", "/why-join", "/about", "/privacy", "/terms", "/careers",
   ].map((path) => ({
     url: `${baseUrl}${path}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
-    priority: path === "" ? 1 : 0.8,
+    priority: path === "" ? 1.0 : 0.7,
   }));
 
   const propertyPages = properties.map((p) => ({
