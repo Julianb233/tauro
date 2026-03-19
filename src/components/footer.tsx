@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
@@ -12,12 +13,36 @@ const quickLinks = [
 ];
 
 const neighborhoods = [
-  "Center City",
-  "Rittenhouse",
-  "Fishtown",
-  "Northern Liberties",
-  "Old City",
-  "South Philadelphia",
+  {
+    name: "Center City",
+    slug: "center-city",
+    image: "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "Rittenhouse",
+    slug: "rittenhouse",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "Fishtown",
+    slug: "fishtown",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "Northern Liberties",
+    slug: "northern-liberties",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "Old City",
+    slug: "old-city",
+    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "South Philadelphia",
+    slug: "south-philly",
+    image: "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=160&h=96&fit=crop&q=80",
+  },
 ];
 
 export function Footer() {
@@ -60,18 +85,28 @@ export function Footer() {
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
               Neighborhoods
             </h3>
-            <ul className="space-y-2.5">
+            <div className="grid grid-cols-2 gap-2.5">
               {neighborhoods.map((area) => (
-                <li key={area}>
-                  <Link
-                    href={`/neighborhoods/${area.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="text-sm text-white/60 transition-colors hover:text-gold"
-                  >
-                    {area}
-                  </Link>
-                </li>
+                <Link
+                  key={area.slug}
+                  href={`/neighborhoods/${area.slug}`}
+                  className="group flex items-center gap-2.5 rounded-lg border border-white/5 p-1.5 transition-all hover:border-gold/30 hover:bg-white/5"
+                >
+                  <div className="relative h-10 w-16 shrink-0 overflow-hidden rounded-md">
+                    <Image
+                      src={area.image}
+                      alt={area.name}
+                      fill
+                      sizes="64px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <span className="text-xs font-medium leading-tight text-white/60 transition-colors group-hover:text-gold">
+                    {area.name}
+                  </span>
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Contact */}
