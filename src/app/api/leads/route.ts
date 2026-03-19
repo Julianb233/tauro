@@ -4,38 +4,11 @@ import { createClient } from "@/lib/supabase/server";
 // Email helpers — loaded at top level, but each function returns gracefully
 // when RESEND_API_KEY is not configured (no crash).
 import { sendLeadConfirmation, sendAgentNotification, sendApplicationConfirmation } from "@/lib/email";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+import { sanitize } from "@/lib/sanitize";
+import { getClientIp } from "@/lib/rate-limit";
 
-// ---------------------------------------------------------------------------
-// Rate limiting (in-memory, per IP)
-// ---------------------------------------------------------------------------
 
-const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
-const RATE_LIMIT_MAX = 5; // max submissions per window
-
-const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
-
-// Cleanup stale entries every 5 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [key, entry] of rateLimitMap) {
-    if (now > entry.resetAt) {
-      rateLimitMap.delete(key);
-    }
-  }
-}, 5 * 60_000);
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const entry = rateLimitMap.get(ip);
-
-  if (!entry || now > entry.resetAt) {
-    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return false;
-  }
-
-  entry.count++;
-  return entry.count > RATE_LIMIT_MAX;
-}
 
 // ---------------------------------------------------------------------------
 // Validation
@@ -70,6 +43,8 @@ const LeadCreateSchema = z.object({
   // Agent contact-specific
   agentName: z.string().optional(),
   agentSlug: z.string().optional(),
+  // CAPTCHA
+  captchaToken: z.string().optional(),
 });
 
 export type LeadPayload = z.infer<typeof LeadCreateSchema>;
@@ -122,24 +97,17 @@ function buildGhlContact(data: LeadPayload) {
 // ---------------------------------------------------------------------------
 
 export async function POST(request: NextRequest) {
-  // Rate limit by IP
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    request.headers.get("x-real-ip") ??
-    "unknown";
-
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too many requests. Please try again later." },
-      { status: 429 },
-    );
-  }
-
-  let body: unknown;
+  let body: Record<string, unknown>;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+  }
+
+  // Honeypot check - bots fill this hidden field, humans never see it
+  if (body && typeof body === "object" && "website" in body && body.website) {
+    // Return 200 to avoid tipping off the bot, but don't process
+    return NextResponse.json({ success: true });
   }
 
   // Validate input
@@ -152,6 +120,28 @@ export async function POST(request: NextRequest) {
   }
 
   const data = result.data;
+
+  // --- Turnstile CAPTCHA verification ---
+  const ip = getClientIp(request.headers);
+  const turnstileResult = await verifyTurnstileToken(data.captchaToken, ip);
+  if (!turnstileResult.success) {
+    return NextResponse.json(
+      { error: turnstileResult.error },
+      { status: 400 },
+    );
+  }
+
+  // --- Input sanitization (strip HTML tags) ---
+  data.firstName = sanitize(data.firstName);
+  data.lastName = sanitize(data.lastName);
+  data.email = sanitize(data.email);
+  data.phone = sanitize(data.phone);
+  if (data.message) data.message = sanitize(data.message);
+  if (data.homeAddress) data.homeAddress = sanitize(data.homeAddress);
+  if (data.propertyAddress) data.propertyAddress = sanitize(data.propertyAddress);
+  if (data.whyJoin) data.whyJoin = sanitize(data.whyJoin);
+  if (data.currentBrokerage) data.currentBrokerage = sanitize(data.currentBrokerage);
+  if (data.agentName) data.agentName = sanitize(data.agentName);
 
   // ---------------------------------------------------------------------------
   // 1. Persist to database (if Supabase is configured)
