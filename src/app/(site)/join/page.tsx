@@ -1,19 +1,11 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
-  CheckCircle, AlertCircle, ArrowRight, Upload, X, FileText,
+  CheckCircle, AlertCircle, ArrowRight,
 } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
-
-const ACCEPTED_FILE_TYPES = [
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-];
-const ACCEPTED_EXTENSIONS = ".pdf,.doc,.docx";
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -56,16 +48,10 @@ const requirements = [
   "Desire to grow within a team environment",
 ];
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
 export default function JoinPage() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
-  const [errors, setErrors] = useState<Record<string, string>>({});
   const [errorMsg, setErrorMsg] = useState("");
-  const [resumeFile, setResumeFile] = useState<File | null>(null);
-  const [fileError, setFileError] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -73,38 +59,10 @@ export default function JoinPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   }
 
-  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setFileError("");
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    if (!ACCEPTED_FILE_TYPES.includes(file.type)) {
-      setFileError("Please upload a PDF, DOC, or DOCX file.");
-      e.target.value = "";
-      return;
-    }
-    if (file.size > MAX_FILE_SIZE) {
-      setFileError("File must be under 5 MB.");
-      e.target.value = "";
-      return;
-    }
-
-    setResumeFile(file);
-  }
-
-  function removeFile() {
-    setResumeFile(null);
-    setFileError("");
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  }
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setState("submitting");
     setErrorMsg("");
-
-    const formElem = new FormData(e.currentTarget);
-    const honeypot = formElem.get("website") as string;
 
     const payload: LeadPayload = {
       type: "agent-application",
@@ -120,20 +78,11 @@ export default function JoinPage() {
     };
 
     try {
-      let res: Response;
-
-      if (resumeFile) {
-        const fd = new globalThis.FormData();
-        fd.append("payload", JSON.stringify({ ...payload, website: honeypot }));
-        fd.append("resume", resumeFile);
-        res = await fetch("/api/leads", { method: "POST", body: fd });
-      } else {
-        res = await fetch("/api/leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...payload, website: honeypot }),
-        });
-      }
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -142,8 +91,6 @@ export default function JoinPage() {
 
       setState("success");
       setForm(initialForm);
-      setErrors({});
-      removeFile();
     } catch (err) {
       setState("error");
       setErrorMsg(
@@ -170,10 +117,10 @@ export default function JoinPage() {
             want to hear from you.
           </p>
           <Link
-            href="/about"
+            href="/why-join"
             className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
           >
-            Learn more about Tauro
+            Learn why agents choose Tauro
             <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -220,7 +167,7 @@ export default function JoinPage() {
                   and agent-first culture.
                 </p>
                 <Link
-                  href="/about"
+                  href="/why-join"
                   className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
                 >
                   Why Join Tauro
@@ -253,11 +200,6 @@ export default function JoinPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
-                  {/* Honeypot - hidden from humans, bots fill it */}
-                  <div className="absolute -left-[9999px]" aria-hidden="true">
-                    <input type="text" name="website" tabIndex={-1} autoComplete="off" />
-                  </div>
-
                   <div>
                     <h2 className="font-heading text-2xl font-bold text-foreground">
                       Apply Now
@@ -268,9 +210,9 @@ export default function JoinPage() {
                   </div>
 
                   {state === "error" && (
-                    <div className="flex items-start gap-2.5 rounded-lg border border-red-400/40 bg-red-400/10 p-3.5">
-                      <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-400" />
-                      <p className="text-sm text-red-400">{errorMsg}</p>
+                    <div className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
+                      <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
+                      <p className="text-sm text-destructive">{errorMsg}</p>
                     </div>
                   )}
 
@@ -291,7 +233,6 @@ export default function JoinPage() {
                         placeholder="Jane"
                         className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                       />
-                      {errors.firstName && (<p className="text-red-400 text-xs mt-1">{errors.firstName}</p>)}
                     </div>
                     <div>
                       <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-foreground">
@@ -308,7 +249,6 @@ export default function JoinPage() {
                         placeholder="Smith"
                         className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                       />
-                      {errors.lastName && (<p className="text-red-400 text-xs mt-1">{errors.lastName}</p>)}
                     </div>
                   </div>
 
@@ -328,7 +268,6 @@ export default function JoinPage() {
                       placeholder="jane@example.com"
                       className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
-                    {errors.email && (<p className="text-red-400 text-xs mt-1">{errors.email}</p>)}
                   </div>
 
                   {/* Phone */}
@@ -347,7 +286,6 @@ export default function JoinPage() {
                       placeholder="(215) 555-0100"
                       className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
-                    {errors.phone && (<p className="text-red-400 text-xs mt-1">{errors.phone}</p>)}
                   </div>
 
                   {/* License Number */}
@@ -365,7 +303,6 @@ export default function JoinPage() {
                       placeholder="RS-XXXXXX"
                       className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
-                    {errors.licenseNumber && (<p className="text-red-400 text-xs mt-1">{errors.licenseNumber}</p>)}
                   </div>
 
                   {/* Years of Experience */}
@@ -388,7 +325,6 @@ export default function JoinPage() {
                         </option>
                       ))}
                     </select>
-                    {errors.yearsExperience && (<p className="text-red-400 text-xs mt-1">{errors.yearsExperience}</p>)}
                   </div>
 
                   {/* Current Brokerage */}
@@ -434,57 +370,9 @@ export default function JoinPage() {
                       rows={3}
                       value={form.message}
                       onChange={handleChange}
-                      placeholder="Portfolio links or anything else you'd like to share..."
+                      placeholder="Link to your resume, portfolio, or anything else you'd like to share..."
                       className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
-                  </div>
-
-                  {/* Resume Upload */}
-                  <div>
-                    <label className="mb-1.5 block text-sm font-medium text-foreground">
-                      Resume
-                    </label>
-                    {resumeFile ? (
-                      <div className="flex items-center gap-3 rounded-lg border border-gold/30 bg-gold/5 px-4 py-3">
-                        <FileText className="size-5 shrink-0 text-gold" />
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-medium text-foreground">
-                            {resumeFile.name}
-                          </p>
-                          <p className="text-xs text-muted-foreground">
-                            {(resumeFile.size / 1024 / 1024).toFixed(1)} MB
-                          </p>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={removeFile}
-                          className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-red-400"
-                          aria-label="Remove file"
-                        >
-                          <X className="size-4" />
-                        </button>
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => fileInputRef.current?.click()}
-                        className="flex w-full items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border/60 bg-white px-4 py-4 text-sm text-muted-foreground transition-colors hover:border-gold/40 hover:bg-gold/5 hover:text-foreground"
-                      >
-                        <Upload className="size-4" />
-                        Upload resume (PDF, DOC, DOCX &mdash; max 5 MB)
-                      </button>
-                    )}
-                    <input
-                      ref={fileInputRef}
-                      type="file"
-                      accept={ACCEPTED_EXTENSIONS}
-                      onChange={handleFileChange}
-                      className="hidden"
-                      aria-label="Upload resume"
-                    />
-                    {fileError && (
-                      <p className="mt-1.5 text-xs text-red-400">{fileError}</p>
-                    )}
                   </div>
 
                   <button
