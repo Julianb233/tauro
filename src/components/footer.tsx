@@ -39,7 +39,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
+            <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Quick Links
             </h3>
             <ul className="space-y-2.5">
@@ -47,7 +47,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/60 transition-colors hover:text-gold"
+                    className="group/link inline-flex items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1"
                   >
                     {link.label}
                   </Link>
@@ -58,7 +58,7 @@ export function Footer() {
 
           {/* Neighborhoods */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
+            <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Neighborhoods
             </h3>
             <ul className="space-y-2.5">
@@ -77,7 +77,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
+            <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Contact
             </h3>
             <ul className="space-y-3">
@@ -115,7 +115,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+        <div className="gold-divider mt-10" />
+        <div className="mt-0 flex flex-col items-center justify-between gap-4 pt-8 sm:flex-row">
           <p className="text-xs text-white/50">
             &copy; {new Date().getFullYear()} Tauro. All rights reserved.
           </p>
@@ -125,7 +126,7 @@ export function Footer() {
                 href="https://instagram.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="Instagram"
               >
                 <Instagram className="size-5" />
@@ -136,7 +137,7 @@ export function Footer() {
                 href="https://facebook.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="Facebook"
               >
                 <Facebook className="size-5" />
@@ -147,7 +148,7 @@ export function Footer() {
                 href="https://linkedin.com/company/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
@@ -158,7 +159,7 @@ export function Footer() {
                 href="https://x.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="X (Twitter)"
               >
                 <Twitter className="size-5" />

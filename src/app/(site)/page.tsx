@@ -3,17 +3,14 @@ import Hero from "@/components/hero";
 import StatsBar from "@/components/stats-bar";
 import FeaturedProperties from "@/components/featured-properties";
 import NeighborhoodShowcase from "@/components/neighborhood-showcase";
-import AreasWeServe from "@/components/areas-we-serve";
 import WhyTauro from "@/components/why-tauro";
-import VideoShowcase from "@/components/VideoShowcase";
 import Testimonials from "@/components/testimonials";
 import HomepageCTAs from "@/components/homepage-ctas";
 
-export const revalidate = 3600;
-
 export const metadata: Metadata = {
   title: "Premium Philadelphia Real Estate",
-  description: "Discover luxury homes in Philadelphia with Tauro. Browse premium properties, explore neighborhoods, and connect with top agents across Center City, Rittenhouse, Fishtown, and more.",
+  description:
+    "Discover luxury homes in Philadelphia with Tauro. Browse premium properties, explore neighborhoods, and connect with top agents across Center City, Rittenhouse, Fishtown, and more.",
 };
 
 export default function HomePage() {
@@ -22,11 +19,12 @@ export default function HomePage() {
       <Hero />
       <StatsBar />
       <FeaturedProperties />
+      <div className="gold-divider mx-auto max-w-7xl" />
       <NeighborhoodShowcase />
-      <AreasWeServe />
       <WhyTauro />
-      <VideoShowcase />
+      <div className="gold-divider mx-auto max-w-7xl" />
       <Testimonials />
+      <div className="gold-divider mx-auto max-w-7xl" />
       <HomepageCTAs />
     </>
   );

@@ -14,7 +14,7 @@ export default function PropertyCard({ property }: { property: Property }) {
   return (
     <Link
       href={`/properties/${property.slug}`}
-      className="group block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-md"
+      className="group depth-hover block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-lg"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <Image
@@ -32,17 +32,17 @@ export default function PropertyCard({ property }: { property: Property }) {
         >
           {property.status}
         </span>
-        <span className="absolute right-3 bottom-3 rounded-md bg-black/60 px-2 py-1 text-xs text-white backdrop-blur-sm">
+        <span className="absolute right-3 bottom-3 glass rounded-md px-2 py-1 text-xs text-white">
           {property.images.length} photos
         </span>
       </div>
       <div className="p-4">
         <p className="font-heading text-xl font-bold text-foreground">{formatPrice(property.price)}</p>
-        <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
+        <div className="mt-1 flex items-center gap-2 font-label text-xs tracking-wider text-muted-foreground">
           <span>{property.beds} BD</span>
-          <span className="text-border">|</span>
+          <span className="text-gold/30">|</span>
           <span>{property.baths} BA</span>
-          <span className="text-border">|</span>
+          <span className="text-gold/30">|</span>
           <span>{property.sqft.toLocaleString()} SF</span>
         </div>
         <p className="mt-2 font-medium text-foreground">{property.address}</p>

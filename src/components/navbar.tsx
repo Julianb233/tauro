@@ -43,7 +43,7 @@ export function Navbar() {
         className={cn(
           "fixed top-0 z-50 w-full transition-all duration-300",
           scrolled
-            ? "border-b border-border/40 bg-white/95 backdrop-blur-md shadow-sm"
+            ? "border-b border-border/40 bg-white/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.06)]"
             : "bg-transparent"
         )}
       >
@@ -60,7 +60,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-gold",
+                    "rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold",
                     scrolled ? "text-foreground/70" : "text-white/80"
                   )}
                 >
@@ -75,7 +75,7 @@ export function Navbar() {
             <a
               href="tel:+12155550100"
               className={cn(
-                "flex items-center gap-1.5 text-sm transition-colors hover:text-gold",
+                "flex items-center gap-1.5 text-sm transition-all duration-300 hover:text-gold",
                 scrolled ? "text-muted-foreground" : "text-white/70"
               )}
             >
@@ -85,7 +85,7 @@ export function Navbar() {
             <Link
               href="/contact"
               className={cn(
-                "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-colors",
+                "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-all duration-300",
                 scrolled
                   ? "bg-foreground text-white hover:bg-gold hover:text-white"
                   : "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"
@@ -117,7 +117,7 @@ export function Navbar() {
       {/* Full-screen mobile overlay — kept dark for dramatic contrast */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-[60] flex flex-col bg-midnight lg:hidden"
+          className="fixed inset-0 z-[60] flex flex-col bg-midnight/95 backdrop-blur-xl lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"

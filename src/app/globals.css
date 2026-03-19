@@ -97,22 +97,6 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-playfair), Georgia, serif;
 }
 
-/* Skeleton loading shimmer */
-@keyframes skeleton-shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-.animate-skeleton-shimmer {
-  animation: skeleton-shimmer 1.8s ease-in-out infinite;
-}
-
-/* Global focus-visible indicator (gold ring, on-brand) */
-:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 2px;
-}
-
 /* Gold shimmer micro-interaction */
 @keyframes gold-shimmer-sweep {
   0% {
@@ -229,32 +213,110 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), system-ui, sans-serif;
 }
 
-/* Hero slideshow — ken-burns zoom effect */
-@keyframes ken-burns {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.08);
+/* ─── Glassmorphism Utility Classes ─── */
+
+.glass {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.glass-dark {
+  background: rgba(26, 26, 46, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(26, 26, 46, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.glass-gold {
+  background: rgba(201, 169, 110, 0.08);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(201, 169, 110, 0.2);
+  box-shadow: 0 8px 32px rgba(201, 169, 110, 0.06);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(201, 169, 110, 0.3);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+/* 3D depth hover for cards */
+.depth-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.depth-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.06);
+}
+
+/* Stat counter glass badge */
+.glass-stat {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(201, 169, 110, 0.15);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.glass-stat:hover {
+  background: rgba(201, 169, 110, 0.08);
+  border-color: rgba(201, 169, 110, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201, 169, 110, 0.1);
+}
+
+/* Gold accent divider */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(201, 169, 110, 0.5),
+    transparent
+  );
+}
+
+/* Reduce backdrop-blur on low-power devices */
+@media (max-width: 768px) {
+  .glass,
+  .glass-dark,
+  .glass-gold,
+  .glass-card,
+  .glass-stat {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 }
 
-.animate-ken-burns {
-  animation: ken-burns 6s ease-out forwards;
-}
-
-/* Hero slideshow — slide indicator progress bar */
-@keyframes slide-progress {
-  0% {
-    transform: scaleX(0);
-  }
-  100% {
-    transform: scaleX(1);
-  }
-}
-
-.animate-slide-progress {
-  animation: slide-progress 5s linear forwards;
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-dark { background: rgba(26, 26, 46, 0.9); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-gold { background: rgba(201, 169, 110, 0.15); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-stat { background: rgba(255, 255, 255, 0.85); backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
 
 /* Reduced motion accessibility */
@@ -265,9 +327,9 @@ h1, h2, h3, h4, h5, h6 {
   .diagonal-wipe,
   .slash-reveal,
   .diagonal-wipe-transition,
-  .animate-skeleton-shimmer,
-  .animate-ken-burns,
-  .animate-slide-progress {
+  .depth-hover,
+  .glass-card,
+  .glass-stat {
     animation: none !important;
     transition: none !important;
     transform: none !important;

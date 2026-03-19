@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 import { loadTestimonials } from "@/lib/data";
 
 export default async function Testimonials() {
@@ -12,10 +12,14 @@ export default async function Testimonials() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.name} className="rounded-xl border border-border/50 bg-white p-6 shadow-sm">
-              <div className="flex gap-1">{Array.from({ length: testimonial.rating }).map((_, i) => (<Star key={i} className="size-4 fill-gold text-gold" />))}</div>
+            <div key={testimonial.name} className="depth-hover rounded-xl border border-border/50 bg-white p-6 shadow-sm transition-all hover:border-gold/30 hover:shadow-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex gap-1">{Array.from({ length: testimonial.rating }).map((_, i) => (<Star key={i} className="size-4 fill-gold text-gold" />))}</div>
+                <Quote className="size-5 text-gold/30" strokeWidth={1.5} />
+              </div>
               <blockquote className="mt-4 text-sm leading-relaxed text-foreground/80">&ldquo;{testimonial.quote}&rdquo;</blockquote>
-              <div className="mt-4 border-t border-border/50 pt-4"><p className="text-sm font-semibold text-foreground">{testimonial.name}</p><p className="text-xs text-muted-foreground">{testimonial.role}</p></div>
+              <div className="gold-divider mt-4" />
+              <div className="pt-4"><p className="text-sm font-semibold text-foreground">{testimonial.name}</p><p className="font-label text-xs tracking-wider text-muted-foreground">{testimonial.role}</p></div>
             </div>
           ))}
         </div>

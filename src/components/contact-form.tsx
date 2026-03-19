@@ -140,7 +140,7 @@ export function ContactForm() {
       </div>
 
       {formState === "error" && (
-        <div role="alert" className="flex items-start gap-2.5 rounded-lg border border-red-400/40 bg-red-400/10 p-3.5">
+        <div className="flex items-start gap-2.5 rounded-lg border border-red-400/40 bg-red-400/10 p-3.5">
           <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-400" />
           <p className="text-sm text-red-400">{errorMsg || "Something went wrong"}</p>
         </div>
@@ -149,7 +149,7 @@ export function ContactForm() {
       {/* Name row */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-foreground">
+          <label htmlFor="firstName" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
             First Name <span className="text-gold">*</span>
           </label>
           <input
@@ -161,16 +161,14 @@ export function ContactForm() {
             value={form.firstName}
             onChange={handleChange}
             placeholder="Jane"
-            aria-invalid={!!errors.firstName}
-            aria-describedby={errors.firstName ? "firstName-error" : undefined}
-            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
           />
           {errors.firstName && (
-            <p id="firstName-error" role="alert" className="text-red-400 text-xs mt-1">{errors.firstName}</p>
+            <p className="text-red-400 text-xs mt-1">{errors.firstName}</p>
           )}
         </div>
         <div>
-          <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-foreground">
+          <label htmlFor="lastName" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
             Last Name <span className="text-gold">*</span>
           </label>
           <input
@@ -182,19 +180,17 @@ export function ContactForm() {
             value={form.lastName}
             onChange={handleChange}
             placeholder="Smith"
-            aria-invalid={!!errors.lastName}
-            aria-describedby={errors.lastName ? "lastName-error" : undefined}
-            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
           />
           {errors.lastName && (
-            <p id="lastName-error" role="alert" className="text-red-400 text-xs mt-1">{errors.lastName}</p>
+            <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>
           )}
         </div>
       </div>
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
+        <label htmlFor="email" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
           Email Address <span className="text-gold">*</span>
         </label>
         <input
@@ -206,18 +202,16 @@ export function ContactForm() {
           value={form.email}
           onChange={handleChange}
           placeholder="jane@example.com"
-          aria-invalid={!!errors.email}
-          aria-describedby={errors.email ? "email-error" : undefined}
-          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
         />
         {errors.email && (
-          <p id="email-error" role="alert" className="text-red-400 text-xs mt-1">{errors.email}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.email}</p>
         )}
       </div>
 
       {/* Phone */}
       <div>
-        <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-foreground">
+        <label htmlFor="phone" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
           Phone Number <span className="text-gold">*</span>
         </label>
         <input
@@ -229,18 +223,16 @@ export function ContactForm() {
           value={form.phone}
           onChange={handleChange}
           placeholder="(215) 555-0100"
-          aria-invalid={!!errors.phone}
-          aria-describedby={errors.phone ? "phone-error" : undefined}
-          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
         />
         {errors.phone && (
-          <p id="phone-error" role="alert" className="text-red-400 text-xs mt-1">{errors.phone}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
         )}
       </div>
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
+        <label htmlFor="message" className="mb-1.5 block font-label text-xs font-medium uppercase tracking-wider text-foreground">
           Message
         </label>
         <textarea
@@ -250,14 +242,14 @@ export function ContactForm() {
           value={form.message}
           onChange={handleChange}
           placeholder="Tell us how we can help..."
-          className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-all duration-300 focus:shadow-[0_0_0_3px_rgba(201,169,110,0.1)]"
         />
       </div>
 
       <button
         type="submit"
         disabled={formState === "submitting"}
-        className="shimmer-gold w-full rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
+        className="shimmer-gold w-full rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {formState === "submitting" ? "Sending..." : "Send Message"}
       </button>
