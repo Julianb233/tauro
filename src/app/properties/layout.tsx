@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { Navbar } from "@/components/navbar";
+import { Footer } from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Properties for Sale",
@@ -11,5 +13,11 @@ export default function PropertiesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <Navbar />
+      <main className="min-h-screen flex-1">{children}</main>
+      <Footer />
+    </>
+  );
 }
