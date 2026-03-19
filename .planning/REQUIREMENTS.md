@@ -192,7 +192,6 @@
 | SEO-05 | Phase 9 | Complete |
 | DEPLOY-01 | Phase 9 | Complete |
 | DEPLOY-02 | Phase 9 | Complete |
-<<<<<<< HEAD
 | DB-01 | Phase 10 | Pending |
 | DB-02 | Phase 10 | Pending |
 | DB-03 | Phase 10 | Pending |
@@ -220,8 +219,6 @@
 | PROD-01 | Phase 13 | Pending |
 | PROD-02 | Phase 13 | Pending |
 | PROD-03 | Phase 13 | Pending |
-=======
->>>>>>> ai-3460-contact-lead-capture
 
 **Coverage:**
 - v1 requirements (Phases 1-9): 53 total, 53 complete ✓
