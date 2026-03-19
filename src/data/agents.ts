@@ -45,7 +45,7 @@ export const agents: Agent[] = [
     title: "Founding Partner & Lead Agent",
     email: "julian@tauro.realty",
     phone: "(215) 555-0100",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600",
+    photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80",
     bio: "Julian Bradley founded Tauro Real Estate with a singular vision: to bring a white-glove, client-first approach to Philadelphia's luxury market. With over 15 years of experience navigating Rittenhouse Square, Society Hill, and the Main Line's most prestigious addresses, Julian has built a reputation for discretion, market expertise, and results that speak for themselves. His deep roots in the Philadelphia community and relentless dedication to his clients have made him one of the region's most trusted advisors for high-net-worth buyers and sellers.",
     shortBio:
       "Founding partner specializing in luxury homes and historic properties across Philadelphia's most coveted neighborhoods.",
@@ -105,7 +105,7 @@ export const agents: Agent[] = [
     title: "Senior Agent & Buyer Specialist",
     email: "sofia@tauro.realty",
     phone: "(215) 555-0200",
-    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600",
+    photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=600&q=80",
     bio: "Sofia Martinez is known throughout Philadelphia for her unmatched dedication to first-time buyers and savvy investors alike. With 8 years of experience in the city's condo and townhouse market, she has helped nearly 100 families find their perfect home in neighborhoods from Fishtown's vibrant arts scene to Graduate Hospital's tree-lined streets. Bilingual in English and Spanish, Sofia brings a warmth and accessibility to the buying process that her clients consistently rave about.",
     shortBio:
       "Senior buyer specialist helping clients navigate Philadelphia's condo and investment property market with 8 years of expertise.",
@@ -160,7 +160,7 @@ export const agents: Agent[] = [
     title: "Agent & New Development Specialist",
     email: "marcus@tauro.realty",
     phone: "(215) 555-0300",
-    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600",
+    photo: "https://images.unsplash.com/photo-1506277886164-e25aa3f4ef7f?w=600&q=80",
     bio: "Marcus Thompson brings a sharp eye for emerging opportunities to the Tauro team, specializing in new construction and townhouse developments across Philadelphia's fastest-growing corridors. With 5 years of experience and deep relationships with the city's top developers, Marcus guides his clients through the unique process of purchasing pre-construction and newly built homes in neighborhoods like Brewerytown, Point Breeze, and East Passyunk. His background in architecture gives him an edge in evaluating build quality and design potential.",
     shortBio:
       "New development specialist with an architecture background, focused on Philadelphia's emerging neighborhoods and new construction.",
@@ -209,7 +209,7 @@ export const agents: Agent[] = [
     title: "Agent & Relocation Specialist",
     email: "ava@tauro.realty",
     phone: "(215) 555-0400",
-    photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600",
+    photo: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&q=80",
     bio: "Ava Chen understands the challenges of relocating to a new city because she has guided over 60 families through the process. Specializing in corporate relocations and suburban estates, Ava helps clients transition seamlessly into Philadelphia's most desirable communities, from the stately homes of Chestnut Hill to the sprawling estates along the Main Line. Fluent in Mandarin and English, she serves a diverse clientele and is known for her patience, attention to detail, and encyclopedic knowledge of Philadelphia's school districts and neighborhoods.",
     shortBio:
       "Relocation specialist helping families transition to Philadelphia with expertise in suburban estates and school districts.",
@@ -264,7 +264,7 @@ export const agents: Agent[] = [
     title: "Luxury Listing Specialist",
     email: "damon@tauro.realty",
     phone: "(215) 555-0500",
-    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600",
+    photo: "https://images.unsplash.com/photo-1600486913747-55e5470d6f40?w=600&q=80",
     bio: "Damon Reeves spent a decade in commercial real estate before pivoting to luxury residential sales, bringing a sophisticated marketing approach that consistently achieves record-breaking prices. Known for exceptional staging and targeted digital campaigns, Damon has become the go-to listing agent for sellers across Rittenhouse Square, Washington Square West, and Old City. His deep understanding of buyer psychology and market positioning ensures every property he represents commands top dollar.",
     shortBio:
       "Luxury listing specialist known for record-breaking sales prices and exceptional property marketing across Center City.",
@@ -319,7 +319,7 @@ export const agents: Agent[] = [
     title: "Investment & Multi-Family Specialist",
     email: "priya@tauro.realty",
     phone: "(215) 555-0600",
-    photo: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600",
+    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80",
     bio: "A former financial analyst with a keen eye for value, Priya Kapoor helps investors build and optimize real estate portfolios across Philadelphia's most promising emerging neighborhoods. Specializing in multi-family properties and 1031 exchanges, Priya combines rigorous financial analysis with deep neighborhood knowledge to identify opportunities others miss. Her clients trust her data-driven approach and her ability to turn undervalued properties into high-performing assets.",
     shortBio:
       "Investment property specialist helping clients build wealth through strategic Philadelphia real estate acquisitions.",
