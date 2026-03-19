@@ -12,7 +12,7 @@ export default function HeroSearchBar() {
     e.preventDefault();
     const trimmed = query.trim();
     if (trimmed) {
-      router.push(`/properties?q=${encodeURIComponent(trimmed)}`);
+      router.push(`/properties?search=${encodeURIComponent(trimmed)}`);
     } else {
       router.push("/properties");
     }

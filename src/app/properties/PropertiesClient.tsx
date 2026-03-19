@@ -49,8 +49,21 @@ export default function PropertiesClient({
     router.replace("/properties", { scroll: false });
   }, [router]);
 
+  const searchQuery = searchParams.get("search") || "";
+
   const filtered = useMemo(() => {
     let result = [...properties];
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (p) =>
+          p.address.toLowerCase().includes(q) ||
+          p.neighborhood.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q) ||
+          p.city.toLowerCase().includes(q) ||
+          p.zip.includes(q)
+      );
+    }
     if (filters.priceMin) result = result.filter((p) => p.price >= Number(filters.priceMin));
     if (filters.priceMax) result = result.filter((p) => p.price <= Number(filters.priceMax));
     if (filters.beds) result = result.filter((p) => p.beds >= Number(filters.beds));
@@ -67,7 +80,7 @@ export default function PropertiesClient({
       case "sqft": result.sort((a, b) => b.sqft - a.sqft); break;
     }
     return result;
-  }, [filters, properties]);
+  }, [filters, properties, searchQuery]);
 
   return (
     <div className="min-h-screen pt-16">
