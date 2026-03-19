@@ -16,9 +16,11 @@ export default function PropertiesClient({
 }: {
   properties: Property[];
 }) {
+  const PAGE_SIZE = 12;
   const searchParams = useSearchParams();
   const router = useRouter();
   const [view, setView] = useState<ViewMode>("grid");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const filters: FilterState = useMemo(() => ({
     priceMin: searchParams.get("priceMin") || "",

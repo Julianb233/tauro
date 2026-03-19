@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
+import { NewsletterForm } from "@/components/NewsletterForm";
 
 const quickLinks = [
   { href: "/properties", label: "Properties" },
@@ -24,7 +25,7 @@ export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-foreground">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
@@ -105,19 +106,11 @@ export function Footer() {
                 </span>
               </li>
             </ul>
-            {/* Office map placeholder */}
-            <a
-              href="https://maps.google.com/?q=Philadelphia+PA"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-white/10 bg-white/5 transition-colors hover:border-gold/40"
-            >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-white/60">
-                <MapPin className="size-5 text-gold" />
-                <span>Philadelphia, PA</span>
-                <span className="text-gold/70">View on Map</span>
-              </div>
-            </a>
+          </div>
+
+          {/* Newsletter */}
+          <div className="md:col-span-2 lg:col-span-1">
+            <NewsletterForm />
           </div>
         </div>
 

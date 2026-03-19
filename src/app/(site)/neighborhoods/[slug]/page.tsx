@@ -6,6 +6,8 @@ import { AreaHero } from "@/components/area-hero";
 import { MarketStats } from "@/components/market-stats";
 import { AreaListings } from "@/components/area-listings";
 import NeighborhoodMap from "@/components/NeighborhoodMap";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { siteUrl } from "@/lib/site-config";
 
 export const revalidate = 86400;
 
@@ -18,7 +20,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const neighborhood = await loadNeighborhoodBySlug(slug);
   if (!neighborhood) return { title: "Neighborhood Not Found | Tauro" };
-  return { title: `${neighborhood.name} Homes for Sale`, description: `Explore homes for sale in ${neighborhood.name}, Philadelphia. ${neighborhood.tagline} Browse listings, local insights, and market data with Tauro Real Estate.` };
+  const title = `${neighborhood.name} Homes for Sale`;
+  const description = `Explore homes for sale in ${neighborhood.name}, Philadelphia. ${neighborhood.tagline} Browse listings, local insights, and market data with Tauro Real Estate.`;
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${siteUrl}/neighborhoods/${neighborhood.slug}`,
+      images: [{ url: neighborhood.image, width: 1200, height: 630, alt: `${neighborhood.name}, Philadelphia` }],
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title,
+      description,
+      images: [neighborhood.image],
+    },
+  };
 }
 
 const lifestyleIcons = { vibe: Sparkles, dining: Coffee, transit: TrainFront, parks: Trees } as const;
@@ -31,6 +50,12 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
 
   return (
     <>
+      <Breadcrumbs
+        items={[
+          { label: "Neighborhoods", href: "/neighborhoods" },
+          { label: neighborhood.name, href: `/neighborhoods/${neighborhood.slug}` },
+        ]}
+      />
       <AreaHero neighborhood={neighborhood} />
       <section className="bg-white py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="max-w-3xl"><p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">About the Neighborhood</p><h2 className="mt-2 font-heading text-3xl font-bold text-foreground">Living in {neighborhood.name}</h2><div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">{neighborhood.description.split("\n\n").map((para, i) => (<p key={i}>{para}</p>))}</div></div></div></section>
       <section className="border-t border-border/40 bg-cream py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">Why {neighborhood.name}</p><h2 className="mt-2 font-heading text-3xl font-bold text-foreground">Selling Points</h2><div className="mt-8 grid gap-4 sm:grid-cols-2">{neighborhood.sellingPoints.map((point) => (<div key={point} className="flex items-start gap-3"><CheckCircle className="mt-0.5 size-5 shrink-0 text-gold" /><p className="text-muted-foreground">{point}</p></div>))}</div></div></section>
