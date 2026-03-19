@@ -3,6 +3,7 @@ import Hero from "@/components/hero";
 import StatsBar from "@/components/stats-bar";
 import FeaturedProperties from "@/components/featured-properties";
 import NeighborhoodShowcase from "@/components/neighborhood-showcase";
+import AreasWeServe from "@/components/areas-we-serve";
 import WhyTauro from "@/components/why-tauro";
 import Testimonials from "@/components/testimonials";
 import HomepageCTAs from "@/components/homepage-ctas";
@@ -21,6 +22,7 @@ export default function HomePage() {
       <StatsBar />
       <FeaturedProperties />
       <NeighborhoodShowcase />
+      <AreasWeServe />
       <WhyTauro />
       <Testimonials />
       <HomepageCTAs />
