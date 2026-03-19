@@ -48,8 +48,8 @@ const neighborhoods = [
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-foreground">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
@@ -66,12 +66,12 @@ export function Footer() {
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gold">
               Quick Links
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-1">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/60 transition-colors hover:text-gold"
+                    className="inline-flex min-h-[44px] items-center text-sm text-white/60 transition-colors hover:text-gold sm:min-h-0"
                   >
                     {link.label}
                   </Link>
@@ -118,7 +118,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+12155550100"
-                  className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Phone className="size-4 shrink-0" />
                   (215) 555-0100
@@ -127,10 +127,10 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:info@taurorealty.com"
-                  className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Mail className="size-4 shrink-0" />
-                  info@taurorealty.com
+                  <span className="break-all">info@taurorealty.com</span>
                 </a>
               </li>
               <li>
@@ -157,17 +157,17 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 md:flex-row">
           <p className="text-xs text-white/50">
             &copy; {new Date().getFullYear()} Tauro. All rights reserved.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 sm:gap-3">
             <GoldShimmer>
               <a
                 href="https://instagram.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
                 aria-label="Instagram"
               >
                 <Instagram className="size-5" />
@@ -178,7 +178,7 @@ export function Footer() {
                 href="https://facebook.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
                 aria-label="Facebook"
               >
                 <Facebook className="size-5" />
@@ -189,7 +189,7 @@ export function Footer() {
                 href="https://linkedin.com/company/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
@@ -200,7 +200,7 @@ export function Footer() {
                 href="https://x.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
                 aria-label="X (Twitter)"
               >
                 <Twitter className="size-5" />

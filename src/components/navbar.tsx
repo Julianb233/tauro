@@ -99,7 +99,7 @@ export function Navbar() {
           <button
             type="button"
             className={cn(
-              "rounded-md p-2 lg:hidden",
+              "rounded-md p-2.5 lg:hidden",
               scrolled ? "text-foreground" : "text-white"
             )}
             onClick={() => setMobileOpen(!mobileOpen)}
