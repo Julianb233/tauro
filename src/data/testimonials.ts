@@ -27,4 +27,25 @@ export const testimonials: Testimonial[] = [
     role: "Investors — Center City",
     rating: 5,
   },
+  {
+    quote:
+      "From the initial consultation to closing day, Tauro guided us through every step. We found our dream home in Graduate Hospital within two weeks.",
+    name: "Jessica Thornton",
+    role: "Homebuyer — Graduate Hospital",
+    rating: 5,
+  },
+  {
+    quote:
+      "Tauro's team handled the sale of our Old City condo with incredible professionalism. Their staging advice alone added significant value to the final price.",
+    name: "Robert & Linda Zhao",
+    role: "Sellers — Old City",
+    rating: 5,
+  },
+  {
+    quote:
+      "As an out-of-state investor, I needed a brokerage I could trust. Tauro managed everything remotely and secured two rental properties in Northern Liberties for me.",
+    name: "Andre Williams",
+    role: "Investor — Northern Liberties",
+    rating: 5,
+  },
 ];
