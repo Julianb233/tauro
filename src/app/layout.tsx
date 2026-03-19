@@ -77,9 +77,17 @@ export default function RootLayout({
       <body
         className={`${playfair.variable} ${dmSans.variable} ${montserrat.variable} min-h-screen bg-background text-foreground antialiased`}
       >
+        <a
+          href="#main-content"
+          className="fixed top-0 left-0 z-[9999] -translate-y-full rounded-br-lg bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-transform focus:translate-y-0"
+        >
+          Skip to main content
+        </a>
         <Analytics />
         <OrganizationJsonLd />
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
       </body>
     </html>
   );

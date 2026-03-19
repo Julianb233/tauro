@@ -97,6 +97,22 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-playfair), Georgia, serif;
 }
 
+/* Skeleton loading shimmer */
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.animate-skeleton-shimmer {
+  animation: skeleton-shimmer 1.8s ease-in-out infinite;
+}
+
+/* Global focus-visible indicator (gold ring, on-brand) */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
 /* Gold shimmer micro-interaction */
 @keyframes gold-shimmer-sweep {
   0% {
@@ -220,7 +236,8 @@ h1, h2, h3, h4, h5, h6 {
   .card-tilt,
   .diagonal-wipe,
   .slash-reveal,
-  .diagonal-wipe-transition {
+  .diagonal-wipe-transition,
+  .animate-skeleton-shimmer {
     animation: none !important;
     transition: none !important;
     transform: none !important;

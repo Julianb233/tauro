@@ -140,7 +140,7 @@ export function ContactForm() {
       </div>
 
       {formState === "error" && (
-        <div className="flex items-start gap-2.5 rounded-lg border border-red-400/40 bg-red-400/10 p-3.5">
+        <div role="alert" className="flex items-start gap-2.5 rounded-lg border border-red-400/40 bg-red-400/10 p-3.5">
           <AlertCircle className="mt-0.5 size-4 shrink-0 text-red-400" />
           <p className="text-sm text-red-400">{errorMsg || "Something went wrong"}</p>
         </div>
@@ -161,10 +161,12 @@ export function ContactForm() {
             value={form.firstName}
             onChange={handleChange}
             placeholder="Jane"
+            aria-invalid={!!errors.firstName}
+            aria-describedby={errors.firstName ? "firstName-error" : undefined}
             className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
           />
           {errors.firstName && (
-            <p className="text-red-400 text-xs mt-1">{errors.firstName}</p>
+            <p id="firstName-error" role="alert" className="text-red-400 text-xs mt-1">{errors.firstName}</p>
           )}
         </div>
         <div>
@@ -180,10 +182,12 @@ export function ContactForm() {
             value={form.lastName}
             onChange={handleChange}
             placeholder="Smith"
+            aria-invalid={!!errors.lastName}
+            aria-describedby={errors.lastName ? "lastName-error" : undefined}
             className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
           />
           {errors.lastName && (
-            <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>
+            <p id="lastName-error" role="alert" className="text-red-400 text-xs mt-1">{errors.lastName}</p>
           )}
         </div>
       </div>
@@ -202,10 +206,12 @@ export function ContactForm() {
           value={form.email}
           onChange={handleChange}
           placeholder="jane@example.com"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "email-error" : undefined}
           className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
         />
         {errors.email && (
-          <p className="text-red-400 text-xs mt-1">{errors.email}</p>
+          <p id="email-error" role="alert" className="text-red-400 text-xs mt-1">{errors.email}</p>
         )}
       </div>
 
@@ -223,10 +229,12 @@ export function ContactForm() {
           value={form.phone}
           onChange={handleChange}
           placeholder="(215) 555-0100"
+          aria-invalid={!!errors.phone}
+          aria-describedby={errors.phone ? "phone-error" : undefined}
           className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
         />
         {errors.phone && (
-          <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
+          <p id="phone-error" role="alert" className="text-red-400 text-xs mt-1">{errors.phone}</p>
         )}
       </div>
 

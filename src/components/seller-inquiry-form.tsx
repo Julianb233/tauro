@@ -145,7 +145,7 @@ export function SellerInquiryForm() {
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-6">
       {state === "error" && (
-        <div className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
+        <div role="alert" className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
           <AlertCircle className="mt-0.5 size-4 shrink-0 text-destructive" />
           <p className="text-sm text-destructive">{errorMsg}</p>
         </div>
