@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Project Proposal",
+  title: "Proposal | Tauro",
   description:
-    "Tauro website build proposal — scope, deliverables, timeline, and pricing.",
+    "Build proposal for LYL Realty Group — scope, deliverables, timeline, pricing, and onboarding.",
   robots: { index: false, follow: false },
 };
 

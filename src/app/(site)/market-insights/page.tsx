@@ -8,6 +8,8 @@ import {
   BarChart3,
   Package,
   ArrowRight,
+  ShoppingCart,
+  Banknote,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -257,29 +259,105 @@ export default function MarketInsightsPage() {
         </div>
       </section>
 
+      {/* ── When to Buy / When to Sell ────────────────────────── */}
+      <section className="bg-near-black py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              Timing
+            </p>
+            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+              When Should You Make Your Move?
+            </h2>
+          </div>
+
+          <div className="mt-12 grid gap-8 lg:grid-cols-2">
+            {/* When to Buy */}
+            <div className="rounded-xl border border-border/40 bg-midnight p-8">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                <ShoppingCart className="size-6 text-gold" />
+              </div>
+              <h3 className="mt-4 font-heading text-xl font-bold text-white">
+                When to Buy
+              </h3>
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block size-1.5 shrink-0 rounded-full bg-gold" />
+                  <span>
+                    <strong className="text-white">Winter months</strong> typically see less competition and more motivated sellers, making December through February an excellent window for buyers willing to brave the cold.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block size-1.5 shrink-0 rounded-full bg-gold" />
+                  <span>
+                    <strong className="text-white">Get pre-approved first.</strong> In Philadelphia&apos;s competitive market, sellers take pre-approved buyers more seriously. A strong offer with proof of financing wins over higher offers without it.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block size-1.5 shrink-0 rounded-full bg-gold" />
+                  <span>
+                    <strong className="text-white">Watch emerging neighborhoods.</strong> Areas like Brewerytown, Point Breeze, and Kensington offer strong appreciation potential at lower entry prices than established markets.
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            {/* When to Sell */}
+            <div className="rounded-xl border border-border/40 bg-midnight p-8">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                <Banknote className="size-6 text-gold" />
+              </div>
+              <h3 className="mt-4 font-heading text-xl font-bold text-white">
+                When to Sell
+              </h3>
+              <ul className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block size-1.5 shrink-0 rounded-full bg-gold" />
+                  <span>
+                    <strong className="text-white">Spring is king.</strong> Philadelphia&apos;s market historically peaks from March through June, when buyer activity surges and homes show best with blooming curb appeal.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block size-1.5 shrink-0 rounded-full bg-gold" />
+                  <span>
+                    <strong className="text-white">Price it right from day one.</strong> Homes priced accurately at listing receive more showings and often sell above asking. Overpriced homes sit, requiring reductions that signal desperation.
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 block size-1.5 shrink-0 rounded-full bg-gold" />
+                  <span>
+                    <strong className="text-white">Low inventory is your friend.</strong> With active listings down 8% year-over-year, well-prepared sellers face less competition and stronger offers in today&apos;s market.
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="bg-near-black py-16">
+      <section className="bg-midnight py-16">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
-            Want a Personalized Market Analysis?
+            Want to Know What Your Home Is Worth?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Get a detailed report on your property or neighborhood from a local
-            Tauro agent -- free and with no obligation.
+            Get a detailed market analysis of your property from a local Tauro
+            agent -- free and with no obligation.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/sell"
+              href="/home-value"
               className="inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
             >
               Get Free Valuation
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/contact"
+              href="/neighborhoods"
               className="inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
             >
-              Talk to an Agent
+              Browse Neighborhoods
             </Link>
           </div>
         </div>
