@@ -1,3 +1,32 @@
+export interface School {
+  name: string;
+  type: "Public" | "Private" | "Charter" | "Magnet";
+  rating: number;
+  grades: string;
+  distance: string;
+}
+
+export interface LocalSpot {
+  name: string;
+  type: "Restaurant" | "Cafe" | "Bar" | "Shop" | "Park" | "Gallery" | "Brewery" | "Market";
+  description: string;
+}
+
+export interface MarketData {
+  medianPrice: string;
+  avgPricePerSqft: string;
+  medianDaysOnMarket: number;
+  activeListings: number;
+  priceChange12m: string;
+}
+
+export interface LifestyleInfo {
+  dining: string;
+  nightlife: string;
+  parks: string;
+  culture: string;
+}
+
 export interface Neighborhood {
   id: string;
   name: string;
@@ -17,6 +46,13 @@ export interface Neighborhood {
     avgDaysOnMarket: number;
     inventoryLevel: string;
   };
+  marketData: MarketData;
+  schools: School[];
+  walkScore: number;
+  transitScore: number;
+  bikeScore: number;
+  lifestyleInfo: LifestyleInfo;
+  localSpots: LocalSpot[];
   image: string;
   cardImage: string;
   mapCenter: { lat: number; lng: number };
@@ -51,6 +87,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 28,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$385,000",
+      avgPricePerSqft: "$340",
+      medianDaysOnMarket: 28,
+      activeListings: 142,
+      priceChange12m: "+4.8%",
+    },
+    schools: [
+      { name: "Masterman School", type: "Magnet", rating: 9, grades: "5-12", distance: "0.5 mi" },
+      { name: "Friends Select School", type: "Private", rating: 9, grades: "Pre-K-12", distance: "0.3 mi" },
+      { name: "Science Leadership Academy", type: "Magnet", rating: 8, grades: "9-12", distance: "0.8 mi" },
+    ],
+    walkScore: 99,
+    transitScore: 100,
+    bikeScore: 93,
+    lifestyleInfo: {
+      dining: "World-class restaurants at every turn, from Zahav and Vernick to Reading Terminal Market and Chinatown dim sum parlors.",
+      nightlife: "Avenue of the Arts theater district, rooftop bars along Walnut Street, and speakeasy-style cocktail lounges on side streets.",
+      parks: "Rittenhouse Square, LOVE Park, Dilworth Park, and the Schuylkill Banks trail system along the river.",
+      culture: "Kimmel Center, Academy of Music, Philadelphia Museum of Art, and the Avenue of the Arts performing arts corridor.",
+    },
+    localSpots: [
+      { name: "Reading Terminal Market", type: "Market", description: "Iconic indoor market with 80+ vendors serving everything from Amish pretzels to fresh sushi." },
+      { name: "Vernick Food & Drink", type: "Restaurant", description: "James Beard-winning New American restaurant with inventive tasting menus." },
+      { name: "Elixr Coffee", type: "Cafe", description: "Third-wave coffee pioneer with single-origin pour-overs in a minimalist space." },
+      { name: "The Ranstead Room", type: "Bar", description: "Hidden cocktail bar behind an unmarked door on Ranstead Street." },
+    ],
     image:
       "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1200&q=80",
     cardImage:
@@ -86,6 +149,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 22,
       inventoryLevel: "Low",
     },
+    marketData: {
+      medianPrice: "$550,000",
+      avgPricePerSqft: "$420",
+      medianDaysOnMarket: 22,
+      activeListings: 68,
+      priceChange12m: "+6.1%",
+    },
+    schools: [
+      { name: "Greenfield Albert M. School", type: "Public", rating: 7, grades: "K-8", distance: "0.4 mi" },
+      { name: "Friends Select School", type: "Private", rating: 9, grades: "Pre-K-12", distance: "0.6 mi" },
+      { name: "Philadelphia School", type: "Private", rating: 8, grades: "Pre-K-8", distance: "0.5 mi" },
+    ],
+    walkScore: 99,
+    transitScore: 100,
+    bikeScore: 94,
+    lifestyleInfo: {
+      dining: "Parc brasserie on the square, Barclay Prime, Talula's Daily, and an unmatched concentration of acclaimed BYOBs.",
+      nightlife: "Upscale cocktail bars, wine bars along Walnut Street, and sidewalk cafe culture that runs late into the evening.",
+      parks: "Rittenhouse Square is the crown jewel with seasonal markets, art shows, and live music year-round.",
+      culture: "Art galleries on Pine Street, the Curtis Institute of Music, and proximity to the Avenue of the Arts.",
+    },
+    localSpots: [
+      { name: "Parc", type: "Restaurant", description: "French brasserie on Rittenhouse Square with coveted outdoor seating and classic bistro fare." },
+      { name: "DiBruno Bros.", type: "Shop", description: "Iconic Italian gourmet market with artisan cheeses, charcuterie, and prepared foods." },
+      { name: "a]oc", type: "Restaurant", description: "Acclaimed wine bar and small-plates restaurant from Jose Garces, steps from the square." },
+      { name: "The Good King Tavern", type: "Bar", description: "French-inspired cocktail bar with absinthe service and seasonal craft cocktails." },
+    ],
     image:
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
     cardImage:
@@ -120,6 +210,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 18,
       inventoryLevel: "Low",
     },
+    marketData: {
+      medianPrice: "$375,000",
+      avgPricePerSqft: "$295",
+      medianDaysOnMarket: 18,
+      activeListings: 54,
+      priceChange12m: "+8.3%",
+    },
+    schools: [
+      { name: "Adaire Alexander School", type: "Public", rating: 6, grades: "K-8", distance: "0.3 mi" },
+      { name: "MaST Community Charter", type: "Charter", rating: 8, grades: "K-12", distance: "1.2 mi" },
+      { name: "Frankford Friends School", type: "Private", rating: 7, grades: "Pre-K-6", distance: "0.8 mi" },
+    ],
+    walkScore: 93,
+    transitScore: 78,
+    bikeScore: 90,
+    lifestyleInfo: {
+      dining: "Suraya for Lebanese, Pizzeria Beddia, La Colombe flagship, and dozens of inventive BYOBs along Frankford Avenue.",
+      nightlife: "Johnny Brenda's for live music, Barcade for retro gaming, craft cocktail bars, and brewery taprooms on every block.",
+      parks: "Penn Treaty Park on the Delaware waterfront, Palmer Park, and nearby access to the Schuylkill River Trail.",
+      culture: "Street murals, indie galleries, recording studios, and the Fillmore Philadelphia concert venue.",
+    },
+    localSpots: [
+      { name: "Suraya", type: "Restaurant", description: "Stunning Lebanese restaurant and garden with weekend brunch that draws city-wide crowds." },
+      { name: "La Colombe Fishtown", type: "Cafe", description: "Flagship cafe in a former warehouse with draft lattes and a beautiful industrial space." },
+      { name: "Johnny Brenda's", type: "Bar", description: "Legendary live music venue and gastropub at the heart of Fishtown's nightlife." },
+      { name: "Frankford Hall", type: "Brewery", description: "Massive outdoor beer garden with German-inspired brews and communal seating." },
+    ],
     image:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
     cardImage:
@@ -155,6 +272,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 21,
       inventoryLevel: "Low",
     },
+    marketData: {
+      medianPrice: "$420,000",
+      avgPricePerSqft: "$310",
+      medianDaysOnMarket: 21,
+      activeListings: 38,
+      priceChange12m: "+5.7%",
+    },
+    schools: [
+      { name: "AMY at James Martin", type: "Public", rating: 6, grades: "K-8", distance: "0.5 mi" },
+      { name: "Girard College", type: "Private", rating: 8, grades: "1-12", distance: "1.0 mi" },
+      { name: "Independence Charter School", type: "Charter", rating: 7, grades: "K-8", distance: "0.9 mi" },
+    ],
+    walkScore: 95,
+    transitScore: 82,
+    bikeScore: 92,
+    lifestyleInfo: {
+      dining: "Standard Tap for craft beer, Honey's for brunch, North Third for New American, and Liberty Kitchen for wood-fired pizza.",
+      nightlife: "Craft cocktail bars on Second Street, The Piazza's outdoor events, and a lively restaurant bar scene.",
+      parks: "Liberty Lands community park, Orianna Hill Park, and proximity to the Delaware River waterfront trail.",
+      culture: "The Piazza at Schmidt's hosts concerts and film screenings, with galleries and studios throughout the neighborhood.",
+    },
+    localSpots: [
+      { name: "Standard Tap", type: "Bar", description: "Craft beer pioneer with an all-local draft list and elevated pub food in a historic building." },
+      { name: "Honey's Sit 'n Eat", type: "Restaurant", description: "Beloved brunch spot with Southern-Jewish comfort food and legendary waits on weekends." },
+      { name: "The Piazza at Schmidt's", type: "Market", description: "European-style public square in a former brewery hosting markets, concerts, and community events." },
+      { name: "Cafe La Maude", type: "Cafe", description: "Charming French-Lebanese cafe with house-made pastries and specialty coffee." },
+    ],
     image:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
     cardImage:
@@ -189,6 +333,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 25,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$400,000",
+      avgPricePerSqft: "$350",
+      medianDaysOnMarket: 25,
+      activeListings: 52,
+      priceChange12m: "+3.9%",
+    },
+    schools: [
+      { name: "Independence Charter School", type: "Charter", rating: 7, grades: "K-8", distance: "0.4 mi" },
+      { name: "Masterman School", type: "Magnet", rating: 9, grades: "5-12", distance: "0.7 mi" },
+      { name: "Old City Academy", type: "Private", rating: 7, grades: "Pre-K-5", distance: "0.2 mi" },
+    ],
+    walkScore: 97,
+    transitScore: 95,
+    bikeScore: 91,
+    lifestyleInfo: {
+      dining: "Fork is a Philly institution, Amada by Jose Garces serves stunning tapas, and Cherry Street Pier hosts rotating food concepts.",
+      nightlife: "First Friday gallery crawls, cocktail bars on 2nd and 3rd Streets, and the electric weekend scene along Market Street.",
+      parks: "Independence Mall, Washington Square, Race Street Pier on the Delaware, and the planned Penn's Landing park cap.",
+      culture: "Independence Hall, the Liberty Bell, Elfreth's Alley, and a thriving gallery scene with monthly First Friday events.",
+    },
+    localSpots: [
+      { name: "Fork", type: "Restaurant", description: "Philadelphia dining institution with seasonal New American cuisine in an elegant Old City setting." },
+      { name: "Cherry Street Pier", type: "Market", description: "Converted pier with artisan vendors, rotating food stalls, and waterfront views of the Ben Franklin Bridge." },
+      { name: "Art in the Age", type: "Shop", description: "Craft spirits tasting room and boutique featuring locally made spirits and barware." },
+      { name: "Race Street Pier", type: "Park", description: "Elevated park on the Delaware waterfront with stunning bridge views and tiered seating." },
+    ],
     image:
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80",
     cardImage:
@@ -224,6 +395,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 30,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$275,000",
+      avgPricePerSqft: "$215",
+      medianDaysOnMarket: 30,
+      activeListings: 98,
+      priceChange12m: "+5.2%",
+    },
+    schools: [
+      { name: "Meredith William M. School", type: "Public", rating: 8, grades: "K-8", distance: "0.6 mi" },
+      { name: "St. Maria Goretti High School", type: "Private", rating: 7, grades: "9-12", distance: "0.8 mi" },
+      { name: "Furness Horace Howard School", type: "Public", rating: 5, grades: "K-8", distance: "0.4 mi" },
+    ],
+    walkScore: 92,
+    transitScore: 72,
+    bikeScore: 80,
+    lifestyleInfo: {
+      dining: "Italian Market for fresh produce, East Passyunk for Laurel and Fond, and Pho 75 on Washington Avenue for authentic Vietnamese.",
+      nightlife: "East Passyunk cocktail bars, South Broad Street venues, and the sports bar scene around the stadium complex.",
+      parks: "FDR Park with lakes and trails, Marconi Plaza, Columbus Square, and the sports complex district.",
+      culture: "Italian Market heritage, vibrant murals, multicultural block parties, and the passionate sports culture of Broad Street.",
+    },
+    localSpots: [
+      { name: "Italian Market", type: "Market", description: "America's oldest open-air market, nine blocks of butchers, cheese shops, produce stands, and bakeries." },
+      { name: "Laurel", type: "Restaurant", description: "James Beard Award-winning French-inspired tasting menu restaurant on East Passyunk Avenue." },
+      { name: "Bing Bing Dim Sum", type: "Restaurant", description: "Creative Asian-fusion dim sum and cocktails on the celebrated East Passyunk corridor." },
+      { name: "Garage Passyunk", type: "Bar", description: "Retro-themed bar with craft cocktails, pinball machines, and a speakeasy vibe." },
+    ],
     image:
       "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=1200&q=80",
     cardImage:
@@ -259,6 +457,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 24,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$340,000",
+      avgPricePerSqft: "$260",
+      medianDaysOnMarket: 24,
+      activeListings: 76,
+      priceChange12m: "+4.5%",
+    },
+    schools: [
+      { name: "Penn Alexander School", type: "Public", rating: 9, grades: "K-8", distance: "0.3 mi" },
+      { name: "University of Pennsylvania", type: "Private", rating: 10, grades: "University", distance: "0.1 mi" },
+      { name: "Lea Henry C. School", type: "Public", rating: 5, grades: "K-8", distance: "0.7 mi" },
+    ],
+    walkScore: 90,
+    transitScore: 88,
+    bikeScore: 85,
+    lifestyleInfo: {
+      dining: "White Dog Cafe, Walnut Street's Ethiopian row, food trucks at 33rd and Spruce, and Dock Street Brewery.",
+      nightlife: "College-town energy along Walnut Street, rooftop bars, and the World Cafe Live music venue.",
+      parks: "Clark Park with its farmers market, Penn Park along the Schuylkill, the Woodlands, and the river trail system.",
+      culture: "Penn Museum, ICA contemporary art, university lectures and events, and the thriving international food scene.",
+    },
+    localSpots: [
+      { name: "White Dog Cafe", type: "Restaurant", description: "Farm-to-table pioneer in a charming Victorian house, beloved for weekend brunch and community events." },
+      { name: "Dock Street Brewery", type: "Brewery", description: "Award-winning brewery and pizzeria in a renovated firehouse with a sprawling outdoor space." },
+      { name: "Clark Park Farmers Market", type: "Market", description: "Year-round Saturday market with local produce, baked goods, and handmade crafts." },
+      { name: "Green Line Cafe", type: "Cafe", description: "Neighborhood coffee institution with multiple locations, free WiFi, and a steady stream of students and professors." },
+    ],
     image:
       "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&q=80",
     cardImage:
@@ -294,6 +519,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 32,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$310,000",
+      avgPricePerSqft: "$230",
+      medianDaysOnMarket: 32,
+      activeListings: 44,
+      priceChange12m: "+3.1%",
+    },
+    schools: [
+      { name: "Cook-Wissahickon School", type: "Public", rating: 5, grades: "K-8", distance: "0.6 mi" },
+      { name: "Manayunk Academy", type: "Charter", rating: 6, grades: "K-5", distance: "0.3 mi" },
+      { name: "Roxborough High School", type: "Public", rating: 5, grades: "9-12", distance: "0.9 mi" },
+    ],
+    walkScore: 82,
+    transitScore: 62,
+    bikeScore: 75,
+    lifestyleInfo: {
+      dining: "Lucky's Last Chance for brunch, Bourbon Blue for Southern comfort, The Couch Tomato for artisan pizza, and Main Street bistros.",
+      nightlife: "Main Street pub crawls, rooftop bars overlooking the river, and a lively social scene every weekend.",
+      parks: "Manayunk Towpath along the Schuylkill, Pretzel Park, Venice Island, and Wissahickon Valley Park minutes away.",
+      culture: "Annual bike race, StrEAT Food Festival, Arts Festival, and a tight-knit community of local artists and entrepreneurs.",
+    },
+    localSpots: [
+      { name: "Lucky's Last Chance", type: "Restaurant", description: "Massive brunch spot and beer garden with a dog-friendly patio on Main Street." },
+      { name: "The Couch Tomato", type: "Restaurant", description: "Artisan pizza and craft cocktails in a cozy Main Street space with creative seasonal toppings." },
+      { name: "Manayunk Brewing Company", type: "Brewery", description: "Craft brewery with river views, seasonal releases, and a popular outdoor deck." },
+      { name: "Pretzel Park Farmers Market", type: "Market", description: "Saturday morning market in a charming neighborhood park with local vendors and live music." },
+    ],
     image:
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
     cardImage:
@@ -329,6 +581,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 35,
       inventoryLevel: "Low",
     },
+    marketData: {
+      medianPrice: "$625,000",
+      avgPricePerSqft: "$275",
+      medianDaysOnMarket: 35,
+      activeListings: 32,
+      priceChange12m: "+4.2%",
+    },
+    schools: [
+      { name: "Springside Chestnut Hill Academy", type: "Private", rating: 9, grades: "Pre-K-12", distance: "0.4 mi" },
+      { name: "Norwood-Fontbonne Academy", type: "Private", rating: 8, grades: "Pre-K-8", distance: "0.6 mi" },
+      { name: "Jenks Academy for the Arts", type: "Public", rating: 7, grades: "K-8", distance: "0.5 mi" },
+    ],
+    walkScore: 78,
+    transitScore: 60,
+    bikeScore: 65,
+    lifestyleInfo: {
+      dining: "McNally's Tavern, Chestnut Grill, Cafette for Italian, and Campbell's Place for fine dining on Germantown Avenue.",
+      nightlife: "Low-key wine bars, cozy taverns, and seasonal events on Germantown Avenue rather than a late-night scene.",
+      parks: "Wissahickon Valley Park with 50+ miles of trails, Morris Arboretum, Pastorius Park, and the Chestnut Hill College grounds.",
+      culture: "Garden tours, antique shops, independent bookstores, and holiday strolls along one of Philadelphia's most charming commercial streets.",
+    },
+    localSpots: [
+      { name: "McNally's Tavern", type: "Bar", description: "Neighborhood institution since 1921, famous for the Schmitter sandwich and a loyal local following." },
+      { name: "Chestnut Hill Farmers Market", type: "Market", description: "Year-round indoor market with local farms, artisan bakers, and specialty food vendors." },
+      { name: "Morris Arboretum", type: "Park", description: "92-acre public garden of the University of Pennsylvania with stunning seasonal displays and canopy walks." },
+      { name: "Cafette", type: "Restaurant", description: "Charming Italian BYOB with handmade pastas and a garden patio on Germantown Avenue." },
+    ],
     image:
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
     cardImage:
@@ -364,6 +643,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 28,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$350,000",
+      avgPricePerSqft: "$185",
+      medianDaysOnMarket: 28,
+      activeListings: 56,
+      priceChange12m: "+3.8%",
+    },
+    schools: [
+      { name: "C.W. Henry School", type: "Public", rating: 7, grades: "K-8", distance: "0.3 mi" },
+      { name: "Waldorf School of Philadelphia", type: "Private", rating: 8, grades: "Pre-K-8", distance: "0.5 mi" },
+      { name: "Wissahickon Charter School", type: "Charter", rating: 7, grades: "K-8", distance: "0.7 mi" },
+    ],
+    walkScore: 72,
+    transitScore: 55,
+    bikeScore: 60,
+    lifestyleInfo: {
+      dining: "Earth Bread + Brewery for craft brews, McMenamin's Tavern, Trolley Car Cafe, and Weavers Way prepared foods.",
+      nightlife: "Community-focused evenings with brewery taprooms, live music at local venues, and neighborhood gathering spots.",
+      parks: "Wissahickon Valley Park with Forbidden Drive, Carpenter's Woods, Cresheim Valley trails, and Awbury Arboretum.",
+      culture: "Weavers Way Co-op community, Mt. Airy Day festival, gallery walks, and a strong tradition of neighborhood civic engagement.",
+    },
+    localSpots: [
+      { name: "Earth Bread + Brewery", type: "Brewery", description: "Neighborhood brewery with house-made flatbreads, craft beers, and a loyal community following." },
+      { name: "Weavers Way Co-op", type: "Shop", description: "Member-owned cooperative grocery anchoring the commercial district with local and organic products." },
+      { name: "Trolley Car Cafe", type: "Cafe", description: "Cozy neighborhood cafe and diner serving breakfast all day in a welcoming space." },
+      { name: "Awbury Arboretum", type: "Park", description: "55-acre estate with gardens, trails, and open meadows — a hidden urban oasis." },
+    ],
     image:
       "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
     cardImage:
@@ -399,6 +705,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 42,
       inventoryLevel: "High",
     },
+    marketData: {
+      medianPrice: "$215,000",
+      avgPricePerSqft: "$125",
+      medianDaysOnMarket: 42,
+      activeListings: 88,
+      priceChange12m: "+7.5%",
+    },
+    schools: [
+      { name: "Germantown Friends School", type: "Private", rating: 9, grades: "Pre-K-12", distance: "0.3 mi" },
+      { name: "Wissahickon Charter School", type: "Charter", rating: 7, grades: "K-8", distance: "0.6 mi" },
+      { name: "Roosevelt Theodore School", type: "Public", rating: 4, grades: "K-8", distance: "0.5 mi" },
+    ],
+    walkScore: 68,
+    transitScore: 52,
+    bikeScore: 55,
+    lifestyleInfo: {
+      dining: "Attic Brewing Company, Uncle Bobbie's Coffee and Books, Germantown Garden Grill, and a growing roster of new food concepts.",
+      nightlife: "Brewery taprooms, cultural events at historic venues, and a burgeoning after-hours scene along the Avenue.",
+      parks: "Vernon Park, Awbury Arboretum, Wissahickon Valley Park, and the historic Cliveden grounds with outdoor events.",
+      culture: "Historic landmarks like Cliveden and the Johnson House (Underground Railroad), active galleries, and maker spaces.",
+    },
+    localSpots: [
+      { name: "Uncle Bobbie's Coffee & Books", type: "Cafe", description: "Cultural hub and bookstore celebrating Black literature with craft coffee and community events." },
+      { name: "Attic Brewing Company", type: "Brewery", description: "Community-focused brewery in a restored industrial space with rotating food trucks and events." },
+      { name: "Cliveden", type: "Gallery", description: "Historic estate and museum site of the 1777 Battle of Germantown, hosting cultural events year-round." },
+      { name: "Germantown Garden Grill", type: "Restaurant", description: "Farm-to-table cafe with garden seating, locally sourced menus, and a community gathering vibe." },
+    ],
     image:
       "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1200&q=80",
     cardImage:
@@ -434,6 +767,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 26,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$280,000",
+      avgPricePerSqft: "$175",
+      medianDaysOnMarket: 26,
+      activeListings: 82,
+      priceChange12m: "+5.0%",
+    },
+    schools: [
+      { name: "Lea Henry C. School", type: "Public", rating: 5, grades: "K-8", distance: "0.4 mi" },
+      { name: "Penn Alexander School", type: "Public", rating: 9, grades: "K-8", distance: "0.8 mi" },
+      { name: "Woodland Academy", type: "Charter", rating: 6, grades: "K-8", distance: "0.6 mi" },
+    ],
+    walkScore: 85,
+    transitScore: 75,
+    bikeScore: 82,
+    lifestyleInfo: {
+      dining: "Dahlak for Ethiopian, Booker's soul food, Gojjo for Eritrean, and the Clark Park farmers market on Saturdays.",
+      nightlife: "Laid-back bar scene along Baltimore Avenue, spoken word nights, world music at local venues, and porch gatherings.",
+      parks: "Clark Park, Malcolm X Park, Cobbs Creek Park with 276 acres and a golf course, and the Schuylkill River Trail.",
+      culture: "Bohemian spirit with community gardens, mural arts, Ethiopian cultural institutions, and university-driven events.",
+    },
+    localSpots: [
+      { name: "Dahlak", type: "Restaurant", description: "Ethiopian and Eritrean restaurant with traditional injera platters and a warm, communal atmosphere." },
+      { name: "Dock Street Brewery South", type: "Brewery", description: "Brewery and pizzeria in a converted space with outdoor seating and a rotating tap list." },
+      { name: "Clark Park", type: "Park", description: "Community heart of West Philly with farmers market, playground, and year-round neighborhood events." },
+      { name: "Booker's", type: "Restaurant", description: "Beloved soul food spot with fried chicken, collard greens, and a counter-service neighborhood feel." },
+    ],
     image:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80",
     cardImage:
@@ -469,6 +829,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 22,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$225,000",
+      avgPricePerSqft: "$180",
+      medianDaysOnMarket: 22,
+      activeListings: 64,
+      priceChange12m: "+9.1%",
+    },
+    schools: [
+      { name: "Adaire Alexander School", type: "Public", rating: 6, grades: "K-8", distance: "0.5 mi" },
+      { name: "Kensington Health Sciences Academy", type: "Public", rating: 5, grades: "9-12", distance: "0.4 mi" },
+      { name: "MaST Community Charter", type: "Charter", rating: 8, grades: "K-12", distance: "1.0 mi" },
+    ],
+    walkScore: 88,
+    transitScore: 80,
+    bikeScore: 85,
+    lifestyleInfo: {
+      dining: "Front Street Cafe for all-day dining, Pizza Brain, Mural City Cellars for natural wine, and emerging concepts along Frankford.",
+      nightlife: "Brewery taprooms, live music at underground venues, and the growing Front Street bar scene.",
+      parks: "Palmer Park, McPherson Square, Harrowgate Park, and growing investment in new green spaces.",
+      culture: "Street murals, maker spaces, gallery openings, and a raw creative energy driving the neighborhood's transformation.",
+    },
+    localSpots: [
+      { name: "Front Street Cafe", type: "Cafe", description: "All-day cafe and event space with yoga classes, live music, and a plant-filled interior." },
+      { name: "Pizza Brain", type: "Restaurant", description: "World's first pizza museum with creative pies and a collection of pizza memorabilia." },
+      { name: "Mural City Cellars", type: "Bar", description: "Natural wine bar in a converted industrial space with rotating pours and charcuterie." },
+      { name: "Kensington Quarters", type: "Restaurant", description: "Whole-animal butcher shop and restaurant with seasonal menus and an in-house butchery." },
+    ],
     image:
       "https://images.unsplash.com/photo-1590725121839-892b458a74fe?w=1200&q=80",
     cardImage:
@@ -504,6 +891,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 20,
       inventoryLevel: "Low",
     },
+    marketData: {
+      medianPrice: "$295,000",
+      avgPricePerSqft: "$210",
+      medianDaysOnMarket: 20,
+      activeListings: 36,
+      priceChange12m: "+8.7%",
+    },
+    schools: [
+      { name: "Brown Henry A. School", type: "Public", rating: 4, grades: "K-8", distance: "0.3 mi" },
+      { name: "Girard College", type: "Private", rating: 8, grades: "1-12", distance: "0.7 mi" },
+      { name: "Science Leadership Academy Middle School", type: "Magnet", rating: 7, grades: "5-8", distance: "1.0 mi" },
+    ],
+    walkScore: 84,
+    transitScore: 65,
+    bikeScore: 88,
+    lifestyleInfo: {
+      dining: "Crime & Punishment Brewing, Brewery ARS, Girard Avenue's growing restaurant row, and proximity to Northern Liberties dining.",
+      nightlife: "Brewery taprooms with outdoor patios, Girard Avenue bar scene, and easy access to Fairmount's nightlife.",
+      parks: "Fairmount Park, Schuylkill River Trail, Philadelphia Zoo, and Please Touch Museum — all within walking distance.",
+      culture: "Brewing heritage revival, proximity to the Philadelphia Museum of Art and Boathouse Row, and a growing local arts scene.",
+    },
+    localSpots: [
+      { name: "Crime & Punishment Brewing", type: "Brewery", description: "Russian-literature-themed brewery with creative beers, a full kitchen, and a large outdoor space." },
+      { name: "Brewery ARS", type: "Brewery", description: "Belgian-inspired neighborhood brewery with farmhouse ales and a welcoming taproom." },
+      { name: "Philadelphia Zoo", type: "Park", description: "America's first zoo, home to 1,300+ animals and innovative animal exploration trails." },
+      { name: "Boathouse Row", type: "Park", description: "Iconic illuminated boathouses along the Schuylkill, perfect for evening runs and river views." },
+    ],
     image:
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
     cardImage:
@@ -539,6 +953,33 @@ export const neighborhoods: Neighborhood[] = [
       avgDaysOnMarket: 24,
       inventoryLevel: "Moderate",
     },
+    marketData: {
+      medianPrice: "$260,000",
+      avgPricePerSqft: "$195",
+      medianDaysOnMarket: 24,
+      activeListings: 72,
+      priceChange12m: "+6.8%",
+    },
+    schools: [
+      { name: "Andrew Jackson School", type: "Public", rating: 4, grades: "K-8", distance: "0.3 mi" },
+      { name: "Meredith William M. School", type: "Public", rating: 8, grades: "K-8", distance: "0.9 mi" },
+      { name: "Mastery Charter Gratz", type: "Charter", rating: 5, grades: "7-12", distance: "0.7 mi" },
+    ],
+    walkScore: 86,
+    transitScore: 70,
+    bikeScore: 78,
+    lifestyleInfo: {
+      dining: "Burg's Hideaway Lounge, expanding options along Point Breeze Avenue, and proximity to East Passyunk's dining strip.",
+      nightlife: "Cocktail lounges, neighborhood bars on Point Breeze Avenue, and easy access to South Broad Street venues.",
+      parks: "Capitolo Playground, Girard Park, FDR Park nearby, and the Schuylkill River Trail via Grays Ferry Crescent.",
+      culture: "A neighborhood in transition with community murals, block clean-ups, and an emerging local business scene.",
+    },
+    localSpots: [
+      { name: "Burg's Hideaway Lounge", type: "Bar", description: "Craft cocktail bar that became the neighborhood's first upscale watering hole and a local gathering spot." },
+      { name: "Grays Ferry Crescent", type: "Park", description: "Riverside trail and park connecting Point Breeze to the Schuylkill River Trail with scenic views." },
+      { name: "South Philly Barbacoa", type: "Restaurant", description: "Legendary Mexican barbacoa tacos and lamb consomme, drawing food lovers from across the city." },
+      { name: "The Tasker", type: "Restaurant", description: "Neighborhood cafe and bottle shop with craft beer, wine, and a small but creative food menu." },
+    ],
     image:
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
     cardImage:
