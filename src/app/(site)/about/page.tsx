@@ -12,7 +12,7 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-import { AboutCountUp, AboutStaggerReveal, FadeInView } from "./AboutAnimations";
+import { AboutCountUp, AboutStaggerReveal, AboutParallax, FadeInView } from "./AboutAnimations";
 
 export const metadata: Metadata = {
   title: "About Tauro | Philadelphia's Premier Real Estate Brokerage",
@@ -48,9 +48,11 @@ const values = [
 ];
 
 const stats = [
+  { value: "12+", label: "Years of Experience", suffix: "Years" },
+  { value: "6", label: "Expert Agents" },
+  { value: "15", label: "Neighborhoods Served" },
   { value: "$2.1B+", label: "Total Sales Volume" },
-  { value: "150+", label: "Licensed Agents" },
-  { value: "15", label: "Philly Neighborhoods" },
+  { value: "500+", label: "Properties Sold" },
   { value: "98%", label: "Client Satisfaction" },
 ];
 
@@ -72,15 +74,17 @@ const neighborhoods = [
 export default function AboutPage() {
   return (
     <div className="bg-background text-foreground">
-      {/* Hero */}
+      {/* Hero with Parallax */}
       <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden">
-        <Image
-          src="https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1920&q=80"
-          alt="Philadelphia skyline with City Hall and downtown skyscrapers"
-          fill
-          priority
-          className="object-cover brightness-[0.3]"
-        />
+        <AboutParallax speed={0.25} className="absolute inset-0">
+          <Image
+            src="https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1920&q=80"
+            alt="Philadelphia skyline with City Hall and downtown skyscrapers"
+            fill
+            priority
+            className="object-cover brightness-[0.3] scale-110"
+          />
+        </AboutParallax>
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
           <p className="font-label mb-3 text-sm uppercase tracking-widest text-gold">
             Serving Philadelphia
@@ -101,20 +105,31 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats Bar */}
-      <section className="border-y border-border/40 bg-card/50">
-        <AboutStaggerReveal className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-10 md:grid-cols-4">
-          {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-heading text-3xl font-bold text-gold md:text-4xl">
-                <AboutCountUp value={stat.value} />
-              </p>
-              <p className="font-label mt-1 text-xs uppercase tracking-wider text-muted-foreground">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </AboutStaggerReveal>
+      {/* Stats Grid — Glassmorphism Cards */}
+      <section className="border-y border-gold/10 bg-gradient-to-b from-card/60 to-background py-16">
+        <div className="mx-auto max-w-6xl px-6">
+          <FadeInView direction="up">
+            <h2 className="font-heading text-center text-2xl font-bold text-white md:text-3xl">
+              Tauro by the Numbers
+            </h2>
+          </FadeInView>
+          <AboutStaggerReveal className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="group relative rounded-xl border border-gold/20 bg-white/[0.04] p-6 text-center backdrop-blur-md transition-all duration-300 hover:border-gold/40 hover:bg-white/[0.08] hover:shadow-[0_0_24px_rgba(212,175,55,0.08)]"
+              >
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-gold/[0.06] to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <p className="relative font-heading text-3xl font-bold text-gold md:text-4xl">
+                  <AboutCountUp value={stat.value} />
+                </p>
+                <p className="relative font-label mt-2 text-xs uppercase tracking-wider text-muted-foreground">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </AboutStaggerReveal>
+        </div>
       </section>
 
       {/* Our Story */}
