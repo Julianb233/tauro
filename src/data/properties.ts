@@ -1,3 +1,10 @@
+export interface Room {
+  name: string;
+  dimensions: string;
+  level: string;
+  description: string;
+}
+
 export interface Property {
   id: string;
   slug: string;
@@ -21,6 +28,7 @@ export interface Property {
     exterior: string[];
     community: string[];
   };
+  rooms?: Room[];
   agent: {
     name: string;
     phone: string;
@@ -88,6 +96,16 @@ export const properties: Property[] = [
         "Museum District",
       ],
     },
+    rooms: [
+      { name: "Primary Suite", dimensions: "18x14", level: "3rd Floor", description: "Vaulted ceilings, walk-in closet, en-suite bath with soaking tub" },
+      { name: "Living Room", dimensions: "22x16", level: "1st Floor", description: "Marble fireplace, original crown moldings, Square views" },
+      { name: "Chef's Kitchen", dimensions: "20x14", level: "1st Floor", description: "Custom cabinetry, Sub-Zero fridge, Wolf range, butler's pantry" },
+      { name: "Formal Dining Room", dimensions: "16x14", level: "1st Floor", description: "Crystal chandelier, wainscoting, seats twelve" },
+      { name: "Home Office", dimensions: "14x12", level: "2nd Floor", description: "Built-in bookshelves, fireplace, garden views" },
+      { name: "Wine Cellar", dimensions: "12x10", level: "Basement", description: "Climate-controlled, 500-bottle capacity, tasting area" },
+      { name: "Bedroom 2", dimensions: "15x12", level: "2nd Floor", description: "En-suite bath, walk-in closet, park views" },
+      { name: "Bedroom 3", dimensions: "14x12", level: "2nd Floor", description: "Bay window, hardwood floors, adjoining bath" },
+    ],
     agent: {
       name: "Julian Bradley",
       phone: "(215) 555-0100",
@@ -148,6 +166,15 @@ export const properties: Property[] = [
         "Fine Dining",
       ],
     },
+    rooms: [
+      { name: "Primary Suite", dimensions: "20x16", level: "3rd Floor", description: "Spa-like en-suite, heated floors, skylight, dual walk-in closets" },
+      { name: "Grand Parlor", dimensions: "24x18", level: "1st Floor", description: "Twin fireplaces, 12-foot ceilings, exposed brick, pine floors" },
+      { name: "Chef's Kitchen", dimensions: "18x15", level: "1st Floor", description: "Marble counters, professional range, farmhouse sink, breakfast nook" },
+      { name: "Library", dimensions: "16x12", level: "2nd Floor", description: "Floor-to-ceiling bookshelves, fireplace, original millwork" },
+      { name: "Bedroom 2", dimensions: "16x14", level: "2nd Floor", description: "Fireplace, pine floors, en-suite bath" },
+      { name: "Bedroom 3", dimensions: "14x12", level: "2nd Floor", description: "Garden views, wide-plank floors, ample closet space" },
+      { name: "Carriage House", dimensions: "20x16", level: "Detached", description: "Private studio with kitchenette, full bath, separate entrance" },
+    ],
     agent: {
       name: "Sofia Martinez",
       phone: "(215) 555-0200",
@@ -207,6 +234,15 @@ export const properties: Property[] = [
         "Fine Dining",
       ],
     },
+    rooms: [
+      { name: "Primary Suite", dimensions: "22x18", level: "Penthouse", description: "Terrace access, dual walk-ins, freestanding soaking tub, skyline views" },
+      { name: "Great Room", dimensions: "30x22", level: "Penthouse", description: "Floor-to-ceiling glass, gas fireplace, river and museum views" },
+      { name: "Italian Kitchen", dimensions: "20x16", level: "Penthouse", description: "Custom Italian cabinetry, Gaggenau appliances, waterfall island" },
+      { name: "Bedroom 2", dimensions: "16x14", level: "Penthouse", description: "En-suite bath, built-in desk, city views" },
+      { name: "Bedroom 3", dimensions: "15x13", level: "Penthouse", description: "Walk-in closet, en-suite bath, park views" },
+      { name: "Wine Room", dimensions: "10x8", level: "Penthouse", description: "Temperature-controlled, 300-bottle capacity, tasting counter" },
+      { name: "Media Room", dimensions: "18x14", level: "Penthouse", description: "Acoustic paneling, blackout shades, built-in surround sound" },
+    ],
     agent: {
       name: "Julian Bradley",
       phone: "(215) 555-0100",
@@ -311,6 +347,15 @@ export const properties: Property[] = [
         "Parks & Trails",
       ],
     },
+    rooms: [
+      { name: "Primary Suite", dimensions: "18x14", level: "3rd Floor", description: "Vaulted ceilings, walk-in closet, en-suite with rainfall shower" },
+      { name: "Open Living/Dining", dimensions: "24x18", level: "1st Floor", description: "Custom millwork, gas fireplace, flows to chef's kitchen" },
+      { name: "Chef's Kitchen", dimensions: "16x14", level: "1st Floor", description: "Waterfall quartz island, paneled fridge, pot-filler, walk-in pantry" },
+      { name: "Home Office", dimensions: "12x10", level: "2nd Floor", description: "Built-in desk and shelving, natural light, quiet retreat" },
+      { name: "Bedroom 2", dimensions: "14x12", level: "2nd Floor", description: "Double closets, hardwood floors, garden views" },
+      { name: "Bedroom 3", dimensions: "13x11", level: "2nd Floor", description: "Street views, ample closet, adjacent full bath" },
+      { name: "Rooftop Deck", dimensions: "20x16", level: "Roof", description: "Built-in grill, pergola, panoramic skyline views" },
+    ],
     agent: {
       name: "Julian Bradley",
       phone: "(215) 555-0100",
@@ -478,6 +523,15 @@ export const properties: Property[] = [
         "Schuylkill River Trail",
       ],
     },
+    rooms: [
+      { name: "Primary Bedroom", dimensions: "16x14", level: "2nd Floor", description: "Ornate mantel, bay window, walk-in closet, en-suite bath" },
+      { name: "Living Room", dimensions: "20x16", level: "1st Floor", description: "Original hardwood floors, fireplace, built-in bookshelves" },
+      { name: "Updated Kitchen", dimensions: "16x12", level: "1st Floor", description: "Stainless appliances, granite counters, breakfast bar" },
+      { name: "Formal Dining", dimensions: "14x12", level: "1st Floor", description: "Wainscoting, chair rail, original pocket doors to living room" },
+      { name: "Third-Floor Suite", dimensions: "20x14", level: "3rd Floor", description: "Full bath, skylight, flexible space — bedroom or studio" },
+      { name: "Bedroom 2", dimensions: "14x12", level: "2nd Floor", description: "Hardwood floors, double closet, garden views" },
+      { name: "Bedroom 3", dimensions: "13x11", level: "2nd Floor", description: "Bright corner room, original trim, ample storage" },
+    ],
     agent: {
       name: "Julian Bradley",
       phone: "(215) 555-0100",
@@ -591,6 +645,16 @@ export const properties: Property[] = [
         "Regional Rail to Center City",
       ],
     },
+    rooms: [
+      { name: "Primary Suite", dimensions: "20x16", level: "2nd Floor", description: "Fireplace, sitting area, dual closets, renovated en-suite" },
+      { name: "Sun Conservatory", dimensions: "18x14", level: "1st Floor", description: "Floor-to-ceiling windows, heated tile floor, garden access" },
+      { name: "Chef's Kitchen", dimensions: "18x14", level: "1st Floor", description: "Chestnut cabinetry, marble island, professional-grade appliances" },
+      { name: "Library", dimensions: "16x14", level: "1st Floor", description: "Fireplace, built-in shelving, original chestnut woodwork" },
+      { name: "Formal Dining", dimensions: "16x14", level: "1st Floor", description: "Butler's pantry access, crown molding, seats ten" },
+      { name: "Bedroom 2", dimensions: "16x14", level: "2nd Floor", description: "En-suite bath, walk-in closet, garden views" },
+      { name: "Bedroom 3", dimensions: "14x12", level: "2nd Floor", description: "Original woodwork, double closets, tree-top views" },
+      { name: "Bedroom 4", dimensions: "14x12", level: "3rd Floor", description: "Dormer windows, eave storage, cozy retreat" },
+    ],
     agent: {
       name: "Julian Bradley",
       phone: "(215) 555-0100",

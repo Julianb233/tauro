@@ -22,6 +22,7 @@ import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import ImageGallery from "@/components/ImageGallery";
 import PropertyMap from "@/components/PropertyMap";
+import RoomBreakdown from "@/components/RoomBreakdown";
 import ShareButton from "@/components/ShareButton";
 import { useFavorites } from "@/hooks/useFavorites";
 import { cn } from "@/lib/utils";
@@ -222,6 +223,11 @@ export default function PropertyDetailClient({
                 </div>
               </div>
             </div>
+
+            {/* Room Breakdown */}
+            {property.rooms && property.rooms.length > 0 && (
+              <RoomBreakdown rooms={property.rooms} />
+            )}
 
             {/* Video Tour (PROP-08) */}
             {property.videoUrl && (
