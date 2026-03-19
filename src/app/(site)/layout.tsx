@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { PageTransition } from "@/components/PageTransition";
-import { NavigationProgress } from "@/components/NavigationProgress";
+import { CompareBar } from "@/components/CompareBar";
 
 export default function SiteLayout({
   children,
@@ -10,11 +9,9 @@ export default function SiteLayout({
 }) {
   return (
     <>
-      <NavigationProgress />
       <Navbar />
-      <main className="min-h-screen flex-1">
-        <PageTransition>{children}</PageTransition>
-      </main>
+      <main className="min-h-screen flex-1">{children}</main>
+      <CompareBar />
       <Footer />
     </>
   );

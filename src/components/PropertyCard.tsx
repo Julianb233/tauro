@@ -2,10 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Heart } from "lucide-react";
 import { Property, formatPrice } from "@/data/properties";
 import { cn } from "@/lib/utils";
-import { useFavorites } from "@/hooks/useFavorites";
+import { useCompare } from "@/hooks/useCompare";
 
 const statusStyles: Record<string, string> = {
   Active: "bg-emerald-600",
@@ -15,15 +14,49 @@ const statusStyles: Record<string, string> = {
 };
 
 export default function PropertyCard({ property }: { property: Property }) {
-  const { toggle, isFavorite } = useFavorites();
-  const favorited = isFavorite(property.id);
+  const { isComparing, toggle, count } = useCompare();
+  const active = isComparing(property.id);
+  const full = count >= 3 && !active;
 
   return (
     <div className="group relative overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:-translate-y-1">
-      <Link
-        href={`/properties/${property.slug}`}
-        className="block"
+      {/* Compare toggle */}
+      <button
+        type="button"
+        aria-label={active ? "Remove from compare" : "Add to compare"}
+        title={full ? "Max 3 properties" : active ? "Remove from compare" : "Compare"}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          if (!full) toggle(property.id);
+        }}
+        className={cn(
+          "absolute top-3 right-3 z-20 flex h-8 w-8 items-center justify-center rounded-full border backdrop-blur-sm transition-all duration-200",
+          active
+            ? "border-gold bg-gold/90 text-near-black shadow-md"
+            : "border-white/60 bg-black/40 text-white hover:bg-gold/80 hover:text-near-black hover:border-gold",
+          full && !active && "opacity-40 cursor-not-allowed"
+        )}
       >
+        {/* Scale icon (balance) */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-4 w-4"
+        >
+          <path d="M12 3v18" />
+          <path d="M5 7l-3 9h6L5 7z" />
+          <path d="M19 7l-3 9h6l-3-9z" />
+          <path d="M5 7h14" />
+        </svg>
+      </button>
+
+      <Link href={`/properties/${property.slug}`} className="block">
         <div className="relative aspect-[4/3] overflow-hidden bg-muted">
           <Image
             src={property.images[0]}
@@ -64,27 +97,6 @@ export default function PropertyCard({ property }: { property: Property }) {
           )}
         </div>
       </Link>
-
-      {/* Favorite heart button */}
-      <button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          toggle(property.id);
-        }}
-        aria-label={favorited ? "Remove from saved" : "Save property"}
-        className="absolute top-3 right-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm transition-all duration-200 hover:bg-black/60 hover:scale-110"
-      >
-        <Heart
-          className={cn(
-            "h-4.5 w-4.5 transition-colors duration-200",
-            favorited
-              ? "fill-gold text-gold"
-              : "fill-none text-white"
-          )}
-        />
-      </button>
     </div>
   );
 }
