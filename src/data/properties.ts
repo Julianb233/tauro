@@ -37,6 +37,8 @@ export interface Property {
   };
   videoUrl?: string;
   virtualTourUrl?: string;
+  tax_annual: number;
+  tax_year: number;
 }
 
 export const properties: Property[] = [
@@ -96,6 +98,8 @@ export const properties: Property[] = [
     },
     lat: 39.9493,
     lng: -75.1718,
+    tax_annual: 45500,
+    tax_year: 2025,
     openHouse: "Sat, Mar 22 · 1:00 PM - 4:00 PM",
     videoUrl: "https://www.youtube.com/embed/2lPGf1gJwb4",
     virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyoDo",
@@ -156,6 +160,8 @@ export const properties: Property[] = [
     },
     lat: 39.9431,
     lng: -75.1479,
+    tax_annual: 66500,
+    tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/9k3iFqLGmOo",
     virtualTourUrl: "https://my.matterport.com/show/?m=oj3GnqCwEvR",
   },
@@ -215,6 +221,8 @@ export const properties: Property[] = [
     },
     lat: 39.9615,
     lng: -75.1756,
+    tax_annual: 95200,
+    tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/gXGnIFzJsQ4",
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
   },
@@ -267,6 +275,8 @@ export const properties: Property[] = [
     },
     lat: 39.951,
     lng: -75.166,
+    tax_annual: 12530,
+    tax_year: 2025,
     openHouse: "Sun, Mar 23 · 11:00 AM - 2:00 PM",
     videoUrl: "https://www.youtube.com/embed/QhHBvBsW_GE",
   },
@@ -319,6 +329,8 @@ export const properties: Property[] = [
     },
     lat: 39.9378,
     lng: -75.1442,
+    tax_annual: 27300,
+    tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/VXJkNrnKVqA",
   },
   {
@@ -375,6 +387,8 @@ export const properties: Property[] = [
     },
     lat: 39.9735,
     lng: -75.1268,
+    tax_annual: 17850,
+    tax_year: 2025,
   },
   {
     id: "7",
@@ -430,6 +444,8 @@ export const properties: Property[] = [
     },
     lat: 39.9657,
     lng: -75.1419,
+    tax_annual: 9086,
+    tax_year: 2025,
   },
   {
     id: "8",
@@ -486,6 +502,8 @@ export const properties: Property[] = [
     },
     lat: 39.9522,
     lng: -75.2032,
+    tax_annual: 15400,
+    tax_year: 2025,
   },
   {
     id: "9",
@@ -541,6 +559,8 @@ export const properties: Property[] = [
     },
     lat: 40.0261,
     lng: -75.2243,
+    tax_annual: 7350,
+    tax_year: 2025,
   },
   {
     id: "10",
@@ -599,6 +619,8 @@ export const properties: Property[] = [
     },
     lat: 40.0781,
     lng: -75.2085,
+    tax_annual: 25200,
+    tax_year: 2025,
     videoTourUrl: "dFBMEurPml4",
   },
   {
@@ -656,6 +678,8 @@ export const properties: Property[] = [
     },
     lat: 39.9775,
     lng: -75.1756,
+    tax_annual: 6790,
+    tax_year: 2025,
     openHouse: "Sat, Mar 29 · 12:00 PM - 3:00 PM",
   },
   {
@@ -712,6 +736,8 @@ export const properties: Property[] = [
     },
     lat: 39.9343,
     lng: -75.1824,
+    tax_annual: 5880,
+    tax_year: 2025,
   },
   {
     id: "13",
@@ -767,6 +793,8 @@ export const properties: Property[] = [
     },
     lat: 39.9867,
     lng: -75.1277,
+    tax_annual: 5250,
+    tax_year: 2025,
   },
   {
     id: "14",
@@ -823,6 +851,8 @@ export const properties: Property[] = [
     },
     lat: 39.9507,
     lng: -75.2213,
+    tax_annual: 8120,
+    tax_year: 2025,
   },
   {
     id: "15",
@@ -881,6 +911,8 @@ export const properties: Property[] = [
     },
     lat: 39.9487,
     lng: -75.1725,
+    tax_annual: 33600,
+    tax_year: 2025,
   },
   {
     id: "16",
@@ -939,6 +971,8 @@ export const properties: Property[] = [
     },
     lat: 39.9721,
     lng: -75.1305,
+    tax_annual: 13300,
+    tax_year: 2025,
     openHouse: "Sun, Mar 30 · 1:00 PM - 4:00 PM",
   },
 ];

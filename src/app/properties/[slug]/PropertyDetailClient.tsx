@@ -163,6 +163,7 @@ export default function PropertyDetailClient({
           <span><strong>{property.lotSqft > 0 ? `${property.lotSqft.toLocaleString()} SF` : "N/A"}</strong> Lot</span>
           <span><strong>{property.yearBuilt}</strong> Year Built</span>
           <span><strong>{property.propertyType}</strong></span>
+          <span><strong>${property.tax_annual.toLocaleString()}</strong> Taxes ({property.tax_year})</span>
         </div>
 
         {/* First 4 images in 2x2 grid */}
@@ -305,7 +306,7 @@ export default function PropertyDetailClient({
             <div>
               <h2 className="font-heading text-xl font-bold">About This Property</h2>
               <p className="mt-3 leading-relaxed text-muted-foreground">{property.description}</p>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
                 <div className="rounded-lg border border-border bg-card p-3 text-center">
                   <p className="text-xs text-muted-foreground">Year Built</p>
                   <p className="mt-1 font-heading text-lg font-bold">{property.yearBuilt}</p>
@@ -323,10 +324,18 @@ export default function PropertyDetailClient({
                   </p>
                 </div>
                 <div className="rounded-lg border border-border bg-card p-3 text-center">
+                  <p className="text-xs text-muted-foreground">Annual Taxes</p>
+                  <p className="mt-1 font-heading text-lg font-bold">
+                    ${property.tax_annual.toLocaleString()}
+                  </p>
+                  <p className="text-[10px] text-muted-foreground">({property.tax_year})</p>
+                </div>
+                <div className="rounded-lg border border-border bg-card p-3 text-center">
                   <p className="text-xs text-muted-foreground">Est. Payment</p>
                   <p className="mt-1 font-heading text-lg font-bold">
-                    ${Math.round((property.price * 0.8 * 0.065) / 12 / (1 - Math.pow(1 + 0.065 / 12, -360))).toLocaleString()}/mo
+                    ${Math.round((property.price * 0.8 * 0.065) / 12 / (1 - Math.pow(1 + 0.065 / 12, -360)) + property.tax_annual / 12).toLocaleString()}/mo
                   </p>
+                  <p className="text-[10px] text-muted-foreground">incl. taxes</p>
                 </div>
               </div>
             </div>
