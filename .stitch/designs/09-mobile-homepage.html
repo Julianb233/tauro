@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tauro — Mobile Homepage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0D0D0D;
+      --rich-black: #1A1A1A;
+      --gold: #C9A84C;
+      --gold-light: #E2C97E;
+      --oxblood: #8B0000;
+      --cream: #F5F0E8;
+      --cream-muted: #B8B0A0;
+      --border: rgba(201,168,76,0.18);
+      --border-subtle: rgba(255,255,255,0.06);
+    }
+
+    body {
+      background: var(--black);
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      max-width: 375px;
+      margin: 0 auto;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ── MOBILE HEADER ── */
+    .mobile-header {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 375px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 64px;
+      background: var(--rich-black);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cream);
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      width: 22px;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 2px;
+      background: var(--cream);
+      width: 100%;
+    }
+
+    .hamburger span:nth-child(2) { width: 70%; }
+
+    .mobile-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 520px;
+      margin-top: 64px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=1000&fit=crop');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(13,13,13,0.4) 0%, rgba(13,13,13,0.85) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      padding: 0 24px 40px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--cream);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 0;
+    }
+
+    .search-bar input {
+      flex: 1;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 14px 16px;
+      outline: none;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .search-bar input::placeholder { color: var(--cream-muted); opacity: 0.6; }
+
+    .search-bar input:focus { border-color: var(--gold); }
+
+    .search-bar button {
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border: none;
+      padding: 14px 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+
+    .search-bar button:hover { background: var(--gold-light); }
+
+    /* ── STATS BAND ── */
+    .stats-band {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 24px 8px;
+      border-right: 1px solid var(--border-subtle);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream-muted);
+    }
+
+    /* ── FEATURED PROPERTIES ── */
+    .featured-section {
+      padding: 40px 0 40px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+
+    .scroll-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 16px;
+      padding-right: 24px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .scroll-row::-webkit-scrollbar { display: none; }
+
+    .property-card {
+      min-width: 260px;
+      max-width: 260px;
+      background: var(--rich-black);
+      border: 1px solid var(--border-subtle);
+      flex-shrink: 0;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .property-card:active { border-color: var(--gold); }
+
+    .property-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85);
+    }
+
+    .property-card-body {
+      padding: 16px;
+    }
+
+    .property-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .property-address {
+      font-size: 14px;
+      color: var(--cream);
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .property-meta {
+      display: flex;
+      gap: 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      color: var(--cream-muted);
+    }
+
+    .property-meta span { white-space: nowrap; }
+
+    /* ── NEIGHBORHOODS ── */
+    .neighborhoods-section {
+      padding: 40px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .neighborhood-card {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      margin-bottom: 2px;
+    }
+
+    .neighborhood-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.55);
+      transition: filter 0.3s, transform 0.3s;
+    }
+
+    .neighborhood-card:active img {
+      filter: brightness(0.4);
+      transform: scale(1.03);
+    }
+
+    .neighborhood-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px;
+    }
+
+    .neighborhood-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+
+    .neighborhood-count {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ── CTA SECTION ── */
+    .cta-section {
+      padding: 60px 24px;
+      text-align: center;
+      background: var(--rich-black);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-section .eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .cta-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+
+    .cta-section p {
+      font-size: 14px;
+      color: var(--cream-muted);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      display: block;
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 18px;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--gold-light); }
+
+    .btn-secondary {
+      display: block;
+      background: transparent;
+      color: var(--gold);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 18px;
+      text-align: center;
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--gold);
+      color: var(--black);
+    }
+
+    /* ── MOBILE FOOTER ── */
+    footer {
+      background: var(--rich-black);
+      padding: 40px 24px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .footer-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 32px;
+      margin-bottom: 32px;
+    }
+
+    .footer-nav a {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--cream-muted);
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover { color: var(--gold); }
+
+    .footer-contact {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 24px;
+      margin-bottom: 24px;
+    }
+
+    .footer-contact-item {
+      margin-bottom: 12px;
+    }
+
+    .footer-contact-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .footer-contact-value {
+      font-size: 14px;
+      color: var(--cream-muted);
+      line-height: 1.5;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .footer-social a {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--cream-muted);
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .footer-social a:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .footer-copyright {
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 20px;
+      font-size: 11px;
+      color: var(--cream-muted);
+      text-align: center;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- MOBILE HEADER -->
+  <header class="mobile-header">
+    <div class="header-icon">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="mobile-logo">TAURO</div>
+    <div class="header-icon">&#9742;</div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">LUXURY REAL ESTATE</div>
+      <h1>Philadelphia's Premier Brokerage</h1>
+      <div class="search-bar">
+        <input type="text" placeholder="Search by neighborhood, zip...">
+        <button>Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAND -->
+  <section class="stats-band">
+    <div class="stat-item">
+      <div class="stat-number">240+</div>
+      <div class="stat-label">Properties</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">18</div>
+      <div class="stat-label">Neighborhoods</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">7</div>
+      <div class="stat-label">Years</div>
+    </div>
+  </section>
+
+  <!-- FEATURED PROPERTIES -->
+  <section class="featured-section">
+    <div class="section-eyebrow">FEATURED</div>
+    <div class="section-heading">New Listings</div>
+    <div class="scroll-row">
+
+      <div class="property-card">
+        <img class="property-card-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=520&h=360&fit=crop" alt="Property">
+        <div class="property-card-body">
+          <div class="property-price">$1,250,000</div>
+          <div class="property-address">1847 Delancey Place, Rittenhouse</div>
+          <div class="property-meta">
+            <span>4 Beds</span>
+            <span>3.5 Baths</span>
+            <span>3,200 sqft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="property-card">
+        <img class="property-card-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=520&h=360&fit=crop" alt="Property">
+        <div class="property-card-body">
+          <div class="property-price">$875,000</div>
+          <div class="property-address">923 Pine Street, Washington Sq</div>
+          <div class="property-meta">
+            <span>3 Beds</span>
+            <span>2.5 Baths</span>
+            <span>2,400 sqft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="property-card">
+        <img class="property-card-img" src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=520&h=360&fit=crop" alt="Property">
+        <div class="property-card-body">
+          <div class="property-price">$2,100,000</div>
+          <div class="property-address">400 S Broad Street, Avenue of the Arts</div>
+          <div class="property-meta">
+            <span>5 Beds</span>
+            <span>4 Baths</span>
+            <span>4,800 sqft</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="property-card">
+        <img class="property-card-img" src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=520&h=360&fit=crop" alt="Property">
+        <div class="property-card-body">
+          <div class="property-price">$695,000</div>
+          <div class="property-address">1510 Green Street, Fairmount</div>
+          <div class="property-meta">
+            <span>3 Beds</span>
+            <span>2 Baths</span>
+            <span>1,900 sqft</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- NEIGHBORHOODS -->
+  <section class="neighborhoods-section">
+    <div class="section-eyebrow">EXPLORE</div>
+    <div class="section-heading">Neighborhoods</div>
+
+    <div class="neighborhood-card">
+      <img src="https://images.unsplash.com/photo-1574958269340-fa927503f3dd?w=750&h=360&fit=crop" alt="Rittenhouse Square">
+      <div class="neighborhood-overlay">
+        <div class="neighborhood-name">Rittenhouse Square</div>
+        <div class="neighborhood-count">42 LISTINGS</div>
+      </div>
+    </div>
+
+    <div class="neighborhood-card">
+      <img src="https://images.unsplash.com/photo-1577495508326-19a1b3cf65b7?w=750&h=360&fit=crop" alt="Fishtown">
+      <div class="neighborhood-overlay">
+        <div class="neighborhood-name">Fishtown</div>
+        <div class="neighborhood-count">38 LISTINGS</div>
+      </div>
+    </div>
+
+    <div class="neighborhood-card">
+      <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=750&h=360&fit=crop" alt="Old City">
+      <div class="neighborhood-overlay">
+        <div class="neighborhood-name">Old City</div>
+        <div class="neighborhood-count">27 LISTINGS</div>
+      </div>
+    </div>
+
+    <div class="neighborhood-card">
+      <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=750&h=360&fit=crop" alt="Fairmount">
+      <div class="neighborhood-overlay">
+        <div class="neighborhood-name">Fairmount</div>
+        <div class="neighborhood-count">31 LISTINGS</div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <div class="eyebrow">GET STARTED</div>
+    <h2>Ready to Find<br>Your Home?</h2>
+    <p>Connect with one of our agents and start your journey today.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn-primary">Schedule a Tour</a>
+      <a href="#" class="btn-secondary">Browse Properties</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">TAURO</div>
+
+    <div class="footer-nav">
+      <a href="#">Properties</a>
+      <a href="#">About Us</a>
+      <a href="#">Neighborhoods</a>
+      <a href="#">Contact</a>
+      <a href="#">Agents</a>
+      <a href="#">Careers</a>
+      <a href="#">Sell a Home</a>
+      <a href="#">Privacy</a>
+    </div>
+
+    <div class="footer-contact">
+      <div class="footer-contact-item">
+        <div class="footer-contact-label">Phone</div>
+        <div class="footer-contact-value">(215) 555-1000</div>
+      </div>
+      <div class="footer-contact-item">
+        <div class="footer-contact-label">Email</div>
+        <div class="footer-contact-value">info@tauro.com</div>
+      </div>
+      <div class="footer-contact-item">
+        <div class="footer-contact-label">Office</div>
+        <div class="footer-contact-value">1500 Market Street, Suite 1200<br>Philadelphia, PA 19102</div>
+      </div>
+    </div>
+
+    <div class="footer-social">
+      <a href="#">IG</a>
+      <a href="#">FB</a>
+      <a href="#">LI</a>
+      <a href="#">TW</a>
+    </div>
+
+    <div class="footer-copyright">
+      &copy; 2026 TAURO Real Estate. All rights reserved.<br>
+      Powered by LYL Realty Group
+    </div>
+  </footer>
+
+</body>
+</html>

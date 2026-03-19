@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tauro — Rittenhouse Square Area Page Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0D0D0D; --rich-black: #1A1A1A; --gold: #C9A84C; --gold-light: #E2C97E;
+      --oxblood: #8B0000; --cream: #F5F0E8; --cream-muted: #B8B0A0;
+      --border: rgba(201,168,76,0.18); --border-subtle: rgba(255,255,255,0.06);
+    }
+    body { background: var(--black); color: var(--cream); font-family: 'DM Sans', sans-serif; }
+
+    nav {
+      background: transparent; position: absolute; top: 0; left: 0; right: 0; z-index: 50;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 64px; height: 80px;
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,240,232,0.7); text-decoration: none; }
+    .nav-cta { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 10px 24px; text-decoration: none; }
+
+    /* NEIGHBORHOOD HERO */
+    .area-hero {
+      position: relative; height: 560px;
+      background: url('https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1600&q=80') center/cover no-repeat;
+      display: flex; align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(0deg, rgba(13,13,13,0.95) 0%, rgba(13,13,13,0.4) 50%, rgba(13,13,13,0.2) 100%);
+    }
+    .hero-content-area { position: relative; z-index: 2; padding: 0 80px 64px; width: 100%; }
+    .area-breadcrumb { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .area-breadcrumb a { color: rgba(201,168,76,0.6); text-decoration: none; }
+    .area-name { font-family: 'Playfair Display', serif; font-size: 72px; font-weight: 900; color: var(--cream); line-height: 1; margin-bottom: 12px; }
+    .area-tagline { font-size: 20px; color: var(--cream-muted); margin-bottom: 28px; font-weight: 300; }
+    .area-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .area-pill { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 7px 16px; border: 1px solid rgba(201,168,76,0.4); color: var(--cream-muted); }
+
+    /* QUICK STATS */
+    .quick-stats { display: flex; background: var(--rich-black); border-bottom: 1px solid var(--border); }
+    .qs { flex: 1; padding: 28px 40px; border-right: 1px solid var(--border-subtle); }
+    .qs:last-child { border-right: none; }
+    .qs-value { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--gold); }
+    .qs-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-muted); margin-top: 4px; }
+    .qs-trend { font-size: 11px; color: #4ade80; margin-top: 2px; }
+    .qs-trend.down { color: #f87171; }
+
+    /* MAIN CONTENT */
+    .area-layout { display: grid; grid-template-columns: 1fr 360px; gap: 0; max-width: 1300px; margin: 0 auto; padding: 64px 80px; }
+    .area-main { padding-right: 64px; border-right: 1px solid var(--border-subtle); }
+    .area-side { padding-left: 56px; }
+
+    .section-eyebrow { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600; color: var(--cream); margin-bottom: 20px; }
+    .section-divider { height: 1px; background: var(--border-subtle); margin: 40px 0; }
+    .body-text { font-size: 16px; line-height: 1.8; color: var(--cream-muted); }
+    .body-text p { margin-bottom: 16px; }
+
+    /* HIGHLIGHTS */
+    .highlights { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; margin-top: 20px; }
+    .highlight { background: var(--rich-black); border: 1px solid var(--border-subtle); padding: 24px; }
+    .hl-icon { font-size: 28px; margin-bottom: 12px; }
+    .hl-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--cream); margin-bottom: 6px; }
+    .hl-text { font-size: 13px; line-height: 1.6; color: var(--cream-muted); }
+
+    /* LIFESTYLE PHOTOS */
+    .lifestyle-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; margin-top: 20px; }
+    .lifestyle-img { width: 100%; height: 200px; object-fit: cover; display: block; filter: brightness(0.85); }
+    .lifestyle-img:first-child { grid-column: span 2; height: 280px; }
+
+    /* MARKET CHART PLACEHOLDER */
+    .chart-placeholder { background: var(--rich-black); border: 1px solid var(--border); padding: 32px; margin-top: 20px; }
+    .chart-title { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; }
+    .chart-bars { display: flex; gap: 8px; align-items: flex-end; height: 120px; }
+    .chart-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .chart-bar { width: 100%; background: var(--border-subtle); position: relative; }
+    .chart-bar-fill { position: absolute; bottom: 0; left: 0; right: 0; background: var(--gold); opacity: 0.7; }
+    .chart-month { font-family: 'Montserrat', sans-serif; font-size: 8px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted); }
+    .chart-value { font-family: 'DM Sans', sans-serif; font-size: 10px; color: var(--gold); }
+
+    /* LISTINGS STRIP */
+    .listing-strip { display: flex; gap: 2px; overflow-x: auto; margin-top: 20px; scrollbar-width: none; }
+    .listing-mini { flex-shrink: 0; width: 220px; background: var(--rich-black); border: 1px solid var(--border-subtle); overflow: hidden; }
+    .listing-img { width: 100%; height: 140px; object-fit: cover; display: block; filter: brightness(0.85); }
+    .listing-info { padding: 14px; }
+    .listing-price { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--cream); }
+    .listing-addr { font-size: 11px; color: var(--cream-muted); margin-top: 4px; }
+    .listing-meta { display: flex; gap: 8px; margin-top: 8px; font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted); }
+
+    /* MAP PLACEHOLDER */
+    .map-placeholder { width: 100%; height: 320px; background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 12px; }
+    .map-text { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+    /* SIDEBAR */
+    .area-sidebar-content { position: sticky; top: 20px; }
+    .cta-box { background: var(--rich-black); border: 1px solid var(--border); padding: 28px; margin-bottom: 20px; }
+    .cta-box-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; color: var(--cream); margin-bottom: 8px; }
+    .cta-box-sub { font-size: 13px; color: var(--cream-muted); margin-bottom: 20px; line-height: 1.5; }
+    .form-input { width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle); color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 10px 14px; outline: none; margin-bottom: 10px; }
+    .cta-btn-full { width: 100%; padding: 14px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: var(--gold); color: var(--black); border: none; }
+
+    .nbhd-links { background: var(--rich-black); border: 1px solid var(--border); padding: 24px; }
+    .nbhd-links-title { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .nbhd-link-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border-subtle); font-size: 13px; color: var(--cream-muted); cursor: pointer; }
+    .nbhd-link-item:last-child { border-bottom: none; }
+    .nbhd-link-item:hover { color: var(--gold); }
+    .nbhd-link-item span { font-family: 'Montserrat', sans-serif; font-size: 10px; color: var(--gold); }
+
+    /* AGENT SPOTLIGHT */
+    .agent-spot { background: rgba(201,168,76,0.05); border: 1px solid var(--border); padding: 24px; margin-top: 20px; }
+    .agent-spot-title { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+    .agent-row { display: flex; align-items: center; gap: 14px; }
+    .agent-av { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+    .agent-n { font-size: 15px; font-weight: 500; color: var(--cream); }
+    .agent-spec { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin: 3px 0; }
+    .agent-sold { font-size: 12px; color: var(--cream-muted); }
+    .contact-agent-btn { width: 100%; margin-top: 14px; padding: 12px; cursor: pointer; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+
+    .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-links, .nav-cta { display: none; }
+
+      .hero-content-area { padding: 0 20px 40px; }
+      .area-name { font-size: 48px; }
+      .area-tagline { font-size: 16px; }
+
+      .quick-stats { flex-wrap: wrap; }
+      .qs { flex: 1 1 50%; border-right: none; border-bottom: 1px solid var(--border-subtle); padding: 16px 20px; }
+      .qs:nth-child(odd) { border-right: 1px solid var(--border-subtle); }
+
+      .area-layout {
+        grid-template-columns: 1fr;
+        padding: 32px 16px;
+        gap: 32px;
+      }
+      .area-main { padding-right: 0; border-right: none; }
+      .area-side { padding-left: 0; }
+
+      .highlights { grid-template-columns: 1fr; }
+
+      .lifestyle-grid { grid-template-columns: 1fr; }
+      .lifestyle-img:first-child { grid-column: auto; height: 200px; }
+
+      .area-sidebar-content { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-label">05 — Area Page (Rittenhouse Square) · Tauro / LYL Realty Group · Mockup AI-3453</div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">TAURO</div>
+    <ul class="nav-links">
+      <li><a href="#">Properties</a></li>
+      <li><a href="#">Agents</a></li>
+      <li><a href="#">Neighborhoods</a></li>
+      <li><a href="#">Sell</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <a href="#" class="nav-cta">List Your Home</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="area-hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content-area">
+      <div class="area-breadcrumb">
+        <a href="#">Neighborhoods</a> <span>/</span> Rittenhouse Square
+      </div>
+      <h1 class="area-name">Rittenhouse<br>Square</h1>
+      <p class="area-tagline">Philadelphia's most prestigious address — culture, elegance, and skyline views.</p>
+      <div class="area-pills">
+        <div class="area-pill">Philadelphia, PA</div>
+        <div class="area-pill">Luxury Condos</div>
+        <div class="area-pill">Walkable</div>
+        <div class="area-pill">Restaurant Row</div>
+        <div class="area-pill">Cultural District</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUICK STATS -->
+  <div class="quick-stats">
+    <div class="qs">
+      <div class="qs-value">$687K</div>
+      <div class="qs-label">Median Sale Price</div>
+      <div class="qs-trend">↑ +8.3% vs last year</div>
+    </div>
+    <div class="qs">
+      <div class="qs-value">18</div>
+      <div class="qs-label">Avg Days on Market</div>
+      <div class="qs-trend down">↓ 4 days faster</div>
+    </div>
+    <div class="qs">
+      <div class="qs-value">24</div>
+      <div class="qs-label">Active Listings</div>
+      <div class="qs-trend">View all →</div>
+    </div>
+    <div class="qs">
+      <div class="qs-value">98</div>
+      <div class="qs-label">Walk Score</div>
+      <div class="qs-trend">Walker's Paradise</div>
+    </div>
+    <div class="qs">
+      <div class="qs-value">98%</div>
+      <div class="qs-label">Sale-to-List Ratio</div>
+      <div class="qs-trend">↑ Competitive market</div>
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="area-layout">
+    <div class="area-main">
+
+      <!-- ABOUT -->
+      <p class="section-eyebrow">About the Neighborhood</p>
+      <h2 class="section-title">Philadelphia's Crown Jewel</h2>
+      <div class="body-text">
+        <p>Rittenhouse Square is Philadelphia's most coveted neighborhood — a blend of Victorian brownstones, modern high-rises, and award-winning restaurants all centered around the beloved 19th-century park. Named after astronomer David Rittenhouse, the Square has long attracted the city's most prominent residents.</p>
+        <p>The neighborhood stretches from Broad Street to the Schuylkill River, Chestnut to Pine Streets, forming a dense, walkable urban village. World-class dining on Sansom and Walnut Streets, boutique shopping on Rittenhouse Row, and cultural institutions like the Curtis Institute of Music make this one of America's most livable urban neighborhoods.</p>
+        <p>Real estate here ranges from intimate pied-à-terre condos to sweeping 5,000+ sq ft penthouse residences. Tauro's agents have sold more Rittenhouse properties than any other brokerage in Philadelphia — three years running.</p>
+      </div>
+
+      <div class="highlights">
+        <div class="highlight"><div class="hl-icon">🌳</div><div class="hl-title">The Square</div><div class="hl-text">A 19th-century park with year-round programming — farmers markets, outdoor concerts, and dog runs.</div></div>
+        <div class="highlight"><div class="hl-icon">🍽️</div><div class="hl-title">Dining Scene</div><div class="hl-text">Home to Vernick Food & Drink, Parc, Barbuzzo, and 80+ restaurants within a 5-min walk.</div></div>
+        <div class="highlight"><div class="hl-icon">🎭</div><div class="hl-title">Culture</div><div class="hl-text">Curtis Institute, Kimmel Center, Rosenbach Museum, and the Philadelphia Art Alliance.</div></div>
+        <div class="highlight"><div class="hl-icon">🚇</div><div class="hl-title">Transit</div><div class="hl-text">Walk Score 98. Septa stations, 15+ bus routes, and bikeshare at every corner.</div></div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- LIFESTYLE PHOTOS -->
+      <p class="section-eyebrow">Life in Rittenhouse</p>
+      <h2 class="section-title">Neighborhood Gallery</h2>
+      <div class="lifestyle-grid">
+        <img class="lifestyle-img" src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800&q=80" alt="Rittenhouse Square Park" style="height:280px;">
+        <img class="lifestyle-img" src="https://images.unsplash.com/photo-1444723121867-7a241cacace9?w=400&q=80" alt="City life">
+        <img class="lifestyle-img" src="https://images.unsplash.com/photo-1514218953589-2d7d37efd2dc?w=400&q=80" alt="Dining">
+        <img class="lifestyle-img" src="https://images.unsplash.com/photo-1604578762246-41134e37f9cc?w=400&q=80" alt="Streets">
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- MARKET TRENDS -->
+      <p class="section-eyebrow">Market Data</p>
+      <h2 class="section-title">Rittenhouse Price Trends (2025–2026)</h2>
+      <div class="chart-placeholder">
+        <div class="chart-title">Median Sale Price by Month · 2025–2026</div>
+        <div class="chart-bars">
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:60%;"></div></div>
+            <div class="chart-month">Mar</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:65%;"></div></div>
+            <div class="chart-month">Apr</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:72%;"></div></div>
+            <div class="chart-month">May</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:80%;"></div></div>
+            <div class="chart-month">Jun</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:78%;"></div></div>
+            <div class="chart-month">Jul</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:75%;"></div></div>
+            <div class="chart-month">Aug</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:82%;"></div></div>
+            <div class="chart-month">Sep</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:85%;"></div></div>
+            <div class="chart-month">Oct</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:88%;"></div></div>
+            <div class="chart-month">Nov</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:90%;"></div></div>
+            <div class="chart-month">Dec</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:95%;"></div></div>
+            <div class="chart-month">Jan</div>
+          </div>
+          <div class="chart-bar-wrap">
+            <div class="chart-bar" style="height:90px;"><div class="chart-bar-fill" style="height:100%;"></div></div>
+            <div class="chart-month">Mar</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- MAP -->
+      <p class="section-eyebrow">Neighborhood Map</p>
+      <h2 class="section-title">Rittenhouse Square Boundaries</h2>
+      <div class="map-placeholder">
+        <div style="font-size:40px;">🗺️</div>
+        <div class="map-text">Interactive Mapbox Neighborhood Map</div>
+        <div style="font-size:12px;color:var(--cream-muted);">Shows boundaries, listings, transit stops, points of interest</div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- LISTINGS -->
+      <p class="section-eyebrow">Properties for Sale</p>
+      <h2 class="section-title">24 Homes in Rittenhouse Square</h2>
+      <div class="listing-strip">
+        <div class="listing-mini">
+          <img class="listing-img" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&q=80" alt="">
+          <div class="listing-info">
+            <div class="listing-price">$1,875,000</div>
+            <div class="listing-addr">218 W Rittenhouse Sq</div>
+            <div class="listing-meta"><span>4 bd</span><span>3.5 ba</span><span>3,200 sf</span></div>
+          </div>
+        </div>
+        <div class="listing-mini">
+          <img class="listing-img" src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&q=80" alt="">
+          <div class="listing-info">
+            <div class="listing-price">$2,100,000</div>
+            <div class="listing-addr">1601 Locust St</div>
+            <div class="listing-meta"><span>4 bd</span><span>4 ba</span><span>4,800 sf</span></div>
+          </div>
+        </div>
+        <div class="listing-mini">
+          <img class="listing-img" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&q=80" alt="">
+          <div class="listing-info">
+            <div class="listing-price">$895,000</div>
+            <div class="listing-addr">2020 Walnut St, Unit 12</div>
+            <div class="listing-meta"><span>2 bd</span><span>2 ba</span><span>1,680 sf</span></div>
+          </div>
+        </div>
+        <div class="listing-mini">
+          <img class="listing-img" src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400&q=80" alt="">
+          <div class="listing-info">
+            <div class="listing-price">$1,475,000</div>
+            <div class="listing-addr">1900 Delancey Place</div>
+            <div class="listing-meta"><span>3 bd</span><span>3 ba</span><span>2,900 sf</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="area-side">
+      <div class="area-sidebar-content">
+
+        <div class="cta-box">
+          <div class="cta-box-title">Get Rittenhouse Alerts</div>
+          <p class="cta-box-sub">Be first to know about new listings, price drops, and open houses in Rittenhouse Square.</p>
+          <input class="form-input" placeholder="Your email address">
+          <input class="form-input" placeholder="Min price (optional)">
+          <input class="form-input" placeholder="Max price (optional)">
+          <button class="cta-btn-full">Set Up Free Alerts</button>
+        </div>
+
+        <div class="nbhd-links">
+          <div class="nbhd-links-title">Nearby Neighborhoods</div>
+          <div class="nbhd-link-item">Center City <span>31 →</span></div>
+          <div class="nbhd-link-item">Old City <span>12 →</span></div>
+          <div class="nbhd-link-item">South Philly <span>22 →</span></div>
+          <div class="nbhd-link-item">Fitler Square <span>8 →</span></div>
+          <div class="nbhd-link-item">Graduate Hospital <span>11 →</span></div>
+          <div class="nbhd-link-item">Logan Square <span>9 →</span></div>
+        </div>
+
+        <div class="agent-spot">
+          <div class="agent-spot-title">Rittenhouse Specialist</div>
+          <div class="agent-row">
+            <img class="agent-av" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&q=80" alt="">
+            <div>
+              <div class="agent-n">Sarah Kim</div>
+              <div class="agent-spec">Rittenhouse · Old City</div>
+              <div class="agent-sold">147 homes sold · 12 yrs exp.</div>
+            </div>
+          </div>
+          <button class="contact-agent-btn">Contact Sarah</button>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tauro — Property Detail Mockup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0D0D0D; --rich-black: #1A1A1A; --gold: #C9A84C; --gold-light: #E2C97E;
+      --oxblood: #8B0000; --cream: #F5F0E8; --cream-muted: #B8B0A0;
+      --border: rgba(201,168,76,0.18); --border-subtle: rgba(255,255,255,0.06);
+    }
+    body { background: var(--black); color: var(--cream); font-family: 'DM Sans', sans-serif; }
+
+    nav {
+      background: var(--rich-black); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px; position: sticky; top: 0; z-index: 50;
+    }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-muted); text-decoration: none; }
+    .nav-cta { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--black); background: var(--gold); padding: 10px 24px; text-decoration: none; }
+
+    /* GALLERY */
+    .gallery { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: auto; gap: 3px; height: 520px; }
+    .gallery-main { grid-row: 1 / 3; overflow: hidden; position: relative; }
+    .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-side { overflow: hidden; }
+    .gallery-side img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-count {
+      position: absolute; bottom: 20px; right: 20px;
+      background: rgba(13,13,13,0.85); border: 1px solid var(--border);
+      color: var(--cream); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600;
+      letter-spacing: 1px; text-transform: uppercase; padding: 8px 16px; cursor: pointer;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* MAIN LAYOUT */
+    .detail-layout { display: grid; grid-template-columns: 1fr 400px; gap: 0; max-width: 1400px; margin: 0 auto; padding: 56px 48px; }
+    .detail-main { padding-right: 64px; border-right: 1px solid var(--border-subtle); }
+    .detail-sidebar { padding-left: 56px; }
+
+    /* PROPERTY HEADER */
+    .prop-header { margin-bottom: 40px; }
+    .prop-status {
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px; color: var(--gold);
+    }
+    .prop-status::before { content: ''; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; display: inline-block; }
+    .prop-price-main { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; color: var(--cream); line-height: 1; margin-bottom: 12px; }
+    .prop-address-main { font-size: 18px; color: var(--cream-muted); margin-bottom: 20px; }
+    .prop-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .prop-tag {
+      font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+      padding: 6px 14px; border: 1px solid var(--border); color: var(--cream-muted);
+    }
+
+    /* KEY DETAILS */
+    .key-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin: 32px 0; }
+    .key-stat { background: var(--rich-black); border: 1px solid var(--border-subtle); padding: 20px; text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--gold); }
+    .stat-unit { font-family: 'Playfair Display', serif; font-size: 18px; color: var(--gold); }
+    .stat-lbl { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--cream-muted); margin-top: 6px; }
+
+    /* SECTION */
+    .section-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 600; color: var(--cream); margin-bottom: 20px; }
+    .section-divider { height: 1px; background: var(--border-subtle); margin: 36px 0; }
+    .description { font-size: 16px; line-height: 1.8; color: var(--cream-muted); }
+    .description p { margin-bottom: 16px; }
+
+    /* FEATURES LIST */
+    .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 32px; margin-top: 20px; }
+    .feature-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 13px; color: var(--cream-muted);
+      padding: 8px 0; border-bottom: 1px solid var(--border-subtle);
+    }
+    .feature-item::before { content: '—'; color: var(--gold); font-size: 16px; }
+
+    /* MAP */
+    .map-placeholder {
+      width: 100%; height: 280px; background: var(--rich-black); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+    }
+    .map-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      opacity: 0.8;
+    }
+    .map-label { position: relative; z-index: 2; text-align: center; }
+    .map-pin { font-size: 40px; margin-bottom: 8px; }
+    .map-text { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+    /* NEIGHBORHOOD STATS */
+    .nbhd-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 20px; }
+    .nbhd-stat { background: var(--rich-black); border: 1px solid var(--border-subtle); padding: 20px; }
+    .nbhd-stat-value { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--gold); }
+    .nbhd-stat-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted); margin-top: 4px; }
+
+    /* SIDEBAR — CONTACT CARD */
+    .contact-card { background: var(--rich-black); border: 1px solid var(--border); padding: 32px; position: sticky; top: 90px; }
+    .contact-header { margin-bottom: 28px; }
+    .contact-price { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--cream); margin-bottom: 4px; }
+    .contact-est { font-size: 13px; color: var(--cream-muted); }
+    .contact-est span { color: var(--gold); }
+
+    .cta-btn {
+      width: 100%; padding: 16px; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      border: none; margin-bottom: 8px;
+    }
+    .cta-primary { background: var(--gold); color: var(--black); }
+    .cta-secondary { background: transparent; color: var(--gold); border: 1px solid var(--gold) !important; border: none; }
+
+    .divider-label { text-align: center; position: relative; margin: 20px 0; }
+    .divider-label::before { content: ''; position: absolute; left: 0; top: 50%; width: 100%; height: 1px; background: var(--border-subtle); }
+    .divider-label span { position: relative; background: var(--rich-black); padding: 0 12px; font-size: 11px; color: var(--cream-muted); font-family: 'Montserrat', sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+
+    .form-field { margin-bottom: 14px; }
+    .form-label { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px; }
+    .form-input {
+      width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--border-subtle);
+      color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 13px;
+      padding: 10px 14px; outline: none;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* AGENT CARD */
+    .agent-card-small { display: flex; align-items: center; gap: 16px; padding: 20px 0; border-top: 1px solid var(--border-subtle); margin-top: 20px; }
+    .agent-img-sm { width: 56px; height: 56px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
+    .agent-info-sm .name { font-size: 15px; font-weight: 500; color: var(--cream); }
+    .agent-info-sm .role { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin: 4px 0; }
+    .agent-info-sm .phone { font-size: 13px; color: var(--cream-muted); }
+
+    /* TOUR SCHEDULE */
+    .tour-dates { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0; }
+    .tour-date {
+      text-align: center; padding: 12px 8px; border: 1px solid var(--border-subtle); cursor: pointer; transition: all 0.2s;
+    }
+    .tour-date.selected { border-color: var(--gold); background: rgba(201,168,76,0.1); }
+    .tour-day { font-family: 'Montserrat', sans-serif; font-size: 9px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--cream-muted); }
+    .tour-date-num { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: var(--cream); }
+    .tour-slots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 16px; }
+    .tour-slot { text-align: center; padding: 8px; border: 1px solid var(--border-subtle); font-size: 11px; color: var(--cream-muted); cursor: pointer; }
+    .tour-slot.selected { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    .page-label { text-align: center; padding: 14px; background: var(--oxblood); font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--cream); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 16px; }
+      .nav-links, .nav-cta { display: none; }
+
+      .gallery { grid-template-columns: 1fr; height: auto; }
+      .gallery-main { grid-row: auto; }
+      .gallery-main img { height: 260px; }
+      .gallery-side { display: none; }
+
+      .detail-layout {
+        grid-template-columns: 1fr;
+        padding: 24px 16px;
+        gap: 32px;
+      }
+      .detail-main { padding-right: 0; border-right: none; }
+      .detail-sidebar { padding-left: 0; }
+
+      .prop-price-main { font-size: 36px; }
+      .prop-address-main { font-size: 15px; }
+
+      .key-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .features-grid { grid-template-columns: 1fr; }
+
+      .nbhd-stats { grid-template-columns: repeat(2, 1fr); }
+
+      .tour-dates { grid-template-columns: repeat(2, 1fr); }
+      .tour-slots { grid-template-columns: repeat(2, 1fr); }
+
+      .contact-card { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-label">03 — Property Detail · Tauro / LYL Realty Group · Mockup AI-3453</div>
+
+  <nav>
+    <div class="nav-logo">TAURO</div>
+    <ul class="nav-links">
+      <li><a href="#">Properties</a></li>
+      <li><a href="#">Agents</a></li>
+      <li><a href="#">Neighborhoods</a></li>
+      <li><a href="#">Sell</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <a href="#" class="nav-cta">List Your Home</a>
+  </nav>
+
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="gallery-main">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80" alt="Main photo">
+      <div class="gallery-count">⊞ View All 24 Photos</div>
+    </div>
+    <div class="gallery-side">
+      <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&q=80" alt="">
+    </div>
+    <div class="gallery-side">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="">
+    </div>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="detail-layout">
+    <div class="detail-main">
+
+      <!-- PROPERTY HEADER -->
+      <div class="prop-header">
+        <div class="prop-status">Active Listing</div>
+        <div class="prop-price-main">$1,875,000</div>
+        <div class="prop-address-main">218 W Rittenhouse Square, Philadelphia, PA 19103</div>
+        <div class="prop-tags">
+          <span class="prop-tag">Rittenhouse Square</span>
+          <span class="prop-tag">Condo</span>
+          <span class="prop-tag">3D Tour Available</span>
+          <span class="prop-tag">Listed March 15, 2026</span>
+          <span class="prop-tag">MLS #PHI-20260315</span>
+        </div>
+      </div>
+
+      <!-- KEY STATS -->
+      <div class="key-stats">
+        <div class="key-stat"><div class="stat-num">4</div><div class="stat-lbl">Bedrooms</div></div>
+        <div class="key-stat"><div class="stat-num">3<span class="stat-unit">.5</span></div><div class="stat-lbl">Bathrooms</div></div>
+        <div class="key-stat"><div class="stat-num">3,200</div><div class="stat-lbl">Square Feet</div></div>
+        <div class="key-stat"><div class="stat-num">$586</div><div class="stat-lbl">Per Sq. Ft.</div></div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- DESCRIPTION -->
+      <h2 class="section-title">About This Property</h2>
+      <div class="description">
+        <p>Perched above the iconic Rittenhouse Square, this extraordinary penthouse residence redefines luxury urban living in Philadelphia. With soaring 11-foot ceilings, floor-to-ceiling south-facing windows, and a wraparound terrace offering unobstructed skyline views, every detail has been curated for the most discerning buyer.</p>
+        <p>The chef's kitchen features Miele appliances, Calacatta marble countertops, and a custom island with seating for six. The primary suite occupies its own wing, with dual walk-in closets and a spa bath with heated floors, freestanding soaking tub, and rain shower.</p>
+        <p>Tauro Exclusive: One of only four residences at this address. Currently the only available unit. Priced below 2025 comparable sales.</p>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- FEATURES -->
+      <h2 class="section-title">Features & Amenities</h2>
+      <div class="features-grid">
+        <div class="feature-item">Central Air Conditioning</div>
+        <div class="feature-item">Private Wraparound Terrace</div>
+        <div class="feature-item">Miele Appliance Suite</div>
+        <div class="feature-item">24/7 Concierge Service</div>
+        <div class="feature-item">2 Covered Parking Spaces</div>
+        <div class="feature-item">Fitness Center Access</div>
+        <div class="feature-item">Calacatta Marble Countertops</div>
+        <div class="feature-item">Wine Storage Room</div>
+        <div class="feature-item">Heated Primary Bath Floors</div>
+        <div class="feature-item">Rooftop Lounge Access</div>
+        <div class="feature-item">In-Unit Laundry (Miele)</div>
+        <div class="feature-item">Smart Home System</div>
+        <div class="feature-item">11-Foot Ceilings</div>
+        <div class="feature-item">Skyline Views (S/W/E)</div>
+        <div class="feature-item">Storage Unit Included</div>
+        <div class="feature-item">Pet-Friendly Building</div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- MAP -->
+      <h2 class="section-title">Location</h2>
+      <div class="map-placeholder">
+        <div class="map-bg"></div>
+        <div class="map-label">
+          <div class="map-pin">📍</div>
+          <div class="map-text">218 W Rittenhouse Square</div>
+          <div style="margin-top:8px;font-size:12px;color:var(--cream-muted);">Interactive Mapbox map renders here</div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <!-- NEIGHBORHOOD STATS -->
+      <h2 class="section-title">Rittenhouse Square Market</h2>
+      <div class="nbhd-stats">
+        <div class="nbhd-stat">
+          <div class="nbhd-stat-value">$687K</div>
+          <div class="nbhd-stat-label">Median Sale Price</div>
+        </div>
+        <div class="nbhd-stat">
+          <div class="nbhd-stat-value">18</div>
+          <div class="nbhd-stat-label">Days on Market (avg)</div>
+        </div>
+        <div class="nbhd-stat">
+          <div class="nbhd-stat-value">+4.2%</div>
+          <div class="nbhd-stat-label">YoY Price Growth</div>
+        </div>
+        <div class="nbhd-stat">
+          <div class="nbhd-stat-value">24</div>
+          <div class="nbhd-stat-label">Active Listings</div>
+        </div>
+        <div class="nbhd-stat">
+          <div class="nbhd-stat-value">98%</div>
+          <div class="nbhd-stat-label">Sold to List Ratio</div>
+        </div>
+        <div class="nbhd-stat">
+          <div class="nbhd-stat-value">Walk</div>
+          <div class="nbhd-stat-label">Transit Score: 98</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="detail-sidebar">
+      <div class="contact-card">
+        <div class="contact-header">
+          <div class="contact-price">$1,875,000</div>
+          <div class="contact-est">Est. payment: <span>~$10,200/mo</span> · 30yr at 6.8%</div>
+        </div>
+
+        <!-- TOUR SCHEDULE -->
+        <h3 style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">Schedule a Showing</h3>
+        <div class="tour-dates">
+          <div class="tour-date"><div class="tour-day">Thu</div><div class="tour-date-num">19</div></div>
+          <div class="tour-date selected"><div class="tour-day">Fri</div><div class="tour-date-num">20</div></div>
+          <div class="tour-date"><div class="tour-day">Sat</div><div class="tour-date-num">21</div></div>
+          <div class="tour-date"><div class="tour-day">Sun</div><div class="tour-date-num">22</div></div>
+        </div>
+        <div class="tour-slots">
+          <div class="tour-slot">9:00 AM</div>
+          <div class="tour-slot selected">11:00 AM</div>
+          <div class="tour-slot">1:00 PM</div>
+          <div class="tour-slot">3:00 PM</div>
+          <div class="tour-slot">5:00 PM</div>
+          <div class="tour-slot" style="opacity:0.3;cursor:not-allowed;">7:00 PM</div>
+        </div>
+
+        <div class="form-field">
+          <label class="form-label">Your Name</label>
+          <input class="form-input" placeholder="Full name" value="Alex Chen">
+        </div>
+        <div class="form-row">
+          <div class="form-field">
+            <label class="form-label">Phone</label>
+            <input class="form-input" placeholder="(215) 000-0000">
+          </div>
+          <div class="form-field">
+            <label class="form-label">Email</label>
+            <input class="form-input" placeholder="you@email.com">
+          </div>
+        </div>
+
+        <button class="cta-btn cta-primary">Book Showing — Fri Mar 20, 11 AM</button>
+
+        <div class="divider-label"><span>or</span></div>
+
+        <button class="cta-btn cta-secondary">Request More Information</button>
+
+        <!-- LISTING AGENT -->
+        <div class="agent-card-small">
+          <img class="agent-img-sm" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=120&q=80" alt="Agent">
+          <div class="agent-info-sm">
+            <div class="name">Sarah Kim</div>
+            <div class="role">Listing Agent · Tauro</div>
+            <div class="phone">(215) 555-0147</div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+  </div>
+
+</body>
+</html>

@@ -89,73 +89,138 @@
 - **DEPLOY-01**: Vercel deployment with production domain
 - **DEPLOY-02**: Preview deployments for development branches
 
+### Database & Data Layer (DB)
+
+- **DB-01**: Supabase project with PostgreSQL database — properties, agents, neighborhoods, leads, testimonials tables
+- **DB-02**: Seed script to migrate all static data (src/data/*.ts) into database
+- **DB-03**: Supabase Storage bucket for property images and agent photos with upload API
+- **DB-04**: Property CRUD API routes (create, read, update, delete, bulk operations)
+- **DB-05**: Agent CRUD API routes
+- **DB-06**: Lead persistence — all form submissions stored in database as fallback alongside GHL
+
+### Authentication & Portal (AUTH)
+
+- **AUTH-01**: Supabase Auth with email/password login for agents and admins
+- **AUTH-02**: Role-based access control — admin (full CRUD), agent (own leads + profile), viewer (read-only)
+- **AUTH-03**: Protected /dashboard route with Next.js middleware auth guard
+- **AUTH-04**: Lead Inbox — view, filter by type/status/agent, assign to agents, update status (new → contacted → qualified → closed)
+- **AUTH-05**: Property Manager — add/edit/delete listings, upload photos, set status (active/pending/sold)
+- **AUTH-06**: Agent Manager (admin only) — add/edit agents, view performance, manage roles
+- **AUTH-07**: Tour Calendar — view booked showings by date, agent, property (day/week/month)
+
+### Email & Notifications (EMAIL)
+
+- **EMAIL-01**: Resend configured with verified sending domain
+- **EMAIL-02**: Lead confirmation email to visitor on form submit (branded Tauro template)
+- **EMAIL-03**: Agent notification email when new lead assigned or showing booked
+- **EMAIL-04**: Admin daily digest — new leads, showings, submissions summary
+- **EMAIL-05**: Realtor application confirmation email
+
+### GHL Sync & Security (GHL/SEC/PROD)
+
+- **GHL-01**: GoHighLevel webhook — all lead types flow into GHL contacts with field mapping and tags
+- **GHL-02**: GHL → Tauro reverse sync — lead status changes in GHL update Tauro database
+- **GHL-03**: Webhook signature validation for incoming GHL callbacks
+- **SEC-01**: Rate limiting on /api/leads (10 req/min per IP)
+- **SEC-02**: CAPTCHA (Cloudflare Turnstile) on all public forms
+- **SEC-03**: Input sanitization and CSRF protection
+- **PROD-01**: Real Mapbox API token — maps render with dark theme and property markers
+- **PROD-02**: Google Analytics 4 + Vercel Analytics installed
+- **PROD-03**: Sentry error tracking for production monitoring
+
 ## v2 (Out of Scope)
 
 - IDX/MLS live feed integration
-- User authentication / saved searches
 - Blog / content marketing
-- CMS for property management
+- Public user accounts / saved searches
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BRAND-01 | Phase 1 | Pending |
-| BRAND-02 | Phase 1 | Pending |
-| BRAND-03 | Phase 1 | Pending |
-| BRAND-04 | Phase 1 | Pending |
-| NAV-01 | Phase 1 | Pending |
-| NAV-02 | Phase 1 | Pending |
-| NAV-03 | Phase 1 | Pending |
-| NAV-04 | Phase 1 | Pending |
-| HOME-01 | Phase 2 | Pending |
-| HOME-02 | Phase 2 | Pending |
-| HOME-03 | Phase 2 | Pending |
-| HOME-04 | Phase 2 | Pending |
-| HOME-05 | Phase 2 | Pending |
-| HOME-06 | Phase 2 | Pending |
-| PROP-01 | Phase 3 | Pending |
-| PROP-02 | Phase 3 | Pending |
-| PROP-03 | Phase 3 | Pending |
-| PROP-04 | Phase 3 | Pending |
-| PROP-05 | Phase 3 | Pending |
-| PROP-06 | Phase 3 | Pending |
-| PROP-07 | Phase 3 | Pending |
-| PROP-08 | Phase 3 | Pending |
-| PROP-09 | Phase 3 | Pending |
-| AGENT-01 | Phase 4 | Pending |
-| AGENT-02 | Phase 4 | Pending |
-| AGENT-03 | Phase 4 | Pending |
-| AGENT-04 | Phase 4 | Pending |
-| AGENT-05 | Phase 4 | Pending |
-| AGENT-06 | Phase 4 | Pending |
-| AREA-01 | Phase 5 | Pending |
-| AREA-02 | Phase 5 | Pending |
-| AREA-03 | Phase 5 | Pending |
-| LEAD-01 | Phase 6 | Pending |
-| LEAD-02 | Phase 6 | Pending |
-| LEAD-03 | Phase 6 | Pending |
-| LEAD-04 | Phase 6 | Pending |
-| LEAD-05 | Phase 6 | Pending |
-| LEAD-06 | Phase 6 | Pending |
-| EDU-01 | Phase 7 | Pending |
-| EDU-02 | Phase 7 | Pending |
-| EDU-03 | Phase 7 | Pending |
-| EDU-04 | Phase 7 | Pending |
-| EDU-05 | Phase 7 | Pending |
-| EDU-06 | Phase 7 | Pending |
-| PROPOSAL-01 | Phase 8 | Pending |
-| PROPOSAL-02 | Phase 8 | Pending |
-| PROPOSAL-03 | Phase 8 | Pending |
-| SEO-01 | Phase 9 | Pending |
-| SEO-02 | Phase 9 | Pending |
-| SEO-03 | Phase 9 | Pending |
-| SEO-04 | Phase 9 | Pending |
-| SEO-05 | Phase 9 | Pending |
-| DEPLOY-01 | Phase 9 | Pending |
-| DEPLOY-02 | Phase 9 | Pending |
+| BRAND-01 | Phase 1 | Complete |
+| BRAND-02 | Phase 1 | Complete |
+| BRAND-03 | Phase 1 | Complete |
+| BRAND-04 | Phase 1 | Complete |
+| NAV-01 | Phase 1 | Complete |
+| NAV-02 | Phase 1 | Complete |
+| NAV-03 | Phase 1 | Complete |
+| NAV-04 | Phase 1 | Complete |
+| HOME-01 | Phase 2 | Complete |
+| HOME-02 | Phase 2 | Complete |
+| HOME-03 | Phase 2 | Complete |
+| HOME-04 | Phase 2 | Complete |
+| HOME-05 | Phase 2 | Complete |
+| HOME-06 | Phase 2 | Complete |
+| PROP-01 | Phase 3 | Complete |
+| PROP-02 | Phase 3 | Complete |
+| PROP-03 | Phase 3 | Complete |
+| PROP-04 | Phase 3 | Complete |
+| PROP-05 | Phase 3 | Complete |
+| PROP-06 | Phase 3 | Complete |
+| PROP-07 | Phase 3 | Complete |
+| PROP-08 | Phase 3 | Complete |
+| PROP-09 | Phase 3 | Complete |
+| AGENT-01 | Phase 4 | Complete |
+| AGENT-02 | Phase 4 | Complete |
+| AGENT-03 | Phase 4 | Complete |
+| AGENT-04 | Phase 4 | Complete |
+| AGENT-05 | Phase 4 | Complete |
+| AGENT-06 | Phase 4 | Complete |
+| AREA-01 | Phase 5 | Complete |
+| AREA-02 | Phase 5 | Complete |
+| AREA-03 | Phase 5 | Complete |
+| LEAD-01 | Phase 6 | Complete |
+| LEAD-02 | Phase 6 | Complete |
+| LEAD-03 | Phase 6 | Complete |
+| LEAD-04 | Phase 6 | Complete |
+| LEAD-05 | Phase 6 | Complete |
+| LEAD-06 | Phase 6 | Complete |
+| EDU-01 | Phase 7 | Complete |
+| EDU-02 | Phase 7 | Complete |
+| EDU-03 | Phase 7 | Complete |
+| EDU-04 | Phase 7 | Complete |
+| EDU-05 | Phase 7 | Complete |
+| EDU-06 | Phase 7 | Complete |
+| PROPOSAL-01 | Phase 8 | Complete |
+| PROPOSAL-02 | Phase 8 | Complete |
+| PROPOSAL-03 | Phase 8 | Complete |
+| SEO-01 | Phase 9 | Complete |
+| SEO-02 | Phase 9 | Complete |
+| SEO-03 | Phase 9 | Complete |
+| SEO-04 | Phase 9 | Complete |
+| SEO-05 | Phase 9 | Complete |
+| DEPLOY-01 | Phase 9 | Complete |
+| DEPLOY-02 | Phase 9 | Complete |
+| DB-01 | Phase 10 | Pending |
+| DB-02 | Phase 10 | Pending |
+| DB-03 | Phase 10 | Pending |
+| DB-04 | Phase 10 | Pending |
+| DB-05 | Phase 10 | Pending |
+| DB-06 | Phase 10 | Pending |
+| AUTH-01 | Phase 11 | Pending |
+| AUTH-02 | Phase 11 | Pending |
+| AUTH-03 | Phase 11 | Pending |
+| AUTH-04 | Phase 11 | Pending |
+| AUTH-05 | Phase 11 | Pending |
+| AUTH-06 | Phase 11 | Pending |
+| AUTH-07 | Phase 11 | Pending |
+| EMAIL-01 | Phase 12 | Pending |
+| EMAIL-02 | Phase 12 | Pending |
+| EMAIL-03 | Phase 12 | Pending |
+| EMAIL-04 | Phase 12 | Pending |
+| EMAIL-05 | Phase 12 | Pending |
+| GHL-01 | Phase 13 | Pending |
+| GHL-02 | Phase 13 | Pending |
+| GHL-03 | Phase 13 | Pending |
+| SEC-01 | Phase 13 | Pending |
+| SEC-02 | Phase 13 | Pending |
+| SEC-03 | Phase 13 | Pending |
+| PROD-01 | Phase 13 | Pending |
+| PROD-02 | Phase 13 | Pending |
+| PROD-03 | Phase 13 | Pending |
 
 **Coverage:**
-- v1 requirements: 53 total
-- Mapped to phases: 53
-- Unmapped: 0 ✓
+- v1 requirements (Phases 1-9): 53 total, 53 complete ✓
+- v2 requirements (Phases 10-13): 27 total, 0 complete
+- Grand total: 80 requirements
