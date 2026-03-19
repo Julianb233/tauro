@@ -86,7 +86,7 @@ export default async function RootLayout({
       >
         <a
           href="#main-content"
-          className="fixed top-0 left-0 z-[9999] -translate-y-full rounded-br-lg bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-transform focus:translate-y-0"
+          className="fixed top-0 left-0 z-[9999] -translate-y-full rounded-br-lg bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-background"
         >
           Skip to main content
         </a>
@@ -95,10 +95,11 @@ export default async function RootLayout({
         <SpeedInsights />
         <OrganizationJsonLd testimonials={testimonials} />
         <WebSiteJsonLd />
-        <main id="main-content">
+<main id="main-content">
           {children}
         </main>
         <ChatWidget />
+        <AccessibilityWidget />
         <CookieConsent />
       </body>
     </html>

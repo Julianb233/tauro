@@ -16,7 +16,7 @@ export default function PropertiesLayout({
   return (
     <>
       <Navbar />
-      <main className="min-h-screen flex-1">{children}</main>
+      <main id="main-content" className="min-h-screen flex-1">{children}</main>
       <Footer />
     </>
   );
