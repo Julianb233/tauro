@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, Mail, Award, Play, Home, TrendingUp, Clock, CheckCircle, AlertCircle, ArrowLeft, Instagram, Linkedin } from "lucide-react";
+import { Phone, Mail, Award, Play, Home, TrendingUp, Clock, CheckCircle, AlertCircle, ArrowLeft, Instagram, Linkedin, Star, Quote } from "lucide-react";
 import type { Agent } from "@/data/agents";
 import type { Property } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -74,6 +74,43 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
       </section>
       <section className="bg-white py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="grid gap-12 lg:grid-cols-2"><div><h2 className="font-heading text-2xl font-bold text-foreground">Specialties</h2><div className="mt-4 flex flex-wrap gap-2">{agent.specialties.map((s) => (<span key={s} className="rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-sm text-gold">{s}</span>))}</div></div><div><h2 className="font-heading text-2xl font-bold text-foreground">Neighborhoods</h2><div className="mt-4 flex flex-wrap gap-2">{agent.neighborhoods.map((n) => (<span key={n} className="rounded-full border border-border/40 px-4 py-1.5 text-sm text-foreground/80">{n}</span>))}</div></div></div></div></section>
       {agent.awards.length > 0 && (<section className="bg-cream py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><h2 className="font-heading text-2xl font-bold text-foreground">Awards & Recognition</h2><div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{agent.awards.map((award) => (<div key={`${award.title}-${award.year}`} className="rounded-xl border border-border/40 bg-white p-6"><Award className="size-6 text-gold" /><h3 className="mt-3 font-semibold text-foreground">{award.title}</h3><p className="mt-1 text-sm text-muted-foreground">{award.issuer} &middot; {award.year}</p></div>))}</div></div></section>)}
+      {agent.testimonials && agent.testimonials.length > 0 && (
+        <section className="bg-white py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-10 flex items-center gap-3">
+              <Quote className="size-5 text-gold" />
+              <h2 className="font-heading text-2xl font-bold text-foreground">What Clients Say</h2>
+            </div>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {agent.testimonials.map((t) => (
+                <div
+                  key={t.clientName}
+                  className="relative rounded-2xl border border-border/40 bg-cream p-8 shadow-sm"
+                >
+                  <Quote className="absolute right-6 top-6 size-8 text-gold/15" />
+                  <div className="mb-4 flex gap-0.5">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`size-4 ${i < t.rating ? "fill-amber-400 text-amber-400" : "fill-gray-200 text-gray-200"}`}
+                      />
+                    ))}
+                  </div>
+                  <blockquote className="text-sm leading-relaxed text-foreground/80">
+                    &ldquo;{t.quote}&rdquo;
+                  </blockquote>
+                  <div className="mt-5 flex items-center justify-between">
+                    <p className="text-sm font-semibold text-foreground">{t.clientName}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {new Date(t.date).toLocaleDateString("en-US", { month: "short", year: "numeric" })}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       {agent.videoIntroUrl && (<section className="bg-white py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="mb-8 flex items-center gap-3"><Play className="size-5 text-gold" /><h2 className="font-heading text-2xl font-bold text-foreground">Video Introduction</h2></div><div className="aspect-video overflow-hidden rounded-xl border border-border/40"><iframe src={agent.videoIntroUrl} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="h-full w-full" title={`${agent.fullName} video introduction`} /></div></div></section>)}
       {activeListings.length > 0 && (<section className="bg-cream py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="mb-8 flex items-center gap-3"><h2 className="font-heading text-2xl font-bold text-foreground">{agent.firstName}&apos;s Active Listings</h2><span className="rounded-full bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">{activeListings.length}</span></div><div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{activeListings.map((p) => (<PropertyCard key={p.id} property={p} />))}</div></div></section>)}
       <section className="bg-white py-16">

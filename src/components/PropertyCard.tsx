@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Video } from "lucide-react";
 import { Property, formatPrice } from "@/data/properties";
 import { cn } from "@/lib/utils";
 import { useCompare } from "@/hooks/useCompare";
@@ -73,9 +74,17 @@ export default function PropertyCard({ property }: { property: Property }) {
           >
             {property.status}
           </span>
-          <span className="absolute right-3 bottom-3 rounded-md bg-black/60 px-2 py-1 text-xs text-white backdrop-blur-sm">
-            {property.images.length} photos
-          </span>
+          <div className="absolute right-3 bottom-3 flex items-center gap-1.5">
+            {property.videoTourUrl && (
+              <span className="flex items-center gap-1 rounded-md bg-gold/90 px-2 py-1 text-xs font-semibold text-near-black backdrop-blur-sm">
+                <Video className="h-3 w-3" />
+                Video Tour
+              </span>
+            )}
+            <span className="rounded-md bg-black/60 px-2 py-1 text-xs text-white backdrop-blur-sm">
+              {property.images.length} photos
+            </span>
+          </div>
         </div>
         <div className="p-3 sm:p-4">
           <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
