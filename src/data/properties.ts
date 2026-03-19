@@ -52,12 +52,11 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=1200&q=80",
     ],
     description:
       "Grand Rittenhouse Square townhome with impeccable period details and modern luxury throughout. Five bedrooms, a chef's kitchen, private garden, and a rooftop terrace overlooking the Square. Steps from Philadelphia's finest dining, shopping, and cultural institutions.",
@@ -113,10 +112,10 @@ export const properties: Property[] = [
     status: "New",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600210491369-e753da562eb3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200&q=80",
     ],
     description:
       "Exquisite Federal-style residence in Society Hill, meticulously restored with museum-quality finishes. Original exposed brick, wide-plank pine floors, and seven fireplaces complement a stunning modern kitchen and spa-like primary suite. One of Philadelphia's most distinguished addresses.",
@@ -172,10 +171,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Condo",
     images: [
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600563438938-a6b1a8b2e7b0?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b5c7?w=1200&q=80",
+      "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1200&q=80",
     ],
     description:
       "Ultra-luxury penthouse overlooking the Philadelphia Museum of Art and Schuylkill River. Floor-to-ceiling glass walls, private elevator entry, two terraces totaling 1,200 SF, and panoramic skyline views from every room. The pinnacle of modern Philadelphia living.",
@@ -231,9 +230,9 @@ export const properties: Property[] = [
     status: "Open House",
     propertyType: "Condo",
     images: [
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80",
+      "https://images.unsplash.com/photo-1616137422495-1b4e3e5e3e3e?w=1200&q=80",
+      "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1200&q=80",
     ],
     description:
       "Sleek Center City condo in a full-service building with 24/7 concierge. Open concept living with floor-to-ceiling windows and a private balcony overlooking City Hall. Walking distance to world-class dining, Broad Street theaters, and Rittenhouse Square.",
@@ -282,9 +281,9 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80",
     ],
     description:
       "Stunning new-construction townhome in Queen Village with designer finishes throughout. Open concept living with a custom chef's kitchen, rooftop deck with skyline views, and a private garage. Steps from South Street, Italian Market, and the Delaware River waterfront.",
@@ -332,9 +331,9 @@ export const properties: Property[] = [
     status: "Pending",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
     ],
     description:
       "Brand-new Fishtown townhome blending industrial chic with modern luxury. Soaring ceilings, exposed ductwork, a gourmet kitchen with waterfall island, and a private rooftop with Center City skyline views. Walk to Frankford Avenue's best restaurants, breweries, and boutiques.",
@@ -386,10 +385,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Condo",
     images: [
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80",
+      "https://images.unsplash.com/photo-1575517111478-7059a0e05a95?w=1200&q=80",
     ],
     description:
       "Sleek modern loft in the heart of Northern Liberties with soaring ceilings and floor-to-ceiling windows. Open-plan living flows into a designer kitchen with quartz countertops and custom cabinetry. Steps from the Piazza, Liberty Lands, and some of Philly's best restaurants.",
@@ -441,10 +440,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80",
+      "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=1200&q=80",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80",
     ],
     description:
       "Beautifully renovated Victorian twin in Spruce Hill, steps from Penn's campus and Clark Park. Original hardwood floors and ornate mantels blend with a modern open kitchen, updated baths, and a landscaped rear yard. Ideal for families or faculty seeking urban convenience with residential charm.",
@@ -497,10 +496,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b5c7?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600210491369-e753da562eb3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
     ],
     description:
       "Modern townhouse on Manayunk's iconic Main Street with river views from the upper floors. Open-plan living, a sleek kitchen with waterfall island, and a private rooftop deck overlooking the Schuylkill. Walk to the towpath trail, shops, and dozens of restaurants.",
@@ -552,11 +551,11 @@ export const properties: Property[] = [
     status: "New",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
+      "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b5c7?w=1200&q=80",
     ],
     description:
       "Stately stone Colonial Revival on a tree-lined lot in the heart of Chestnut Hill. Five generous bedrooms, a sun-drenched conservatory, original chestnut woodwork, and a landscaped garden with stone patio. Steps from Germantown Avenue shops and the Wissahickon Valley trails.",
@@ -610,10 +609,10 @@ export const properties: Property[] = [
     status: "New",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
+      "https://images.unsplash.com/photo-1616137422495-1b4e3e5e3e3e?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600563438938-a6b1a8b2e7b0?w=1200&q=80",
+      "https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1200&q=80",
     ],
     description:
       "Brand-new construction townhome in booming Brewerytown with a modern open layout and premium finishes. Three floors of living with a rooftop deck offering sweeping Fairmount Park views. Walk to the Art Museum, Schuylkill River Trail, and Girard Avenue's craft breweries.",
@@ -667,10 +666,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=1200&q=80",
     ],
     description:
       "Fully renovated rowhome in fast-growing Point Breeze with a contemporary open layout and designer finishes. New kitchen with shaker cabinets and quartz countertops, exposed brick accent wall, and a private rear patio. Minutes from the Broad Street Line and East Passyunk dining.",
@@ -722,10 +721,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Multi-Family",
     images: [
-      "https://images.unsplash.com/photo-1590725121839-892b458a74fe?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
+      "https://images.unsplash.com/photo-1590725121839-892b458a74fe?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600210491369-e753da562eb3?w=1200&q=80",
+      "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80",
+      "https://images.unsplash.com/photo-1616137422495-1b4e3e5e3e3e?w=1200&q=80",
     ],
     description:
       "Well-maintained duplex on the Kensington-Fishtown border with strong rental income potential. Each unit features two bedrooms, updated kitchens, and separate utilities. Steps from the Market-Frankford Line, Front Street breweries, and the booming Frankford Avenue corridor.",
@@ -777,10 +776,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200",
-      "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200",
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80",
     ],
     description:
       "Charming Victorian near Clark Park with a classic wrap-around porch and sun-filled interior. Four spacious bedrooms, original stained glass, a renovated kitchen with butcher block counters, and a deep backyard garden. Walk to Baltimore Avenue cafes, trolley stops, and UPenn campus.",
@@ -833,11 +832,11 @@ export const properties: Property[] = [
     status: "New",
     propertyType: "Condo",
     images: [
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200",
-      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
-      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
+      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=1200&q=80",
     ],
     description:
       "Penthouse condo on Delancey Place with private terrace and unobstructed Rittenhouse Square views. Custom Italian cabinetry, Calacatta marble baths, wide-plank oak floors, and a chef's kitchen with Sub-Zero and Wolf appliances. Full-service building with concierge and valet.",
@@ -891,10 +890,10 @@ export const properties: Property[] = [
     status: "Open House",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200",
-      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200",
-      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200",
-      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=1200",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600563438938-a6b1a8b2e7b0?w=1200&q=80",
+      "https://images.unsplash.com/photo-1575517111478-7059a0e05a95?w=1200&q=80",
     ],
     description:
       "Architect-designed new construction in the heart of Fishtown with a striking modern facade and premium finishes throughout. Three bedrooms, a sun-drenched great room, chef's kitchen with waterfall quartz island, and a landscaped rooftop with skyline views. Steps from Suraya, La Colombe, and Frankford Avenue nightlife.",
