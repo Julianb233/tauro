@@ -12,10 +12,6 @@ import {
   Building2,
 } from "lucide-react";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 interface Agent {
   id: string;
   slug: string;
@@ -43,10 +39,6 @@ interface EditForm {
   specialties: string;
   neighborhoods: string;
 }
-
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
 
 export function AgentManager() {
   const [agents, setAgents] = useState<Agent[]>([]);
@@ -169,16 +161,12 @@ export function AgentManager() {
     }
   }
 
-  // Loading
   if (loading) {
     return (
       <div className="space-y-4">
         <div className="h-8 w-48 animate-pulse rounded bg-white/5" />
         {[1, 2, 3].map((i) => (
-          <div
-            key={i}
-            className="h-20 animate-pulse rounded-xl bg-white/5"
-          />
+          <div key={i} className="h-20 animate-pulse rounded-xl bg-white/5" />
         ))}
       </div>
     );
@@ -196,15 +184,10 @@ export function AgentManager() {
             Manage your team of agents
           </p>
         </div>
-        <a
-          href="/api/agents"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-near-black hover:bg-gold-light transition-colors"
-        >
+        <button className="flex items-center gap-2 rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-near-black hover:bg-gold-light transition-colors">
           <Plus className="h-4 w-4" />
           Add Agent
-        </a>
+        </button>
       </div>
 
       {/* Error banner */}
@@ -249,11 +232,9 @@ export function AgentManager() {
             </span>
           </div>
 
-          {/* Rows */}
           <div className="divide-y divide-white/5">
             {agents.map((agent) => (
               <div key={agent.id}>
-                {/* Display row */}
                 {editingId !== agent.id && (
                   <div className="flex flex-col gap-3 px-5 py-4 md:grid md:grid-cols-[auto_1fr_1fr_1fr_120px_100px] md:items-center">
                     {/* Avatar */}
@@ -291,12 +272,10 @@ export function AgentManager() {
                     {/* Phone */}
                     <div className="flex items-center gap-1.5 text-sm text-off-white/60">
                       <Phone className="h-3.5 w-3.5 shrink-0 text-off-white/30" />
-                      <span className="truncate">
-                        {agent.phone || "N/A"}
-                      </span>
+                      <span className="truncate">{agent.phone || "N/A"}</span>
                     </div>
 
-                    {/* Listings */}
+                    {/* Listings count */}
                     <div className="flex items-center gap-1.5 text-sm text-off-white/60">
                       <Building2 className="h-3.5 w-3.5 shrink-0 text-off-white/30" />
                       <span>{agent.listings_count ?? 0} listings</span>
@@ -338,7 +317,6 @@ export function AgentManager() {
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      {/* First Name */}
                       <div>
                         <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
                           First Name
@@ -356,7 +334,6 @@ export function AgentManager() {
                         />
                       </div>
 
-                      {/* Last Name */}
                       <div>
                         <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
                           Last Name
@@ -374,7 +351,6 @@ export function AgentManager() {
                         />
                       </div>
 
-                      {/* Title */}
                       <div>
                         <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
                           Title
@@ -393,7 +369,6 @@ export function AgentManager() {
                         />
                       </div>
 
-                      {/* Email */}
                       <div>
                         <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
                           Email
@@ -411,7 +386,6 @@ export function AgentManager() {
                         />
                       </div>
 
-                      {/* Phone */}
                       <div>
                         <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
                           Phone
@@ -429,7 +403,6 @@ export function AgentManager() {
                         />
                       </div>
 
-                      {/* Specialties */}
                       <div>
                         <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
                           Specialties (comma-separated)
@@ -448,7 +421,6 @@ export function AgentManager() {
                         />
                       </div>
 
-                      {/* Neighborhoods */}
                       <div className="md:col-span-2">
                         <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
                           Neighborhoods (comma-separated)
@@ -467,7 +439,6 @@ export function AgentManager() {
                         />
                       </div>
 
-                      {/* Bio */}
                       <div className="md:col-span-2 lg:col-span-3">
                         <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
                           Bio
@@ -486,7 +457,6 @@ export function AgentManager() {
                       </div>
                     </div>
 
-                    {/* Save / Cancel */}
                     <div className="mt-4 flex items-center gap-3">
                       <button
                         onClick={() => saveEdit(agent.id)}
