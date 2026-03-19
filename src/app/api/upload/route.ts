@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     const supabase = await createServerClient();
     const fileBuffer = Buffer.from(await file.arrayBuffer());
 
-    const { error: uploadError } = await supabase.storage
+    const { error: uploadError } = await supabase!.storage
       .from(bucket)
       .upload(filePath, fileBuffer, {
         contentType: file.type,
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
 
     const {
       data: { publicUrl },
-    } = supabase.storage.from(bucket).getPublicUrl(filePath);
+    } = supabase!.storage.from(bucket).getPublicUrl(filePath);
 
     return NextResponse.json(
       { url: publicUrl, path: filePath, bucket },

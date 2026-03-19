@@ -73,7 +73,8 @@ export async function GET(request: NextRequest) {
         : undefined,
     };
 
-    const { data, count } = await getProperties(options);
+    const result = await getProperties(options);
+    const { data, count } = result ?? { data: [], count: 0 };
     return NextResponse.json({
       data,
       count,
@@ -102,6 +103,7 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = await createClient();
+  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
     const { data, error } = await supabase
       .from("properties")
       .insert(result.data)
