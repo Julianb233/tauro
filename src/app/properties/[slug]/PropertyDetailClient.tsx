@@ -21,6 +21,7 @@ import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import ImageGallery from "@/components/ImageGallery";
 import PropertyMap from "@/components/PropertyMap";
+import MortgageCalculator from "@/components/MortgageCalculator";
 import { cn } from "@/lib/utils";
 
 export default function PropertyDetailClient({
@@ -262,6 +263,9 @@ export default function PropertyDetailClient({
                 />
               </div>
             </div>
+
+            {/* Mortgage Calculator */}
+            <MortgageCalculator homePrice={property.price} />
 
             {/* Similar properties */}
             {similar.length > 0 && (
