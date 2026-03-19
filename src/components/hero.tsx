@@ -25,7 +25,7 @@ export default function Hero() {
           <br />
           <span className="text-gold">in Philadelphia</span>
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-base text-white/70 sm:mt-6 sm:text-lg">
+        <p className="mx-auto mt-4 max-w-2xl text-base text-white/80 sm:mt-6 sm:text-lg">
           Discover luxury homes and condos across Philadelphia&apos;s most
           coveted neighborhoods with Tauro&apos;s expert agents.
         </p>

@@ -19,9 +19,9 @@ export default async function NeighborhoodShowcase() {
         </FadeInView>
         <StaggerReveal className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3" stagger={0.12}>
           {homepageNeighborhoods.map((hood) => (
-            <Link key={hood.slug} href={`/neighborhoods/${hood.slug}`} className="group relative overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-md">
-              <div className="relative aspect-[16/10] overflow-hidden"><Image src={hood.image} alt={hood.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" /></div>
-              <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5"><div className="flex items-center gap-2"><MapPin className="size-4 shrink-0 text-gold" /><h3 className="font-heading text-base font-bold text-white sm:text-lg">{hood.name}</h3></div><p className="mt-1 line-clamp-2 text-xs text-white/70 sm:text-sm">{hood.description}</p><p className="mt-2 text-xs font-semibold text-gold">{hood.listings} Active Listings</p></div>
+            <Link key={hood.slug} href={`/neighborhoods/${hood.slug}`} className="group relative overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-md hover:border-b-gold hover:border-b-2">
+              <div className="relative aspect-[16/10] overflow-hidden"><Image src={hood.image} alt={hood.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/40 to-transparent" /></div>
+              <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5"><div className="flex items-center gap-2"><MapPin className="size-4 shrink-0 text-gold" /><h3 className="font-heading text-base font-bold text-white sm:text-lg">{hood.name}</h3></div><p className="mt-1 line-clamp-2 text-xs text-white/80 sm:text-sm">{hood.description}</p><p className="mt-2 text-xs font-semibold text-gold">{hood.listings} Active Listings</p></div>
             </Link>
           ))}
         </StaggerReveal>

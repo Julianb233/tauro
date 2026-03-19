@@ -22,7 +22,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
         />
 
         {/* Bottom info bar - always visible */}
-        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-5 pb-5 pt-16">
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-midnight/90 via-midnight/40 to-transparent px-5 pb-5 pt-16">
           <h3 className="font-heading text-xl font-bold text-white">
             {agent.fullName}
           </h3>
