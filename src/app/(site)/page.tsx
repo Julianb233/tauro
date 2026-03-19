@@ -1,62 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Home, TrendingUp, Users, Shield, Star, MapPin } from "lucide-react";
-import { properties, formatPrice } from "@/data/properties";
-import PropertyCard from "@/components/PropertyCard";
-import HeroSearchBar from "@/components/HeroSearchBar";
+import { ArrowRight, Home, TrendingUp, Users, Shield, Star } from "lucide-react";
 import { TiltCard } from "@/components/ui/tilt-card";
+import Hero from "@/components/hero";
+import StatsBar from "@/components/stats-bar";
+import FeaturedProperties from "@/components/featured-properties";
+import NeighborhoodShowcase from "@/components/neighborhood-showcase";
 
 export const metadata: Metadata = {
   title: "Tauro | Premium Philadelphia Real Estate",
   description:
     "Discover luxury homes in Philadelphia with Tauro. Browse premium properties, explore neighborhoods, and connect with top agents across Center City, Rittenhouse, Fishtown, and more.",
 };
-
-const neighborhoods = [
-  {
-    name: "Center City",
-    slug: "center-city",
-    description: "The beating heart of Philadelphia — walkable, vibrant, and full of culture.",
-    image: "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=800&q=80",
-    listings: 42,
-  },
-  {
-    name: "Rittenhouse",
-    slug: "rittenhouse",
-    description: "Philadelphia's most prestigious address with tree-lined streets and luxury living.",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
-    listings: 28,
-  },
-  {
-    name: "Fishtown",
-    slug: "fishtown",
-    description: "Creative energy meets industrial charm in Philly's hottest neighborhood.",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-    listings: 35,
-  },
-  {
-    name: "Northern Liberties",
-    slug: "northern-liberties",
-    description: "Urban sophistication with boutique restaurants and converted lofts.",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
-    listings: 19,
-  },
-  {
-    name: "Old City",
-    slug: "old-city",
-    description: "Where history meets modern living — cobblestone streets and gallery nights.",
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
-    listings: 15,
-  },
-  {
-    name: "Chestnut Hill",
-    slug: "chestnut-hill",
-    description: "Suburban charm within city limits — gardens, boutiques, and top schools.",
-    image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
-    listings: 22,
-  },
-];
 
 const testimonials = [
   {
@@ -102,155 +58,13 @@ const whyTauro = [
   },
 ];
 
-const featuredProperties = properties.slice(0, 3);
-
 export default function HomePage() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden pt-16">
-        {/* Background image */}
-        <Image
-          src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80"
-          alt="Philadelphia skyline"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-near-black/70 via-near-black/50 to-near-black" />
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 text-center sm:px-6 lg:px-8">
-          <p className="mb-4 font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
-            Premium Philadelphia Real Estate
-          </p>
-          <h1 className="font-heading text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-            Find Your Place
-            <br />
-            <span className="text-gold">in Philadelphia</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
-            Discover luxury homes and condos across Philadelphia&apos;s most
-            coveted neighborhoods with Tauro&apos;s expert agents.
-          </p>
-
-          {/* Search overlay */}
-          <HeroSearchBar />
-
-          {/* Scroll hint */}
-          <div className="mt-16 animate-bounce">
-            <div className="mx-auto h-8 w-5 rounded-full border-2 border-white/30">
-              <div className="mx-auto mt-1.5 h-2 w-1 rounded-full bg-gold" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Stats ────────────────────────────────────────────── */}
-      <section className="border-y border-border/40 bg-midnight">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
-          {[
-            { value: "500+", label: "Properties Sold" },
-            { value: "15", label: "Neighborhoods" },
-            { value: "$2.1B", label: "Total Volume" },
-            { value: "98%", label: "Client Satisfaction" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-heading text-3xl font-bold text-gold sm:text-4xl">
-                {stat.value}
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Featured Listings (HOME-02) ──────────────────────── */}
-      <section className="bg-near-black py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <div>
-              <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-                Featured Listings
-              </p>
-              <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
-                Exceptional Properties
-              </h2>
-            </div>
-            <Link
-              href="/properties"
-              className="group flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
-            >
-              View All Properties
-              <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </div>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {featuredProperties.map((property) => (
-              <TiltCard key={property.id}>
-                <PropertyCard property={property} />
-              </TiltCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Neighborhoods (HOME-03) ──────────────────────────── */}
-      <section className="border-t border-border/40 bg-midnight py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-              Explore Philadelphia
-            </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
-              Premier Neighborhoods
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-              From the brownstones of Rittenhouse to the lofts of Fishtown — discover
-              what makes each Philadelphia neighborhood unique.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {neighborhoods.map((hood) => (
-              <Link
-                key={hood.slug}
-                href={`/neighborhoods/${hood.slug}`}
-                className="group relative overflow-hidden rounded-xl border border-border/40 transition-all hover:border-gold/40 hover:shadow-xl"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  <Image
-                    src={hood.image}
-                    alt={hood.name}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-near-black/90 via-near-black/30 to-transparent" />
-                </div>
-                <div className="absolute inset-x-0 bottom-0 p-5">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="size-4 text-gold" />
-                    <h3 className="font-heading text-lg font-bold text-white">
-                      {hood.name}
-                    </h3>
-                  </div>
-                  <p className="mt-1 text-sm text-white/70">
-                    {hood.description}
-                  </p>
-                  <p className="mt-2 text-xs font-semibold text-gold">
-                    {hood.listings} Active Listings
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Hero />
+      <StatsBar />
+      <FeaturedProperties />
+      <NeighborhoodShowcase />
 
       {/* ── Why Tauro (HOME-04) ──────────────────────────────── */}
       <section className="bg-near-black py-20">
