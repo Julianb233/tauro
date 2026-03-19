@@ -99,10 +99,10 @@ export default function PropertyCard({ property }: { property: Property }) {
           <p className="truncate text-sm text-muted-foreground">
             {property.city}, {property.state} {property.zip}
           </p>
-          {property.openHouse && (
-            <p className="mt-2 text-xs font-semibold text-gold-dark">
-              Open House: {property.openHouse}
-            </p>
+          {property.openHouseEvent && (
+            <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-gold/30 bg-gold/10 px-2 py-1"><Calendar className="h-3 w-3 text-gold" /><span className="text-xs font-semibold text-gold-dark">
+              Open House: {property.openHouse}</span>
+            </div>
           )}
         </div>
       </Link>
