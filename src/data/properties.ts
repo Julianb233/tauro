@@ -45,6 +45,7 @@ export interface Property {
   };
   amenities: string[];
   videoUrl?: string;
+  videoTourUrl?: string;
   virtualTourUrl?: string;
   priceHistory?: { date: string; price: number; event: string }[];
 }
@@ -120,6 +121,7 @@ export const properties: Property[] = [
     openHouseEvent: { date: "2026-03-22", startTime: "13:00", endTime: "16:00" },
     amenities: ["Fireplace", "Hardwood Floors", "Central Air", "Garage", "Wine Cellar", "Rooftop Terrace"],
     videoUrl: "https://www.youtube.com/embed/2lPGf1gJwb4",
+    videoTourUrl: "2lPGf1gJwb4",
     virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyoDo",
   },
   {
@@ -189,6 +191,7 @@ export const properties: Property[] = [
     lng: -75.1479,
     amenities: ["Fireplace", "Hardwood Floors", "Heated Floors", "Exposed Brick", "Carriage House", "Off-Street Parking"],
     videoUrl: "https://www.youtube.com/embed/9k3iFqLGmOo",
+    videoTourUrl: "9k3iFqLGmOo",
     virtualTourUrl: "https://my.matterport.com/show/?m=oj3GnqCwEvR",
   },
   {
@@ -260,6 +263,7 @@ export const properties: Property[] = [
     openHouseEvent: { date: "2026-03-22", startTime: "12:00", endTime: "14:00" },
     amenities: ["Pool", "Smart Home", "Central Air", "Concierge", "Private Elevator", "Terrace"],
     videoUrl: "https://www.youtube.com/embed/gXGnIFzJsQ4",
+    videoTourUrl: "gXGnIFzJsQ4",
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
   },
   {
@@ -315,6 +319,7 @@ export const properties: Property[] = [
     amenities: ["Pool", "Central Air", "In-Unit Laundry", "Balcony", "Concierge", "Secured Parking"],
     openHouseEvent: { date: "2026-03-23", startTime: "11:00", endTime: "14:00" },
     videoUrl: "https://www.youtube.com/embed/QhHBvBsW_GE",
+    videoTourUrl: "QhHBvBsW_GE",
   },
   {
     id: "5",
@@ -376,6 +381,7 @@ export const properties: Property[] = [
     lng: -75.1442,
     amenities: ["Garage", "Rooftop Deck", "Updated Kitchen", "Hardwood Floors", "EV Charging", "Home Office"],
     videoUrl: "https://www.youtube.com/embed/VXJkNrnKVqA",
+    videoTourUrl: "VXJkNrnKVqA",
   },
   {
     id: "6",
