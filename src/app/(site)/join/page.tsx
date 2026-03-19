@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import {
-  Users, TrendingUp, Award, Briefcase, GraduationCap,
-  CheckCircle, AlertCircle, Building2, Handshake, Zap,
+  CheckCircle, AlertCircle, ArrowRight,
 } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
 
@@ -32,15 +32,6 @@ const initialForm: FormData = {
   whyJoin: "",
   message: "",
 };
-
-const benefits = [
-  { icon: TrendingUp, title: "Competitive Splits", description: "Industry-leading commission structure that rewards your hard work and growth." },
-  { icon: Building2, title: "Premium Brand", description: "Leverage the Tauro name — a brand synonymous with luxury Philadelphia real estate." },
-  { icon: Zap, title: "Cutting-Edge Tech", description: "CRM, marketing automation, and AI tools to help you close more deals, faster." },
-  { icon: GraduationCap, title: "Ongoing Training", description: "Weekly masterclasses, mentorship programs, and access to top-producer coaching." },
-  { icon: Handshake, title: "Lead Generation", description: "Inbound leads from our premium web presence and marketing campaigns." },
-  { icon: Users, title: "Collaborative Culture", description: "A team-first environment where agents support each other's success." },
-];
 
 const experienceLevels = [
   "Less than 1 year",
@@ -111,11 +102,11 @@ export default function JoinPage() {
   return (
     <>
       {/* -- Hero -------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
-            Careers
+            Apply Now
           </p>
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
             Join the Tauro Team
@@ -125,50 +116,24 @@ export default function JoinPage() {
             you&apos;re driven, client-focused, and ready to elevate your career, we
             want to hear from you.
           </p>
-        </div>
-      </section>
-
-      {/* -- Why Agents Choose Tauro ------------------------------- */}
-      <section className="bg-midnight py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-              The Tauro Advantage
-            </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
-              Why Agents Choose Tauro
-            </h2>
-          </div>
-
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {benefits.map((item) => (
-              <div
-                key={item.title}
-                className="rounded-xl border border-border/40 bg-near-black p-6 transition-all hover:border-gold/30 hover:shadow-lg"
-              >
-                <div className="flex size-10 items-center justify-center rounded-lg bg-gold/10">
-                  <item.icon className="size-5 text-gold" />
-                </div>
-                <h3 className="mt-4 font-heading text-lg font-bold text-white">
-                  {item.title}
-                </h3>
-                <p className="mt-2 text-sm text-muted-foreground">
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
+          <Link
+            href="/why-join"
+            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
+          >
+            Learn why agents choose Tauro
+            <ArrowRight className="size-4" />
+          </Link>
         </div>
       </section>
 
       {/* -- Application Form -------------------------------------- */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2">
-            {/* Left — requirements info */}
+            {/* Left -- requirements info */}
             <div className="space-y-8">
               <div>
-                <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
+                <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
                   Ready to Make a Move?
                 </h2>
                 <p className="mt-4 text-muted-foreground">
@@ -180,7 +145,7 @@ export default function JoinPage() {
               </div>
 
               <div>
-                <h3 className="font-heading text-lg font-bold text-white">
+                <h3 className="font-heading text-lg font-bold text-foreground">
                   What We Look For
                 </h3>
                 <ul className="mt-4 space-y-3">
@@ -192,16 +157,33 @@ export default function JoinPage() {
                   ))}
                 </ul>
               </div>
+
+              <div className="rounded-xl border border-gold/20 bg-gold/5 p-6">
+                <p className="text-sm font-semibold text-foreground">
+                  Want to learn more before applying?
+                </p>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Explore our commission structure, technology platform, training programs,
+                  and agent-first culture.
+                </p>
+                <Link
+                  href="/why-join"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
+                >
+                  Why Join Tauro
+                  <ArrowRight className="size-4" />
+                </Link>
+              </div>
             </div>
 
-            {/* Right — application form */}
-            <div className="rounded-2xl border border-border/40 bg-midnight p-8 shadow-xl">
+            {/* Right -- application form */}
+            <div className="rounded-2xl border border-border/40 bg-cream p-8 shadow-xl">
               {state === "success" ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <div className="flex size-16 items-center justify-center rounded-full bg-gold/10">
                     <CheckCircle className="size-8 text-gold" />
                   </div>
-                  <h3 className="mt-5 font-heading text-2xl font-bold text-white">
+                  <h3 className="mt-5 font-heading text-2xl font-bold text-foreground">
                     Application Submitted!
                   </h3>
                   <p className="mt-3 max-w-sm text-muted-foreground">
@@ -219,7 +201,7 @@ export default function JoinPage() {
               ) : (
                 <form onSubmit={handleSubmit} noValidate className="space-y-5">
                   <div>
-                    <h2 className="font-heading text-2xl font-bold text-white">
+                    <h2 className="font-heading text-2xl font-bold text-foreground">
                       Apply Now
                     </h2>
                     <p className="mt-1 text-sm text-muted-foreground">
@@ -237,7 +219,7 @@ export default function JoinPage() {
                   {/* Name row */}
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-white">
+                      <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-foreground">
                         First Name <span className="text-gold">*</span>
                       </label>
                       <input
@@ -249,11 +231,11 @@ export default function JoinPage() {
                         value={form.firstName}
                         onChange={handleChange}
                         placeholder="Jane"
-                        className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                       />
                     </div>
                     <div>
-                      <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-white">
+                      <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-foreground">
                         Last Name <span className="text-gold">*</span>
                       </label>
                       <input
@@ -265,14 +247,14 @@ export default function JoinPage() {
                         value={form.lastName}
                         onChange={handleChange}
                         placeholder="Smith"
-                        className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                       />
                     </div>
                   </div>
 
                   {/* Email */}
                   <div>
-                    <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-white">
+                    <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
                       Email Address <span className="text-gold">*</span>
                     </label>
                     <input
@@ -284,13 +266,13 @@ export default function JoinPage() {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="jane@example.com"
-                      className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
 
                   {/* Phone */}
                   <div>
-                    <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-white">
+                    <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-foreground">
                       Phone Number <span className="text-gold">*</span>
                     </label>
                     <input
@@ -302,13 +284,13 @@ export default function JoinPage() {
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="(215) 555-0100"
-                      className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
 
                   {/* License Number */}
                   <div>
-                    <label htmlFor="licenseNumber" className="mb-1.5 block text-sm font-medium text-white">
+                    <label htmlFor="licenseNumber" className="mb-1.5 block text-sm font-medium text-foreground">
                       PA License Number <span className="text-gold">*</span>
                     </label>
                     <input
@@ -319,13 +301,13 @@ export default function JoinPage() {
                       value={form.licenseNumber}
                       onChange={handleChange}
                       placeholder="RS-XXXXXX"
-                      className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
 
                   {/* Years of Experience */}
                   <div>
-                    <label htmlFor="yearsExperience" className="mb-1.5 block text-sm font-medium text-white">
+                    <label htmlFor="yearsExperience" className="mb-1.5 block text-sm font-medium text-foreground">
                       Years of Experience <span className="text-gold">*</span>
                     </label>
                     <select
@@ -334,11 +316,11 @@ export default function JoinPage() {
                       required
                       value={form.yearsExperience}
                       onChange={handleChange}
-                      className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     >
                       <option value="">Select experience level</option>
                       {experienceLevels.map((level) => (
-                        <option key={level} value={level} className="bg-near-black">
+                        <option key={level} value={level} className="bg-white">
                           {level}
                         </option>
                       ))}
@@ -347,7 +329,7 @@ export default function JoinPage() {
 
                   {/* Current Brokerage */}
                   <div>
-                    <label htmlFor="currentBrokerage" className="mb-1.5 block text-sm font-medium text-white">
+                    <label htmlFor="currentBrokerage" className="mb-1.5 block text-sm font-medium text-foreground">
                       Current Brokerage
                     </label>
                     <input
@@ -357,13 +339,13 @@ export default function JoinPage() {
                       value={form.currentBrokerage}
                       onChange={handleChange}
                       placeholder="e.g., Keller Williams"
-                      className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
 
                   {/* Why Join */}
                   <div>
-                    <label htmlFor="whyJoin" className="mb-1.5 block text-sm font-medium text-white">
+                    <label htmlFor="whyJoin" className="mb-1.5 block text-sm font-medium text-foreground">
                       Why do you want to join Tauro?
                     </label>
                     <textarea
@@ -373,13 +355,13 @@ export default function JoinPage() {
                       value={form.whyJoin}
                       onChange={handleChange}
                       placeholder="Tell us about your goals and what excites you about Tauro..."
-                      className="w-full resize-none rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
 
                   {/* Additional Notes */}
                   <div>
-                    <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-white">
+                    <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
                       Additional Notes
                     </label>
                     <textarea
@@ -389,7 +371,7 @@ export default function JoinPage() {
                       value={form.message}
                       onChange={handleChange}
                       placeholder="Link to your resume, portfolio, or anything else you'd like to share..."
-                      className="w-full resize-none rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
 
