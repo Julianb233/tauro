@@ -16,6 +16,7 @@ import {
   Check,
   Play,
   View,
+  FileDown,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -115,12 +116,22 @@ export default function PropertyDetailClient({
               </span>
             </div>
           </div>
-          <a
-            href="#schedule"
-            className="rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
-          >
-            Schedule a Showing
-          </a>
+          <div className="flex items-center gap-3">
+            <Link
+              href={`/properties/${property.slug}/brochure`}
+              target="_blank"
+              className="inline-flex items-center gap-2 rounded-lg border border-gold px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-near-black"
+            >
+              <FileDown className="h-4 w-4" />
+              <span className="hidden sm:inline">Download</span> Brochure
+            </Link>
+            <a
+              href="#schedule"
+              className="rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
+            >
+              Schedule a Showing
+            </a>
+          </div>
         </div>
       </div>
 
