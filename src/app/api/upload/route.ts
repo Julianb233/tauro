@@ -8,6 +8,17 @@ type Bucket = (typeof ALLOWED_BUCKETS)[number];
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
 
 export async function POST(request: NextRequest) {
+  // Validate API key
+  const apiKey = request.headers.get("x-api-key");
+  const expectedKey = process.env.UPLOAD_API_KEY;
+
+  if (!expectedKey || apiKey !== expectedKey) {
+    return NextResponse.json(
+      { error: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+
   let formData: FormData;
 
   try {
