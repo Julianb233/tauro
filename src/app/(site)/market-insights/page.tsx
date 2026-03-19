@@ -14,8 +14,11 @@ import {
 } from "lucide-react";
 
 import { monthlyTrend, neighborhoods, summaryStats } from "@/data/market-data";
-import { LineChart } from "@/components/charts/LineChart";
-import { BarChart } from "@/components/charts/BarChart";
+import {
+  PriceTrendChart,
+  NeighborhoodPriceChart,
+  NeighborhoodDomChart,
+} from "./MarketCharts";
 
 export const metadata: Metadata = {
   title: "Philadelphia Market Insights | Tauro Realty",
@@ -186,11 +189,7 @@ export default function MarketInsightsPage() {
           </div>
 
           <div className="mt-12 rounded-xl border border-border/40 bg-cream p-6 sm:p-8">
-            <LineChart
-              data={priceTrendData}
-              formatValue={(v) => `$${(v / 1000).toFixed(0)}K`}
-              height={360}
-            />
+            <PriceTrendChart data={priceTrendData} />
           </div>
         </div>
       </section>
@@ -208,10 +207,7 @@ export default function MarketInsightsPage() {
           </div>
 
           <div className="mt-12 rounded-xl border border-border/40 bg-white p-6 sm:p-8">
-            <BarChart
-              data={neighborhoodPriceData}
-              formatValue={(v) => `$${(v / 1000).toFixed(0)}K`}
-            />
+            <NeighborhoodPriceChart data={neighborhoodPriceData} />
           </div>
         </div>
       </section>
@@ -232,11 +228,7 @@ export default function MarketInsightsPage() {
           </div>
 
           <div className="mt-12 rounded-xl border border-border/40 bg-cream p-6 sm:p-8">
-            <BarChart
-              data={neighborhoodDomData}
-              formatValue={(v) => `${v} days`}
-              color="#1A1A2E"
-            />
+            <NeighborhoodDomChart data={neighborhoodDomData} />
           </div>
         </div>
       </section>
