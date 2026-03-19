@@ -32,10 +32,10 @@ export default function HomepageCTAs() {
               </p>
               <Link
                 href="/properties"
-                className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
+                className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:gap-3"
               >
                 Browse Properties
-                <ArrowRight className="size-4" />
+                <ArrowRight className="size-4 transition-transform duration-300" strokeWidth={1.5} />
               </Link>
             </div>
           </div>
@@ -65,10 +65,10 @@ export default function HomepageCTAs() {
               </p>
               <Link
                 href="/sell"
-                className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
+                className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg border-2 border-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-gold transition-all duration-300 hover:bg-gold hover:text-near-black hover:gap-3"
               >
                 Get a Free Valuation
-                <ArrowRight className="size-4" />
+                <ArrowRight className="size-4 transition-transform duration-300" strokeWidth={1.5} />
               </Link>
             </div>
           </div>

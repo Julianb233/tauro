@@ -60,7 +60,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-gold",
+                    "rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold",
                     scrolled ? "text-foreground/70" : "text-white/80"
                   )}
                 >
@@ -75,7 +75,7 @@ export function Navbar() {
             <a
               href="tel:+12155550100"
               className={cn(
-                "flex items-center gap-1.5 text-sm transition-colors hover:text-gold",
+                "flex items-center gap-1.5 text-sm transition-all duration-300 hover:text-gold",
                 scrolled ? "text-muted-foreground" : "text-white/70"
               )}
             >
@@ -85,7 +85,7 @@ export function Navbar() {
             <Link
               href="/contact"
               className={cn(
-                "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-colors",
+                "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-all duration-300",
                 scrolled
                   ? "bg-foreground text-white hover:bg-gold hover:text-white"
                   : "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"

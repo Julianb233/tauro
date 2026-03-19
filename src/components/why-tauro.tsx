@@ -1,27 +1,27 @@
-import { Home, TrendingUp, Users, Shield } from "lucide-react";
+import { Building2, LineChart, HeartHandshake, Award } from "lucide-react";
 import { TiltCard } from "@/components/ui/tilt-card";
 
 const whyTauro = [
   {
-    icon: Home,
+    icon: Building2,
     title: "Curated Portfolio",
     description:
       "We don't list everything — we list the right things. Every property is vetted for quality, value, and investment potential.",
   },
   {
-    icon: TrendingUp,
+    icon: LineChart,
     title: "Market Intelligence",
     description:
       "Hyperlocal data across 15 Philadelphia neighborhoods. We know pricing trends before they hit the market.",
   },
   {
-    icon: Users,
+    icon: HeartHandshake,
     title: "Concierge Service",
     description:
       "Dedicated agents who know your name, your goals, and your timeline. Not a call center — a partnership.",
   },
   {
-    icon: Shield,
+    icon: Award,
     title: "Proven Results",
     description:
       "98% client satisfaction, $2.1B in total volume, and a reputation built on delivering what we promise.",
@@ -49,8 +49,8 @@ export default function WhyTauro() {
           {whyTauro.map((item) => (
             <TiltCard key={item.title} maxTilt={6}>
               <div className="group glass-card rounded-xl p-6">
-                <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
-                  <item.icon className="size-6 text-gold" />
+                <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10 transition-all duration-300 group-hover:bg-gold/20 group-hover:scale-110">
+                  <item.icon className="size-6 text-gold transition-transform duration-300 group-hover:scale-105" strokeWidth={1.5} />
                 </div>
                 <h3 className="mt-4 font-heading text-lg font-bold text-white">
                   {item.title}

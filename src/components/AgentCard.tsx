@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { Agent } from "@/data/agents";
 
 export default function AgentCard({ agent }: { agent: Agent }) {
@@ -27,7 +27,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
             {agent.fullName}
           </h3>
           <div className="my-2 h-px w-12 bg-gold/60" />
-          <p className="font-label text-sm uppercase tracking-wider text-gold">
+          <p className="font-label text-xs uppercase tracking-[0.2em] text-gold">
             {agent.title}
           </p>
         </div>
@@ -71,9 +71,9 @@ export default function AgentCard({ agent }: { agent: Agent }) {
             </div>
 
             {/* View Profile CTA */}
-            <div className="mt-4 flex items-center justify-end gap-1 text-sm font-medium text-gold">
+            <div className="mt-4 flex items-center justify-end gap-1.5 font-label text-xs font-medium uppercase tracking-wider text-gold transition-all duration-300 group-hover:gap-2">
               View Profile
-              <ArrowRight className="size-4" />
+              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={1.5} />
             </div>
           </div>
         </div>

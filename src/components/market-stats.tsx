@@ -39,7 +39,7 @@ export function MarketStats({
               key={key}
               className="glass-stat rounded-xl p-6 text-center"
             >
-              <Icon className="mx-auto size-6 text-muted-foreground" />
+              <Icon className="mx-auto size-6 text-gold/70" strokeWidth={1.5} />
               <p className="mt-3 font-heading text-2xl font-bold text-gold">
                 {stats[key]}
               </p>

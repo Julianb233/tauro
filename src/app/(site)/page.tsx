@@ -19,9 +19,12 @@ export default function HomePage() {
       <Hero />
       <StatsBar />
       <FeaturedProperties />
+      <div className="gold-divider mx-auto max-w-7xl" />
       <NeighborhoodShowcase />
       <WhyTauro />
+      <div className="gold-divider mx-auto max-w-7xl" />
       <Testimonials />
+      <div className="gold-divider mx-auto max-w-7xl" />
       <HomepageCTAs />
     </>
   );
