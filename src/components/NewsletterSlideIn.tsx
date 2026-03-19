@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { X, Mail } from "lucide-react";
 import { NewsletterForm } from "@/components/NewsletterForm";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 const STORAGE_KEY = "tauro-newsletter-dismissed";
 const DELAY_MS = 30_000; // 30 seconds
@@ -39,16 +40,22 @@ export function NewsletterSlideIn() {
     }
   }
 
+  const focusTrapRef = useFocusTrap(visible, {
+    onEscape: handleDismiss,
+  });
+
   if (dismissed && !visible) return null;
 
   return (
     <div
+      ref={focusTrapRef}
       className={`fixed bottom-4 right-4 z-50 w-full max-w-sm transform transition-all duration-500 ease-out sm:bottom-6 sm:right-6 ${
         visible
           ? "translate-y-0 opacity-100"
           : "translate-y-8 opacity-0 pointer-events-none"
       }`}
       role="dialog"
+      aria-modal="true"
       aria-label="Newsletter signup"
     >
       <div className="relative overflow-hidden rounded-xl border border-gold/30 bg-midnight shadow-2xl shadow-gold/10">

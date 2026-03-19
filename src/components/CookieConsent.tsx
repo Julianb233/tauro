@@ -9,6 +9,7 @@ import {
   setCookieConsent,
   type CookiePreferences,
 } from "@/lib/cookie-consent";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -24,6 +25,13 @@ export function CookieConsent() {
       return () => clearTimeout(timer);
     }
   }, []);
+
+  const focusTrapRef = useFocusTrap(visible, {
+    onEscape: () => {
+      rejectNonEssential();
+      setVisible(false);
+    },
+  });
 
   if (!visible) return null;
 
@@ -50,7 +58,9 @@ export function CookieConsent() {
 
   return (
     <div
+      ref={focusTrapRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Cookie consent"
       className="fixed inset-x-0 bottom-0 z-[9998] p-4 sm:p-6"
     >

@@ -2,8 +2,11 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { Calendar, Clock, Download, X, ChevronDown } from "lucide-react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Calendar, Clock, Download, X } from "lucide-react";
 import { Property } from "@/data/properties";
 import { siteUrl } from "@/lib/site-config";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 /* ------------------------------------------------------------------ */
 /*  .ics file generator                                                */
@@ -122,6 +125,11 @@ function RsvpModal({
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const focusTrapRef = useFocusTrap(true, {
+    onEscape: onClose,
+    initialFocusRef: nameInputRef,
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -159,7 +167,13 @@ function RsvpModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-      <div className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl">
+      <div
+        ref={focusTrapRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="RSVP for Open House"
+        className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl"
+      >
         <button
           onClick={onClose}
           className="absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -192,6 +206,7 @@ function RsvpModal({
             </p>
             <form className="mt-5 space-y-3" onSubmit={handleSubmit}>
               <input
+                ref={nameInputRef}
                 type="text"
                 placeholder="Full Name"
                 required
