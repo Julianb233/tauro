@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Calendar, Video } from "lucide-react";
 import { Property, formatPrice } from "@/data/properties";
 import { cn } from "@/lib/utils";
 
@@ -32,9 +33,17 @@ export default function PropertyCard({ property }: { property: Property }) {
         >
           {property.status}
         </span>
-        <span className="absolute right-3 bottom-3 glass rounded-md px-2 py-1 text-xs text-white">
-          {property.images.length} photos
-        </span>
+        <div className="absolute right-3 bottom-3 flex items-center gap-1.5">
+          {property.videoTourUrl && (
+            <span className="flex items-center gap-1 rounded-md bg-gold/90 px-2 py-1 text-xs font-semibold text-near-black backdrop-blur-sm">
+              <Video className="h-3 w-3" />
+              Video Tour
+            </span>
+          )}
+          <span className="glass rounded-md px-2 py-1 text-xs text-white">
+            {property.images.length} photos
+          </span>
+        </div>
       </div>
       <div className="p-3 sm:p-4">
         <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
@@ -49,10 +58,13 @@ export default function PropertyCard({ property }: { property: Property }) {
         <p className="truncate text-sm text-muted-foreground">
           {property.city}, {property.state} {property.zip}
         </p>
-        {property.openHouse && (
-          <p className="mt-2 text-xs font-semibold text-gold">
-            Open House: {property.openHouse}
-          </p>
+        {property.openHouseEvent && (
+          <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-gold/30 bg-gold/10 px-2 py-1">
+            <Calendar className="h-3 w-3 text-gold" />
+            <span className="text-xs font-semibold text-gold-dark">
+              Open House: {property.openHouse}
+            </span>
+          </div>
         )}
       </div>
     </Link>
