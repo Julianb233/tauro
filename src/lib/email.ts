@@ -15,10 +15,6 @@ import {
   renderDailyDigest,
   type DailyDigestProps,
 } from "@/emails/daily-digest";
-<<<<<<< HEAD
-=======
-
->>>>>>> feat/12-03-daily-digest-cron
 
 // ---------------------------------------------------------------------------
 // Resend client — lazily initialized, gracefully degrades if no API key
@@ -124,7 +120,6 @@ export async function sendApplicationConfirmation(
   }
 }
 
-<<<<<<< HEAD
 // ---------------------------------------------------------------------------
 // sendDailyDigest — admin receives daily lead summary
 // ---------------------------------------------------------------------------
@@ -132,16 +127,6 @@ export async function sendApplicationConfirmation(
 export type DailyDigestData = DailyDigestProps;
 
 export async function sendDailyDigest(data: DailyDigestData): Promise<EmailResult> {
-=======
-
-// ---------------------------------------------------------------------------
-// sendDailyDigest — admin morning summary of overnight lead activity
-// ---------------------------------------------------------------------------
-
-export async function sendDailyDigest(
-  data: DailyDigestProps,
-): Promise<EmailResult> {
->>>>>>> feat/12-03-daily-digest-cron
   const client = getResend();
   if (!client) return { success: false, error: "Email client not configured" };
 
@@ -150,11 +135,7 @@ export async function sendDailyDigest(
     await client.emails.send({
       from: EMAIL_FROM,
       to: ADMIN_EMAIL,
-<<<<<<< HEAD
       subject: `Daily Lead Digest - ${data.date} (${data.totalLeads} leads)`,
-=======
-      subject: \`Tauro Daily Digest - \${data.date}\`,
->>>>>>> feat/12-03-daily-digest-cron
       html,
     });
     return { success: true };

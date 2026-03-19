@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
-// Email helpers — loaded at top level, but each function returns gracefully
-// when RESEND_API_KEY is not configured (no crash).
 import { sendLeadConfirmation, sendAgentNotification, sendApplicationConfirmation } from "@/lib/email";
 import { verifyTurnstileToken } from "@/lib/turnstile";
 import { sanitize } from "@/lib/sanitize";
 import { getClientIp } from "@/lib/rate-limit";
 import { createGhlContact } from "@/lib/ghl";
-
 
 // ---------------------------------------------------------------------------
 // Validation
@@ -21,26 +18,22 @@ const LeadCreateSchema = z.object({
   email: z.string().email(),
   phone: z.string().min(1),
   message: z.string().optional(),
-  // Showing-specific
   propertyAddress: z.string().optional(),
   propertyId: z.string().optional(),
   propertySlug: z.string().optional(),
   preferredDate: z.string().optional(),
   preferredTime: z.string().optional(),
   agentPreference: z.string().optional(),
-  // Seller-specific
   homeAddress: z.string().optional(),
   beds: z.string().optional(),
   baths: z.string().optional(),
   sqft: z.string().optional(),
   timeline: z.string().optional(),
   reason: z.string().optional(),
-  // Agent application-specific
   licenseNumber: z.string().optional(),
   yearsExperience: z.string().optional(),
   currentBrokerage: z.string().optional(),
   whyJoin: z.string().optional(),
-  // Agent contact-specific
   agentName: z.string().optional(),
   agentSlug: z.string().optional(),
   captchaToken: z.string().optional(),
@@ -49,7 +42,7 @@ const LeadCreateSchema = z.object({
 export type LeadPayload = z.infer<typeof LeadCreateSchema>;
 
 // ---------------------------------------------------------------------------
-// POST  /api/leads  — persist to DB, then forward to GHL
+// POST /api/leads
 // ---------------------------------------------------------------------------
 
 export async function POST(request: NextRequest) {
@@ -62,7 +55,6 @@ export async function POST(request: NextRequest) {
 
   // Honeypot check - bots fill this hidden field, humans never see it
   if (body && typeof body === "object" && "website" in body && body.website) {
-    // Return 200 to avoid tipping off the bot, but don't process
     return NextResponse.json({ success: true });
   }
 
@@ -104,7 +96,6 @@ export async function POST(request: NextRequest) {
   let agentId: string | null = null;
 
   if (supabase) {
-    // Resolve optional property_id and agent_id from slugs or IDs
     let propertyId: string | null = data.propertyId ?? null;
 
     if (!propertyId && data.propertySlug) {
@@ -125,7 +116,6 @@ export async function POST(request: NextRequest) {
       if (agent) agentId = agent.id;
     }
 
-    // Build metadata from extra fields
     const metadata: Record<string, unknown> = {};
     if (data.propertyAddress) metadata.propertyAddress = data.propertyAddress;
     if (data.preferredDate) metadata.preferredDate = data.preferredDate;
@@ -159,7 +149,6 @@ export async function POST(request: NextRequest) {
 
     if (dbError) {
       console.error("POST /api/leads DB insert error:", dbError);
-      // Don't return 500 — fall through to GHL webhook so the lead isn't lost
     } else {
       dbSaved = true;
     }
@@ -172,7 +161,6 @@ export async function POST(request: NextRequest) {
   // ---------------------------------------------------------------------------
 
   try {
-    // 2a. Visitor confirmation email (all lead types except agent-application)
     if (data.type !== "agent-application") {
       sendLeadConfirmation(data.email, {
         firstName: data.firstName,
@@ -181,7 +169,6 @@ export async function POST(request: NextRequest) {
       }).catch((err) => console.error("Lead confirmation email failed:", err));
     }
 
-    // 2b. Agent-application gets application confirmation instead
     if (data.type === "agent-application") {
       sendApplicationConfirmation(data.email, {
         firstName: data.firstName,
@@ -189,7 +176,6 @@ export async function POST(request: NextRequest) {
       }).catch((err) => console.error("Application confirmation email failed:", err));
     }
 
-    // 2c. Agent notification (or admin fallback)
     if (data.type !== "agent-application") {
       let notifyEmail: string | null = null;
 
@@ -216,20 +202,19 @@ export async function POST(request: NextRequest) {
       }).catch((err) => console.error("Agent notification email failed:", err));
     }
   } catch (emailErr) {
-    // Email sending is best-effort; never let it crash the lead submission
     console.error("POST /api/leads email section error:", emailErr);
   }
 
   // ---------------------------------------------------------------------------
-  // 3. Forward to GHL (best effort — uses ghl.ts module)
+  // 3. Forward to GHL (best effort — uses dedicated GHL client module)
   // ---------------------------------------------------------------------------
   const ghlResult = await createGhlContact(data);
   const ghlSynced = ghlResult.success;
+
   if (!ghlSynced && ghlResult.error) {
     console.error("GHL sync failed:", ghlResult.error);
   }
 
-  // Update ghl_synced flag in DB if sync succeeded
   if (ghlSynced && supabase && dbSaved) {
     await supabase
       .from("leads")
@@ -243,8 +228,7 @@ export async function POST(request: NextRequest) {
   // ---------------------------------------------------------------------------
   // 4. Fallback: if neither DB nor GHL is configured, log lead to console
   // ---------------------------------------------------------------------------
-  const hasGhl = !!(process.env.GHL_WEBHOOK_URL || process.env.GHL_API_KEY);
-  if (!supabase && !hasGhl) {
+  if (!supabase && !ghlSynced) {
     console.log("POST /api/leads [NO BACKEND] — lead data:", JSON.stringify(data, null, 2));
   }
 
@@ -255,7 +239,7 @@ export async function POST(request: NextRequest) {
 }
 
 // ---------------------------------------------------------------------------
-// GET  /api/leads  — paginated lead list (for dashboard)
+// GET /api/leads — paginated lead list (for dashboard)
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {

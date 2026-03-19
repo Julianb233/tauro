@@ -11,3 +11,304 @@
 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
   Creating an optimized production build ...
 [@sentry/nextjs] DEPRECATION WARNING: disableLogger is deprecated and will be removed in a future version. Use webpack.treeshake.removeDebugLogging instead. (Not supported with Turbopack.)
+
+> Build error occurred
+Error: Turbopack build failed with 19 errors:
+./src/app/dashboard/agents/page.tsx:1:1
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [32m"use client"[39m[33m;[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [36mimport[39m { useEffect[33m,[39m useState[33m,[39m useCallback } [36mfrom[39m [32m"react"[39m[33m;[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/agents/page.tsx:154:1
+Parsing ecmascript source code failed
+[0m [90m 152 |[39m     [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m 153 |[39m   )[33m;[39m
+[31m[1m>[22m[39m[90m 154 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 155 |[39m [36mimport[39m { getUserProfile } [36mfrom[39m [32m"@/lib/supabase/auth"[39m[33m;[39m
+ [90m 156 |[39m [36mimport[39m { [33mShieldAlert[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 157 |[39m [36mimport[39m { [33mAgentManager[39m } [36mfrom[39m [32m"./agent-manager"[39m[33m;[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/calendar/page.tsx:1:1
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mCalendarPage[39m() {
+ [90m 3 |[39m   [36mreturn[39m (
+ [90m 4 |[39m     [33m<[39m[33mdiv[39m className[33m=[39m[32m"p-8"[39m[33m>[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/leads/page.tsx:1:1
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mexport[39m [36mdefault[39m [36mfunction[39m [33mLeadsPage[39m() {
+ [90m 3 |[39m   [36mreturn[39m (
+ [90m 4 |[39m     [33m<[39m[33mdiv[39m className[33m=[39m[32m"p-8"[39m[33m>[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/properties/page.tsx:2:1
+Parsing ecmascript source code failed
+[0m [90m 1 |[39m [32m"use client"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 2 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 3 |[39m
+ [90m 4 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m 5 |[39m [33m>>>[39m[33m>>>[39m[33m>[39m ec3b170ac8f5b5854911b6b708818774fcbffb44[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/properties/page.tsx:4:1
+Parsing ecmascript source code failed
+[0m [90m 2 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m 3 |[39m
+[31m[1m>[22m[39m[90m 4 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m [33m>>>[39m[33m>>>[39m[33m>[39m ec3b170ac8f5b5854911b6b708818774fcbffb44
+ [90m 6 |[39m [36mimport[39m { useEffect[33m,[39m useState[33m,[39m useCallback } [36mfrom[39m [32m"react"[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m { [33mPlus[39m[33m,[39m [33mPencil[39m[33m,[39m [33mTrash2[39m[33m,[39m [33mX[39m[33m,[39m [33mUpload[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/properties/page.tsx:5:1
+Parsing ecmascript source code failed
+[0m [90m 3 |[39m
+ [90m 4 |[39m [33m===[39m[33m===[39m[33m=[39m
+[31m[1m>[22m[39m[90m 5 |[39m [33m>>>[39m[33m>>>[39m[33m>[39m ec3b170ac8f5b5854911b6b708818774fcbffb44
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 6 |[39m [36mimport[39m { useEffect[33m,[39m useState[33m,[39m useCallback } [36mfrom[39m [32m"react"[39m[33m;[39m
+ [90m 7 |[39m [36mimport[39m { [33mPlus[39m[33m,[39m [33mPencil[39m[33m,[39m [33mTrash2[39m[33m,[39m [33mX[39m[33m,[39m [33mUpload[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 8 |[39m [36mimport[39m { cn } [36mfrom[39m [32m"@/lib/utils"[39m[33m;[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/properties/page.tsx:10:1
+Parsing ecmascript source code failed
+[0m [90m  8 |[39m [36mimport[39m { cn } [36mfrom[39m [32m"@/lib/utils"[39m[33m;[39m
+ [90m  9 |[39m [36mimport[39m type { [33mPropertyRow[39m } [36mfrom[39m [32m"@/types/database"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 10 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 11 |[39m
+ [90m 12 |[39m [36mconst[39m propertyStatuses [33m=[39m [[32m"Active"[39m[33m,[39m [32m"Pending"[39m[33m,[39m [32m"Sold"[39m[33m,[39m [32m"Open House"[39m[33m,[39m [32m"New"[39m][33m;[39m
+ [90m 13 |[39m [36mconst[39m propertyTypes [33m=[39m [[32m"Single Family"[39m[33m,[39m [32m"Condo"[39m[33m,[39m [32m"Townhouse"[39m[33m,[39m [32m"Multi-Family"[39m[33m,[39m [32m"Land"[39m][33m;[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/properties/page.tsx:216:1
+Parsing ecmascript source code failed
+[0m [90m 214 |[39m   [36mreturn[39m ([33m<[39m[33mdiv[39m[33m>[39m[33m<[39m[33mlabel[39m className[33m=[39m[32m"mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40"[39m[33m>[39m{label}[33m<[39m[33m/[39m[33mlabel[39m[33m>[39m[33m<[39m[33mselect[39m value[33m=[39m{value} onChange[33m=[39m{(e) [33m=>[39m onChange(e[33m.[39mtarget[33m.[39mvalue)} className[33m=[39m[32m"w-full rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50"[39m[33m>[39m{options[33m.[39mmap((o) [33m=>[39m ([33m<[39m[33moption[39m key[33m=[39m{o} value[33m=[39m{o}[33m>[39m{o}[33m<[39m[33m/[39m[33moption[39m[33m>[39m))}[33m<[39m[33m/[39m[33mselect[39m[33m>[39m[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m)[33m;[39m
+ [90m 215 |[39m }
+[31m[1m>[22m[39m[90m 216 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 217 |[39m [36mconst[39m [33mPS[39m [33m=[39m [[32m"Active"[39m[33m,[39m[32m"Pending"[39m[33m,[39m[32m"Sold"[39m[33m,[39m[32m"Open House"[39m[33m,[39m[32m"New"[39m][33m;[39m
+ [90m 218 |[39m [36mconst[39m [33mPT[39m [33m=[39m [[32m"Single Family"[39m[33m,[39m[32m"Condo"[39m[33m,[39m[32m"Townhouse"[39m[33m,[39m[32m"Multi-Family"[39m[33m,[39m[32m"Land"[39m][33m;[39m
+ [90m 219 |[39m [36mconst[39m [33mSC[39m[33m:[39m [33mRecord[39m[33m<[39m[33mstring[39m[33m,[39mstring[33m>[39m [33m=[39m {[33mActive[39m[33m:[39m[32m"bg-emerald-500/20 text-emerald-400"[39m[33m,[39m[33mPending[39m[33m:[39m[32m"bg-yellow-500/20 text-yellow-400"[39m[33m,[39m[33mSold[39m[33m:[39m[32m"bg-white/10 text-white/50"[39m[33m,[39m[32m"Open House"[39m[33m:[39m[32m"bg-purple-500/20 text-purple-400"[39m[33m,[39m[33mNew[39m[33m:[39m[32m"bg-blue-500/20 text-blue-400"[39m}[33m;[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/app/dashboard/properties/page.tsx:245:1
+Parsing ecmascript source code failed
+[0m [90m 243 |[39m [36mfunction[39m [33mFI[39m({l[33m,[39mv[33m,[39mo[33m,[39mt[33m=[39m[32m"text"[39m}[33m:[39m{l[33m:[39mstring[33m;[39mv[33m:[39mstring[33m;[39mo[33m:[39m(v[33m:[39mstring)[33m=>[39m[36mvoid[39m[33m;[39mt[33m?[39m[33m:[39mstring}){[36mreturn[39m([33m<[39m[33mdiv[39m[33m>[39m[33m<[39m[33mlabel[39m className[33m=[39m[32m"mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40"[39m[33m>[39m{l}[33m<[39m[33m/[39m[33mlabel[39m[33m>[39m[33m<[39m[33minput[39m type[33m=[39m{t} value[33m=[39m{v} onChange[33m=[39m{e[33m=>[39mo(e[33m.[39mtarget[33m.[39mvalue)} className[33m=[39m[32m"w-full rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50"[39m[33m/[39m[33m>[39m[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m)[33m;[39m}
+ [90m 244 |[39m [36mfunction[39m [33mFS[39m({l[33m,[39mv[33m,[39mopts[33m,[39mo}[33m:[39m{l[33m:[39mstring[33m;[39mv[33m:[39mstring[33m;[39mopts[33m:[39mstring[][33m;[39mo[33m:[39m(v[33m:[39mstring)[33m=>[39m[36mvoid[39m}){[36mreturn[39m([33m<[39m[33mdiv[39m[33m>[39m[33m<[39m[33mlabel[39m className[33m=[39m[32m"mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40"[39m[33m>[39m{l}[33m<[39m[33m/[39m[33mlabel[39m[33m>[39m[33m<[39m[33mselect[39m value[33m=[39m{v} onChange[33m=[39m{e[33m=>[39mo(e[33m.[39mtarget[33m.[39mvalue)} className[33m=[39m[32m"w-full rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50"[39m[33m>[39m{opts[33m.[39mmap(x[33m=>[39m([33m<[39m[33moption[39m key[33m=[39m{x} value[33m=[39m{x}[33m>[39m{x}[33m<[39m[33m/[39m[33moption[39m[33m>[39m))}[33m<[39m[33m/[39m[33mselect[39m[33m>[39m[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m)[33m;[39m}
+[31m[1m>[22m[39m[90m 245 |[39m [33m>>>[39m[33m>>>[39m[33m>[39m ec3b170ac8f5b5854911b6b708818774fcbffb44
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 246 |[39m[0m
+
+Merge conflict marker encountered.
+
+
+./src/components/dashboard/dashboard-shell.tsx:1:1
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mexport[39m [36mfunction[39m [33mDashboardShell[39m({ children }[33m:[39m { children[33m:[39m [33mReact[39m[33m.[39m[33mReactNode[39m }) {
+ [90m 3 |[39m   [36mreturn[39m [33m<[39m[33mdiv[39m className[33m=[39m[32m"min-h-screen bg-background"[39m[33m>[39m{children}[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[33m;[39m
+ [90m 4 |[39m [33m===[39m[33m===[39m[33m=[39m[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  Server Component:
+    ./src/components/dashboard/dashboard-shell.tsx
+    ./src/app/dashboard/layout.tsx
+
+
+./src/components/dashboard/dashboard-shell.tsx:4:1
+Parsing ecmascript source code failed
+[0m [90m 2 |[39m [36mexport[39m [36mfunction[39m [33mDashboardShell[39m({ children }[33m:[39m { children[33m:[39m [33mReact[39m[33m.[39m[33mReactNode[39m }) {
+ [90m 3 |[39m   [36mreturn[39m [33m<[39m[33mdiv[39m className[33m=[39m[32m"min-h-screen bg-background"[39m[33m>[39m{children}[33m<[39m[33m/[39m[33mdiv[39m[33m>[39m[33m;[39m
+[31m[1m>[22m[39m[90m 4 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 5 |[39m [32m"use client"[39m[33m;[39m
+ [90m 6 |[39m
+ [90m 7 |[39m [36mimport[39m { useState } [36mfrom[39m [32m"react"[39m[33m;[39m[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  Server Component:
+    ./src/components/dashboard/dashboard-shell.tsx
+    ./src/app/dashboard/layout.tsx
+
+
+./src/components/dashboard/stat-card.tsx:1:1
+Parsing ecmascript source code failed
+[0m[31m[1m>[22m[39m[90m 1 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m   |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 2 |[39m [36mexport[39m [36mfunction[39m [33mStatCard[39m({ label[33m,[39m value }[33m:[39m { label[33m:[39m string[33m;[39m value[33m:[39m string [33m|[39m number }) {
+ [90m 3 |[39m   [36mreturn[39m (
+ [90m 4 |[39m     [33m<[39m[33mdiv[39m className[33m=[39m[32m"rounded-xl border border-border/40 bg-card p-6"[39m[33m>[39m[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  Server Component:
+    ./src/components/dashboard/stat-card.tsx
+    ./src/app/dashboard/page.tsx
+
+
+./src/components/dashboard/stat-card.tsx:9:1
+Parsing ecmascript source code failed
+[0m [90m  7 |[39m     [33m<[39m[33m/[39m[33mdiv[39m[33m>[39m
+ [90m  8 |[39m   )[33m;[39m
+[31m[1m>[22m[39m[90m  9 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 10 |[39m [36mimport[39m [33mLink[39m [36mfrom[39m [32m"next/link"[39m[33m;[39m
+ [90m 11 |[39m [36mimport[39m type { [33mLucideIcon[39m } [36mfrom[39m [32m"lucide-react"[39m[33m;[39m
+ [90m 12 |[39m [36mimport[39m { cn } [36mfrom[39m [32m"@/lib/utils"[39m[33m;[39m[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  Server Component:
+    ./src/components/dashboard/stat-card.tsx
+    ./src/app/dashboard/page.tsx
+
+
+./src/lib/email.ts:18:1
+Parsing ecmascript source code failed
+[0m [90m 16 |[39m   type [33mDailyDigestProps[39m[33m,[39m
+ [90m 17 |[39m } [36mfrom[39m [32m"@/emails/daily-digest"[39m[33m;[39m
+[31m[1m>[22m[39m[90m 18 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 19 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m 20 |[39m
+ [90m 21 |[39m [33m>>>[39m[33m>>>[39m[33m>[39m feat[33m/[39m[35m12[39m[33m-[39m[35m03[39m[33m-[39mdaily[33m-[39mdigest[33m-[39mcron[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  App Route:
+    ./src/lib/email.ts
+    ./src/app/api/cron/daily-digest/route.ts
+
+
+./src/lib/email.ts:19:1
+Parsing ecmascript source code failed
+[0m [90m 17 |[39m } [36mfrom[39m [32m"@/emails/daily-digest"[39m[33m;[39m
+ [90m 18 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+[31m[1m>[22m[39m[90m 19 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 20 |[39m
+ [90m 21 |[39m [33m>>>[39m[33m>>>[39m[33m>[39m feat[33m/[39m[35m12[39m[33m-[39m[35m03[39m[33m-[39mdaily[33m-[39mdigest[33m-[39mcron
+ [90m 22 |[39m[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  App Route:
+    ./src/lib/email.ts
+    ./src/app/api/cron/daily-digest/route.ts
+
+
+./src/lib/email.ts:21:1
+Parsing ecmascript source code failed
+[0m [90m 19 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m 20 |[39m
+[31m[1m>[22m[39m[90m 21 |[39m [33m>>>[39m[33m>>>[39m[33m>[39m feat[33m/[39m[35m12[39m[33m-[39m[35m03[39m[33m-[39mdaily[33m-[39mdigest[33m-[39mcron
+ [90m    |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 22 |[39m
+ [90m 23 |[39m [90m// ---------------------------------------------------------------------------[39m
+ [90m 24 |[39m [90m// Resend client — lazily initialized, gracefully degrades if no API key[39m[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  App Route:
+    ./src/lib/email.ts
+    ./src/app/api/cron/daily-digest/route.ts
+
+
+./src/lib/email.ts:127:1
+Parsing ecmascript source code failed
+[0m [90m 125 |[39m }
+ [90m 126 |[39m
+[31m[1m>[22m[39m[90m 127 |[39m [33m<<[39m[33m<<[39m[33m<<[39m[33m<[39m [33mHEAD[39m
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 128 |[39m [90m// ---------------------------------------------------------------------------[39m
+ [90m 129 |[39m [90m// sendDailyDigest — admin receives daily lead summary[39m
+ [90m 130 |[39m [90m// ---------------------------------------------------------------------------[39m[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  App Route:
+    ./src/lib/email.ts
+    ./src/app/api/cron/daily-digest/route.ts
+
+
+./src/lib/email.ts:135:1
+Parsing ecmascript source code failed
+[0m [90m 133 |[39m
+ [90m 134 |[39m [36mexport[39m [36masync[39m [36mfunction[39m sendDailyDigest(data[33m:[39m [33mDailyDigestData[39m)[33m:[39m [33mPromise[39m[33m<[39m[33mEmailResult[39m[33m>[39m {
+[31m[1m>[22m[39m[90m 135 |[39m [33m===[39m[33m===[39m[33m=[39m
+ [90m     |[39m [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m
+ [90m 136 |[39m
+ [90m 137 |[39m [90m// ---------------------------------------------------------------------------[39m
+ [90m 138 |[39m [90m// sendDailyDigest — admin morning summary of overnight lead activity[39m[0m
+
+Merge conflict marker encountered.
+
+Import trace:
+  App Route:
+    ./src/lib/email.ts
+    ./src/app/api/cron/daily-digest/route.ts
+
+
+    at <unknown> (./src/app/dashboard/agents/page.tsx:1:1)
+    at <unknown> (./src/app/dashboard/agents/page.tsx:154:1)
+    at <unknown> (./src/app/dashboard/calendar/page.tsx:1:1)
+    at <unknown> (./src/app/dashboard/leads/page.tsx:1:1)
+    at <unknown> (./src/app/dashboard/properties/page.tsx:2:1)
+    at <unknown> (./src/app/dashboard/properties/page.tsx:4:1)
+    at <unknown> (./src/app/dashboard/properties/page.tsx:5:1)
+    at <unknown> (./src/app/dashboard/properties/page.tsx:10:1)
+    at <unknown> (./src/app/dashboard/properties/page.tsx:216:1)
+    at <unknown> (./src/app/dashboard/properties/page.tsx:245:1)
+    at <unknown> (./src/components/dashboard/dashboard-shell.tsx:1:1)
+    at <unknown> (./src/components/dashboard/dashboard-shell.tsx:4:1)
+    at <unknown> (./src/components/dashboard/stat-card.tsx:1:1)
+    at <unknown> (./src/components/dashboard/stat-card.tsx:9:1)
+    at <unknown> (./src/lib/email.ts:18:1)
+    at <unknown> (./src/lib/email.ts:19:1)
+    at <unknown> (./src/lib/email.ts:21:1)
+    at <unknown> (./src/lib/email.ts:127:1)
+    at <unknown> (./src/lib/email.ts:135:1)
