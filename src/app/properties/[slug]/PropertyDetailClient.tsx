@@ -387,6 +387,18 @@ export default function PropertyDetailClient({
             </div>
           </div>
         </div>
+
+        {/* MLS Disclaimer */}
+        <div className="mt-10 border-t border-border pt-6">
+          <p className="text-xs leading-relaxed text-muted-foreground">
+            Listing information deemed reliable but not guaranteed. All
+            measurements are approximate. Data sourced from Bright MLS.
+            Information is provided exclusively for consumers&apos; personal,
+            non-commercial use and may not be used for any purpose other than to
+            identify prospective properties consumers may be interested in
+            purchasing.
+          </p>
+        </div>
       </div>
     </div>
   );
