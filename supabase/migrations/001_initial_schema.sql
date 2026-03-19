@@ -123,7 +123,7 @@ COMMENT ON TABLE leads IS 'Inbound lead submissions from the website';
 CREATE TABLE testimonials (
   id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
   quote       text        NOT NULL,
-  name        text        NOT NULL,
+  name        text        UNIQUE NOT NULL,
   role        text,
   rating      smallint    DEFAULT 5,
   sort_order  smallint    DEFAULT 0,
@@ -137,7 +137,7 @@ COMMENT ON TABLE testimonials IS 'Client testimonials displayed on the website';
 -- ============================================================================
 CREATE TABLE faq (
   id          uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
-  question    text        NOT NULL,
+  question    text        UNIQUE NOT NULL,
   answer      text        NOT NULL,
   category    text        NOT NULL DEFAULT 'general',
   sort_order  smallint    DEFAULT 0,
