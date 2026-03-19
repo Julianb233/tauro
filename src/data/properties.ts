@@ -257,7 +257,6 @@ export const properties: Property[] = [
     lat: 39.951,
     lng: -75.166,
     openHouse: "Sun, Mar 23 · 11:00 AM - 2:00 PM",
-    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "5",
@@ -416,7 +415,6 @@ export const properties: Property[] = [
     },
     lat: 39.9657,
     lng: -75.1419,
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     id: "8",
@@ -473,7 +471,6 @@ export const properties: Property[] = [
     },
     lat: 39.9522,
     lng: -75.2032,
-    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "9",
@@ -587,7 +584,6 @@ export const properties: Property[] = [
     },
     lat: 40.0781,
     lng: -75.2085,
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     id: "11",
@@ -755,7 +751,6 @@ export const properties: Property[] = [
     },
     lat: 39.9867,
     lng: -75.1277,
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
   },
   {
     id: "14",
@@ -812,7 +807,6 @@ export const properties: Property[] = [
     },
     lat: 39.9507,
     lng: -75.2213,
-    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "15",
@@ -871,8 +865,6 @@ export const properties: Property[] = [
     },
     lat: 39.9487,
     lng: -75.1725,
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "16",

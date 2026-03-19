@@ -59,7 +59,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="relative flex min-h-[50vh] items-center justify-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1582407947092-50cf9c1e9944?w=1600&q=80"
+          src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=1920&q=80"
           alt="Philadelphia skyline at dusk"
           fill
           priority
