@@ -189,4 +189,69 @@
 
 ---
 
-*Last updated: 2026-03-18 · AI-3453*
+## Extended Design Tokens (from UX Research 2026-03-18)
+
+Based on analysis of Serhant, Compass, The Agency, Elliman, and Side.
+
+```css
+:root {
+  /* ── Backgrounds (expanded) ── */
+  --bg-primary:       #0A0A0F;
+  --bg-secondary:     #111118;
+  --bg-card:          #14141E;
+  --bg-elevated:      #1A1A28;
+  --bg-overlay:       rgba(10, 10, 15, 0.85);
+  --bg-hero-gradient: linear-gradient(to bottom, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.7) 60%, rgba(10,10,15,1) 100%);
+
+  /* ── Gold Scale ── */
+  --gold:             #C9A84C;
+  --gold-light:       #DABB65;
+  --gold-muted:       #8B7A3C;
+  --gold-glow:        rgba(201, 168, 76, 0.15);
+
+  /* ── Shadows (dark mode optimized) ── */
+  --shadow-sm:    0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md:    0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg:    0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-gold:  0 4px 20px rgba(201, 168, 76, 0.15);
+
+  /* ── Transitions ── */
+  --transition-fast:    0.15s ease-in-out;
+  --transition-base:    0.3s ease;
+  --transition-slow:    0.5s ease-in-out;
+  --transition-reveal:  0.6s ease-out;
+
+  /* ── Layout ── */
+  --container-max:     1310px;
+  --section-padding:   96px;  /* desktop, 48px mobile */
+}
+```
+
+### Conversion-Backed Design Decisions
+
+| Pattern | Stat | Source |
+|---------|------|--------|
+| Video hero background | +80% engagement vs static | Industry study |
+| Single CTA in hero | Prevents 266% conversion drop | Carrot A/B test |
+| 3 search fields (not 4+) | +50% completion rate | Proven Partners |
+| Gold hover scale 1.07 | SERHANT benchmark (aggressive) | serhant.com CSS |
+| Transparent → solid header | Used by 4/5 top brokerages | Research analysis |
+| 16px min mobile font | Prevents iOS auto-zoom | Apple HIG |
+
+### Screen Inventory
+
+| # | Screen | File | Status |
+|---|--------|------|--------|
+| 1 | Homepage Hero | `01-homepage-hero.html` | Complete |
+| 2 | Property Grid | `02-property-grid.html` | Complete |
+| 3 | Property Detail | `03-property-detail.html` | Complete |
+| 4 | Agent Profile | `04-agent-profile.html` | Complete |
+| 5 | Neighborhood Page | `05-area-page.html` | Complete |
+| 6 | Proposal Page | `06-proposal-page.html` | Complete |
+| 7 | Agents Team Grid | `07-agents-team.html` | Complete |
+| 8 | Contact Page | `08-contact-page.html` | Complete |
+| 9 | Mobile Homepage | `09-mobile-homepage.html` | Complete |
+
+---
+
+*Last updated: 2026-03-18 · Post UX Research Update*
