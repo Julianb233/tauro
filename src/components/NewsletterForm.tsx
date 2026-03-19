@@ -5,7 +5,14 @@ import { Mail } from "lucide-react";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-export function NewsletterForm() {
+interface NewsletterFormProps {
+  source?: string;
+  showName?: boolean;
+  showInterests?: boolean;
+  compact?: boolean;
+}
+
+export function NewsletterForm({ source: _source, showName: _showName, showInterests: _showInterests, compact: _compact }: NewsletterFormProps = {}) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");

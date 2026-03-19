@@ -393,6 +393,51 @@ export type Database = {
           },
         ];
       };
+      newsletter_subscribers: {
+        Row: {
+          id: string;
+          email: string;
+          first_name: string | null;
+          interests: string[] | null;
+          source: string | null;
+          confirmed: boolean;
+          confirmed_at: string | null;
+          confirm_token: string | null;
+          unsubscribe_token: string;
+          unsubscribed_at: string | null;
+          ghl_synced: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          email: string;
+          first_name?: string | null;
+          interests?: string[] | null;
+          source?: string | null;
+          confirmed?: boolean;
+          confirmed_at?: string | null;
+          confirm_token?: string | null;
+          unsubscribe_token?: string;
+          unsubscribed_at?: string | null;
+          ghl_synced?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          email?: string;
+          first_name?: string | null;
+          interests?: string[] | null;
+          source?: string | null;
+          confirmed?: boolean;
+          confirmed_at?: string | null;
+          confirm_token?: string | null;
+          unsubscribe_token?: string;
+          unsubscribed_at?: string | null;
+          ghl_synced?: boolean;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;

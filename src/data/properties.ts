@@ -1,3 +1,10 @@
+export interface Room {
+  name: string;
+  size?: string;
+  level?: string;
+  description?: string;
+}
+
 export interface Property {
   id: string;
   slug: string;
