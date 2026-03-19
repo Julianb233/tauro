@@ -1,205 +1,53 @@
 "use client";
-
 import { useEffect, useState, useCallback } from "react";
-import { Inbox } from "lucide-react";
-import type { LeadRow } from "@/types/database";
 import { LeadTable } from "@/components/dashboard/lead-table";
 import { LeadDetail } from "@/components/dashboard/lead-detail";
-
-const LEAD_TYPES = ["contact", "showing", "seller", "agent-application"] as const;
-const LEAD_STATUSES = ["new", "contacted", "qualified", "closed"] as const;
-
-interface AgentOption {
-  id: string;
-  full_name: string;
-}
-
+import type { LeadRow } from "@/types/database";
+const leadTypes = [{value:"",label:"All Types"},{value:"contact",label:"Contact"},{value:"showing",label:"Showing"},{value:"seller",label:"Seller"},{value:"agent-application",label:"Agent Application"},{value:"agent-contact",label:"Agent Contact"}];
+const leadStatuses = [{value:"",label:"All Statuses"},{value:"new",label:"New"},{value:"contacted",label:"Contacted"},{value:"qualified",label:"Qualified"},{value:"closed",label:"Closed"}];
+const PAGE_SIZE = 25;
 export default function LeadsPage() {
   const [leads, setLeads] = useState<LeadRow[]>([]);
-  const [agents, setAgents] = useState<AgentOption[]>([]);
+  const [agents, setAgents] = useState<{ id: string; full_name: string }[]>([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [selectedLead, setSelectedLead] = useState<LeadRow | null>(null);
-
-  // Filters
-  const [filterType, setFilterType] = useState("");
-  const [filterStatus, setFilterStatus] = useState("");
-  const [filterAgent, setFilterAgent] = useState("");
-
-  const fetchLeads = useCallback(async () => {
-    try {
-      const params = new URLSearchParams();
-      if (filterType) params.set("type", filterType);
-      if (filterStatus) params.set("status", filterStatus);
-      params.set("limit", "200");
-
-      const res = await fetch(`/api/leads?${params.toString()}`);
-      if (res.ok) {
-        const json = await res.json();
-        setLeads(json.data ?? []);
-      }
-    } catch {
-      // Silently fail
-    } finally {
-      setLoading(false);
-    }
-  }, [filterType, filterStatus]);
-
-  const fetchAgents = useCallback(async () => {
-    try {
-      const res = await fetch("/api/agents");
-      if (res.ok) {
-        const json = await res.json();
-        const list = json.data ?? json;
-        setAgents(
-          Array.isArray(list)
-            ? list.map((a: Record<string, unknown>) => ({
-                id: a.id as string,
-                full_name: a.full_name as string,
-              }))
-            : [],
-        );
-      }
-    } catch {
-      // Agents will be empty
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchLeads();
-    fetchAgents();
-  }, [fetchLeads, fetchAgents]);
-
-  // Refilter on type/status change
-  useEffect(() => {
+  const [offset, setOffset] = useState(0);
+  const [typeFilter, setTypeFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
+  const [agentFilter, setAgentFilter] = useState("");
+  const [selectedLeadId, setSelectedLeadId] = useState<string | null>(null);
+  const fetchLeads = useCallback(async (co: number) => {
     setLoading(true);
-    fetchLeads();
-  }, [filterType, filterStatus, fetchLeads]);
-
-  // Build agent name map
-  const agentMap: Record<string, string> = {};
-  for (const a of agents) {
-    agentMap[a.id] = a.full_name;
-  }
-
-  // Client-side agent filter
-  const filteredLeads = filterAgent
-    ? leads.filter((l) => l.agent_id === filterAgent)
-    : leads;
-
-  const handleLeadUpdate = (updated: LeadRow) => {
-    setLeads((prev) => prev.map((l) => (l.id === updated.id ? updated : l)));
-    setSelectedLead(updated);
-  };
-
-  const selectClasses =
-    "rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30";
-
-  const SkeletonTable = () => (
-    <div className="overflow-hidden rounded-xl border border-white/10 bg-[#1E1E32]">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="flex items-center gap-4 border-b border-white/5 px-4 py-4"
-        >
-          <div className="flex-1 space-y-2">
-            <div className="h-4 w-40 animate-pulse rounded bg-white/5" />
-            <div className="h-3 w-28 animate-pulse rounded bg-white/5" />
-          </div>
-          <div className="h-6 w-16 animate-pulse rounded-full bg-white/5" />
-          <div className="h-6 w-16 animate-pulse rounded-full bg-white/5" />
-        </div>
-      ))}
-    </div>
-  );
-
+    try {
+      const p = new URLSearchParams(); p.set("limit",String(PAGE_SIZE)); p.set("offset",String(co));
+      if (typeFilter) p.set("type",typeFilter); if (statusFilter) p.set("status",statusFilter);
+      const res = await fetch(`/api/leads?${p.toString()}`); const data = await res.json();
+      let fl: LeadRow[] = data.data ?? [];
+      if (agentFilter) fl = fl.filter((l: LeadRow) => l.agent_id === agentFilter);
+      setLeads(fl); setTotalCount(data.count ?? 0);
+    } catch { setLeads([]); setTotalCount(0); } finally { setLoading(false); }
+  }, [typeFilter, statusFilter, agentFilter]);
+  const fetchAgents = useCallback(async () => {
+    try { const r = await fetch("/api/agents"); const d = await r.json(); setAgents((d.data??[]).map((a:Record<string,unknown>)=>({id:a.id as string,full_name:a.full_name as string}))); } catch { setAgents([]); }
+  }, []);
+  useEffect(() => { fetchAgents(); }, [fetchAgents]);
+  useEffect(() => { setOffset(0); fetchLeads(0); }, [typeFilter, statusFilter, agentFilter, fetchLeads]);
+  useEffect(() => { if (offset > 0) fetchLeads(offset); }, [offset, fetchLeads]);
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-off-white lg:text-3xl">
-            Lead Inbox
-          </h1>
-          {!loading && (
-            <span className="inline-flex items-center rounded-full bg-gold/15 px-2.5 py-0.5 text-xs font-semibold text-gold">
-              {filteredLeads.length}
-            </span>
-          )}
-        </div>
+    <div>
+      <div className="flex flex-wrap items-center gap-3"><h1 className="text-2xl font-bold text-off-white">Lead Inbox</h1><span className="rounded-full bg-gold/20 px-2.5 py-0.5 text-xs font-semibold text-gold">{totalCount}</span></div>
+      <div className="mt-4 flex flex-wrap gap-3">
+        <select value={typeFilter} onChange={(e)=>setTypeFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50">{leadTypes.map((t)=>(<option key={t.value} value={t.value}>{t.label}</option>))}</select>
+        <select value={statusFilter} onChange={(e)=>setStatusFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50">{leadStatuses.map((s)=>(<option key={s.value} value={s.value}>{s.label}</option>))}</select>
+        <select value={agentFilter} onChange={(e)=>setAgentFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50"><option value="">All Agents</option>{agents.map((a)=>(<option key={a.id} value={a.id}>{a.full_name}</option>))}</select>
       </div>
-
-      {/* Filters */}
-      <div className="flex flex-wrap items-center gap-3">
-        <select
-          value={filterType}
-          onChange={(e) => setFilterType(e.target.value)}
-          className={selectClasses}
-        >
-          <option value="">All Types</option>
-          {LEAD_TYPES.map((t) => (
-            <option key={t} value={t}>
-              {t.charAt(0).toUpperCase() + t.slice(1).replace("-", " ")}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-          className={selectClasses}
-        >
-          <option value="">All Statuses</option>
-          {LEAD_STATUSES.map((s) => (
-            <option key={s} value={s}>
-              {s.charAt(0).toUpperCase() + s.slice(1)}
-            </option>
-          ))}
-        </select>
-
-        <select
-          value={filterAgent}
-          onChange={(e) => setFilterAgent(e.target.value)}
-          className={selectClasses}
-        >
-          <option value="">All Agents</option>
-          {agents.map((a) => (
-            <option key={a.id} value={a.id}>
-              {a.full_name}
-            </option>
-          ))}
-        </select>
+      <div className="mt-4">
+        {loading ? (<div className="space-y-2">{Array.from({length:5}).map((_,i)=>(<div key={i} className="h-12 animate-pulse rounded-lg border border-white/10 bg-[#1E1E32]"/>))}</div>) : (<>
+          <LeadTable leads={leads} agents={agents} onRowClick={(lead)=>setSelectedLeadId(lead.id)} selectedLeadId={selectedLeadId??undefined}/>
+          {offset+PAGE_SIZE<totalCount&&(<div className="mt-4 text-center"><button onClick={()=>setOffset(p=>p+PAGE_SIZE)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-6 py-2 text-sm font-medium text-off-white/70 hover:bg-white/5 hover:text-off-white transition-colors">Load more</button></div>)}
+        </>)}
       </div>
-
-      {/* Table */}
-      {loading ? (
-        <SkeletonTable />
-      ) : filteredLeads.length === 0 && !filterType && !filterStatus && !filterAgent ? (
-        <div className="flex flex-col items-center justify-center rounded-xl border border-white/10 bg-[#1E1E32] py-16">
-          <Inbox className="mb-4 h-12 w-12 text-off-white/20" />
-          <p className="mb-1 text-lg font-medium text-off-white/60">
-            No leads yet
-          </p>
-          <p className="text-sm text-off-white/40">
-            Leads submitted through your website will appear here.
-          </p>
-        </div>
-      ) : (
-        <LeadTable
-          leads={filteredLeads}
-          onSelectLead={setSelectedLead}
-          agentMap={agentMap}
-        />
-      )}
-
-      {/* Detail panel */}
-      {selectedLead && (
-        <LeadDetail
-          lead={selectedLead}
-          agents={agents}
-          onClose={() => setSelectedLead(null)}
-          onUpdate={handleLeadUpdate}
-        />
-      )}
+      <LeadDetail leadId={selectedLeadId} onClose={()=>setSelectedLeadId(null)} agents={agents} onUpdate={()=>fetchLeads(offset)}/>
     </div>
   );
 }

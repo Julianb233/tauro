@@ -1,236 +1,89 @@
 "use client";
 
-import { useState } from "react";
-import { X } from "lucide-react";
-import type { LeadRow } from "@/types/database";
+import { useEffect, useState, useCallback } from "react";
+import { X, Mail, Phone, Clock, ExternalLink, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { LeadRow } from "@/types/database";
 
-const STATUS_PIPELINE = ["new", "contacted", "qualified", "closed"] as const;
+const statusColors: Record<string, string> = { new: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30", contacted: "bg-blue-500/20 text-blue-400 border-blue-500/30", qualified: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30", closed: "bg-white/10 text-white/50 border-white/20" };
+const typeColors: Record<string, string> = { contact: "bg-blue-500/20 text-blue-400", showing: "bg-emerald-500/20 text-emerald-400", seller: "bg-purple-500/20 text-purple-400", "agent-application": "bg-orange-500/20 text-orange-400", "agent-contact": "bg-cyan-500/20 text-cyan-400" };
+const statuses = ["new", "contacted", "qualified", "closed"] as const;
 
-const statusColors: Record<string, string> = {
-  new: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-  contacted: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-  qualified: "bg-emerald-500/20 text-emerald-400 border-emerald-500/30",
-  closed: "bg-red-500/20 text-red-400 border-red-500/30",
-};
+function prettifyKey(key: string): string { return key.replace(/([A-Z])/g, " $1").replace(/[_-]/g, " ").replace(/^\w/, (c) => c.toUpperCase()).trim(); }
+function formatDate(dateStr: string): string { return new Date(dateStr).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" }); }
 
-const statusActiveColors: Record<string, string> = {
-  new: "bg-yellow-500 text-near-black",
-  contacted: "bg-blue-500 text-white",
-  qualified: "bg-emerald-500 text-white",
-  closed: "bg-red-500 text-white",
-};
+interface LeadDetailProps { leadId: string | null; onClose: () => void; agents: { id: string; full_name: string }[]; onUpdate: () => void; }
 
-interface AgentOption {
-  id: string;
-  full_name: string;
-}
+export function LeadDetail({ leadId, onClose, agents, onUpdate }: LeadDetailProps) {
+  const [lead, setLead] = useState<LeadRow | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [updating, setUpdating] = useState(false);
 
-interface LeadDetailProps {
-  lead: LeadRow;
-  agents: AgentOption[];
-  onClose: () => void;
-  onUpdate: (updated: LeadRow) => void;
-}
+  const fetchLead = useCallback(async (id: string) => {
+    setLoading(true);
+    try { const res = await fetch(`/api/leads/${id}`); const { data } = await res.json(); setLead(data ?? null); }
+    catch { setLead(null); } finally { setLoading(false); }
+  }, []);
 
-export function LeadDetail({ lead, agents, onClose, onUpdate }: LeadDetailProps) {
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  useEffect(() => { if (leadId) fetchLead(leadId); else setLead(null); }, [leadId, fetchLead]);
 
-  async function updateLead(updates: { status?: string; agent_id?: string | null }) {
-    setSaving(true);
-    setError(null);
+  const handleStatusChange = async (newStatus: string) => {
+    if (!lead || lead.status === newStatus || updating) return;
+    setUpdating(true);
     try {
-      const res = await fetch(`/api/leads/${lead.id}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updates),
-      });
-      if (!res.ok) {
-        const json = await res.json();
-        throw new Error(json.error || "Failed to update lead");
-      }
-      const json = await res.json();
-      onUpdate(json.data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Update failed");
-    } finally {
-      setSaving(false);
-    }
-  }
+      const res = await fetch(`/api/leads/${lead.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ status: newStatus }) });
+      if (res.ok) { const { data } = await res.json(); setLead(data); onUpdate(); }
+    } finally { setUpdating(false); }
+  };
+
+  const handleAgentChange = async (agentId: string) => {
+    if (!lead || updating) return;
+    setUpdating(true);
+    try {
+      const res = await fetch(`/api/leads/${lead.id}`, { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ agent_id: agentId || null }) });
+      if (res.ok) { const { data } = await res.json(); setLead(data); onUpdate(); }
+    } finally { setUpdating(false); }
+  };
+
+  const isOpen = leadId !== null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/60"
-        onClick={onClose}
-        aria-hidden="true"
-      />
-
-      {/* Panel */}
-      <div className="relative z-10 flex h-full w-full max-w-lg flex-col overflow-y-auto border-l border-white/10 bg-[#0F0F1A] shadow-2xl">
-        {/* Header */}
-        <div className="flex items-center justify-between border-b border-white/10 px-6 py-4">
-          <h2 className="text-lg font-bold text-off-white">Lead Details</h2>
-          <button
-            onClick={onClose}
-            className="rounded p-1.5 text-off-white/40 hover:bg-white/5 hover:text-off-white"
-            aria-label="Close panel"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-
-        <div className="flex-1 space-y-6 p-6">
-          {/* Error */}
-          {error && (
-            <div className="rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
-              {error}
-            </div>
-          )}
-
-          {/* Name & contact */}
-          <div className="space-y-3">
-            <h3 className="text-xl font-bold text-off-white">
-              {lead.first_name} {lead.last_name}
-            </h3>
-            <div className="space-y-1.5 text-sm text-off-white/60">
-              <p>
-                <span className="text-off-white/40">Email: </span>
-                <a href={`mailto:${lead.email}`} className="text-gold hover:underline">
-                  {lead.email}
-                </a>
-              </p>
-              <p>
-                <span className="text-off-white/40">Phone: </span>
-                <a href={`tel:${lead.phone}`} className="text-gold hover:underline">
-                  {lead.phone}
-                </a>
-              </p>
-              <p>
-                <span className="text-off-white/40">Type: </span>
-                <span className="capitalize">{lead.type}</span>
-              </p>
-            </div>
+    <>
+      {isOpen && <div className="fixed inset-0 z-40 bg-black/50" onClick={onClose} aria-hidden="true" />}
+      <div className={cn("fixed top-0 right-0 z-50 flex h-full w-full flex-col border-l border-white/10 bg-[#141425] transition-transform duration-300 ease-in-out sm:w-[420px]", isOpen ? "translate-x-0" : "translate-x-full")}>
+        {loading ? (
+          <div className="flex-1 p-6">
+            <div className="flex justify-end"><button onClick={onClose} className="rounded p-1 text-off-white/40 hover:text-off-white"><X className="h-5 w-5" /></button></div>
+            <div className="mt-6 space-y-4">{Array.from({ length: 5 }).map((_, i) => (<div key={i} className="h-8 animate-pulse rounded bg-white/5" />))}</div>
           </div>
-
-          {/* Message */}
-          {lead.message && (
-            <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-off-white/40">
-                Message
-              </label>
-              <div className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-off-white/70">
-                {lead.message}
-              </div>
+        ) : lead ? (
+          <div className="flex-1 overflow-y-auto">
+            <div className="flex items-start justify-between border-b border-white/5 p-5">
+              <div><h2 className="text-lg font-bold text-off-white">{lead.first_name} {lead.last_name}</h2><span className={cn("mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium", typeColors[lead.type] ?? "bg-white/10 text-white/60")}>{lead.type}</span></div>
+              <button onClick={onClose} className="rounded p-1 text-off-white/40 hover:text-off-white"><X className="h-5 w-5" /></button>
             </div>
-          )}
-
-          {/* Property */}
-          {lead.property_id && (
-            <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-off-white/40">
-                Property ID
-              </label>
-              <p className="text-sm text-off-white/60">{lead.property_id}</p>
+            <div className="space-y-3 border-b border-white/5 p-5">
+              <a href={`mailto:${lead.email}`} className="flex items-center gap-2 text-sm text-off-white/80 hover:text-gold transition-colors"><Mail className="h-4 w-4 text-off-white/40" />{lead.email}</a>
+              <a href={`tel:${lead.phone}`} className="flex items-center gap-2 text-sm text-off-white/80 hover:text-gold transition-colors"><Phone className="h-4 w-4 text-off-white/40" />{lead.phone}</a>
+              <div className="flex items-center gap-2 text-sm text-off-white/50"><Clock className="h-4 w-4 text-off-white/40" />{formatDate(lead.created_at)}</div>
             </div>
-          )}
-
-          {/* Dates */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-off-white/40">
-                Created
-              </label>
-              <p className="text-sm text-off-white/60">
-                {new Date(lead.created_at).toLocaleString()}
-              </p>
+            <div className="border-b border-white/5 p-5">
+              <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-off-white/40">Status</label>
+              <div className="flex gap-1.5">{statuses.map((s) => (<button key={s} onClick={() => handleStatusChange(s)} disabled={updating} className={cn("flex items-center gap-1 rounded-md border px-2.5 py-1.5 text-xs font-medium transition-all", lead.status === s ? "border-gold bg-gold/20 text-gold" : statusColors[s] ?? "border-white/10 bg-white/5 text-white/40", lead.status !== s && "hover:brightness-125", updating && "opacity-50")}>{lead.status === s && <Check className="h-3 w-3" />}{s}</button>))}</div>
             </div>
-            <div>
-              <label className="mb-1 block text-xs font-semibold uppercase tracking-wider text-off-white/40">
-                Updated
-              </label>
-              <p className="text-sm text-off-white/60">
-                {new Date(lead.updated_at).toLocaleString()}
-              </p>
+            <div className="border-b border-white/5 p-5">
+              <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-off-white/40">Assigned Agent</label>
+              <select value={lead.agent_id ?? ""} onChange={(e) => handleAgentChange(e.target.value)} disabled={updating} className="w-full rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50 disabled:opacity-50">
+                <option value="">Unassigned</option>{agents.map((a) => (<option key={a.id} value={a.id}>{a.full_name}</option>))}
+              </select>
             </div>
+            {lead.message && (<div className="border-b border-white/5 p-5"><label className="mb-2 block text-xs font-medium uppercase tracking-wider text-off-white/40">Message</label><p className="text-sm leading-relaxed text-off-white/70">{lead.message}</p></div>)}
+            {lead.metadata && Object.keys(lead.metadata).length > 0 && (<div className="border-b border-white/5 p-5"><label className="mb-2 block text-xs font-medium uppercase tracking-wider text-off-white/40">Details</label><dl className="space-y-2">{Object.entries(lead.metadata).map(([key, val]) => (<div key={key} className="flex justify-between gap-4"><dt className="text-xs text-off-white/40 shrink-0">{prettifyKey(key)}</dt><dd className="text-xs text-off-white/70 text-right">{String(val)}</dd></div>))}</dl></div>)}
+            {lead.property_id && (<div className="border-b border-white/5 p-5"><a href="/dashboard/properties" className="flex items-center gap-1.5 text-sm text-gold hover:text-gold-light transition-colors"><ExternalLink className="h-3.5 w-3.5" />View linked property</a></div>)}
+            <div className="p-5"><div className="flex items-center gap-2"><span className="text-xs text-off-white/40">GHL Sync:</span><span className={cn("rounded-full px-2 py-0.5 text-[10px] font-medium", lead.ghl_synced ? "bg-emerald-500/20 text-emerald-400" : "bg-white/10 text-white/40")}>{lead.ghl_synced ? "Synced" : "Not synced"}</span></div></div>
           </div>
-
-          {/* Status pipeline */}
-          <div>
-            <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-off-white/40">
-              Status Pipeline
-            </label>
-            <div className="flex gap-2">
-              {STATUS_PIPELINE.map((s) => {
-                const isActive = lead.status === s;
-                return (
-                  <button
-                    key={s}
-                    onClick={() => {
-                      if (!isActive) updateLead({ status: s });
-                    }}
-                    disabled={saving || isActive}
-                    className={cn(
-                      "rounded-lg border px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors",
-                      isActive
-                        ? statusActiveColors[s]
-                        : cn(statusColors[s], "hover:opacity-80"),
-                      saving && "opacity-50",
-                    )}
-                  >
-                    {s}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Agent assignment */}
-          <div>
-            <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-off-white/40">
-              Assign Agent
-            </label>
-            <select
-              value={lead.agent_id ?? ""}
-              onChange={(e) =>
-                updateLead({
-                  agent_id: e.target.value || null,
-                })
-              }
-              disabled={saving}
-              className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30 disabled:opacity-50"
-            >
-              <option value="">Unassigned</option>
-              {agents.map((agent) => (
-                <option key={agent.id} value={agent.id}>
-                  {agent.full_name}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Metadata */}
-          {lead.metadata && Object.keys(lead.metadata).length > 0 && (
-            <div>
-              <label className="mb-2 block text-xs font-semibold uppercase tracking-wider text-off-white/40">
-                Additional Info
-              </label>
-              <div className="space-y-1.5">
-                {Object.entries(lead.metadata).map(([key, value]) => (
-                  <div key={key} className="flex justify-between text-sm">
-                    <span className="capitalize text-off-white/40">
-                      {key.replace(/([A-Z])/g, " $1").trim()}
-                    </span>
-                    <span className="text-off-white/60">{String(value)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        ) : (<div className="flex flex-1 items-center justify-center"><p className="text-sm text-off-white/40">Lead not found</p></div>)}
       </div>
-    </div>
+    </>
   );
 }

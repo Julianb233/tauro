@@ -1,100 +1,63 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 
-// ---------------------------------------------------------------------------
-// GET  /api/leads/[id]  — fetch a single lead by ID
-// ---------------------------------------------------------------------------
+const LeadUpdateSchema = z.object({
+  status: z.enum(["new", "contacted", "qualified", "closed"]).optional(),
+  agent_id: z.string().uuid().nullable().optional(),
+});
 
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const { id } = await params;
+type RouteContext = { params: Promise<{ id: string }> };
 
-  const supabase = await createClient();
-  if (!supabase) {
-    return NextResponse.json(
-      { error: "Database not configured" },
-      { status: 503 },
-    );
+export async function GET(_request: NextRequest, { params }: RouteContext) {
+  try {
+    const { id } = await params;
+    const supabase = await createClient();
+    if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+
+    const { data, error } = await supabase.from("leads").select("*").eq("id", id).single();
+    if (error) {
+      if (error.code === "PGRST116") return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+      console.error("GET /api/leads/[id] error:", error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ data });
+  } catch (err) {
+    console.error("GET /api/leads/[id] error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
-
-  const { data, error } = await supabase
-    .from("leads")
-    .select("*")
-    .eq("id", id)
-    .single();
-
-  if (error) {
-    console.error(`GET /api/leads/${id} error:`, error);
-    const status = error.code === "PGRST116" ? 404 : 500;
-    return NextResponse.json(
-      { error: status === 404 ? "Lead not found" : error.message },
-      { status },
-    );
-  }
-
-  return NextResponse.json({ data });
 }
 
-// ---------------------------------------------------------------------------
-// PATCH  /api/leads/[id]  — update lead status and/or agent_id
-// ---------------------------------------------------------------------------
-
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> },
-) {
-  const { id } = await params;
-
-  let body: Record<string, unknown>;
+export async function PATCH(request: NextRequest, { params }: RouteContext) {
   try {
-    body = await request.json();
-  } catch {
-    return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
+    const { id } = await params;
+    let body: unknown;
+    try { body = await request.json(); } catch { return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 }); }
+
+    const result = LeadUpdateSchema.safeParse(body);
+    if (!result.success) return NextResponse.json({ error: "Validation failed", details: result.error.flatten() }, { status: 422 });
+
+    const supabase = await createClient();
+    if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+
+    if (result.data.agent_id) {
+      const { data: agent } = await supabase.from("agents").select("id").eq("id", result.data.agent_id).single();
+      if (!agent) return NextResponse.json({ error: "Agent not found" }, { status: 422 });
+    }
+
+    const updateData: Record<string, unknown> = { updated_at: new Date().toISOString() };
+    if (result.data.status !== undefined) updateData.status = result.data.status;
+    if (result.data.agent_id !== undefined) updateData.agent_id = result.data.agent_id;
+
+    const { data, error } = await supabase.from("leads").update(updateData).eq("id", id).select().single();
+    if (error) {
+      if (error.code === "PGRST116") return NextResponse.json({ error: "Lead not found" }, { status: 404 });
+      console.error("PATCH /api/leads/[id] error:", error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json({ data });
+  } catch (err) {
+    console.error("PATCH /api/leads/[id] error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
-
-  const supabase = await createClient();
-  if (!supabase) {
-    return NextResponse.json(
-      { error: "Database not configured" },
-      { status: 503 },
-    );
-  }
-
-  // Only allow updating status and agent_id
-  const updates: Record<string, unknown> = {};
-  if ("status" in body && typeof body.status === "string") {
-    updates.status = body.status;
-  }
-  if ("agent_id" in body) {
-    updates.agent_id = body.agent_id === "" ? null : body.agent_id;
-  }
-
-  if (Object.keys(updates).length === 0) {
-    return NextResponse.json(
-      { error: "No valid fields to update" },
-      { status: 422 },
-    );
-  }
-
-  updates.updated_at = new Date().toISOString();
-
-  const { data, error } = await supabase
-    .from("leads")
-    .update(updates)
-    .eq("id", id)
-    .select()
-    .single();
-
-  if (error) {
-    console.error(`PATCH /api/leads/${id} error:`, error);
-    const status = error.code === "PGRST116" ? 404 : 500;
-    return NextResponse.json(
-      { error: status === 404 ? "Lead not found" : error.message },
-      { status },
-    );
-  }
-
-  return NextResponse.json({ data });
 }

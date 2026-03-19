@@ -16,7 +16,6 @@ import {
   type DailyDigestProps,
 } from "@/emails/daily-digest";
 
-
 // ---------------------------------------------------------------------------
 // Resend client — lazily initialized, gracefully degrades if no API key
 // ---------------------------------------------------------------------------
@@ -121,14 +120,13 @@ export async function sendApplicationConfirmation(
   }
 }
 
-
 // ---------------------------------------------------------------------------
-// sendDailyDigest — admin morning summary of overnight lead activity
+// sendDailyDigest — admin receives daily lead summary
 // ---------------------------------------------------------------------------
 
-export async function sendDailyDigest(
-  data: DailyDigestProps,
-): Promise<EmailResult> {
+export type DailyDigestData = DailyDigestProps;
+
+export async function sendDailyDigest(data: DailyDigestData): Promise<EmailResult> {
   const client = getResend();
   if (!client) return { success: false, error: "Email client not configured" };
 
@@ -137,7 +135,7 @@ export async function sendDailyDigest(
     await client.emails.send({
       from: EMAIL_FROM,
       to: ADMIN_EMAIL,
-      subject: `Tauro Daily Digest - ${data.date}`,
+      subject: `Daily Lead Digest - ${data.date} (${data.totalLeads} leads)`,
       html,
     });
     return { success: true };
