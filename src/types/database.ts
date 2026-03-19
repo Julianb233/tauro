@@ -95,6 +95,15 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "properties_listing_agent_id_fkey";
+            columns: ["listing_agent_id"];
+            isOneToOne: false;
+            referencedRelation: "agents";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       agents: {
         Row: {
@@ -164,6 +173,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       neighborhoods: {
         Row: {
@@ -217,6 +227,7 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [];
       };
       leads: {
         Row: {
@@ -267,6 +278,22 @@ export type Database = {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: [
+          {
+            foreignKeyName: "leads_property_id_fkey";
+            columns: ["property_id"];
+            isOneToOne: false;
+            referencedRelation: "properties";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "leads_agent_id_fkey";
+            columns: ["agent_id"];
+            isOneToOne: false;
+            referencedRelation: "agents";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       testimonials: {
         Row: {
@@ -296,6 +323,7 @@ export type Database = {
           sort_order?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
       faq: {
         Row: {
@@ -322,6 +350,7 @@ export type Database = {
           sort_order?: number;
           created_at?: string;
         };
+        Relationships: [];
       };
     };
     Views: Record<string, never>;

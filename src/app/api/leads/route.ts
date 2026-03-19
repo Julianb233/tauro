@@ -1,34 +1,47 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { createClient } from "@/lib/supabase/server";
 
-export interface LeadPayload {
-  type: "contact" | "showing" | "seller" | "agent-application" | "agent-contact";
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  message?: string;
+// ---------------------------------------------------------------------------
+// Validation
+// ---------------------------------------------------------------------------
+
+const LeadCreateSchema = z.object({
+  type: z.enum(["contact", "showing", "seller", "agent-application", "agent-contact"]),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().email(),
+  phone: z.string().min(1),
+  message: z.string().optional(),
   // Showing-specific
-  propertyAddress?: string;
-  propertyId?: string;
-  preferredDate?: string;
-  preferredTime?: string;
-  agentPreference?: string;
+  propertyAddress: z.string().optional(),
+  propertyId: z.string().optional(),
+  propertySlug: z.string().optional(),
+  preferredDate: z.string().optional(),
+  preferredTime: z.string().optional(),
+  agentPreference: z.string().optional(),
   // Seller-specific
-  homeAddress?: string;
-  beds?: string;
-  baths?: string;
-  sqft?: string;
-  timeline?: string;
-  reason?: string;
+  homeAddress: z.string().optional(),
+  beds: z.string().optional(),
+  baths: z.string().optional(),
+  sqft: z.string().optional(),
+  timeline: z.string().optional(),
+  reason: z.string().optional(),
   // Agent application-specific
-  licenseNumber?: string;
-  yearsExperience?: string;
-  currentBrokerage?: string;
-  whyJoin?: string;
+  licenseNumber: z.string().optional(),
+  yearsExperience: z.string().optional(),
+  currentBrokerage: z.string().optional(),
+  whyJoin: z.string().optional(),
   // Agent contact-specific
-  agentName?: string;
-  agentSlug?: string;
-}
+  agentName: z.string().optional(),
+  agentSlug: z.string().optional(),
+});
+
+export type LeadPayload = z.infer<typeof LeadCreateSchema>;
+
+// ---------------------------------------------------------------------------
+// GHL webhook helper (preserved from original implementation)
+// ---------------------------------------------------------------------------
 
 function buildGhlContact(data: LeadPayload) {
   const tags: string[] = [];
@@ -69,65 +82,171 @@ function buildGhlContact(data: LeadPayload) {
   };
 }
 
-export async function POST(request: NextRequest) {
-  let body: LeadPayload;
+// ---------------------------------------------------------------------------
+// POST  /api/leads  — persist to DB, then forward to GHL
+// ---------------------------------------------------------------------------
 
+export async function POST(request: NextRequest) {
+  let body: unknown;
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  // Validate required fields
-  const { firstName, lastName, email, phone, type } = body;
-  if (!firstName || !lastName || !email || !phone || !type) {
+  // Validate input
+  const result = LeadCreateSchema.safeParse(body);
+  if (!result.success) {
     return NextResponse.json(
-      { error: "Missing required fields: firstName, lastName, email, phone, type" },
-      { status: 422 }
+      { error: "Validation failed", details: result.error.flatten() },
+      { status: 422 },
     );
   }
 
-  // Basic email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    return NextResponse.json({ error: "Invalid email address" }, { status: 422 });
+  const data = result.data;
+  const supabase = await createClient();
+
+  // Resolve optional property_id and agent_id from slugs or IDs
+  let propertyId: string | null = data.propertyId ?? null;
+  let agentId: string | null = null;
+
+  if (!propertyId && data.propertySlug) {
+    const { data: prop } = await supabase
+      .from("properties")
+      .select("id")
+      .eq("slug", data.propertySlug)
+      .single();
+    if (prop) propertyId = prop.id;
   }
 
+  if (data.agentSlug) {
+    const { data: agent } = await supabase
+      .from("agents")
+      .select("id")
+      .eq("slug", data.agentSlug)
+      .single();
+    if (agent) agentId = agent.id;
+  }
+
+  // Build metadata from extra fields
+  const metadata: Record<string, unknown> = {};
+  if (data.propertyAddress) metadata.propertyAddress = data.propertyAddress;
+  if (data.preferredDate) metadata.preferredDate = data.preferredDate;
+  if (data.preferredTime) metadata.preferredTime = data.preferredTime;
+  if (data.agentPreference) metadata.agentPreference = data.agentPreference;
+  if (data.homeAddress) metadata.homeAddress = data.homeAddress;
+  if (data.beds) metadata.beds = data.beds;
+  if (data.baths) metadata.baths = data.baths;
+  if (data.sqft) metadata.sqft = data.sqft;
+  if (data.timeline) metadata.timeline = data.timeline;
+  if (data.reason) metadata.reason = data.reason;
+  if (data.licenseNumber) metadata.licenseNumber = data.licenseNumber;
+  if (data.yearsExperience) metadata.yearsExperience = data.yearsExperience;
+  if (data.currentBrokerage) metadata.currentBrokerage = data.currentBrokerage;
+  if (data.whyJoin) metadata.whyJoin = data.whyJoin;
+  if (data.agentName) metadata.agentName = data.agentName;
+
+  // 1. Persist to database (critical)
+  const { error: dbError } = await supabase.from("leads").insert({
+    type: data.type,
+    first_name: data.firstName,
+    last_name: data.lastName,
+    email: data.email,
+    phone: data.phone,
+    message: data.message ?? null,
+    property_id: propertyId,
+    agent_id: agentId,
+    status: "new",
+    metadata,
+    ghl_synced: false,
+  });
+
+  if (dbError) {
+    console.error("POST /api/leads DB insert error:", dbError);
+    return NextResponse.json(
+      { error: "Failed to save lead" },
+      { status: 500 },
+    );
+  }
+
+  // 2. Forward to GHL webhook (best effort)
   const webhookUrl = process.env.GHL_WEBHOOK_URL;
+  let ghlSynced = false;
 
-  if (!webhookUrl) {
-    // In dev/staging without GHL config, log and return success
-    // GHL_WEBHOOK_URL not configured — accept lead silently in dev/staging
-    return NextResponse.json(
-      { success: true, message: "Lead received (GHL not configured)" },
-      { status: 200 }
-    );
-  }
+  if (webhookUrl) {
+    try {
+      const contact = buildGhlContact(data);
+      const ghlResponse = await fetch(webhookUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(contact),
+      });
+      ghlSynced = ghlResponse.ok;
 
-  try {
-    const contact = buildGhlContact(body);
-
-    const ghlResponse = await fetch(webhookUrl, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(contact),
-    });
-
-    if (!ghlResponse.ok) {
-      const errorText = await ghlResponse.text();
-      // GHL webhook returned non-OK status
-      return NextResponse.json(
-        { error: "CRM submission failed" },
-        { status: 502 }
-      );
+      if (!ghlSynced) {
+        console.error(
+          "GHL webhook returned non-OK:",
+          ghlResponse.status,
+          await ghlResponse.text(),
+        );
+      }
+    } catch (ghlErr) {
+      console.error("GHL webhook error:", ghlErr);
     }
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    // Update ghl_synced flag
+    if (ghlSynced) {
+      await supabase
+        .from("leads")
+        .update({ ghl_synced: true })
+        .eq("email", data.email)
+        .eq("type", data.type)
+        .order("created_at", { ascending: false })
+        .limit(1);
+    }
+  }
+
+  return NextResponse.json(
+    { success: true, ghl_synced: ghlSynced },
+    { status: 200 },
+  );
+}
+
+// ---------------------------------------------------------------------------
+// GET  /api/leads  — paginated lead list (for dashboard)
+// ---------------------------------------------------------------------------
+
+export async function GET(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const status = searchParams.get("status");
+    const type = searchParams.get("type");
+    const limit = parseInt(searchParams.get("limit") || "50", 10);
+    const offset = parseInt(searchParams.get("offset") || "0", 10);
+
+    const supabase = await createClient();
+    let query = supabase.from("leads").select("*", { count: "exact" });
+
+    if (status) query = query.eq("status", status);
+    if (type) query = query.eq("type", type);
+
+    query = query
+      .order("created_at", { ascending: false })
+      .range(offset, offset + limit - 1);
+
+    const { data, error, count } = await query;
+
+    if (error) {
+      console.error("GET /api/leads error:", error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ data, count, limit, offset });
   } catch (err) {
-    // Unexpected error during lead submission
+    console.error("GET /api/leads error:", err);
     return NextResponse.json(
       { error: "Internal server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
