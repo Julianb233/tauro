@@ -18,9 +18,11 @@ export default function HomepageCTAs() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
             <div className="relative z-10 p-8 sm:p-10">
-              <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-                For Buyers
-              </p>
+              <div className="glass-gold mb-4 inline-block rounded-full px-4 py-1.5">
+                <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                  For Buyers
+                </p>
+              </div>
               <h3 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">
                 Find Your Dream Home
               </h3>
@@ -49,9 +51,11 @@ export default function HomepageCTAs() {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
             <div className="relative z-10 p-8 sm:p-10">
-              <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-                For Sellers
-              </p>
+              <div className="glass-gold mb-4 inline-block rounded-full px-4 py-1.5">
+                <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                  For Sellers
+                </p>
+              </div>
               <h3 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">
                 List With Tauro
               </h3>

@@ -48,7 +48,7 @@ export default function WhyTauro() {
         <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {whyTauro.map((item) => (
             <TiltCard key={item.title} maxTilt={6}>
-              <div className="group rounded-xl border border-white/10 bg-white/5 p-6 transition-all hover:border-gold/30 hover:shadow-lg">
+              <div className="group glass-card rounded-xl p-6">
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <item.icon className="size-6 text-gold" />
                 </div>

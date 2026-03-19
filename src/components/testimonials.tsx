@@ -12,7 +12,7 @@ export default async function Testimonials() {
         </div>
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <div key={testimonial.name} className="rounded-xl border border-border/50 bg-white p-6 shadow-sm">
+            <div key={testimonial.name} className="depth-hover rounded-xl border border-border/50 bg-white p-6 shadow-sm transition-all hover:border-gold/30 hover:shadow-lg">
               <div className="flex gap-1">{Array.from({ length: testimonial.rating }).map((_, i) => (<Star key={i} className="size-4 fill-gold text-gold" />))}</div>
               <blockquote className="mt-4 text-sm leading-relaxed text-foreground/80">&ldquo;{testimonial.quote}&rdquo;</blockquote>
               <div className="mt-4 border-t border-border/50 pt-4"><p className="text-sm font-semibold text-foreground">{testimonial.name}</p><p className="text-xs text-muted-foreground">{testimonial.role}</p></div>

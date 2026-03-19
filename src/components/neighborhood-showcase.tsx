@@ -15,9 +15,9 @@ export default async function NeighborhoodShowcase() {
         </div>
         <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {homepageNeighborhoods.map((hood) => (
-            <Link key={hood.slug} href={`/neighborhoods/${hood.slug}`} className="group relative overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-md">
+            <Link key={hood.slug} href={`/neighborhoods/${hood.slug}`} className="group depth-hover relative overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-lg">
               <div className="relative aspect-[16/10] overflow-hidden"><Image src={hood.image} alt={hood.name} fill sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" /><div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" /></div>
-              <div className="absolute inset-x-0 bottom-0 p-5"><div className="flex items-center gap-2"><MapPin className="size-4 text-gold" /><h3 className="font-heading text-lg font-bold text-white">{hood.name}</h3></div><p className="mt-1 text-sm text-white/70">{hood.description}</p><p className="mt-2 text-xs font-semibold text-gold">{hood.listings} Active Listings</p></div>
+              <div className="absolute inset-x-0 bottom-0 p-5"><div className="glass inline-block rounded-lg px-3 py-2 mb-2"><p className="text-xs font-semibold text-gold">{hood.listings} Active Listings</p></div><div className="flex items-center gap-2"><MapPin className="size-4 text-gold" /><h3 className="font-heading text-lg font-bold text-white">{hood.name}</h3></div><p className="mt-1 text-sm text-white/70">{hood.description}</p></div>
             </Link>
           ))}
         </div>

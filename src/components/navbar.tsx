@@ -43,7 +43,7 @@ export function Navbar() {
         className={cn(
           "fixed top-0 z-50 w-full transition-all duration-300",
           scrolled
-            ? "border-b border-border/40 bg-white/95 backdrop-blur-md shadow-sm"
+            ? "border-b border-border/40 bg-white/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.06)]"
             : "bg-transparent"
         )}
       >
@@ -117,7 +117,7 @@ export function Navbar() {
       {/* Full-screen mobile overlay — kept dark for dramatic contrast */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-[60] flex flex-col bg-midnight lg:hidden"
+          className="fixed inset-0 z-[60] flex flex-col bg-midnight/95 backdrop-blur-xl lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"

@@ -14,7 +14,7 @@ export default function PropertyCard({ property }: { property: Property }) {
   return (
     <Link
       href={`/properties/${property.slug}`}
-      className="group block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-md"
+      className="group depth-hover block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-lg"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <Image
@@ -32,7 +32,7 @@ export default function PropertyCard({ property }: { property: Property }) {
         >
           {property.status}
         </span>
-        <span className="absolute right-3 bottom-3 rounded-md bg-black/60 px-2 py-1 text-xs text-white backdrop-blur-sm">
+        <span className="absolute right-3 bottom-3 glass rounded-md px-2 py-1 text-xs text-white">
           {property.images.length} photos
         </span>
       </div>

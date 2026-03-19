@@ -8,7 +8,7 @@ export default function StatsBar() {
           { value: "$2.1B", label: "Total Volume" },
           { value: "98%", label: "Client Satisfaction" },
         ].map((stat) => (
-          <div key={stat.label} className="text-center">
+          <div key={stat.label} className="glass-stat px-4 py-6 text-center">
             <p className="font-heading text-3xl font-bold text-gold sm:text-4xl">
               {stat.value}
             </p>
