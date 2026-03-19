@@ -93,8 +93,6 @@ export const properties: Property[] = [
     lat: 39.9493,
     lng: -75.1718,
     openHouse: "Sat, Mar 22 · 1:00 PM - 4:00 PM",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
-    virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyvkk",
   },
   {
     id: "2",
