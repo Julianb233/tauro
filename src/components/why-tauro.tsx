@@ -1,5 +1,3 @@
-"use client";
-
 import { Home, TrendingUp, Users, Shield } from "lucide-react";
 import { TiltCard } from "@/components/ui/tilt-card";
 
