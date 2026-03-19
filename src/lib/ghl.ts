@@ -1,9 +1,5 @@
 import { createHmac } from "crypto";
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 export interface LeadPayload {
   type: "contact" | "showing" | "seller" | "agent-application" | "agent-contact";
   firstName: string;
@@ -31,10 +27,6 @@ export interface LeadPayload {
   agentSlug?: string;
 }
 
-// ---------------------------------------------------------------------------
-// Tag & field mapping constants
-// ---------------------------------------------------------------------------
-
 export const GHL_TAG_MAP: Record<LeadPayload["type"], string[]> = {
   contact: ["website-contact", "tauro-lead"],
   showing: ["showing-request", "tauro-lead", "buyer"],
@@ -43,9 +35,6 @@ export const GHL_TAG_MAP: Record<LeadPayload["type"], string[]> = {
   "agent-contact": ["agent-contact", "tauro-lead"],
 };
 
-/**
- * Maps LeadPayload field names to GHL custom field keys.
- */
 export const GHL_FIELD_MAP: Record<string, string> = {
   message: "message",
   propertyAddress: "property_address",
@@ -65,10 +54,6 @@ export const GHL_FIELD_MAP: Record<string, string> = {
   agentName: "agent_name",
 };
 
-// ---------------------------------------------------------------------------
-// GHL status mapping (inbound webhook)
-// ---------------------------------------------------------------------------
-
 export const GHL_STATUS_MAP: Record<string, string> = {
   open: "new",
   new: "new",
@@ -80,13 +65,8 @@ export const GHL_STATUS_MAP: Record<string, string> = {
   "closed-lost": "closed",
 };
 
-// ---------------------------------------------------------------------------
-// mapLeadToGhlContact
-// ---------------------------------------------------------------------------
-
 export function mapLeadToGhlContact(data: LeadPayload) {
   const tags = GHL_TAG_MAP[data.type] ?? [];
-
   const customFields: Record<string, string> = {};
   for (const [payloadKey, ghlKey] of Object.entries(GHL_FIELD_MAP)) {
     const value = data[payloadKey as keyof LeadPayload];
@@ -94,7 +74,6 @@ export function mapLeadToGhlContact(data: LeadPayload) {
       customFields[ghlKey] = value;
     }
   }
-
   return {
     firstName: data.firstName,
     lastName: data.lastName,
@@ -107,120 +86,69 @@ export function mapLeadToGhlContact(data: LeadPayload) {
   };
 }
 
-// ---------------------------------------------------------------------------
-// createGhlContact
-// ---------------------------------------------------------------------------
-
 export async function createGhlContact(
   data: LeadPayload,
 ): Promise<{ success: boolean; error?: string }> {
   const contact = mapLeadToGhlContact(data);
   let succeeded = false;
-
-  // Strategy 1: GHL API v2 (if API key is available)
   const apiKey = process.env.GHL_API_KEY;
   const locationId = process.env.GHL_LOCATION_ID;
 
   if (apiKey) {
     try {
-      const apiResponse = await fetch(
-        "https://services.leadconnectorhq.com/contacts/",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-            Version: "2021-07-28",
-          },
-          body: JSON.stringify({
-            ...contact,
-            locationId: locationId ?? undefined,
-          }),
+      const apiResponse = await fetch("https://services.leadconnectorhq.com/contacts/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+          Version: "2021-07-28",
         },
-      );
-
+        body: JSON.stringify({ ...contact, locationId: locationId ?? undefined }),
+      });
       if (apiResponse.ok) {
         succeeded = true;
       } else {
         const errorText = await apiResponse.text();
-        console.error(
-          "GHL API v2 returned non-OK:",
-          apiResponse.status,
-          errorText,
-        );
+        console.error("GHL API v2 returned non-OK:", apiResponse.status, errorText);
       }
     } catch (err) {
       console.error("GHL API v2 request failed:", err);
     }
   }
 
-  // Strategy 2: Webhook fallback (or primary if no API key)
   if (!succeeded) {
     const webhookUrl = process.env.GHL_WEBHOOK_URL;
-
     if (!webhookUrl) {
-      if (!apiKey) {
-        // Neither API key nor webhook URL configured — skip gracefully
-        return { success: false, error: "No GHL credentials configured" };
-      }
-      // API was tried but failed, and no webhook fallback
-      return {
-        success: false,
-        error: "GHL API failed and no webhook URL configured",
-      };
+      if (!apiKey) return { success: false, error: "No GHL credentials configured" };
+      return { success: false, error: "GHL API failed and no webhook URL configured" };
     }
-
     try {
       const webhookResponse = await fetch(webhookUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(contact),
       });
-
       if (webhookResponse.ok) {
         succeeded = true;
       } else {
         const errorText = await webhookResponse.text();
-        console.error(
-          "GHL webhook returned non-OK:",
-          webhookResponse.status,
-          errorText,
-        );
-        return {
-          success: false,
-          error: `Webhook returned ${webhookResponse.status}`,
-        };
+        console.error("GHL webhook returned non-OK:", webhookResponse.status, errorText);
+        return { success: false, error: `Webhook returned ${webhookResponse.status}` };
       }
     } catch (err) {
       console.error("GHL webhook error:", err);
-      return {
-        success: false,
-        error: err instanceof Error ? err.message : "Webhook request failed",
-      };
+      return { success: false, error: err instanceof Error ? err.message : "Webhook request failed" };
     }
   }
 
   return { success: succeeded };
 }
 
-// ---------------------------------------------------------------------------
-// verifyGhlSignature
-// ---------------------------------------------------------------------------
-
-export function verifyGhlSignature(
-  rawBody: string,
-  signature: string,
-): boolean {
+export function verifyGhlSignature(rawBody: string, signature: string): boolean {
   const secret = process.env.GHL_WEBHOOK_SECRET;
-  if (!secret) {
-    return false;
-  }
-
+  if (!secret) return false;
   const computed = createHmac("sha256", secret).update(rawBody).digest("hex");
-
-  // Constant-time comparison
   if (computed.length !== signature.length) return false;
-
   let mismatch = 0;
   for (let i = 0; i < computed.length; i++) {
     mismatch |= computed.charCodeAt(i) ^ signature.charCodeAt(i);
