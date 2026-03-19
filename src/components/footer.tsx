@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
@@ -12,19 +13,43 @@ const quickLinks = [
 ];
 
 const neighborhoods = [
-  "Center City",
-  "Rittenhouse",
-  "Fishtown",
-  "Northern Liberties",
-  "Old City",
-  "South Philadelphia",
+  {
+    name: "Center City",
+    slug: "center-city",
+    image: "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "Rittenhouse",
+    slug: "rittenhouse",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "Fishtown",
+    slug: "fishtown",
+    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "Northern Liberties",
+    slug: "northern-liberties",
+    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "Old City",
+    slug: "old-city",
+    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=160&h=96&fit=crop&q=80",
+  },
+  {
+    name: "South Philadelphia",
+    slug: "south-philly",
+    image: "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=160&h=96&fit=crop&q=80",
+  },
 ];
 
 export function Footer() {
   return (
     <footer className="border-t border-white/10 bg-foreground">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="space-y-4">
             <Link href="/" className="inline-block">
@@ -41,12 +66,12 @@ export function Footer() {
             <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Quick Links
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-1">
               {quickLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group/link inline-flex items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1"
+                    className="group/link inline-flex min-h-[44px] items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1 sm:min-h-0"
                   >
                     {link.label}
                   </Link>
@@ -60,18 +85,28 @@ export function Footer() {
             <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Neighborhoods
             </h3>
-            <ul className="space-y-2.5">
+            <div className="grid grid-cols-2 gap-2.5">
               {neighborhoods.map((area) => (
-                <li key={area}>
-                  <Link
-                    href={`/neighborhoods/${area.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="text-sm text-white/60 transition-colors hover:text-gold"
-                  >
-                    {area}
-                  </Link>
-                </li>
+                <Link
+                  key={area.slug}
+                  href={`/neighborhoods/${area.slug}`}
+                  className="group flex items-center gap-2.5 rounded-lg border border-white/5 p-1.5 transition-all hover:border-gold/30 hover:bg-white/5"
+                >
+                  <div className="relative h-10 w-16 shrink-0 overflow-hidden rounded-md">
+                    <Image
+                      src={area.image}
+                      alt={area.name}
+                      fill
+                      sizes="64px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <span className="text-xs font-medium leading-tight text-white/60 transition-colors group-hover:text-gold">
+                    {area.name}
+                  </span>
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Contact */}
@@ -83,7 +118,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+12155550100"
-                  className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Phone className="size-4 shrink-0" />
                   (215) 555-0100
@@ -92,10 +127,10 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:info@taurorealty.com"
-                  className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Mail className="size-4 shrink-0" />
-                  info@taurorealty.com
+                  <span className="break-all">info@taurorealty.com</span>
                 </a>
               </li>
               <li>
@@ -122,18 +157,18 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="gold-divider mt-10" />
-        <div className="mt-0 flex flex-col items-center justify-between gap-4 pt-8 sm:flex-row">
+        <div className="gold-divider mt-8 sm:mt-10" />
+        <div className="mt-0 flex flex-col items-center justify-between gap-4 pt-6 sm:pt-8 md:flex-row">
           <p className="text-xs text-white/50">
             &copy; {new Date().getFullYear()} Tauro. All rights reserved.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 sm:gap-3">
             <GoldShimmer>
               <a
                 href="https://instagram.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="Instagram"
               >
                 <Instagram className="size-5" />
@@ -144,7 +179,7 @@ export function Footer() {
                 href="https://facebook.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="Facebook"
               >
                 <Facebook className="size-5" />
@@ -155,7 +190,7 @@ export function Footer() {
                 href="https://linkedin.com/company/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
@@ -166,7 +201,7 @@ export function Footer() {
                 href="https://x.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="X (Twitter)"
               >
                 <Twitter className="size-5" />

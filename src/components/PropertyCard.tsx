@@ -36,17 +36,17 @@ export default function PropertyCard({ property }: { property: Property }) {
           {property.images.length} photos
         </span>
       </div>
-      <div className="p-4">
-        <p className="font-heading text-xl font-bold text-foreground">{formatPrice(property.price)}</p>
-        <div className="mt-1 flex items-center gap-2 font-label text-xs tracking-wider text-muted-foreground">
+      <div className="p-3 sm:p-4">
+        <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
+        <div className="mt-1 flex flex-wrap items-center gap-1.5 font-label text-xs tracking-wider text-muted-foreground sm:gap-2">
           <span>{property.beds} BD</span>
           <span className="text-gold/30">|</span>
           <span>{property.baths} BA</span>
           <span className="text-gold/30">|</span>
           <span>{property.sqft.toLocaleString()} SF</span>
         </div>
-        <p className="mt-2 font-medium text-foreground">{property.address}</p>
-        <p className="text-sm text-muted-foreground">
+        <p className="mt-2 truncate font-medium text-foreground">{property.address}</p>
+        <p className="truncate text-sm text-muted-foreground">
           {property.city}, {property.state} {property.zip}
         </p>
         {property.openHouse && (

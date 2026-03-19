@@ -249,7 +249,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={formState === "submitting"}
-        className="shimmer-gold w-full rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
+        className="shimmer-gold min-h-[48px] w-full rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60"
       >
         {formState === "submitting" ? "Sending..." : "Send Message"}
       </button>

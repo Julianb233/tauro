@@ -50,7 +50,7 @@ export default function PropertyFilters({
   ).length;
 
   const selectClasses =
-    "w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold";
+    "w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold sm:py-2";
 
   return (
     <div className="border-b border-border bg-cream/80 backdrop-blur-sm">
@@ -58,7 +58,7 @@ export default function PropertyFilters({
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <button
           onClick={() => setOpen(!open)}
-          className="flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium text-foreground"
+          className="flex min-h-[44px] items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-foreground"
         >
           <SlidersHorizontal className="h-4 w-4" />
           Filters {activeCount > 0 && `(${activeCount})`}
