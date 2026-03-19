@@ -15,10 +15,13 @@ Build a premium real estate brokerage website for LYL Realty Group (Philadelphia
 - [x] **Phase 7: Resource & Education Pages** - Buyer/seller guides, market insights, FAQ, home valuation, agent opportunity
 - [x] **Phase 8: Proposal & Payment** - Client proposal page, Stripe/GHL payment, onboarding flow
 - [x] **Phase 9: SEO, Performance & Deploy** - Structured data, meta tags, Core Web Vitals, Vercel deploy
+<<<<<<< HEAD
 - [ ] **Phase 10: Database & Supabase** - PostgreSQL via Supabase, migrate static data, image storage, property/agent CRUD API
 - [ ] **Phase 11: Auth & Agent Portal** - Supabase Auth, agent dashboard, lead inbox, property manager, tour calendar
 - [ ] **Phase 12: Email & Notifications** - Resend integration, lead alerts, confirmation emails, agent notifications
 - [ ] **Phase 13: GHL Sync & Production Hardening** - Two-way GoHighLevel sync, rate limiting, CAPTCHA, Mapbox token, analytics, error tracking
+=======
+>>>>>>> ai-3460-contact-lead-capture
 
 ## Phase Details
 
@@ -214,7 +217,10 @@ Build a premium real estate brokerage website for LYL Realty Group (Philadelphia
 | 7. Resource & Education Pages | 4/4 | Complete | 2026-03-18 |
 | 8. Proposal & Payment | 1/1 | Complete | 2026-03-18 |
 | 9. SEO, Performance & Deploy | 1/1 | Complete | 2026-03-18 |
+<<<<<<< HEAD
 | 10. Database & Supabase | 0/TBD | Not started | - |
 | 11. Auth & Agent Portal | 0/TBD | Not started | - |
 | 12. Email & Notifications | 0/TBD | Not started | - |
 | 13. GHL Sync & Production Hardening | 0/TBD | Not started | - |
+=======
+>>>>>>> ai-3460-contact-lead-capture

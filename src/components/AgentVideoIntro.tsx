@@ -52,7 +52,7 @@ export default function AgentVideoIntro({
             <button
               type="button"
               onClick={handlePlay}
-              className="group relative block w-full focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
+              className="group relative block w-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-foreground"
               aria-label={`Play video introduction for ${agentName}`}
             >
               <div className="relative aspect-video overflow-hidden">

@@ -330,7 +330,7 @@ export function AgentManager() {
                               first_name: e.target.value,
                             })
                           }
-                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
                         />
                       </div>
 
@@ -347,7 +347,7 @@ export function AgentManager() {
                               last_name: e.target.value,
                             })
                           }
-                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
                         />
                       </div>
 
@@ -365,7 +365,7 @@ export function AgentManager() {
                             })
                           }
                           placeholder="e.g. Senior Agent"
-                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
                         />
                       </div>
 
@@ -382,7 +382,7 @@ export function AgentManager() {
                               email: e.target.value,
                             })
                           }
-                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
                         />
                       </div>
 
@@ -399,7 +399,7 @@ export function AgentManager() {
                               phone: e.target.value,
                             })
                           }
-                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
                         />
                       </div>
 
@@ -417,7 +417,7 @@ export function AgentManager() {
                             })
                           }
                           placeholder="Luxury, Residential, Commercial"
-                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
                         />
                       </div>
 
@@ -435,7 +435,7 @@ export function AgentManager() {
                             })
                           }
                           placeholder="Downtown, Westside, East Hills"
-                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
                         />
                       </div>
 
@@ -452,7 +452,7 @@ export function AgentManager() {
                             })
                           }
                           rows={3}
-                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none focus:ring-1 focus:ring-gold/30 resize-none"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30 resize-none"
                         />
                       </div>
                     </div>

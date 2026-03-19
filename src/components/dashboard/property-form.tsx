@@ -73,7 +73,7 @@ function TagInput({
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Type and press Enter to add"
-        className="w-full rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none"
+        className="w-full rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none"
       />
       {tags.length > 0 && (
         <div className="mt-2 flex flex-wrap gap-1.5">
@@ -235,7 +235,7 @@ export function PropertyForm({
   };
 
   const inputClasses =
-    "w-full rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus:border-gold/50 focus:outline-none";
+    "w-full rounded-lg border border-white/10 bg-[#111111] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none";
   const labelClasses = "mb-1.5 block text-xs font-medium text-off-white/70";
   const errorClasses = "mt-1 text-xs text-red-400";
 

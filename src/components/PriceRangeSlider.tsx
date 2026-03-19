@@ -212,7 +212,7 @@ export default function PriceRangeSlider({
             onChange={(e) => setRawMin(e.target.value.replace(/[^0-9]/g, ""))}
             onBlur={applyManualMin}
             onKeyDown={(e) => e.key === "Enter" && applyManualMin()}
-            className="w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold sm:py-2"
+            className="w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold sm:py-2"
           />
           <input
             type="text"
@@ -222,7 +222,7 @@ export default function PriceRangeSlider({
             onChange={(e) => setRawMax(e.target.value.replace(/[^0-9]/g, ""))}
             onBlur={applyManualMax}
             onKeyDown={(e) => e.key === "Enter" && applyManualMax()}
-            className="w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold sm:py-2"
+            className="w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold sm:py-2"
           />
         </div>
       ) : (

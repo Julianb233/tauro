@@ -98,7 +98,7 @@ export default function LoginPage() {
               setEmail(e.target.value);
               setFieldErrors((prev) => ({ ...prev, email: undefined }));
             }}
-            className="w-full rounded-lg border border-[#2A2A3E] bg-[#12121F] px-4 py-2.5 text-sm text-[#F8F6F1] placeholder-[#6B7280] outline-none transition focus:border-[#C9A96E] focus:ring-1 focus:ring-[#C9A96E]"
+            className="w-full rounded-lg border border-[#2A2A3E] bg-[#12121F] px-4 py-2.5 text-sm text-[#F8F6F1] placeholder-[#6B7280] outline-none transition focus-visible:border-[#C9A96E] focus-visible:ring-1 focus-visible:ring-[#C9A96E]"
             placeholder="agent@tauro.com"
           />
           {fieldErrors.email && (
@@ -124,7 +124,7 @@ export default function LoginPage() {
               setPassword(e.target.value);
               setFieldErrors((prev) => ({ ...prev, password: undefined }));
             }}
-            className="w-full rounded-lg border border-[#2A2A3E] bg-[#12121F] px-4 py-2.5 text-sm text-[#F8F6F1] placeholder-[#6B7280] outline-none transition focus:border-[#C9A96E] focus:ring-1 focus:ring-[#C9A96E]"
+            className="w-full rounded-lg border border-[#2A2A3E] bg-[#12121F] px-4 py-2.5 text-sm text-[#F8F6F1] placeholder-[#6B7280] outline-none transition focus-visible:border-[#C9A96E] focus-visible:ring-1 focus-visible:ring-[#C9A96E]"
             placeholder="Enter your password"
           />
           {fieldErrors.password && (
@@ -143,7 +143,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="gold-shimmer flex w-full items-center justify-center gap-2 rounded-lg bg-[#C9A96E] px-4 py-2.5 text-sm font-semibold text-[#1A1A2E] transition hover:bg-[#B08D4C] focus:outline-none focus:ring-2 focus:ring-[#C9A96E] focus:ring-offset-2 focus:ring-offset-[#1A1A2E] disabled:opacity-50"
+          className="gold-shimmer flex w-full items-center justify-center gap-2 rounded-lg bg-[#C9A96E] px-4 py-2.5 text-sm font-semibold text-[#1A1A2E] transition hover:bg-[#B08D4C] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C9A96E] focus-visible:ring-offset-2 focus-visible:ring-offset-[#1A1A2E] disabled:opacity-50"
         >
           {loading && <Loader2 className="size-4 animate-spin" />}
           {loading ? "Signing in..." : "Sign In"}

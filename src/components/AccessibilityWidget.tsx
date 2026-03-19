@@ -116,7 +116,7 @@ export default function AccessibilityWidget() {
         onClick={() => setOpen((v) => !v)}
         aria-label={open ? "Close accessibility settings" : "Open accessibility settings"}
         aria-expanded={open}
-        className="flex h-12 w-12 items-center justify-center rounded-full bg-midnight text-off-white shadow-lg transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2"
+        className="flex h-12 w-12 items-center justify-center rounded-full bg-midnight text-off-white shadow-lg transition-transform hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2"
       >
         {/* Accessibility icon (universal access) */}
         <svg

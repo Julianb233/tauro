@@ -37,9 +37,9 @@ export default function LeadsPage() {
     <div>
       <div className="flex flex-wrap items-center gap-3"><h1 className="text-2xl font-bold text-off-white">Lead Inbox</h1><span className="rounded-full bg-gold/20 px-2.5 py-0.5 text-xs font-semibold text-gold">{totalCount}</span></div>
       <div className="mt-4 flex flex-wrap gap-3">
-        <select value={typeFilter} onChange={(e)=>setTypeFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50">{leadTypes.map((t)=>(<option key={t.value} value={t.value}>{t.label}</option>))}</select>
-        <select value={statusFilter} onChange={(e)=>setStatusFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50">{leadStatuses.map((s)=>(<option key={s.value} value={s.value}>{s.label}</option>))}</select>
-        <select value={agentFilter} onChange={(e)=>setAgentFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus:border-gold/50"><option value="">All Agents</option>{agents.map((a)=>(<option key={a.id} value={a.id}>{a.full_name}</option>))}</select>
+        <select value={typeFilter} onChange={(e)=>setTypeFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus-visible:border-gold/50">{leadTypes.map((t)=>(<option key={t.value} value={t.value}>{t.label}</option>))}</select>
+        <select value={statusFilter} onChange={(e)=>setStatusFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus-visible:border-gold/50">{leadStatuses.map((s)=>(<option key={s.value} value={s.value}>{s.label}</option>))}</select>
+        <select value={agentFilter} onChange={(e)=>setAgentFilter(e.target.value)} className="rounded-lg border border-white/10 bg-[#1E1E32] px-3 py-2 text-sm text-off-white outline-none focus-visible:border-gold/50"><option value="">All Agents</option>{agents.map((a)=>(<option key={a.id} value={a.id}>{a.full_name}</option>))}</select>
       </div>
       <div className="mt-4">
         {loading ? (<div className="space-y-2">{Array.from({length:5}).map((_,i)=>(<div key={i} className="h-12 animate-pulse rounded-lg border border-white/10 bg-[#1E1E32]"/>))}</div>) : (<>

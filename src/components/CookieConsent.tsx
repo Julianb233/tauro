@@ -80,19 +80,19 @@ export function CookieConsent() {
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
               <button
                 onClick={handleAcceptAll}
-                className="inline-flex items-center justify-center rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-midnight"
+                className="inline-flex items-center justify-center rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
               >
                 Accept All
               </button>
               <button
                 onClick={handleReject}
-                className="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:border-white/40 hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-midnight"
+                className="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:border-white/40 hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
               >
                 Reject Non-Essential
               </button>
               <button
                 onClick={() => setShowPrefs(true)}
-                className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white/60 underline underline-offset-2 transition-colors hover:text-white focus:outline-none"
+                className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white/60 underline underline-offset-2 transition-colors hover:text-white focus-visible:outline-none"
               >
                 Manage Preferences
               </button>
@@ -168,13 +168,13 @@ export function CookieConsent() {
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
               <button
                 onClick={handleSavePreferences}
-                className="inline-flex items-center justify-center rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-midnight"
+                className="inline-flex items-center justify-center rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
               >
                 Save Preferences
               </button>
               <button
                 onClick={() => setShowPrefs(false)}
-                className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white/60 underline underline-offset-2 transition-colors hover:text-white focus:outline-none"
+                className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white/60 underline underline-offset-2 transition-colors hover:text-white focus-visible:outline-none"
               >
                 Back
               </button>

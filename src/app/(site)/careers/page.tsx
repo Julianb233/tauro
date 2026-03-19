@@ -480,7 +480,7 @@ export default function CareersPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, firstName: e.target.value })
                     }
-                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold"
+                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold"
                     placeholder="John"
                   />
                 </div>
@@ -499,7 +499,7 @@ export default function CareersPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, lastName: e.target.value })
                     }
-                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold"
+                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold"
                     placeholder="Doe"
                   />
                 </div>
@@ -521,7 +521,7 @@ export default function CareersPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
-                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold"
+                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold"
                     placeholder="john@example.com"
                   />
                 </div>
@@ -539,7 +539,7 @@ export default function CareersPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, phone: e.target.value })
                     }
-                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold"
+                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold"
                     placeholder="(215) 555-0100"
                   />
                 </div>
@@ -560,7 +560,7 @@ export default function CareersPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, position: e.target.value })
                     }
-                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold"
+                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold"
                   >
                     <option value="">Select a position...</option>
                     {openPositions.map((p) => (
@@ -584,7 +584,7 @@ export default function CareersPage() {
                     onChange={(e) =>
                       setFormData({ ...formData, experience: e.target.value })
                     }
-                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold"
+                    className="mt-1.5 w-full rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold"
                   >
                     <option value="">Select...</option>
                     <option value="0-1">Less than 1 year</option>
@@ -611,7 +611,7 @@ export default function CareersPage() {
                   onChange={(e) =>
                     setFormData({ ...formData, message: e.target.value })
                   }
-                  className="mt-1.5 w-full resize-none rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus:border-gold focus:ring-1 focus:ring-gold"
+                  className="mt-1.5 w-full resize-none rounded-lg border border-border/60 bg-card px-4 py-2.5 text-sm text-foreground outline-none transition-colors focus-visible:border-gold focus-visible:ring-1 focus-visible:ring-gold"
                   placeholder="Share your background, what excites you about Tauro, and what you'd bring to the team..."
                 />
               </div>
