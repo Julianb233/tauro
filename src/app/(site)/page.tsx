@@ -5,6 +5,7 @@ import FeaturedProperties from "@/components/featured-properties";
 import NeighborhoodShowcase from "@/components/neighborhood-showcase";
 import WhyTauro from "@/components/why-tauro";
 import Testimonials from "@/components/testimonials";
+import SocialProof from "@/components/SocialProof";
 import HomepageCTAs from "@/components/homepage-ctas";
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function HomePage() {
       <WhyTauro />
       <div className="gold-divider mx-auto max-w-7xl" />
       <Testimonials />
+      <SocialProof />
       <div className="gold-divider mx-auto max-w-7xl" />
       <HomepageCTAs />
     </>

@@ -12,6 +12,7 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
+import { AsSeenInStrip } from "@/components/SocialProof";
 import { AboutCountUp, AboutStaggerReveal, FadeInView } from "./AboutAnimations";
 
 export const metadata: Metadata = {
@@ -152,6 +153,9 @@ export default function AboutPage() {
           </p>
         </div>
       </section>
+
+      {/* As Seen In */}
+      <AsSeenInStrip />
 
       {/* Philadelphia Commitment */}
       <section className="border-t border-border/40 bg-gradient-to-b from-card/50 to-background">
