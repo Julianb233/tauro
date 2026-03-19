@@ -149,73 +149,81 @@ export async function POST(request: NextRequest) {
   }
 
   const data = result.data;
+
+  // ---------------------------------------------------------------------------
+  // 1. Persist to database (if Supabase is configured)
+  // ---------------------------------------------------------------------------
   const supabase = await createClient();
-  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+  let dbSaved = false;
 
-  // Resolve optional property_id and agent_id from slugs or IDs
-  let propertyId: string | null = data.propertyId ?? null;
-  let agentId: string | null = null;
+  if (supabase) {
+    // Resolve optional property_id and agent_id from slugs or IDs
+    let propertyId: string | null = data.propertyId ?? null;
+    let agentId: string | null = null;
 
-  if (!propertyId && data.propertySlug) {
-    const { data: prop } = await supabase
-      .from("properties")
-      .select("id")
-      .eq("slug", data.propertySlug)
-      .single();
-    if (prop) propertyId = prop.id;
+    if (!propertyId && data.propertySlug) {
+      const { data: prop } = await supabase
+        .from("properties")
+        .select("id")
+        .eq("slug", data.propertySlug)
+        .single();
+      if (prop) propertyId = prop.id;
+    }
+
+    if (data.agentSlug) {
+      const { data: agent } = await supabase
+        .from("agents")
+        .select("id")
+        .eq("slug", data.agentSlug)
+        .single();
+      if (agent) agentId = agent.id;
+    }
+
+    // Build metadata from extra fields
+    const metadata: Record<string, unknown> = {};
+    if (data.propertyAddress) metadata.propertyAddress = data.propertyAddress;
+    if (data.preferredDate) metadata.preferredDate = data.preferredDate;
+    if (data.preferredTime) metadata.preferredTime = data.preferredTime;
+    if (data.agentPreference) metadata.agentPreference = data.agentPreference;
+    if (data.homeAddress) metadata.homeAddress = data.homeAddress;
+    if (data.beds) metadata.beds = data.beds;
+    if (data.baths) metadata.baths = data.baths;
+    if (data.sqft) metadata.sqft = data.sqft;
+    if (data.timeline) metadata.timeline = data.timeline;
+    if (data.reason) metadata.reason = data.reason;
+    if (data.licenseNumber) metadata.licenseNumber = data.licenseNumber;
+    if (data.yearsExperience) metadata.yearsExperience = data.yearsExperience;
+    if (data.currentBrokerage) metadata.currentBrokerage = data.currentBrokerage;
+    if (data.whyJoin) metadata.whyJoin = data.whyJoin;
+    if (data.agentName) metadata.agentName = data.agentName;
+
+    const { error: dbError } = await supabase.from("leads").insert({
+      type: data.type,
+      first_name: data.firstName,
+      last_name: data.lastName,
+      email: data.email,
+      phone: data.phone,
+      message: data.message ?? null,
+      property_id: propertyId,
+      agent_id: agentId,
+      status: "new",
+      metadata,
+      ghl_synced: false,
+    });
+
+    if (dbError) {
+      console.error("POST /api/leads DB insert error:", dbError);
+      // Don't return 500 — fall through to GHL webhook so the lead isn't lost
+    } else {
+      dbSaved = true;
+    }
+  } else {
+    console.warn("POST /api/leads: Supabase not configured — skipping DB insert");
   }
 
-  if (data.agentSlug) {
-    const { data: agent } = await supabase
-      .from("agents")
-      .select("id")
-      .eq("slug", data.agentSlug)
-      .single();
-    if (agent) agentId = agent.id;
-  }
-
-  // Build metadata from extra fields
-  const metadata: Record<string, unknown> = {};
-  if (data.propertyAddress) metadata.propertyAddress = data.propertyAddress;
-  if (data.preferredDate) metadata.preferredDate = data.preferredDate;
-  if (data.preferredTime) metadata.preferredTime = data.preferredTime;
-  if (data.agentPreference) metadata.agentPreference = data.agentPreference;
-  if (data.homeAddress) metadata.homeAddress = data.homeAddress;
-  if (data.beds) metadata.beds = data.beds;
-  if (data.baths) metadata.baths = data.baths;
-  if (data.sqft) metadata.sqft = data.sqft;
-  if (data.timeline) metadata.timeline = data.timeline;
-  if (data.reason) metadata.reason = data.reason;
-  if (data.licenseNumber) metadata.licenseNumber = data.licenseNumber;
-  if (data.yearsExperience) metadata.yearsExperience = data.yearsExperience;
-  if (data.currentBrokerage) metadata.currentBrokerage = data.currentBrokerage;
-  if (data.whyJoin) metadata.whyJoin = data.whyJoin;
-  if (data.agentName) metadata.agentName = data.agentName;
-
-  // 1. Persist to database (critical)
-  const { error: dbError } = await supabase.from("leads").insert({
-    type: data.type,
-    first_name: data.firstName,
-    last_name: data.lastName,
-    email: data.email,
-    phone: data.phone,
-    message: data.message ?? null,
-    property_id: propertyId,
-    agent_id: agentId,
-    status: "new",
-    metadata,
-    ghl_synced: false,
-  });
-
-  if (dbError) {
-    console.error("POST /api/leads DB insert error:", dbError);
-    return NextResponse.json(
-      { error: "Failed to save lead" },
-      { status: 500 },
-    );
-  }
-
+  // ---------------------------------------------------------------------------
   // 2. Forward to GHL webhook (best effort)
+  // ---------------------------------------------------------------------------
   const webhookUrl = process.env.GHL_WEBHOOK_URL;
   let ghlSynced = false;
 
@@ -240,8 +248,8 @@ export async function POST(request: NextRequest) {
       console.error("GHL webhook error:", ghlErr);
     }
 
-    // Update ghl_synced flag
-    if (ghlSynced) {
+    // Update ghl_synced flag in DB if both are available
+    if (ghlSynced && supabase && dbSaved) {
       await supabase
         .from("leads")
         .update({ ghl_synced: true })
@@ -252,8 +260,15 @@ export async function POST(request: NextRequest) {
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // 3. Fallback: if neither DB nor GHL is configured, log lead to console
+  // ---------------------------------------------------------------------------
+  if (!supabase && !webhookUrl) {
+    console.log("POST /api/leads [NO BACKEND] — lead data:", JSON.stringify(data, null, 2));
+  }
+
   return NextResponse.json(
-    { success: true, ghl_synced: ghlSynced },
+    { success: true, db_saved: dbSaved, ghl_synced: ghlSynced },
     { status: 200 },
   );
 }
@@ -271,7 +286,12 @@ export async function GET(request: NextRequest) {
     const offset = parseInt(searchParams.get("offset") || "0", 10);
 
     const supabase = await createClient();
-  if (!supabase) return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+    if (!supabase) {
+      return NextResponse.json(
+        { data: [], count: 0, limit, offset, warning: "Database not configured" },
+        { status: 200 },
+      );
+    }
     let query = supabase.from("leads").select("*", { count: "exact" });
 
     if (status) query = query.eq("status", status);
