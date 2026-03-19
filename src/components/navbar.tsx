@@ -7,10 +7,16 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
 
-const navLinks = [
-  { href: "/properties", label: "Properties" },
-  { href: "/agents", label: "Agents" },
+const primaryLinks = [
+  { href: "/properties", label: "Buy" },
   { href: "/sell", label: "Sell" },
+];
+
+const navLinks = [
+  { href: "/properties", label: "Buy" },
+  { href: "/sell", label: "Sell" },
+  { href: "/neighborhoods", label: "Neighborhoods" },
+  { href: "/agents", label: "Agents" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -55,19 +61,32 @@ export function Navbar() {
 
           {/* Desktop nav */}
           <ul className="hidden items-center gap-1 lg:flex">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className={cn(
-                    "rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold",
-                    scrolled ? "text-foreground/70" : "text-white/80"
-                  )}
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            {navLinks.map((link) => {
+              const isPrimary =
+                link.label === "Buy" || link.label === "Sell";
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={cn(
+                      "rounded-md px-3 py-2 font-label text-sm tracking-wide transition-all duration-300",
+                      isPrimary
+                        ? "font-bold hover:text-gold"
+                        : "font-medium hover:text-gold",
+                      scrolled
+                        ? isPrimary
+                          ? "text-foreground"
+                          : "text-foreground/70"
+                        : isPrimary
+                          ? "text-white"
+                          : "text-white/80"
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
 
           {/* Desktop CTA */}
@@ -135,18 +154,37 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Centered navigation links */}
-          <nav className="flex flex-1 flex-col items-center justify-center gap-8">
-            {navLinks.map((link) => (
+          {/* Primary Buy/Sell links */}
+          <div className="flex items-center justify-center gap-4 border-b border-white/10 px-4 py-6">
+            {primaryLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-heading text-3xl font-bold text-off-white transition-colors hover:text-gold"
+                className="rounded-lg bg-gold/10 px-8 py-3 font-heading text-2xl font-bold text-gold transition-colors hover:bg-gold hover:text-near-black"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
+          </div>
+
+          {/* Other navigation links */}
+          <nav className="flex flex-1 flex-col items-center justify-center gap-8">
+            {navLinks
+              .filter(
+                (link) =>
+                  link.label !== "Buy" && link.label !== "Sell",
+              )
+              .map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="font-heading text-3xl font-bold text-off-white transition-colors hover:text-gold"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
           </nav>
 
           {/* Bottom section with CTA and phone */}
