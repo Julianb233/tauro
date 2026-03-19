@@ -168,8 +168,65 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Equal Housing & MLS Attribution */}
+        <div className="mt-8 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:gap-6">
+            {/* Equal Housing Opportunity logo */}
+            <Link href="/fair-housing" className="shrink-0" aria-label="Equal Housing Opportunity">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 48 48"
+                className="h-12 w-12"
+                aria-hidden="true"
+                role="img"
+              >
+                <rect width="48" height="48" rx="4" fill="#fff" />
+                <path
+                  d="M24 8L8 20h4v16h24V20h4L24 8z"
+                  fill="none"
+                  stroke="#1a1a1a"
+                  strokeWidth="1.5"
+                />
+                <rect x="16" y="24" width="16" height="2" fill="#1a1a1a" />
+                <rect x="16" y="28" width="16" height="2" fill="#1a1a1a" />
+                <rect x="16" y="32" width="16" height="2" fill="#1a1a1a" />
+                <text
+                  x="24"
+                  y="22"
+                  textAnchor="middle"
+                  fill="#1a1a1a"
+                  fontSize="5"
+                  fontWeight="bold"
+                  fontFamily="sans-serif"
+                >
+                  EQUAL
+                </text>
+              </svg>
+            </Link>
+            <div className="text-center sm:text-left">
+              <p className="text-xs leading-relaxed text-white/60">
+                <span className="font-semibold text-white/80">Equal Housing Opportunity.</span>{" "}
+                Tauro Realty is committed to compliance with all federal, state, and local fair
+                housing laws. We do not discriminate on the basis of race, color, religion, sex,
+                handicap, familial status, national origin, sexual orientation, gender identity, or
+                any other protected class.
+              </p>
+              <p className="mt-2 text-xs leading-relaxed text-white/60">
+                Listing information deemed reliable but not guaranteed. All measurements are
+                approximate. Data sourced from Bright MLS. Information is provided exclusively for
+                consumers&apos; personal, non-commercial use.
+              </p>
+              <p className="mt-2 text-xs text-white/50">
+                REALTOR<sup>&reg;</sup> is a federally registered collective membership mark which
+                identifies a real estate professional who is a member of the National Association of
+                REALTORS<sup>&reg;</sup> and subscribes to its strict Code of Ethics.
+              </p>
+            </div>
+          </div>
+        </div>
+
         {/* Bottom bar */}
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 md:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 md:flex-row">
           <p className="text-xs text-white/70">
             &copy; {new Date().getFullYear()} Tauro. All rights reserved.
           </p>
@@ -219,7 +276,13 @@ export function Footer() {
               </a>
             </GoldShimmer>
           </div>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href="/fair-housing"
+              className="text-xs text-white/70 transition-colors hover:text-gold"
+            >
+              Fair Housing
+            </Link>
             <Link
               href="/privacy"
               className="text-xs text-white/70 transition-colors hover:text-gold"
