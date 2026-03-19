@@ -4,7 +4,10 @@
 -- ============================================================================
 -- USER ROLE ENUM
 -- ============================================================================
-CREATE TYPE user_role AS ENUM ('admin', 'agent', 'viewer');
+DO $$ BEGIN
+  CREATE TYPE user_role AS ENUM ('admin', 'agent', 'viewer');
+EXCEPTION WHEN duplicate_object THEN NULL;
+END $$;
 
 -- ============================================================================
 -- PROFILES TABLE (linked to Supabase Auth)
