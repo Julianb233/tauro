@@ -20,7 +20,7 @@ export default async function AreasWeServe() {
           <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
             Areas We Serve
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-white/60">
+          <p className="mx-auto mt-4 max-w-2xl text-white/70">
             From Center City high-rises to charming Chestnut Hill estates, Tauro
             brings local expertise to every Philadelphia neighborhood.
           </p>
@@ -32,7 +32,7 @@ export default async function AreasWeServe() {
             <Link
               key={hood.slug}
               href={`/neighborhoods/${hood.slug}`}
-              className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-gold/40 hover:bg-white/10 hover:shadow-lg hover:shadow-gold/5"
+              className="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-gold/40 hover:bg-white/10 hover:shadow-lg hover:shadow-gold/5 hover:border-b-gold hover:border-b-2"
             >
               {/* Image */}
               <div className="relative aspect-[4/3] overflow-hidden">
@@ -43,7 +43,7 @@ export default async function AreasWeServe() {
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/40 to-transparent" />
               </div>
 
               {/* Content overlay */}
@@ -54,7 +54,7 @@ export default async function AreasWeServe() {
                     {hood.name}
                   </h3>
                 </div>
-                <p className="mt-0.5 line-clamp-1 text-xs text-white/60 sm:text-sm">
+                <p className="mt-0.5 line-clamp-1 text-xs text-white/80 sm:text-sm">
                   {hood.tagline}
                 </p>
 

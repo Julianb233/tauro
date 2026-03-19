@@ -39,7 +39,7 @@ export default function WhyTauro() {
           <h2 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl md:text-4xl">
             Why Philadelphia Trusts Tauro
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-sm text-white/60 sm:mt-4 sm:text-base">
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-white/70 sm:mt-4 sm:text-base">
             We&apos;re not the biggest brokerage in Philadelphia. We&apos;re the most intentional.
             Every client, every listing, every deal — handled with precision.
           </p>
@@ -55,7 +55,7 @@ export default function WhyTauro() {
                 <h3 className="mt-4 font-heading text-lg font-bold text-white">
                   {item.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                <p className="mt-2 text-sm leading-relaxed text-white/70">
                   {item.description}
                 </p>
               </div>

@@ -14,7 +14,7 @@ export function AreaHero({ neighborhood }: { neighborhood: Neighborhood }) {
         priority
         sizes="100vw"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
+      <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/50 to-midnight/20" />
 
       <div className="relative z-10 mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-end px-4 pb-12 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
@@ -36,7 +36,7 @@ export function AreaHero({ neighborhood }: { neighborhood: Neighborhood }) {
         <h1 className="font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl">
           {neighborhood.name}
         </h1>
-        <p className="mt-3 max-w-xl text-lg text-white/70">
+        <p className="mt-3 max-w-xl text-lg text-white/80">
           {neighborhood.tagline}
         </p>
       </div>

@@ -29,7 +29,7 @@ export function MarketStats({
         <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
           Market Data
         </p>
-        <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
+        <h2 className="mt-2 font-heading text-3xl font-bold text-white">
           {neighborhoodName} by the Numbers
         </h2>
 
@@ -43,7 +43,7 @@ export function MarketStats({
               <p className="mt-3 font-heading text-2xl font-bold text-gold">
                 {stats[key]}
               </p>
-              <p className="mt-1 text-sm text-muted-foreground">{label}</p>
+              <p className="mt-1 text-sm text-white/70">{label}</p>
             </div>
           ))}
         </div>

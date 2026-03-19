@@ -20,7 +20,7 @@ export default function HeroSearchBar() {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto mt-10 max-w-2xl">
-      <div className="flex items-center rounded-xl border border-white/10 bg-white/60 p-1.5 shadow-2xl backdrop-blur-md">
+      <div className="flex items-center rounded-xl border border-white/20 bg-midnight/70 p-1.5 shadow-2xl backdrop-blur-md">
         <div className="flex flex-1 items-center gap-2 px-3 sm:px-4">
           <Search className="size-5 shrink-0 text-gold" />
           <input
@@ -28,7 +28,7 @@ export default function HeroSearchBar() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search neighborhood, address, ZIP..."
-            className="w-full min-w-0 bg-transparent py-3 text-sm text-white placeholder:text-white/50 focus:outline-none"
+            className="w-full min-w-0 bg-transparent py-3 text-sm text-white placeholder:text-white/60 focus:outline-none"
           />
         </div>
         <button

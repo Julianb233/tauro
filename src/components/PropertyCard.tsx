@@ -50,7 +50,7 @@ export default function PropertyCard({ property }: { property: Property }) {
           {property.city}, {property.state} {property.zip}
         </p>
         {property.openHouse && (
-          <p className="mt-2 text-xs font-semibold text-gold">
+          <p className="mt-2 text-xs font-semibold text-gold-dark">
             Open House: {property.openHouse}
           </p>
         )}

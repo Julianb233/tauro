@@ -160,7 +160,7 @@ export function Navbar() {
             </Link>
             <a
               href="tel:+12158394172"
-              className="flex items-center gap-2 text-sm text-white/60 hover:text-gold"
+              className="flex items-center gap-2 text-sm text-white/70 hover:text-gold"
             >
               <Phone className="size-4" />
               (215) 839-4172

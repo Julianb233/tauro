@@ -53,7 +53,7 @@ export function NewsletterForm() {
       <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
         Newsletter
       </h3>
-      <p className="text-sm text-white/60">
+      <p className="text-sm text-white/70">
         Get market updates and new listings delivered to your inbox.
       </p>
       <form onSubmit={handleSubmit} className="flex gap-2">

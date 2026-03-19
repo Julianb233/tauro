@@ -55,7 +55,7 @@ export function Footer() {
             <Link href="/" className="inline-block">
               <Logo size="md" variant="light" />
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-white/60">
+            <p className="max-w-xs text-sm leading-relaxed text-white/70">
               Premium real estate brokerage serving Philadelphia&apos;s most
               sought-after neighborhoods.
             </p>
@@ -71,7 +71,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="inline-flex min-h-[44px] items-center text-sm text-white/60 transition-colors hover:text-gold sm:min-h-0"
+                    className="inline-flex min-h-[44px] items-center text-sm text-white/70 transition-colors hover:text-gold sm:min-h-0"
                   >
                     {link.label}
                   </Link>
@@ -100,8 +100,9 @@ export function Footer() {
                       sizes="64px"
                       className="object-cover transition-transform duration-300 group-hover:scale-110"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 to-transparent" />
                   </div>
-                  <span className="text-xs font-medium leading-tight text-white/60 transition-colors group-hover:text-gold">
+                  <span className="text-xs font-medium leading-tight text-white/70 transition-colors group-hover:text-gold">
                     {area.name}
                   </span>
                 </Link>
@@ -118,7 +119,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+12158394172"
-                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/70 transition-colors hover:text-gold"
                 >
                   <Phone className="size-4 shrink-0" />
                   (215) 839-4172
@@ -127,14 +128,14 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:info@taurorealty.com"
-                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/70 transition-colors hover:text-gold"
                 >
                   <Mail className="size-4 shrink-0" />
                   <span className="break-all">info@taurorealty.com</span>
                 </a>
               </li>
               <li>
-                <span className="flex items-start gap-2 text-sm text-white/60">
+                <span className="flex items-start gap-2 text-sm text-white/70">
                   <MapPin className="mt-0.5 size-4 shrink-0" />
                   Philadelphia, PA
                 </span>
@@ -169,7 +170,7 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8 md:flex-row">
-          <p className="text-xs text-white/50">
+          <p className="text-xs text-white/70">
             &copy; {new Date().getFullYear()} Tauro. All rights reserved.
           </p>
           <div className="flex items-center gap-1 sm:gap-3">
@@ -178,7 +179,7 @@ export function Footer() {
                 href="https://instagram.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/70 transition-colors hover:text-gold"
                 aria-label="Instagram"
               >
                 <Instagram className="size-5" />
@@ -189,7 +190,7 @@ export function Footer() {
                 href="https://facebook.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/70 transition-colors hover:text-gold"
                 aria-label="Facebook"
               >
                 <Facebook className="size-5" />
@@ -200,7 +201,7 @@ export function Footer() {
                 href="https://linkedin.com/company/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/70 transition-colors hover:text-gold"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
@@ -211,7 +212,7 @@ export function Footer() {
                 href="https://x.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/70 transition-colors hover:text-gold"
                 aria-label="X (Twitter)"
               >
                 <Twitter className="size-5" />
@@ -221,13 +222,13 @@ export function Footer() {
           <div className="flex gap-4">
             <Link
               href="/privacy"
-              className="text-xs text-white/50 transition-colors hover:text-gold"
+              className="text-xs text-white/70 transition-colors hover:text-gold"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="text-xs text-white/50 transition-colors hover:text-gold"
+              className="text-xs text-white/70 transition-colors hover:text-gold"
             >
               Terms of Service
             </Link>

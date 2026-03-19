@@ -265,7 +265,7 @@ export function ContactForm() {
 
       <p className="text-center text-xs text-muted-foreground">
         By submitting, you agree to our{" "}
-        <a href="/privacy" className="text-gold hover:underline">
+        <a href="/privacy" className="text-gold-dark hover:underline">
           Privacy Policy
         </a>
         .
