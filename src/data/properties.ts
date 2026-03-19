@@ -102,6 +102,7 @@ export const properties: Property[] = [
     tax_annual: 45500,
     tax_year: 2025,
     openHouse: "Sat, Mar 22 · 1:00 PM - 4:00 PM",
+    openHouseEvent: { date: "2026-03-22", startTime: "13:00", endTime: "16:00" },
     videoUrl: "https://www.youtube.com/embed/2lPGf1gJwb4",
     videoTourUrl: "2lPGf1gJwb4",
     virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyoDo",
@@ -226,6 +227,8 @@ export const properties: Property[] = [
     lng: -75.1756,
     tax_annual: 95200,
     tax_year: 2025,
+    openHouse: "Sat, Mar 22 · 12:00 PM - 2:00 PM",
+    openHouseEvent: { date: "2026-03-22", startTime: "12:00", endTime: "14:00" },
     videoUrl: "https://www.youtube.com/embed/gXGnIFzJsQ4",
     videoTourUrl: "gXGnIFzJsQ4",
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
@@ -282,6 +285,7 @@ export const properties: Property[] = [
     tax_annual: 12530,
     tax_year: 2025,
     openHouse: "Sun, Mar 23 · 11:00 AM - 2:00 PM",
+    openHouseEvent: { date: "2026-03-23", startTime: "11:00", endTime: "14:00" },
     videoUrl: "https://www.youtube.com/embed/QhHBvBsW_GE",
     videoTourUrl: "QhHBvBsW_GE",
   },
@@ -687,6 +691,7 @@ export const properties: Property[] = [
     tax_annual: 6790,
     tax_year: 2025,
     openHouse: "Sat, Mar 29 · 12:00 PM - 3:00 PM",
+    openHouseEvent: { date: "2026-03-29", startTime: "12:00", endTime: "15:00" },
   },
   {
     id: "12",
@@ -980,6 +985,7 @@ export const properties: Property[] = [
     tax_annual: 13300,
     tax_year: 2025,
     openHouse: "Sun, Mar 30 · 1:00 PM - 4:00 PM",
+    openHouseEvent: { date: "2026-03-30", startTime: "13:00", endTime: "16:00" },
   },
 ];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -17,13 +17,17 @@ import {
   Play,
   View,
   Printer,
+  Lock,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import OpenHouseBanner from "@/components/OpenHouseBanner";
 import ImageGallery from "@/components/ImageGallery";
 import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PropertyMap from "@/components/PropertyMap";
+import PriceHistory from "@/components/PriceHistory";
 import { cn } from "@/lib/utils";
+import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { siteUrl } from "@/lib/site-config";
 import { Logo } from "@/components/logo";
 
@@ -90,6 +94,27 @@ export default function PropertyDetailClient({
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [earlyAccessData, setEarlyAccessData] = useState({ name: "", email: "", phone: "" });
+  const [earlyAccessSubmitting, setEarlyAccessSubmitting] = useState(false);
+  const [earlyAccessSuccess, setEarlyAccessSuccess] = useState(false);
+  const [earlyAccessError, setEarlyAccessError] = useState("");
+  const { track } = useRecentlyViewed();
+
+  useEffect(() => {
+    track({
+      id: property.id,
+      slug: property.slug,
+      address: property.address,
+      city: property.city,
+      state: property.state,
+      zip: property.zip,
+      price: property.price,
+      beds: property.beds,
+      baths: property.baths,
+      sqft: property.sqft,
+      image: property.images[0],
+    });
+  }, [property.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -124,6 +149,41 @@ export default function PropertyDetailClient({
       setSubmitError("Something went wrong. Please try again.");
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const handleEarlyAccessSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setEarlyAccessSubmitting(true);
+    setEarlyAccessError("");
+
+    try {
+      const [firstName, ...rest] = earlyAccessData.name.split(" ");
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          type: "early_access" as const,
+          firstName,
+          lastName: rest.join(" ") || firstName,
+          email: earlyAccessData.email,
+          phone: earlyAccessData.phone,
+          message: `Early access request for ${property.address}`,
+          propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
+          propertyId: property.id,
+        }),
+      });
+
+      if (res.ok) {
+        setEarlyAccessSuccess(true);
+        setEarlyAccessData({ name: "", email: "", phone: "" });
+      } else {
+        setEarlyAccessError("Something went wrong. Please try again.");
+      }
+    } catch {
+      setEarlyAccessError("Something went wrong. Please try again.");
+    } finally {
+      setEarlyAccessSubmitting(false);
     }
   };
 
@@ -221,10 +281,86 @@ export default function PropertyDetailClient({
         </div>
       </div>
 
-      {/* Gallery */}
+      {/* Gallery -- blurred with early access overlay for coming soon properties */}
       <div className="relative bg-white">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
-          <ImageGallery images={property.images} address={property.address} />
+          {property.isComingSoon ? (
+            <div className="relative">
+              <div className="pointer-events-none select-none blur-lg">
+                <ImageGallery images={property.images} address={property.address} />
+              </div>
+              <div className="absolute inset-0 z-10 flex items-center justify-center">
+                <div className="w-full max-w-md rounded-2xl border border-gold/30 bg-white/95 p-8 shadow-2xl backdrop-blur-sm">
+                  {earlyAccessSuccess ? (
+                    <div className="text-center">
+                      <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600/20">
+                        <Check className="h-7 w-7 text-emerald-500" />
+                      </div>
+                      <h3 className="font-heading text-xl font-bold">You are on the list!</h3>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        We will notify you as soon as this property is available for showings.
+                      </p>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="mb-6 text-center">
+                        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-purple-600 to-gold">
+                          <Lock className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="inline-block rounded-full bg-gradient-to-r from-purple-600 to-gold px-4 py-1 text-xs font-bold uppercase tracking-widest text-white">
+                          Coming Soon
+                        </span>
+                        <h3 className="mt-3 font-heading text-xl font-bold">Register for Early Access</h3>
+                        <p className="mt-1 text-sm text-muted-foreground">
+                          Be the first to know when this property is available. Get exclusive access to photos, pricing, and showing times.
+                        </p>
+                      </div>
+                      <form className="space-y-3" onSubmit={handleEarlyAccessSubmit}>
+                        <input
+                          type="text"
+                          placeholder="Full Name"
+                          required
+                          disabled={earlyAccessSubmitting}
+                          value={earlyAccessData.name}
+                          onChange={(e) => setEarlyAccessData({ ...earlyAccessData, name: e.target.value })}
+                          className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                        />
+                        <input
+                          type="email"
+                          placeholder="Email Address"
+                          required
+                          disabled={earlyAccessSubmitting}
+                          value={earlyAccessData.email}
+                          onChange={(e) => setEarlyAccessData({ ...earlyAccessData, email: e.target.value })}
+                          className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                        />
+                        <input
+                          type="tel"
+                          placeholder="Phone Number"
+                          disabled={earlyAccessSubmitting}
+                          value={earlyAccessData.phone}
+                          onChange={(e) => setEarlyAccessData({ ...earlyAccessData, phone: e.target.value })}
+                          className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                        />
+                        <button
+                          type="submit"
+                          disabled={earlyAccessSubmitting}
+                          className="w-full rounded-lg bg-gradient-to-r from-purple-600 to-gold py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+                        >
+                          {earlyAccessSubmitting ? "Submitting..." : "Get Early Access"}
+                        </button>
+                        {earlyAccessError && (
+                          <p className="mt-2 text-center text-sm text-red-400">{earlyAccessError}</p>
+                        )}
+                      </form>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <ImageGallery images={property.images} address={property.address} />
+          )}
         </div>
       </div>
 
@@ -235,6 +371,11 @@ export default function PropertyDetailClient({
             <span className="font-heading text-2xl font-bold text-gold sm:text-3xl">
               {formatPriceFull(property.price)}
             </span>
+            {property.isComingSoon && (
+              <span className="rounded-full bg-gradient-to-r from-purple-600 to-gold px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+                Coming Soon
+              </span>
+            )}
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
                 <Bed className="h-4 w-4" /> {property.beds} BD
@@ -264,7 +405,7 @@ export default function PropertyDetailClient({
               href="#schedule"
               className="no-print rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
             >
-              Schedule a Showing
+              {property.isComingSoon ? "Register Interest" : "Schedule a Showing"}
             </a>
           </div>
         </div>
@@ -290,6 +431,11 @@ export default function PropertyDetailClient({
                 >
                   {property.status}
                 </span>
+                {property.isComingSoon && (
+                  <span className="rounded-md bg-gradient-to-r from-purple-600 to-gold px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+                    Coming Soon
+                  </span>
+                )}
               </div>
               <p className="mt-1 flex items-center gap-1.5 text-muted-foreground">
                 <MapPin className="h-4 w-4" />
@@ -302,6 +448,11 @@ export default function PropertyDetailClient({
                 </p>
               )}
             </div>
+
+            {/* Open House Banner */}
+            {property.openHouseEvent && (
+              <OpenHouseBanner property={property} />
+            )}
 
             {/* Description */}
             <div>
