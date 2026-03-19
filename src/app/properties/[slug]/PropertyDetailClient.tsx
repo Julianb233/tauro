@@ -16,12 +16,15 @@ import {
   Check,
   Play,
   View,
-  FileDown,
+  Heart,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import ImageGallery from "@/components/ImageGallery";
 import PropertyMap from "@/components/PropertyMap";
+import RoomBreakdown from "@/components/RoomBreakdown";
+import ShareButton from "@/components/ShareButton";
+import { useFavorites } from "@/hooks/useFavorites";
 import { cn } from "@/lib/utils";
 
 export default function PropertyDetailClient({
@@ -35,6 +38,13 @@ export default function PropertyDetailClient({
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const { toggle, isFavorite } = useFavorites();
+  const favorited = isFavorite(property.id);
+
+  const propertyUrl = typeof window !== "undefined"
+    ? window.location.href
+    : `https://taurorealty.com/properties/${property.slug}`;
+  const shareTitle = `${property.address}, ${property.city} - ${formatPriceFull(property.price)}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,15 +126,31 @@ export default function PropertyDetailClient({
               </span>
             </div>
           </div>
-          <div className="flex items-center gap-3">
-            <Link
-              href={`/properties/${property.slug}/brochure`}
-              target="_blank"
-              className="inline-flex items-center gap-2 rounded-lg border border-gold px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold hover:text-near-black"
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => toggle(property.id)}
+              aria-label={favorited ? "Remove from saved" : "Save property"}
+              className={cn(
+                "flex items-center gap-1.5 rounded-lg border px-4 py-2 text-sm font-medium transition-all duration-200",
+                favorited
+                  ? "border-gold/40 bg-gold/10 text-gold"
+                  : "border-border bg-card text-muted-foreground hover:border-gold/40 hover:text-gold"
+              )}
             >
-              <FileDown className="h-4 w-4" />
-              <span className="hidden sm:inline">Download</span> Brochure
-            </Link>
+              <Heart
+                className={cn(
+                  "h-4 w-4",
+                  favorited ? "fill-gold" : "fill-none"
+                )}
+              />
+              {favorited ? "Saved" : "Save"}
+            </button>
+            <ShareButton
+              url={propertyUrl}
+              title={shareTitle}
+              description={property.description.slice(0, 160)}
+            />
             <a
               href="#schedule"
               className="rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
@@ -197,6 +223,11 @@ export default function PropertyDetailClient({
                 </div>
               </div>
             </div>
+
+            {/* Room Breakdown */}
+            {property.rooms && property.rooms.length > 0 && (
+              <RoomBreakdown rooms={property.rooms} />
+            )}
 
             {/* Video Tour (PROP-08) */}
             {property.videoUrl && (
@@ -397,6 +428,18 @@ export default function PropertyDetailClient({
               )}
             </div>
           </div>
+        </div>
+
+        {/* MLS Disclaimer */}
+        <div className="mt-10 border-t border-border pt-6">
+          <p className="text-xs leading-relaxed text-muted-foreground">
+            Listing information deemed reliable but not guaranteed. All
+            measurements are approximate. Data sourced from Bright MLS.
+            Information is provided exclusively for consumers&apos; personal,
+            non-commercial use and may not be used for any purpose other than to
+            identify prospective properties consumers may be interested in
+            purchasing.
+          </p>
         </div>
       </div>
     </div>
