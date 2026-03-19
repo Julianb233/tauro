@@ -18,6 +18,8 @@ import {
   View,
   Printer,
   Lock,
+  Download,
+  Loader2,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -98,7 +100,32 @@ export default function PropertyDetailClient({
   const [earlyAccessSubmitting, setEarlyAccessSubmitting] = useState(false);
   const [earlyAccessSuccess, setEarlyAccessSuccess] = useState(false);
   const [earlyAccessError, setEarlyAccessError] = useState("");
+  const [downloadingBrochure, setDownloadingBrochure] = useState(false);
   const { track } = useRecentlyViewed();
+
+  const handleDownloadBrochure = async () => {
+    if (downloadingBrochure) return;
+    setDownloadingBrochure(true);
+    try {
+      const res = await fetch("/api/brochures/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ slug: property.slug }),
+      });
+      if (!res.ok) throw new Error("Failed to generate brochure");
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `tauro-${property.slug}.pdf`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch {
+      // fail silently
+    } finally {
+      setDownloadingBrochure(false);
+    }
+  };
 
   useEffect(() => {
     track({
@@ -400,6 +427,22 @@ export default function PropertyDetailClient({
             >
               <Printer className="h-4 w-4" />
               <span className="hidden sm:inline">Print</span>
+            </button>
+            <button
+              onClick={handleDownloadBrochure}
+              disabled={downloadingBrochure}
+              className="no-print flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-gold hover:text-gold disabled:opacity-50"
+              aria-label="Download property brochure PDF"
+              title="Download Brochure"
+            >
+              {downloadingBrochure ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <Download className="h-4 w-4" />
+              )}
+              <span className="hidden sm:inline">
+                {downloadingBrochure ? "Generating…" : "Brochure"}
+              </span>
             </button>
             <a
               href="#schedule"

@@ -99,7 +99,7 @@ export function Footer() {
                       alt={area.name}
                       fill
                       sizes="64px"
-                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   </div>
                   <span className="text-xs font-medium leading-tight text-white/60 transition-colors group-hover:text-gold">

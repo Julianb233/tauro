@@ -1,3 +1,10 @@
+export interface SoldListing {
+  address: string;
+  price: number;
+  soldDate: string;
+  neighborhood: string;
+}
+
 export interface Agent {
   id: string;
   slug: string;
@@ -27,6 +34,7 @@ export interface Agent {
   videoIntroId: string | null;
   activeListingIds: string[];
   soldListingIds: string[];
+  soldListings: SoldListing[];
   social: {
     instagram?: string;
     linkedin?: string;
@@ -34,6 +42,12 @@ export interface Agent {
   };
   languages: string[];
   licenseNumber: string;
+  testimonials?: {
+    quote: string;
+    clientName: string;
+    rating: number;
+    date: string;
+  }[];
 }
 
 export const agents: Agent[] = [
@@ -91,6 +105,13 @@ export const agents: Agent[] = [
     videoIntroId: "K4TOrB7at0Y",
     activeListingIds: ["1", "3", "5"],
     soldListingIds: ["101", "102", "103", "104", "105"],
+    soldListings: [
+      { address: "1820 Rittenhouse Square #14A", price: 2850000, soldDate: "2025-11-15", neighborhood: "Rittenhouse Square" },
+      { address: "312 Delancey Street", price: 1975000, soldDate: "2025-09-22", neighborhood: "Society Hill" },
+      { address: "445 Spruce Street", price: 1450000, soldDate: "2025-07-10", neighborhood: "Society Hill" },
+      { address: "8 Chestnut Hill Ave", price: 1225000, soldDate: "2025-05-03", neighborhood: "Chestnut Hill" },
+      { address: "601 N. Old Lancaster Rd", price: 3100000, soldDate: "2025-03-18", neighborhood: "Main Line" },
+    ],
     social: {
       instagram: "https://instagram.com/julianbradley",
       linkedin: "https://linkedin.com/in/julianbradley",
@@ -147,6 +168,12 @@ export const agents: Agent[] = [
     videoIntroId: "Tt_tKhBEWsE",
     activeListingIds: ["2", "4", "6"],
     soldListingIds: ["201", "202", "203"],
+    soldListings: [
+      { address: "1342 N. Front Street #3B", price: 485000, soldDate: "2025-10-28", neighborhood: "Fishtown" },
+      { address: "2101 Carpenter Street", price: 625000, soldDate: "2025-08-14", neighborhood: "Graduate Hospital" },
+      { address: "718 N. 2nd Street #5", price: 520000, soldDate: "2025-06-05", neighborhood: "Northern Liberties" },
+      { address: "1555 Fairmount Ave #2A", price: 395000, soldDate: "2025-04-19", neighborhood: "Fairmount" },
+    ],
     social: {
       instagram: "https://instagram.com/sofiamartinez",
       linkedin: "https://linkedin.com/in/sofiamartinez",
@@ -197,6 +224,11 @@ export const agents: Agent[] = [
     videoIntroId: null,
     activeListingIds: [],
     soldListingIds: ["301", "302"],
+    soldListings: [
+      { address: "2734 W. Master Street", price: 415000, soldDate: "2025-11-02", neighborhood: "Brewerytown" },
+      { address: "1601 S. 18th Street", price: 575000, soldDate: "2025-08-20", neighborhood: "Point Breeze" },
+      { address: "1045 E. Passyunk Ave", price: 510000, soldDate: "2025-06-12", neighborhood: "East Passyunk" },
+    ],
     social: {
       instagram: "https://instagram.com/marcusthompson",
       linkedin: "https://linkedin.com/in/marcusthompson",
@@ -250,8 +282,16 @@ export const agents: Agent[] = [
       },
     ],
     videoIntroUrl: null,
+    videoIntroId: null,
     activeListingIds: [],
     soldListingIds: ["401", "402", "403"],
+    soldListings: [
+      { address: "120 W. Willow Grove Ave", price: 925000, soldDate: "2025-10-05", neighborhood: "Chestnut Hill" },
+      { address: "345 Conshohocken State Rd", price: 1150000, soldDate: "2025-07-22", neighborhood: "Main Line" },
+      { address: "78 Rector Street", price: 680000, soldDate: "2025-05-30", neighborhood: "Manayunk" },
+      { address: "201 E. Sedgwick Street", price: 545000, soldDate: "2025-03-14", neighborhood: "Mount Airy" },
+      { address: "15 Rose Glen Rd", price: 2200000, soldDate: "2025-01-28", neighborhood: "Gladwyne" },
+    ],
     social: {
       instagram: "https://instagram.com/avachen",
       linkedin: "https://linkedin.com/in/avachen",
@@ -305,8 +345,16 @@ export const agents: Agent[] = [
       },
     ],
     videoIntroUrl: "https://www.youtube.com/embed/oqNM_Lviurk",
+    videoIntroId: "oqNM_Lviurk",
     activeListingIds: [],
     soldListingIds: ["501", "502", "503", "504"],
+    soldListings: [
+      { address: "1901 Walnut Street PH-A", price: 3450000, soldDate: "2025-10-18", neighborhood: "Rittenhouse Square" },
+      { address: "244 S. 21st Street", price: 1875000, soldDate: "2025-08-02", neighborhood: "Rittenhouse Square" },
+      { address: "126 N. 3rd Street #6", price: 980000, soldDate: "2025-06-25", neighborhood: "Old City" },
+      { address: "1500 Locust Street #28B", price: 1320000, soldDate: "2025-04-11", neighborhood: "Washington Square West" },
+      { address: "2000 Hamilton Street PH-2", price: 2650000, soldDate: "2025-02-07", neighborhood: "Logan Square" },
+    ],
     social: {
       instagram: "https://instagram.com/damonreeves",
       linkedin: "https://linkedin.com/in/damonreeves",
@@ -360,8 +408,15 @@ export const agents: Agent[] = [
       },
     ],
     videoIntroUrl: null,
+    videoIntroId: null,
     activeListingIds: [],
     soldListingIds: ["601", "602", "603"],
+    soldListings: [
+      { address: "2912 W. Girard Ave", price: 340000, soldDate: "2025-11-08", neighborhood: "Brewerytown" },
+      { address: "1538 N. 16th Street", price: 275000, soldDate: "2025-09-15", neighborhood: "Francisville" },
+      { address: "2245 N. 30th Street", price: 310000, soldDate: "2025-07-01", neighborhood: "Strawberry Mansion" },
+      { address: "1720 S. 22nd Street", price: 425000, soldDate: "2025-04-22", neighborhood: "Point Breeze" },
+    ],
     social: {
       instagram: "https://instagram.com/priyakapoor",
       linkedin: "https://linkedin.com/in/priyakapoor",

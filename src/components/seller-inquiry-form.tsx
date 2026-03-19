@@ -4,6 +4,7 @@ import { useState } from "react";
 import { CheckCircle, AlertCircle } from "lucide-react";
 import { Turnstile } from "@/components/turnstile";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { useUtm } from "@/hooks/useUtm";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -57,6 +58,7 @@ export function SellerInquiryForm() {
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
   const [turnstileToken, setTurnstileToken] = useState<string>("");
+  const utm = useUtm();
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -97,6 +99,7 @@ export function SellerInquiryForm() {
       reason: form.reason,
       message: form.message,
       captchaToken: turnstileToken || undefined,
+      ...utm,
     };
 
     try {
