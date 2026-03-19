@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Video } from "lucide-react";
 import { Property, formatPrice } from "@/data/properties";
 import { cn } from "@/lib/utils";
 
