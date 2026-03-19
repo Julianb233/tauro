@@ -351,7 +351,7 @@ export const agents: Agent[] = [
     title: "Broker & Owner",
     email: "tcupone@aol.com",
     phone: "(215) 427-2870",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
+    photo: "/agents/tony-goodman.jpg",
     bio: "Tony Goodman brings over two decades of real estate expertise to the Philadelphia market as the Broker and Owner of Exit Benchmark Realty. A Hampton University graduate with a degree in Finance, Tony combines sharp financial acumen with deep knowledge of Philadelphia's diverse neighborhoods. From first-time buyers in Cheltenham to seasoned investors eyeing multi-unit properties in North Philadelphia, Tony's hands-on approach and genuine care for his clients have earned him a loyal following. He believes every client deserves the same level of attention and professionalism, regardless of price point.",
     shortBio:
       "Broker/Owner with 20+ years of experience, specializing in residential sales, investment properties, and community development across Philadelphia.",
@@ -414,7 +414,7 @@ export const agents: Agent[] = [
     title: "Licensed Realtor",
     email: "shaquonda@exitbenchmark.com",
     phone: "(215) 817-5777",
-    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80",
+    photo: "/agents/shaquonda-garrett.jpg",
     bio: "Shaquonda Garrett is a driven and detail-oriented Realtor at Exit Benchmark Realty, where she partners with Broker Tony Goodman to deliver exceptional service across Philadelphia's residential market. Known for her warmth, responsiveness, and fierce negotiating skills, Shaquonda specializes in helping families find their forever homes in Philadelphia's up-and-coming neighborhoods. Her background in community advocacy and her deep ties to the city make her a trusted guide for buyers and sellers navigating one of the most dynamic markets on the East Coast.",
     shortBio:
       "Licensed Realtor specializing in residential sales and community-focused real estate across Philadelphia's emerging neighborhoods.",
