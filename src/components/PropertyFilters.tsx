@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
-import { neighborhoods } from "@/data/neighborhoods";
+interface NeighborhoodOption {
+  id: string;
+  name: string;
+  propertyFilter: string;
+}
 
 export interface FilterState {
   priceMin: string;
@@ -34,10 +38,12 @@ export default function PropertyFilters({
   filters,
   onChange,
   onClear,
+  neighborhoods = [],
 }: {
   filters: FilterState;
   onChange: (key: keyof FilterState, value: string) => void;
   onClear: () => void;
+  neighborhoods?: NeighborhoodOption[];
 }) {
   const [open, setOpen] = useState(false);
 

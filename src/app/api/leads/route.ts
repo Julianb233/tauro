@@ -53,12 +53,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  // Honeypot check — bots fill this hidden field, humans never see it
+  // Honeypot check
   if (body && typeof body === "object" && "website" in body && body.website) {
     return NextResponse.json({ success: true });
   }
 
-  // Validate input
   const result = LeadCreateSchema.safeParse(body);
   if (!result.success) {
     return NextResponse.json(
@@ -76,7 +75,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: turnstileResult.error }, { status: 400 });
   }
 
-  // --- Input sanitization (strip HTML tags) ---
+  // --- Input sanitization ---
   data.firstName = sanitize(data.firstName);
   data.lastName = sanitize(data.lastName);
   data.email = sanitize(data.email);
@@ -88,9 +87,7 @@ export async function POST(request: NextRequest) {
   if (data.currentBrokerage) data.currentBrokerage = sanitize(data.currentBrokerage);
   if (data.agentName) data.agentName = sanitize(data.agentName);
 
-  // ---------------------------------------------------------------------------
-  // 1. Persist to database (if Supabase is configured)
-  // ---------------------------------------------------------------------------
+  // 1. Persist to database
   const supabase = await createClient();
   let dbSaved = false;
   let agentId: string | null = null;
@@ -153,12 +150,10 @@ export async function POST(request: NextRequest) {
       dbSaved = true;
     }
   } else {
-    console.warn("POST /api/leads: Supabase not configured — skipping DB insert");
+    console.warn("POST /api/leads: Supabase not configured");
   }
 
-  // ---------------------------------------------------------------------------
-  // 2. Send emails (best effort — never block response on email failure)
-  // ---------------------------------------------------------------------------
+  // 2. Send emails (best effort)
   try {
     if (data.type !== "agent-application") {
       sendLeadConfirmation(data.email, {
@@ -204,11 +199,10 @@ export async function POST(request: NextRequest) {
     console.error("POST /api/leads email section error:", emailErr);
   }
 
-  // ---------------------------------------------------------------------------
-  // 3. Forward to GHL (best effort — uses ghl.ts module)
-  // ---------------------------------------------------------------------------
+  // 3. Forward to GHL (best effort)
   const ghlResult = await createGhlContact(data);
   const ghlSynced = ghlResult.success;
+
   if (!ghlSynced && ghlResult.error) {
     console.error("GHL sync failed:", ghlResult.error);
   }
@@ -223,12 +217,10 @@ export async function POST(request: NextRequest) {
       .limit(1);
   }
 
-  // ---------------------------------------------------------------------------
-  // 4. Fallback: if neither DB nor GHL is configured, log lead to console
-  // ---------------------------------------------------------------------------
+  // 4. Fallback logging
   const hasGhl = !!(process.env.GHL_WEBHOOK_URL || process.env.GHL_API_KEY);
   if (!supabase && !hasGhl) {
-    console.log("POST /api/leads [NO BACKEND] — lead data:", JSON.stringify(data, null, 2));
+    console.log("POST /api/leads [NO BACKEND]:", JSON.stringify(data, null, 2));
   }
 
   return NextResponse.json(
@@ -238,7 +230,7 @@ export async function POST(request: NextRequest) {
 }
 
 // ---------------------------------------------------------------------------
-// GET /api/leads — paginated lead list (for dashboard)
+// GET /api/leads
 // ---------------------------------------------------------------------------
 
 export async function GET(request: NextRequest) {

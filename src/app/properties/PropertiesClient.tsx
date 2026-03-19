@@ -13,8 +13,10 @@ type ViewMode = "grid" | "map";
 
 export default function PropertiesClient({
   properties,
+  neighborhoods = [],
 }: {
   properties: Property[];
+  neighborhoods?: { id: string; name: string; propertyFilter: string }[];
 }) {
   const searchParams = useSearchParams();
   const router = useRouter();
