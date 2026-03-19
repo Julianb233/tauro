@@ -34,7 +34,7 @@ export default function RoomBreakdown({ rooms }: { rooms: Room[] }) {
             </span>
             <span className="text-sm text-muted-foreground">
               <span className="mr-1 text-xs text-gold sm:hidden">Size:</span>
-              {room.dimensions}
+              {room.size}
             </span>
             <span className="text-sm text-muted-foreground">
               <span className="mr-1 text-xs text-gold sm:hidden">Level:</span>

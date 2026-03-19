@@ -3,6 +3,17 @@ import { createClient } from "@/lib/supabase/server";
 import { sendNewsletterWelcome } from "@/lib/email";
 import { siteUrl } from "@/lib/site-config";
 
+interface Subscriber {
+  id: string;
+  email: string;
+  first_name: string | null;
+  confirmed: boolean;
+  confirm_token: string | null;
+  unsubscribe_token: string;
+  interests: string[] | null;
+  source: string | null;
+}
+
 export async function GET(request: NextRequest) {
   const token = request.nextUrl.searchParams.get("token");
 
@@ -15,12 +26,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${siteUrl}/newsletter/confirm?status=error`);
   }
 
-  // Find subscriber by confirm token
   const { data: subscriber, error: fetchError } = await supabase
     .from("newsletter_subscribers")
     .select("*")
     .eq("confirm_token", token)
-    .maybeSingle();
+    .maybeSingle<Subscriber>();
 
   if (fetchError || !subscriber) {
     return NextResponse.redirect(`${siteUrl}/newsletter/confirm?status=invalid`);
