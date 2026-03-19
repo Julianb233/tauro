@@ -75,7 +75,7 @@ export function Navbar() {
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2">
             <Logo size="sm" variant={scrolled ? "dark" : "light"} />
           </Link>
 
@@ -86,7 +86,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold",
+                    "rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
                     scrolled ? "text-foreground/70" : "text-white/80"
                   )}
                 >
@@ -101,7 +101,7 @@ export function Navbar() {
             <a
               href="tel:+12158394172"
               className={cn(
-                "flex items-center gap-1.5 text-sm transition-all duration-300 hover:text-gold",
+                "flex items-center gap-1.5 rounded-md text-sm transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
                 scrolled ? "text-muted-foreground" : "text-white/70"
               )}
             >
@@ -146,7 +146,7 @@ export function Navbar() {
             <Link
               href="/contact"
               className={cn(
-                "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-all duration-300",
+                "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
                 scrolled
                   ? "bg-foreground text-white hover:bg-gold hover:text-white"
                   : "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"
@@ -160,7 +160,7 @@ export function Navbar() {
           <button
             type="button"
             className={cn(
-              "rounded-md p-2.5 lg:hidden",
+              "rounded-md p-2.5 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
               scrolled ? "text-foreground" : "text-white"
             )}
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -190,7 +190,7 @@ export function Navbar() {
               type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
-              className="rounded-md p-2 text-white/70 hover:text-white"
+              className="rounded-md p-2 text-white/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
             >
               <X className="size-6" />
             </button>
@@ -202,7 +202,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="font-heading text-3xl font-bold text-off-white transition-colors hover:text-gold"
+                className="rounded-md font-heading text-3xl font-bold text-off-white transition-colors hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
                 onClick={() => setMobileOpen(false)}
               >
                 {link.label}

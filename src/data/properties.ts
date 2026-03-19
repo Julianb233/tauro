@@ -1,6 +1,7 @@
 export interface Room {
   name: string;
   size?: string;
+  dimensions?: string;
   level?: string;
   description?: string;
 }

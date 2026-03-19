@@ -237,7 +237,7 @@ export default function JoinPage() {
                         value={form.firstName}
                         onChange={handleChange}
                         placeholder="Jane"
-                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                       />
                     </div>
                     <div>
@@ -253,7 +253,7 @@ export default function JoinPage() {
                         value={form.lastName}
                         onChange={handleChange}
                         placeholder="Smith"
-                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                       />
                     </div>
                   </div>
@@ -272,7 +272,7 @@ export default function JoinPage() {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="jane@example.com"
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
@@ -290,7 +290,7 @@ export default function JoinPage() {
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="(215) 839-4172"
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
@@ -307,7 +307,7 @@ export default function JoinPage() {
                       value={form.licenseNumber}
                       onChange={handleChange}
                       placeholder="RS-XXXXXX"
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
@@ -322,7 +322,7 @@ export default function JoinPage() {
                       required
                       value={form.yearsExperience}
                       onChange={handleChange}
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     >
                       <option value="">Select experience level</option>
                       {experienceLevels.map((level) => (
@@ -345,7 +345,7 @@ export default function JoinPage() {
                       value={form.currentBrokerage}
                       onChange={handleChange}
                       placeholder="e.g., Keller Williams"
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
@@ -361,7 +361,7 @@ export default function JoinPage() {
                       value={form.whyJoin}
                       onChange={handleChange}
                       placeholder="Tell us about your goals and what excites you about Tauro..."
-                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
@@ -377,7 +377,7 @@ export default function JoinPage() {
                       value={form.message}
                       onChange={handleChange}
                       placeholder="Link to your resume, portfolio, or anything else you'd like to share..."
-                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 

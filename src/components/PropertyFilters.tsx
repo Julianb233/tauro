@@ -65,7 +65,7 @@ export default function PropertyFilters({
   ).length;
 
   const selectClasses =
-    "w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold sm:py-2";
+    "w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold sm:py-2";
 
   return (
     <div className="border-b border-border bg-cream/80 backdrop-blur-sm">
