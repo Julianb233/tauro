@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { loadAgentBySlug, loadAgents } from "@/lib/data";
+import { RealEstateAgentJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { siteUrl } from "@/lib/site-config";
 import AgentProfileClient from "./AgentProfileClient";
@@ -42,6 +43,7 @@ export default async function AgentDetailPage({ params }: { params: Promise<{ sl
   if (!result) notFound();
   return (
     <>
+      <RealEstateAgentJsonLd agent={result.agent} />
       <Breadcrumbs
         items={[
           { label: "Agents", href: "/agents" },

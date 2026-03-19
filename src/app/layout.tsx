@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Playfair_Display, DM_Sans, Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { OrganizationJsonLd } from "@/components/JsonLd";
+import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { loadTestimonials } from "@/lib/data";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
 
@@ -69,11 +70,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const testimonials = await loadTestimonials();
+
   return (
     <html lang="en">
       <body
@@ -88,7 +91,8 @@ export default function RootLayout({
         <GoogleAnalytics />
         <Analytics />
         <SpeedInsights />
-        <OrganizationJsonLd />
+        <OrganizationJsonLd testimonials={testimonials} />
+        <WebSiteJsonLd />
         <main id="main-content">
           {children}
         </main>
