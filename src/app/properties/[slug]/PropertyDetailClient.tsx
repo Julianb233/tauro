@@ -20,6 +20,7 @@ import {
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import ImageGallery from "@/components/ImageGallery";
+import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PropertyMap from "@/components/PropertyMap";
 import MortgageCalculator from "@/components/MortgageCalculator";
 import { cn } from "@/lib/utils";
@@ -189,22 +190,11 @@ export default function PropertyDetailClient({
             </div>
 
             {/* Video Tour (PROP-08) */}
-            {property.videoUrl && (
-              <div>
-                <h2 className="font-heading text-xl font-bold">
-                  <Play className="mr-2 inline-block h-5 w-5 text-gold" />
-                  Video Tour
-                </h2>
-                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-cream">
-                  <iframe
-                    src={property.videoUrl}
-                    title={`Video tour of ${property.address}`}
-                    className="h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              </div>
+            {property.videoTourUrl && (
+              <PropertyVideoTour
+                videoId={property.videoTourUrl}
+                address={property.address}
+              />
             )}
 
             {/* 3D Virtual Tour (PROP-09) */}
