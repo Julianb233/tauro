@@ -1,11 +1,17 @@
 import { ImageResponse } from "next/og";
+import { siteUrl } from "@/lib/site-config";
 
 export const runtime = "edge";
 
 export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
-export default function Icon() {
+export default async function Icon() {
+  const logoUrl = new URL("/tauro-logo.png", siteUrl);
+  const logoResponse = await fetch(logoUrl);
+  const logoBuffer = await logoResponse.arrayBuffer();
+  const logoBase64 = `data:image/png;base64,${Buffer.from(logoBuffer).toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -17,18 +23,17 @@ export default function Icon() {
           justifyContent: "center",
           backgroundColor: "#1A1A2E",
           borderRadius: 4,
+          padding: 4,
         }}
       >
-        <div
-          style={{
-            fontSize: 20,
-            fontWeight: 700,
-            color: "#C9A96E",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          T
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={logoBase64}
+          alt=""
+          width={24}
+          height={24}
+          style={{ objectFit: "contain" }}
+        />
       </div>
     ),
     { ...size },

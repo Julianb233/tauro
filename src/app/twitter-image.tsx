@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { siteUrl } from "@/lib/site-config";
 
 export const runtime = "edge";
 
@@ -7,7 +8,7 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 export default async function TwitterImage() {
-  const logoUrl = new URL("/tauro-logo.png", "https://taurorealty.com");
+  const logoUrl = new URL("/tauro-logo.png", siteUrl);
   const logoResponse = await fetch(logoUrl);
   const logoBuffer = await logoResponse.arrayBuffer();
   const logoBase64 = `data:image/png;base64,${Buffer.from(logoBuffer).toString("base64")}`;

@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { siteUrl } from "@/lib/site-config";
 
 export const runtime = "edge";
 
@@ -8,7 +9,7 @@ export const contentType = "image/png";
 
 export default async function OGImage() {
   // Fetch the logo from the public directory via absolute URL
-  const logoUrl = new URL("/tauro-logo.png", "https://taurorealty.com");
+  const logoUrl = new URL("/tauro-logo.png", siteUrl);
   const logoResponse = await fetch(logoUrl);
   const logoBuffer = await logoResponse.arrayBuffer();
   const logoBase64 = `data:image/png;base64,${Buffer.from(logoBuffer).toString("base64")}`;
