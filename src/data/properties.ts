@@ -36,6 +36,7 @@ export interface Property {
     endTime: string;    // HH:MM (24h)
   };
   videoUrl?: string;
+  videoTourUrl?: string;
   virtualTourUrl?: string;
   tax_annual: number;
   tax_year: number;
@@ -102,6 +103,7 @@ export const properties: Property[] = [
     tax_year: 2025,
     openHouse: "Sat, Mar 22 · 1:00 PM - 4:00 PM",
     videoUrl: "https://www.youtube.com/embed/2lPGf1gJwb4",
+    videoTourUrl: "2lPGf1gJwb4",
     virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyoDo",
   },
   {
@@ -163,6 +165,7 @@ export const properties: Property[] = [
     tax_annual: 66500,
     tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/9k3iFqLGmOo",
+    videoTourUrl: "9k3iFqLGmOo",
     virtualTourUrl: "https://my.matterport.com/show/?m=oj3GnqCwEvR",
   },
   {
@@ -224,6 +227,7 @@ export const properties: Property[] = [
     tax_annual: 95200,
     tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/gXGnIFzJsQ4",
+    videoTourUrl: "gXGnIFzJsQ4",
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
   },
   {
@@ -279,6 +283,7 @@ export const properties: Property[] = [
     tax_year: 2025,
     openHouse: "Sun, Mar 23 · 11:00 AM - 2:00 PM",
     videoUrl: "https://www.youtube.com/embed/QhHBvBsW_GE",
+    videoTourUrl: "QhHBvBsW_GE",
   },
   {
     id: "5",
@@ -332,6 +337,7 @@ export const properties: Property[] = [
     tax_annual: 27300,
     tax_year: 2025,
     videoUrl: "https://www.youtube.com/embed/VXJkNrnKVqA",
+    videoTourUrl: "VXJkNrnKVqA",
   },
   {
     id: "6",
