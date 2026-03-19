@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { OrganizationJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { CookieConsent } from "@/components/CookieConsent";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
 
@@ -92,6 +93,7 @@ export default function RootLayout({
         <main id="main-content">
           {children}
         </main>
+        <CookieConsent />
       </body>
     </html>
   );
