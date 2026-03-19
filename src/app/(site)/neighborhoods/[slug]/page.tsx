@@ -1,8 +1,6 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import Link from "next/link";
 import {
-  MapPin,
   CheckCircle,
   Coffee,
   TrainFront,
@@ -17,6 +15,7 @@ import {
 import { AreaHero } from "@/components/area-hero";
 import { MarketStats } from "@/components/market-stats";
 import { AreaListings } from "@/components/area-listings";
+import NeighborhoodMap from "@/components/NeighborhoodMap";
 
 /* ── SSG ─────────────────────────────────────────────────── */
 
@@ -69,7 +68,7 @@ export default async function NeighborhoodDetailPage({
       <AreaHero neighborhood={neighborhood} />
 
       {/* ── About ────────────────────────────────────────── */}
-      <section className="bg-near-black py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
@@ -88,7 +87,7 @@ export default async function NeighborhoodDetailPage({
       </section>
 
       {/* ── Selling Points ───────────────────────────────── */}
-      <section className="border-t border-border/40 bg-midnight py-16">
+      <section className="border-t border-border/40 bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Why {neighborhood.name}
@@ -109,7 +108,7 @@ export default async function NeighborhoodDetailPage({
       </section>
 
       {/* ── Lifestyle ────────────────────────────────────── */}
-      <section className="bg-near-black py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Local Life
@@ -161,25 +160,26 @@ export default async function NeighborhoodDetailPage({
         propertyFilter={neighborhood.propertyFilter}
       />
 
-      {/* ── Map Placeholder ──────────────────────────────── */}
-      <section className="border-t border-border/40 bg-midnight py-16">
+      {/* ── Neighborhood Map ──────────────────────────────── */}
+      <section className="border-t border-border/40 bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex aspect-video items-center justify-center rounded-xl border border-border bg-card">
-            <div className="text-center">
-              <MapPin className="mx-auto size-12 text-gold/30" />
-              <p className="mt-4 font-heading text-lg font-bold text-foreground">
-                Map of {neighborhood.name}
-              </p>
-              <p className="mt-1 text-sm text-muted-foreground">
-                Interactive map coming soon
-              </p>
-            </div>
+          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            Location
+          </p>
+          <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
+            Explore {neighborhood.name}
+          </h2>
+          <div className="mt-8">
+            <NeighborhoodMap
+              name={neighborhood.name}
+              center={neighborhood.mapCenter}
+            />
           </div>
         </div>
       </section>
 
       {/* ── CTA ──────────────────────────────────────────── */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Ready to Explore?
