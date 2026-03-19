@@ -1,8 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter, ArrowRight, Users } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
+import { NewsletterForm } from "@/components/NewsletterForm";
+import { blogPosts } from "@/data/blog-posts";
 
 const quickLinks = [
   { href: "/properties", label: "Properties" },
@@ -165,6 +167,77 @@ export function Footer() {
               <MapPin className="size-3.5" />
               View on Google Maps
             </a>
+          </div>
+        </div>
+
+        {/* Newsletter + Recent Post */}
+        <div className="mt-8 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
+          <div className="grid gap-6 lg:grid-cols-2 lg:gap-10">
+            {/* Newsletter signup with social proof */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="flex size-10 items-center justify-center rounded-full border border-gold/20 bg-gold/10">
+                  <Mail className="size-5 text-gold" />
+                </div>
+                <div>
+                  <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
+                    Stay in the Know
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-xs text-white/50">
+                    <Users className="size-3" />
+                    <span>Join 2,500+ subscribers</span>
+                  </div>
+                </div>
+              </div>
+              <p className="text-sm leading-relaxed text-white/70">
+                Curated Philadelphia real estate insights -- new listings, market
+                reports, and neighborhood guides delivered monthly. No spam, ever.
+              </p>
+              <NewsletterForm />
+            </div>
+
+            {/* Recent blog post preview */}
+            {blogPosts[0] && (
+              <div className="space-y-3">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-gold">
+                  From the Blog
+                </h3>
+                <Link
+                  href={`/blog/${blogPosts[0].slug}`}
+                  className="group flex gap-4 rounded-lg border border-white/5 p-3 transition-all hover:border-gold/30 hover:bg-white/5"
+                >
+                  <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-md">
+                    <Image
+                      src={blogPosts[0].coverImage}
+                      alt={blogPosts[0].title}
+                      fill
+                      sizes="112px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 to-transparent" />
+                  </div>
+                  <div className="flex flex-1 flex-col justify-center">
+                    <span className="mb-1 inline-block text-[10px] font-medium uppercase tracking-wider text-gold/70">
+                      {blogPosts[0].category} &middot; {blogPosts[0].readTime} min read
+                    </span>
+                    <h4 className="line-clamp-2 text-sm font-medium leading-snug text-white/80 transition-colors group-hover:text-gold">
+                      {blogPosts[0].title}
+                    </h4>
+                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-white/50">
+                      {blogPosts[0].excerpt}
+                    </p>
+                  </div>
+                  <ArrowRight className="mt-auto mb-auto size-4 shrink-0 text-white/30 transition-colors group-hover:text-gold" />
+                </Link>
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center gap-1 text-xs text-gold/70 transition-colors hover:text-gold"
+                >
+                  View all articles
+                  <ArrowRight className="size-3" />
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 
