@@ -1,18 +1,46 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import HeroSearchBar from "@/components/HeroSearchBar";
 
+const HERO_IMAGE =
+  "https://images.unsplash.com/photo-1506636489208-f1d6c865744e?w=1920&q=80";
+
+const HERO_VIDEO =
+  "https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4";
+
 export default function Hero() {
+  const [videoFailed, setVideoFailed] = useState(false);
+
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Swap to <video> for cinematic reel later */}
+      {/* Cinematic video background with image fallback */}
+      {!videoFailed && (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={HERO_IMAGE}
+          onError={() => setVideoFailed(true)}
+          className="absolute inset-0 h-full w-full object-cover"
+        >
+          <source src={HERO_VIDEO} type="video/mp4" />
+        </video>
+      )}
+
+      {/* Fallback image — shown if video fails or while poster loads */}
       <Image
-        src="https://images.unsplash.com/photo-1506636489208-f1d6c865744e?w=1920&q=80"
+        src={HERO_IMAGE}
         alt="Philadelphia skyline"
         fill
         priority
         sizes="100vw"
-        className="object-cover"
+        className={`object-cover ${!videoFailed ? "opacity-0" : ""}`}
+        aria-hidden={!videoFailed}
       />
+
       {/* Lighter gradient overlay — magazine cover feel */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
 
