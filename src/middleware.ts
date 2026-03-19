@@ -19,10 +19,7 @@ export async function middleware(request: NextRequest) {
     const ip = getClientIp(request.headers);
 
     if (isRateLimited(ip)) {
-      return NextResponse.json(
-        { error: "Too many requests" },
-        { status: 429 },
-      );
+      return NextResponse.json({ error: "Too many requests" }, { status: 429 });
     }
 
     const method = request.method.toUpperCase();
@@ -34,16 +31,10 @@ export async function middleware(request: NextRequest) {
         try {
           const originHost = new URL(origin).host;
           if (originHost !== host) {
-            return NextResponse.json(
-              { error: "Forbidden: origin mismatch" },
-              { status: 403 },
-            );
+            return NextResponse.json({ error: "Forbidden: origin mismatch" }, { status: 403 });
           }
         } catch {
-          return NextResponse.json(
-            { error: "Forbidden: invalid origin" },
-            { status: 403 },
-          );
+          return NextResponse.json({ error: "Forbidden: invalid origin" }, { status: 403 });
         }
       }
     }

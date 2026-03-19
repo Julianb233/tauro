@@ -1,7 +1,3 @@
-// ---------------------------------------------------------------------------
-// Input sanitization — strips HTML tags from string inputs
-// ---------------------------------------------------------------------------
-
 /**
  * Strips HTML/script tags from a string to prevent stored XSS.
  */

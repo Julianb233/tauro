@@ -9,7 +9,6 @@ import { sanitize } from "@/lib/sanitize";
 import { getClientIp } from "@/lib/rate-limit";
 
 
-
 // ---------------------------------------------------------------------------
 // Validation
 // ---------------------------------------------------------------------------
@@ -43,7 +42,6 @@ const LeadCreateSchema = z.object({
   // Agent contact-specific
   agentName: z.string().optional(),
   agentSlug: z.string().optional(),
-  // CAPTCHA
   captchaToken: z.string().optional(),
 });
 
@@ -125,13 +123,10 @@ export async function POST(request: NextRequest) {
   const ip = getClientIp(request.headers);
   const turnstileResult = await verifyTurnstileToken(data.captchaToken, ip);
   if (!turnstileResult.success) {
-    return NextResponse.json(
-      { error: turnstileResult.error },
-      { status: 400 },
-    );
+    return NextResponse.json({ error: turnstileResult.error }, { status: 400 });
   }
 
-  // --- Input sanitization (strip HTML tags) ---
+  // --- Input sanitization ---
   data.firstName = sanitize(data.firstName);
   data.lastName = sanitize(data.lastName);
   data.email = sanitize(data.email);

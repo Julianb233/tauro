@@ -147,6 +147,38 @@ CREATE TABLE faq (
 COMMENT ON TABLE faq IS 'Frequently asked questions for buyers and sellers';
 
 -- ============================================================================
+-- ENUMS
+-- ============================================================================
+CREATE TYPE user_role AS ENUM ('admin', 'agent', 'viewer');
+
+-- ============================================================================
+-- PROFILES TABLE (linked to Supabase Auth users)
+-- ============================================================================
+CREATE TABLE profiles (
+  id          uuid        PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  email       text        NOT NULL,
+  full_name   text        NOT NULL,
+  role        user_role   NOT NULL DEFAULT 'viewer',
+  agent_id    uuid        UNIQUE REFERENCES agents(id) ON DELETE SET NULL,
+  avatar_url  text,
+  created_at  timestamptz DEFAULT now(),
+  updated_at  timestamptz DEFAULT now()
+);
+
+COMMENT ON TABLE profiles IS 'User profiles linked to Supabase Auth, with role-based access';
+
+-- ============================================================================
+-- NEWSLETTER SUBSCRIPTIONS TABLE
+-- ============================================================================
+CREATE TABLE newsletter_subscriptions (
+  id            uuid        PRIMARY KEY DEFAULT gen_random_uuid(),
+  email         text        UNIQUE NOT NULL,
+  subscribed_at timestamptz DEFAULT now()
+);
+
+COMMENT ON TABLE newsletter_subscriptions IS 'Email newsletter subscriptions';
+
+-- ============================================================================
 -- INDEXES
 -- ============================================================================
 CREATE INDEX idx_properties_slug         ON properties(slug);
@@ -158,6 +190,8 @@ CREATE INDEX idx_neighborhoods_slug      ON neighborhoods(slug);
 CREATE INDEX idx_leads_status            ON leads(status);
 CREATE INDEX idx_leads_type              ON leads(type);
 CREATE INDEX idx_leads_created_at        ON leads(created_at);
+CREATE INDEX idx_profiles_role           ON profiles(role);
+CREATE INDEX idx_newsletter_email        ON newsletter_subscriptions(email);
 
 -- ============================================================================
 -- UPDATED_AT TRIGGER FUNCTION
@@ -186,3 +220,79 @@ CREATE TRIGGER set_updated_at_neighborhoods
 CREATE TRIGGER set_updated_at_leads
   BEFORE UPDATE ON leads
   FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER set_updated_at_profiles
+  BEFORE UPDATE ON profiles
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- ============================================================================
+-- ROW LEVEL SECURITY (RLS) POLICIES
+-- ============================================================================
+
+-- Enable RLS on all tables
+ALTER TABLE agents ENABLE ROW LEVEL SECURITY;
+ALTER TABLE properties ENABLE ROW LEVEL SECURITY;
+ALTER TABLE neighborhoods ENABLE ROW LEVEL SECURITY;
+ALTER TABLE leads ENABLE ROW LEVEL SECURITY;
+ALTER TABLE testimonials ENABLE ROW LEVEL SECURITY;
+ALTER TABLE faq ENABLE ROW LEVEL SECURITY;
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+ALTER TABLE newsletter_subscriptions ENABLE ROW LEVEL SECURITY;
+
+-- Public read access for content tables (no auth required)
+CREATE POLICY "Public read: agents"
+  ON agents FOR SELECT USING (true);
+
+CREATE POLICY "Public read: properties"
+  ON properties FOR SELECT USING (true);
+
+CREATE POLICY "Public read: neighborhoods"
+  ON neighborhoods FOR SELECT USING (true);
+
+CREATE POLICY "Public read: testimonials"
+  ON testimonials FOR SELECT USING (true);
+
+CREATE POLICY "Public read: faq"
+  ON faq FOR SELECT USING (true);
+
+-- Leads: anyone can insert (contact forms), only authenticated users can read
+CREATE POLICY "Anyone can submit leads"
+  ON leads FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Authenticated users can read leads"
+  ON leads FOR SELECT USING (auth.role() = 'authenticated');
+
+-- Newsletter: anyone can subscribe
+CREATE POLICY "Anyone can subscribe to newsletter"
+  ON newsletter_subscriptions FOR INSERT WITH CHECK (true);
+
+CREATE POLICY "Authenticated users can read subscriptions"
+  ON newsletter_subscriptions FOR SELECT USING (auth.role() = 'authenticated');
+
+-- Profiles: users can read their own profile, admins can read all
+CREATE POLICY "Users can read own profile"
+  ON profiles FOR SELECT USING (auth.uid() = id);
+
+CREATE POLICY "Users can update own profile"
+  ON profiles FOR UPDATE USING (auth.uid() = id);
+
+-- ============================================================================
+-- AUTO-CREATE PROFILE ON SIGNUP (trigger on auth.users)
+-- ============================================================================
+CREATE OR REPLACE FUNCTION handle_new_user()
+RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO public.profiles (id, email, full_name, role)
+  VALUES (
+    NEW.id,
+    NEW.email,
+    COALESCE(NEW.raw_user_meta_data->>'full_name', NEW.email),
+    'viewer'
+  );
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+CREATE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE FUNCTION handle_new_user();

@@ -6,6 +6,7 @@ import {
   CheckCircle, AlertCircle, ArrowRight,
 } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { Turnstile } from "@/components/turnstile";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -52,6 +53,7 @@ export default function JoinPage() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -75,6 +77,7 @@ export default function JoinPage() {
       currentBrokerage: form.currentBrokerage,
       whyJoin: form.whyJoin,
       message: form.message,
+      captchaToken: turnstileToken || undefined,
     };
 
     try {
@@ -91,6 +94,7 @@ export default function JoinPage() {
 
       setState("success");
       setForm(initialForm);
+      setTurnstileToken("");
     } catch (err) {
       setState("error");
       setErrorMsg(
@@ -375,9 +379,15 @@ export default function JoinPage() {
                     />
                   </div>
 
+                  <Turnstile
+                    onVerify={setTurnstileToken}
+                    onExpire={() => setTurnstileToken("")}
+                    className="mt-4"
+                  />
+
                   <button
                     type="submit"
-                    disabled={state === "submitting"}
+                    disabled={state === "submitting" || !turnstileToken}
                     className="w-full rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {state === "submitting" ? "Submitting..." : "Submit Application"}
