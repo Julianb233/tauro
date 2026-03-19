@@ -1,8 +1,5 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import { MapPin, ExternalLink } from "lucide-react";
 import { Property, formatPrice } from "@/data/properties";
 
@@ -14,19 +11,11 @@ interface PropertyMapProps {
   singleMarker?: boolean;
 }
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? "";
 const GOLD = "#C9A96E";
 const PHILLY_CENTER: [number, number] = [-75.1652, 39.9526];
 
-function MapFallback({ message }: { message: string }) {
-  return (
-    <div className="flex h-full w-full flex-col items-center justify-center gap-4 rounded-xl border border-[#C9A96E]/20 bg-[#111111] p-8">
-      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-[#C9A96E]/30 bg-[#C9A96E]/10">
-        <MapPin className="h-7 w-7 text-[#C9A96E]" />
-      </div>
-      <p className="text-center text-sm text-[#F5F0E8]/60">{message}</p>
-    </div>
-  );
+function clampZoom(z: number) {
+  return Math.min(Math.max(Math.round(z), 1), 19);
 }
 
 export default function PropertyMap({
@@ -36,194 +25,121 @@ export default function PropertyMap({
   zoom = 12,
   singleMarker = false,
 }: PropertyMapProps) {
-  const mapContainer = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<mapboxgl.Map | null>(null);
-  const markersRef = useRef<mapboxgl.Marker[]>([]);
-  const [mapError, setMapError] = useState(false);
+  const [cLng, cLat] = center ?? PHILLY_CENTER;
+  const osmZoom = clampZoom(zoom);
 
-  useEffect(() => {
-    if (!MAPBOX_TOKEN || MAPBOX_TOKEN.includes("placeholder")) {
-      setMapError(true);
-      return;
-    }
+  const embedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${cLng - 0.02},${cLat - 0.012},${cLng + 0.02},${cLat + 0.012}&layer=mapnik&marker=${cLat},${cLng}`;
 
-    if (!mapContainer.current || mapRef.current) return;
+  if (singleMarker && properties.length === 1) {
+    const property = properties[0];
+    const lat = property.lat;
+    const lng = property.lng;
+    const singleUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.008},${lat - 0.005},${lng + 0.008},${lat + 0.005}&layer=mapnik&marker=${lat},${lng}`;
+    const osmLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=${osmZoom}/${lat}/${lng}`;
 
-    mapboxgl.accessToken = MAPBOX_TOKEN;
-
-    try {
-      const map = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: "mapbox://styles/mapbox/dark-v11",
-        center: center ?? PHILLY_CENTER,
-        zoom,
-        attributionControl: false,
-      });
-
-      map.addControl(
-        new mapboxgl.NavigationControl({ showCompass: false }),
-        "top-right"
-      );
-
-      map.on("load", () => {
-        // Clear existing markers
-        markersRef.current.forEach((m) => m.remove());
-        markersRef.current = [];
-
-        const bounds = new mapboxgl.LngLatBounds();
-
-        properties.forEach((property) => {
-          if (!property.lat || !property.lng) return;
-
-          // Create custom marker element
-          const el = document.createElement("div");
-          el.style.width = "28px";
-          el.style.height = "28px";
-          el.style.borderRadius = "50%";
-          el.style.backgroundColor = GOLD;
-          el.style.border = "3px solid #111111";
-          el.style.cursor = "pointer";
-          el.style.boxShadow = `0 0 8px ${GOLD}66`;
-          el.style.transition = "transform 0.2s ease";
-          el.addEventListener("mouseenter", () => {
-            el.style.transform = "scale(1.3)";
-          });
-          el.addEventListener("mouseleave", () => {
-            el.style.transform = "scale(1)";
-          });
-
-          // Create popup content
-          const popupHTML = singleMarker
-            ? `<div style="background:#1A1A1A;color:#F5F0E8;padding:8px 12px;border-radius:8px;font-family:sans-serif;min-width:160px;">
-                <p style="font-weight:600;font-size:13px;margin:0;">${property.address}</p>
-                <p style="font-size:12px;color:#F5F0E880;margin:4px 0 0;">${property.city}, ${property.state} ${property.zip}</p>
-              </div>`
-            : `<div style="background:#1A1A1A;color:#F5F0E8;padding:10px 14px;border-radius:8px;font-family:sans-serif;min-width:180px;">
-                <p style="font-weight:600;font-size:13px;margin:0;">${property.address}</p>
-                <p style="color:${GOLD};font-weight:700;font-size:14px;margin:6px 0 4px;">${formatPrice(property.price)}</p>
-                <p style="font-size:11px;color:#F5F0E880;margin:0 0 8px;">${property.beds} BD | ${property.baths} BA | ${property.sqft.toLocaleString()} SF</p>
-                <a href="/properties/${property.slug}" style="display:inline-block;padding:5px 12px;background:${GOLD};color:#1A1A1A;border-radius:6px;text-decoration:none;font-size:12px;font-weight:600;">View Details</a>
-              </div>`;
-
-          const popup = new mapboxgl.Popup({
-            offset: 20,
-            closeButton: false,
-            maxWidth: "260px",
-          }).setHTML(popupHTML);
-
-          const marker = new mapboxgl.Marker({ element: el })
-            .setLngLat([property.lng, property.lat])
-            .setPopup(popup)
-            .addTo(map);
-
-          // Click marker to navigate (if not single marker mode)
-          if (!singleMarker && onPropertyClick) {
-            el.addEventListener("click", (e) => {
-              e.stopPropagation();
-            });
-          }
-
-          markersRef.current.push(marker);
-          bounds.extend([property.lng, property.lat]);
-        });
-
-        // Fit bounds if multiple properties and no explicit center
-        if (!singleMarker && properties.length > 1 && !center) {
-          map.fitBounds(bounds, { padding: 60, maxZoom: 15 });
-        }
-      });
-
-      mapRef.current = map;
-    } catch {
-      setMapError(true);
-    }
-
-    return () => {
-      markersRef.current.forEach((m) => m.remove());
-      markersRef.current = [];
-      if (mapRef.current) {
-        mapRef.current.remove();
-        mapRef.current = null;
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // Update markers when properties change (without recreating map)
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map || !map.loaded()) return;
-
-    // Clear existing markers
-    markersRef.current.forEach((m) => m.remove());
-    markersRef.current = [];
-
-    const bounds = new mapboxgl.LngLatBounds();
-
-    properties.forEach((property) => {
-      if (!property.lat || !property.lng) return;
-
-      const el = document.createElement("div");
-      el.style.width = "28px";
-      el.style.height = "28px";
-      el.style.borderRadius = "50%";
-      el.style.backgroundColor = GOLD;
-      el.style.border = "3px solid #111111";
-      el.style.cursor = "pointer";
-      el.style.boxShadow = `0 0 8px ${GOLD}66`;
-      el.style.transition = "transform 0.2s ease";
-      el.addEventListener("mouseenter", () => {
-        el.style.transform = "scale(1.3)";
-      });
-      el.addEventListener("mouseleave", () => {
-        el.style.transform = "scale(1)";
-      });
-
-      const popupHTML = singleMarker
-        ? `<div style="background:#1A1A1A;color:#F5F0E8;padding:8px 12px;border-radius:8px;font-family:sans-serif;min-width:160px;">
-            <p style="font-weight:600;font-size:13px;margin:0;">${property.address}</p>
-            <p style="font-size:12px;color:#F5F0E880;margin:4px 0 0;">${property.city}, ${property.state} ${property.zip}</p>
-          </div>`
-        : `<div style="background:#1A1A1A;color:#F5F0E8;padding:10px 14px;border-radius:8px;font-family:sans-serif;min-width:180px;">
-            <p style="font-weight:600;font-size:13px;margin:0;">${property.address}</p>
-            <p style="color:${GOLD};font-weight:700;font-size:14px;margin:6px 0 4px;">${formatPrice(property.price)}</p>
-            <p style="font-size:11px;color:#F5F0E880;margin:0 0 8px;">${property.beds} BD | ${property.baths} BA | ${property.sqft.toLocaleString()} SF</p>
-            <a href="/properties/${property.slug}" style="display:inline-block;padding:5px 12px;background:${GOLD};color:#1A1A1A;border-radius:6px;text-decoration:none;font-size:12px;font-weight:600;">View Details</a>
-          </div>`;
-
-      const popup = new mapboxgl.Popup({
-        offset: 20,
-        closeButton: false,
-        maxWidth: "260px",
-      }).setHTML(popupHTML);
-
-      const marker = new mapboxgl.Marker({ element: el })
-        .setLngLat([property.lng, property.lat])
-        .setPopup(popup)
-        .addTo(map);
-
-      markersRef.current.push(marker);
-      bounds.extend([property.lng, property.lat]);
-    });
-
-    if (!singleMarker && properties.length > 1 && !center) {
-      map.fitBounds(bounds, { padding: 60, maxZoom: 15 });
-    } else if (center) {
-      map.flyTo({ center, zoom });
-    }
-  }, [properties, singleMarker, center, zoom, onPropertyClick]);
-
-  if (mapError) {
     return (
-      <MapFallback message="Map unavailable. Please configure your Mapbox token to enable the interactive map." />
+      <div className="relative h-full w-full overflow-hidden rounded-xl border border-[#C9A96E]/20 bg-[#111111]">
+        <iframe
+          title={`Map of ${property.address}`}
+          src={singleUrl}
+          className="h-full w-full border-0"
+          style={{
+            minHeight: "300px",
+            filter: "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.1) saturate(0.3) sepia(0.15)",
+          }}
+          loading="lazy"
+          allowFullScreen
+        />
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#111111] via-[#111111]/90 to-transparent px-4 pb-4 pt-10">
+          <div className="flex items-end justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <div
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
+                style={{ backgroundColor: `${GOLD}22`, border: `2px solid ${GOLD}` }}
+              >
+                <MapPin className="h-4 w-4" style={{ color: GOLD }} />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-[#F5F0E8]">{property.address}</p>
+                <p className="text-xs text-[#F5F0E8]/60">
+                  {property.city}, {property.state} {property.zip}
+                </p>
+              </div>
+            </div>
+            <a
+              href={osmLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors"
+              style={{ backgroundColor: `${GOLD}18`, color: GOLD }}
+            >
+              <ExternalLink className="h-3 w-3" />
+              Open Map
+            </a>
+          </div>
+        </div>
+      </div>
     );
   }
 
+  const osmLink = `https://www.openstreetmap.org/#map=${osmZoom}/${cLat}/${cLng}`;
+
   return (
-    <div
-      ref={mapContainer}
-      className="h-full w-full rounded-xl"
-      style={{ minHeight: "300px" }}
-    />
+    <div className="relative h-full w-full overflow-hidden rounded-xl border border-[#C9A96E]/20 bg-[#111111]">
+      <iframe
+        title="Property map"
+        src={embedUrl}
+        className="h-full w-full border-0"
+        style={{
+          minHeight: "300px",
+          filter: "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.1) saturate(0.3) sepia(0.15)",
+        }}
+        loading="lazy"
+        allowFullScreen
+      />
+      {properties.length > 0 && (
+        <div className="absolute left-3 top-3 max-h-[60%] w-56 overflow-y-auto rounded-lg border border-[#C9A96E]/20 bg-[#111111]/95 shadow-xl backdrop-blur-sm">
+          <div className="p-2.5">
+            <p className="mb-2 text-[10px] font-semibold uppercase tracking-widest" style={{ color: GOLD }}>
+              {properties.length} {properties.length === 1 ? "Property" : "Properties"}
+            </p>
+            <div className="space-y-1.5">
+              {properties.slice(0, 8).map((property) => (
+                <button
+                  key={property.id}
+                  onClick={() => onPropertyClick?.(property.slug)}
+                  className="group flex w-full items-start gap-2 rounded-md p-2 text-left transition-colors hover:bg-[#C9A96E]/10"
+                >
+                  <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0" style={{ color: GOLD }} />
+                  <div className="min-w-0">
+                    <p className="truncate text-xs font-medium text-[#F5F0E8] group-hover:text-[#C9A96E]">
+                      {property.address}
+                    </p>
+                    <p className="text-[11px] font-semibold" style={{ color: GOLD }}>
+                      {formatPrice(property.price)}
+                    </p>
+                  </div>
+                </button>
+              ))}
+              {properties.length > 8 && (
+                <p className="px-2 text-[10px] text-[#F5F0E8]/40">
+                  +{properties.length - 8} more
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      <a
+        href={osmLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-lg transition-colors"
+        style={{ backgroundColor: "#111111", color: GOLD, border: `1px solid ${GOLD}33` }}
+      >
+        <ExternalLink className="h-3 w-3" />
+        View Larger Map
+      </a>
+    </div>
   );
 }
