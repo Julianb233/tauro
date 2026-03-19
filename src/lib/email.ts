@@ -11,6 +11,11 @@ import {
   renderApplicationConfirmation,
   type ApplicationConfirmationProps,
 } from "@/emails/application-confirmation";
+import {
+  renderDailyDigest,
+  type DailyDigestProps,
+} from "@/emails/daily-digest";
+
 
 // ---------------------------------------------------------------------------
 // Resend client — lazily initialized, gracefully degrades if no API key
@@ -112,6 +117,33 @@ export async function sendApplicationConfirmation(
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[email] sendApplicationConfirmation failed:", message);
+    return { success: false, error: message };
+  }
+}
+
+
+// ---------------------------------------------------------------------------
+// sendDailyDigest — admin morning summary of overnight lead activity
+// ---------------------------------------------------------------------------
+
+export async function sendDailyDigest(
+  data: DailyDigestProps,
+): Promise<EmailResult> {
+  const client = getResend();
+  if (!client) return { success: false, error: "Email client not configured" };
+
+  try {
+    const html = renderDailyDigest(data);
+    await client.emails.send({
+      from: EMAIL_FROM,
+      to: ADMIN_EMAIL,
+      subject: \`Tauro Daily Digest - \${data.date}\`,
+      html,
+    });
+    return { success: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[email] sendDailyDigest failed:", message);
     return { success: false, error: message };
   }
 }

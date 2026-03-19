@@ -30,5 +30,11 @@
         }
       ]
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/daily-digest",
+      "schedule": "0 13 * * *"
+    }
   ]
 }
