@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import { loadTestimonials } from "@/lib/data";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
@@ -96,6 +97,7 @@ export default async function RootLayout({
         <main id="main-content">
           {children}
         </main>
+        <ScrollToTop />
       </body>
     </html>
   );
