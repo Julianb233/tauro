@@ -62,8 +62,34 @@ export default function TestimonialCarousel({
   // Determine visible testimonials: 1 on mobile, 3 on md+
   const visibleIndices = [0, 1, 2].map((offset) => (current + offset) % total);
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        prev();
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        next();
+      }
+    },
+    [prev, next],
+  );
+
   return (
-    <>
+<>
+<div
+      className="relative outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-xl"
+      role="region"
+      aria-label="Testimonials carousel"
+      aria-roledescription="carousel"
+      tabIndex={0}
+      onKeyDown={handleKeyDown}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* Cards */}
       <div
         className="relative"
         onMouseEnter={() => setPaused(true)}
@@ -182,9 +208,42 @@ export default function TestimonialCarousel({
                 className="absolute inset-0 size-full"
               />
             </div>
-          </div>
-        </div>
+</div>
       )}
     </>
+);
+        })}
+
+      {/* Navigation arrows */}
+      <button
+        type="button"
+        onClick={prev}
+        aria-label="Previous testimonial"
+        className="absolute -left-3 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2 shadow-md transition-colors hover:bg-muted sm:-left-5"
+      >
+        <ChevronLeft className="size-5 text-foreground" />
+      </button>
+        onClick={next}
+        aria-label="Next testimonial"
+        className="absolute -right-3 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2 shadow-md transition-colors hover:bg-muted sm:-right-5"
+        <ChevronRight className="size-5 text-foreground" />
+      {/* Live region for screen readers */}
+      <div className="sr-only" aria-live="polite" aria-atomic="true">
+        Showing testimonial {current + 1} of {total}
+      {/* Dots */}
+      <div className="mt-6 flex items-center justify-center gap-2 sm:mt-8" role="tablist" aria-label="Testimonial slides">
+        {testimonials.map((_, idx) => (
+            key={idx}
+            role="tab"
+            onClick={() => goTo(idx)}
+            aria-label={`Go to testimonial ${idx + 1}`}
+            aria-selected={idx === current}
+            className={`h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${
+              idx === current
+                ? "w-6 bg-gold"
+                : "w-2 bg-border hover:bg-muted-foreground"
+            }`}
+          />
+        ))}
   );
 }
