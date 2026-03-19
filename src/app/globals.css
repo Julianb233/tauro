@@ -484,6 +484,46 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+/* ─── Accessibility Widget Overrides ─── */
+
+/* Font size increases */
+html.a11y-font-lg {
+  font-size: 112.5%; /* 18px base */
+}
+
+html.a11y-font-xl {
+  font-size: 125%; /* 20px base */
+}
+
+/* High contrast mode */
+html.a11y-high-contrast {
+  --background: #FFFFFF;
+  --foreground: #000000;
+  --muted-foreground: #333333;
+  --border: #000000;
+  --card: #FFFFFF;
+  --card-foreground: #000000;
+}
+
+html.a11y-high-contrast img {
+  filter: contrast(1.2);
+}
+
+html.a11y-high-contrast a {
+  text-decoration: underline;
+}
+
+/* Reduce motion (user-toggled via widget) */
+html.a11y-reduce-motion,
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
 /* Reduced motion accessibility — disable ALL animations */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
