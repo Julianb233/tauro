@@ -290,14 +290,14 @@ export default function AboutPage() {
             className="flex items-center gap-2 text-gold hover:text-gold-light"
           >
             <Phone className="h-5 w-5" />
-            (215) 555-1234
+            (215) 839-4172
           </a>
           <a
-            href="mailto:info@tauro.realty"
+            href="mailto:info@taurorealty.com"
             className="flex items-center gap-2 text-gold hover:text-gold-light"
           >
             <Mail className="h-5 w-5" />
-            info@tauro.realty
+            info@taurorealty.com
           </a>
         </div>
         <Link

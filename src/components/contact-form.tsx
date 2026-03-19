@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { CheckCircle, AlertCircle } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
-import { Turnstile } from "@/components/turnstile";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -30,7 +29,6 @@ export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [errorMsg, setErrorMsg] = useState("");
-  const [turnstileToken, setTurnstileToken] = useState<string>("");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -86,7 +84,6 @@ export function ContactForm() {
       email: form.email,
       phone: form.phone,
       message: form.message,
-      captchaToken: turnstileToken || undefined,
     };
 
     try {
@@ -104,7 +101,6 @@ export function ContactForm() {
       setFormState("success");
       setForm(initialForm);
       setErrors({});
-      setTurnstileToken("");
     } catch (err) {
       setFormState("error");
       setErrorMsg(
@@ -235,7 +231,7 @@ export function ContactForm() {
           autoComplete="tel"
           value={form.phone}
           onChange={handleChange}
-          placeholder="(215) 555-0100"
+          placeholder="(215) 839-4172"
           className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
         />
         {errors.phone && (
@@ -259,15 +255,9 @@ export function ContactForm() {
         />
       </div>
 
-      <Turnstile
-        onVerify={setTurnstileToken}
-        onExpire={() => setTurnstileToken("")}
-        className="mt-4"
-      />
-
       <button
         type="submit"
-        disabled={formState === "submitting" || !turnstileToken}
+        disabled={formState === "submitting"}
         className="shimmer-gold min-h-[48px] w-full rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
       >
         {formState === "submitting" ? "Sending..." : "Send Message"}

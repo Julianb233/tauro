@@ -6,7 +6,6 @@ import {
   CheckCircle, AlertCircle, ArrowRight,
 } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
-import { Turnstile } from "@/components/turnstile";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -53,7 +52,6 @@ export default function JoinPage() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
-  const [turnstileToken, setTurnstileToken] = useState<string>("");
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -77,7 +75,6 @@ export default function JoinPage() {
       currentBrokerage: form.currentBrokerage,
       whyJoin: form.whyJoin,
       message: form.message,
-      captchaToken: turnstileToken || undefined,
     };
 
     try {
@@ -94,7 +91,6 @@ export default function JoinPage() {
 
       setState("success");
       setForm(initialForm);
-      setTurnstileToken("");
     } catch (err) {
       setState("error");
       setErrorMsg(
@@ -287,7 +283,7 @@ export default function JoinPage() {
                       autoComplete="tel"
                       value={form.phone}
                       onChange={handleChange}
-                      placeholder="(215) 555-0100"
+                      placeholder="(215) 839-4172"
                       className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
@@ -379,15 +375,9 @@ export default function JoinPage() {
                     />
                   </div>
 
-                  <Turnstile
-                    onVerify={setTurnstileToken}
-                    onExpire={() => setTurnstileToken("")}
-                    className="mt-4"
-                  />
-
                   <button
                     type="submit"
-                    disabled={state === "submitting" || !turnstileToken}
+                    disabled={state === "submitting"}
                     className="w-full rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {state === "submitting" ? "Submitting..." : "Submit Application"}

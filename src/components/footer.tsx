@@ -117,11 +117,11 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="tel:+12155550100"
+                  href="tel:+12158394172"
                   className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Phone className="size-4 shrink-0" />
-                  (215) 555-0100
+                  (215) 839-4172
                 </a>
               </li>
               <li>
@@ -140,18 +140,29 @@ export function Footer() {
                 </span>
               </li>
             </ul>
-            {/* Office map placeholder */}
+            {/* Office map */}
+            <div className="mt-4 overflow-hidden rounded-md border border-white/10">
+              <iframe
+                title="Tauro office location"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-75.2052%2C39.9226%2C-75.1252%2C39.9826&layer=mapnik&marker=39.9526%2C-75.1652"
+                width="100%"
+                height={128}
+                className="block"
+                style={{
+                  filter:
+                    "invert(1) hue-rotate(180deg) brightness(0.95) contrast(0.9)",
+                }}
+                loading="lazy"
+              />
+            </div>
             <a
               href="https://maps.google.com/?q=Philadelphia+PA"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-white/10 bg-white/5 transition-colors hover:border-gold/40"
+              className="mt-2 inline-flex items-center gap-1.5 text-xs text-gold/70 transition-colors hover:text-gold"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-white/60">
-                <MapPin className="size-5 text-gold" />
-                <span>Philadelphia, PA</span>
-                <span className="text-gold/70">View on Map</span>
-              </div>
+              <MapPin className="size-3.5" />
+              View on Google Maps
             </a>
           </div>
         </div>
