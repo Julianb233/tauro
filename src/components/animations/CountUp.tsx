@@ -1,72 +1,60 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, useState, useEffect } from "react";
 
 interface CountUpProps {
-  /** The target value to count up to (e.g. "500+", "$2.1B", "98%") */
   value: string;
-  /** Duration of the count animation in seconds. Default 2 */
   duration?: number;
   className?: string;
 }
 
-/**
- * Parses a display value like "$2.1B", "500+", "98%" into parts
- * for animation: prefix, numeric portion, suffix.
- */
 function parseValue(value: string) {
   const match = value.match(/^([^0-9]*)([\d.]+)(.*)$/);
   if (!match) return { prefix: "", num: 0, decimals: 0, suffix: value };
-  const prefix = match[1];
-  const numStr = match[2];
-  const suffix = match[3];
-  const num = parseFloat(numStr);
-  const decimals = numStr.includes(".") ? numStr.split(".")[1].length : 0;
-  return { prefix, num, decimals, suffix };
+  return {
+    prefix: match[1],
+    num: parseFloat(match[2]),
+    decimals: match[2].includes(".") ? match[2].split(".")[1].length : 0,
+    suffix: match[3],
+  };
 }
 
-export default function CountUp({
-  value,
-  duration = 2,
-  className,
-}: CountUpProps) {
+export default function CountUp({ value, duration = 2, className }: CountUpProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const { prefix, num, decimals, suffix } = parseValue(value);
-  const [display, setDisplay] = useState(`${prefix}0${suffix}`);
+  const [display, setDisplay] = useState(value);
 
-  useGSAP(() => {
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-    if (prefersReduced) {
-      setDisplay(value);
-      return;
-    }
+  useEffect(() => {
+    let cancelled = false;
+    const loadGSAP = async () => {
+      try {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
+        if (cancelled) return;
 
-    const obj = { val: 0 };
-    gsap.to(obj, {
-      val: num,
-      duration,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: ref.current,
-        start: "top 85%",
-        toggleActions: "play none none none",
-      },
-      onUpdate: () => {
-        setDisplay(`${prefix}${obj.val.toFixed(decimals)}${suffix}`);
-      },
-    });
-  });
+        const { prefix, num, decimals, suffix } = parseValue(value);
+        const obj = { val: 0 };
 
-  return (
-    <span ref={ref} className={className}>
-      {display}
-    </span>
-  );
+        gsap.to(obj, {
+          val: num,
+          duration,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+          onUpdate: () => {
+            if (!cancelled) setDisplay(`${prefix}${obj.val.toFixed(decimals)}${suffix}`);
+          },
+        });
+      } catch {
+        // Fallback: show final value
+      }
+    };
+    loadGSAP();
+    return () => { cancelled = true; };
+  }, [value, duration]);
+
+  return <span ref={ref} className={className}>{display}</span>;
 }

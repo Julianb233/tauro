@@ -1,21 +1,15 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, useEffect, useState, type ReactNode } from "react";
 
 type Direction = "up" | "down" | "left" | "right" | "none";
 
 interface FadeInViewProps {
-  children: React.ReactNode;
+  children: ReactNode;
   direction?: Direction;
   delay?: number;
   duration?: number;
   className?: string;
-  /** ScrollTrigger start position (default: "top 85%") */
   start?: string;
 }
 
@@ -36,38 +30,42 @@ export default function FadeInView({
   start = "top 85%",
 }: FadeInViewProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
-  useGSAP(
-    () => {
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      if (prefersReduced) return;
+  useEffect(() => {
+    try {
+      const loadGSAP = async () => {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
 
-      const offset = directionOffset[direction];
-      gsap.fromTo(
-        ref.current,
-        { opacity: 0, x: offset.x, y: offset.y },
-        {
-          opacity: 1,
-          x: 0,
-          y: 0,
-          duration,
-          delay,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ref.current,
-            start,
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    },
-    { scope: ref }
-  );
+        const offset = directionOffset[direction];
+        gsap.fromTo(
+          ref.current,
+          { opacity: 0, x: offset.x, y: offset.y },
+          {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            duration,
+            delay,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ref.current,
+              start,
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      };
+      loadGSAP();
+    } catch {
+      setVisible(true);
+    }
+  }, [direction, delay, duration, start]);
 
   return (
-    <div ref={ref} className={className} style={{ opacity: 0 }}>
+    <div ref={ref} className={className} style={visible ? undefined : { opacity: 0 }}>
       {children}
     </div>
   );

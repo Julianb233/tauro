@@ -1,19 +1,11 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, useEffect, type ReactNode } from "react";
 
 interface StaggerRevealProps {
-  children: React.ReactNode;
-  /** CSS selector for child items to stagger. Default "> *" */
+  children: ReactNode;
   selector?: string;
-  /** Stagger delay between each item in seconds. Default 0.12 */
   stagger?: number;
-  /** Animation duration per item. Default 0.7 */
   duration?: number;
   className?: string;
 }
@@ -27,35 +19,35 @@ export default function StaggerReveal({
 }: StaggerRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      if (prefersReduced) {
-        // Make children visible immediately
-        gsap.set(ref.current!.querySelectorAll(selector), { opacity: 1, y: 0 });
-        return;
-      }
+  useEffect(() => {
+    try {
+      const loadGSAP = async () => {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
 
-      const items = ref.current!.querySelectorAll(selector);
-      gsap.set(items, { opacity: 0, y: 30 });
+        const items = ref.current?.querySelectorAll(selector);
+        if (!items?.length) return;
 
-      gsap.to(items, {
-        opacity: 1,
-        y: 0,
-        duration,
-        stagger,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ref.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
-    },
-    { scope: ref }
-  );
+        gsap.set(items, { opacity: 0, y: 30 });
+        gsap.to(items, {
+          opacity: 1,
+          y: 0,
+          duration,
+          stagger,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        });
+      };
+      loadGSAP();
+    } catch {
+      // Fallback: just show children
+    }
+  }, [selector, stagger, duration]);
 
   return (
     <div ref={ref} className={className}>

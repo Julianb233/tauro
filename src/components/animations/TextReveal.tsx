@@ -1,87 +1,64 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, useEffect, type ReactNode } from "react";
 
 interface TextRevealProps {
-  children: string;
-  /** "word" splits by spaces; "char" splits by character. Default "word" */
+  children: ReactNode;
   mode?: "word" | "char";
-  /** Stagger delay between each word/char. Default 0.04 */
   stagger?: number;
-  /** Duration per item. Default 0.5 */
   duration?: number;
   className?: string;
-  /** HTML element to render. Default "p" */
-  as?: "p" | "h1" | "h2" | "h3" | "h4" | "span";
 }
 
 export default function TextReveal({
   children,
   mode = "word",
-  stagger = 0.04,
-  duration = 0.5,
+  stagger = 0.05,
+  duration = 0.6,
   className,
-  as: Tag = "p",
 }: TextRevealProps) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLSpanElement>(null);
 
-  const items =
-    mode === "word"
-      ? children.split(" ").map((w, i) => (
-          <span key={i} className="inline-block" style={{ opacity: 0 }}>
-            {w}&nbsp;
-          </span>
-        ))
-      : children.split("").map((ch, i) => (
-          <span
-            key={i}
-            className="inline-block"
-            style={{ opacity: 0, whiteSpace: ch === " " ? "pre" : undefined }}
-          >
-            {ch}
-          </span>
-        ));
+  useEffect(() => {
+    const loadGSAP = async () => {
+      try {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
 
-  useGSAP(
-    () => {
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      if (prefersReduced) {
-        gsap.set(ref.current!.querySelectorAll("span"), { opacity: 1, y: 0 });
-        return;
-      }
+        const el = ref.current;
+        if (!el) return;
 
-      const spans = ref.current!.querySelectorAll("span");
-      gsap.fromTo(
-        spans,
-        { opacity: 0, y: 12 },
-        {
+        const text = el.textContent || "";
+        const parts = mode === "char" ? text.split("") : text.split(/\s+/);
+
+        el.innerHTML = parts
+          .map((p) => `<span style="display:inline-block;opacity:0;transform:translateY(20px)">${p}</span>`)
+          .join(mode === "char" ? "" : " ");
+
+        const spans = el.querySelectorAll("span");
+        gsap.to(spans, {
           opacity: 1,
           y: 0,
           duration,
           stagger,
-          ease: "power2.out",
+          ease: "power3.out",
           scrollTrigger: {
-            trigger: ref.current,
+            trigger: el,
             start: "top 85%",
             toggleActions: "play none none none",
           },
-        }
-      );
-    },
-    { scope: ref }
-  );
+        });
+      } catch {
+        // Fallback: text stays visible
+      }
+    };
+    loadGSAP();
+  }, [mode, stagger, duration]);
 
   return (
-    // @ts-expect-error -- dynamic tag
-    <Tag ref={ref} className={className}>
-      {items}
-    </Tag>
+    <span ref={ref} className={className}>
+      {children}
+    </span>
   );
 }

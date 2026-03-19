@@ -1,15 +1,9 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, useEffect, type ReactNode } from "react";
 
 interface ParallaxSectionProps {
-  children: React.ReactNode;
-  /** Parallax speed — higher = more movement. Default 0.3 */
+  children: ReactNode;
   speed?: number;
   className?: string;
 }
@@ -19,35 +13,35 @@ export default function ParallaxSection({
   speed = 0.3,
   className,
 }: ParallaxSectionProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
-  useGSAP(
-    () => {
-      const prefersReduced = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
-      ).matches;
-      if (prefersReduced) return;
+  useEffect(() => {
+    const loadGSAP = async () => {
+      try {
+        const { gsap } = await import("gsap");
+        const { ScrollTrigger } = await import("gsap/ScrollTrigger");
+        gsap.registerPlugin(ScrollTrigger);
 
-      gsap.to(innerRef.current, {
-        yPercent: speed * 100,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    },
-    { scope: containerRef }
-  );
+        gsap.to(ref.current, {
+          yPercent: speed * 100,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ref.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
+      } catch {
+        // Fallback: no parallax
+      }
+    };
+    loadGSAP();
+  }, [speed]);
 
   return (
-    <div ref={containerRef} className={className} style={{ overflow: "hidden" }}>
-      <div ref={innerRef} style={{ willChange: "transform" }}>
-        {children}
-      </div>
+    <div ref={ref} className={className}>
+      {children}
     </div>
   );
 }
