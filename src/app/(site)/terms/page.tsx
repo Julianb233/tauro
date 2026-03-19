@@ -64,7 +64,7 @@ export default function TermsPage() {
   return (
     <div className="pt-20">
       {/* Hero */}
-      <section className="bg-midnight py-16">
+      <section className="bg-cream py-16">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Legal
@@ -79,7 +79,7 @@ export default function TermsPage() {
       </section>
 
       {/* Content */}
-      <section className="bg-near-black py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="space-y-10">
             {sections.map((section) => (

@@ -124,7 +124,7 @@ export function SellerInquiryForm() {
         <div className="flex size-20 items-center justify-center rounded-full bg-gold/10">
           <CheckCircle className="size-10 text-gold" />
         </div>
-        <h3 className="mt-6 font-heading text-2xl font-bold text-white">
+        <h3 className="mt-6 font-heading text-2xl font-bold text-foreground">
           Inquiry Received!
         </h3>
         <p className="mt-3 max-w-sm text-muted-foreground">
@@ -159,7 +159,7 @@ export function SellerInquiryForm() {
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="seller-firstName" className="mb-1.5 block text-sm font-medium text-white">
+              <label htmlFor="seller-firstName" className="mb-1.5 block text-sm font-medium text-foreground">
                 First Name <span className="text-gold">*</span>
               </label>
               <input
@@ -171,11 +171,11 @@ export function SellerInquiryForm() {
                 value={form.firstName}
                 onChange={handleChange}
                 placeholder="Jane"
-                className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
               />
             </div>
             <div>
-              <label htmlFor="seller-lastName" className="mb-1.5 block text-sm font-medium text-white">
+              <label htmlFor="seller-lastName" className="mb-1.5 block text-sm font-medium text-foreground">
                 Last Name <span className="text-gold">*</span>
               </label>
               <input
@@ -187,13 +187,13 @@ export function SellerInquiryForm() {
                 value={form.lastName}
                 onChange={handleChange}
                 placeholder="Smith"
-                className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="seller-email" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="seller-email" className="mb-1.5 block text-sm font-medium text-foreground">
               Email Address <span className="text-gold">*</span>
             </label>
             <input
@@ -205,12 +205,12 @@ export function SellerInquiryForm() {
               value={form.email}
               onChange={handleChange}
               placeholder="jane@example.com"
-              className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
           </div>
 
           <div>
-            <label htmlFor="seller-phone" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="seller-phone" className="mb-1.5 block text-sm font-medium text-foreground">
               Phone Number <span className="text-gold">*</span>
             </label>
             <input
@@ -222,7 +222,7 @@ export function SellerInquiryForm() {
               value={form.phone}
               onChange={handleChange}
               placeholder="(215) 555-0100"
-              className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
           </div>
         </div>
@@ -235,7 +235,7 @@ export function SellerInquiryForm() {
         </h3>
         <div className="space-y-4">
           <div>
-            <label htmlFor="seller-homeAddress" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="seller-homeAddress" className="mb-1.5 block text-sm font-medium text-foreground">
               Home Address <span className="text-gold">*</span>
             </label>
             <input
@@ -247,13 +247,13 @@ export function SellerInquiryForm() {
               value={form.homeAddress}
               onChange={handleChange}
               placeholder="123 Main St, Philadelphia, PA"
-              className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="seller-beds" className="mb-1.5 block text-sm font-medium text-white">
+              <label htmlFor="seller-beds" className="mb-1.5 block text-sm font-medium text-foreground">
                 Bedrooms
               </label>
               <select
@@ -261,18 +261,18 @@ export function SellerInquiryForm() {
                 name="beds"
                 value={form.beds}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
               >
                 <option value="">Select</option>
                 {["1", "2", "3", "4", "5", "6+"].map((v) => (
-                  <option key={v} value={v} className="bg-near-black">
+                  <option key={v} value={v} className="bg-background">
                     {v}
                   </option>
                 ))}
               </select>
             </div>
             <div>
-              <label htmlFor="seller-baths" className="mb-1.5 block text-sm font-medium text-white">
+              <label htmlFor="seller-baths" className="mb-1.5 block text-sm font-medium text-foreground">
                 Bathrooms
               </label>
               <select
@@ -280,11 +280,11 @@ export function SellerInquiryForm() {
                 name="baths"
                 value={form.baths}
                 onChange={handleChange}
-                className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
               >
                 <option value="">Select</option>
                 {["1", "1.5", "2", "2.5", "3", "3.5", "4+"].map((v) => (
-                  <option key={v} value={v} className="bg-near-black">
+                  <option key={v} value={v} className="bg-background">
                     {v}
                   </option>
                 ))}
@@ -293,7 +293,7 @@ export function SellerInquiryForm() {
           </div>
 
           <div>
-            <label htmlFor="seller-sqft" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="seller-sqft" className="mb-1.5 block text-sm font-medium text-foreground">
               Estimated Square Footage
             </label>
             <input
@@ -303,7 +303,7 @@ export function SellerInquiryForm() {
               value={form.sqft}
               onChange={handleChange}
               placeholder="e.g., 2,000"
-              className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
           </div>
         </div>
@@ -316,7 +316,7 @@ export function SellerInquiryForm() {
         </h3>
         <div className="space-y-4">
           <div>
-            <label htmlFor="seller-timeline" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="seller-timeline" className="mb-1.5 block text-sm font-medium text-foreground">
               Timeline to Sell
             </label>
             <select
@@ -324,11 +324,11 @@ export function SellerInquiryForm() {
               name="timeline"
               value={form.timeline}
               onChange={handleChange}
-              className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             >
               <option value="">Select a timeline</option>
               {timelines.map((t) => (
-                <option key={t} value={t} className="bg-near-black">
+                <option key={t} value={t} className="bg-background">
                   {t}
                 </option>
               ))}
@@ -336,7 +336,7 @@ export function SellerInquiryForm() {
           </div>
 
           <div>
-            <label htmlFor="seller-reason" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="seller-reason" className="mb-1.5 block text-sm font-medium text-foreground">
               Reason for Selling
             </label>
             <select
@@ -344,11 +344,11 @@ export function SellerInquiryForm() {
               name="reason"
               value={form.reason}
               onChange={handleChange}
-              className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             >
               <option value="">Select a reason</option>
               {reasons.map((r) => (
-                <option key={r} value={r} className="bg-near-black">
+                <option key={r} value={r} className="bg-background">
                   {r}
                 </option>
               ))}
@@ -356,7 +356,7 @@ export function SellerInquiryForm() {
           </div>
 
           <div>
-            <label htmlFor="seller-message" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="seller-message" className="mb-1.5 block text-sm font-medium text-foreground">
               Anything else we should know?
             </label>
             <textarea
@@ -366,7 +366,7 @@ export function SellerInquiryForm() {
               value={form.message}
               onChange={handleChange}
               placeholder="Recent renovations, special circumstances, current tenants, etc."
-              className="w-full resize-none rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-white placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+              className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
             />
           </div>
         </div>

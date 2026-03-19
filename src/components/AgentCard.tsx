@@ -9,7 +9,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
   return (
     <Link
       href={`/agents/${agent.slug}`}
-      className="group relative block overflow-hidden rounded-xl border border-border/20 transition-all duration-500 hover:border-gold/40 hover:shadow-[0_0_30px_rgba(212,175,55,0.1)] hover:scale-[1.02]"
+      className="group relative block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all duration-500 hover:border-gold/40 hover:shadow-md hover:scale-[1.02]"
     >
       {/* Portrait photo with gradient overlay */}
       <div className="relative aspect-[3/4] overflow-hidden bg-muted">
@@ -33,7 +33,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
         </div>
 
         {/* Hover overlay - slides up */}
-        <div className="absolute inset-0 flex translate-y-full flex-col justify-end bg-near-black/70 backdrop-blur-sm transition-transform duration-500 ease-out group-hover:translate-y-0">
+        <div className="absolute inset-0 flex translate-y-full flex-col justify-end bg-black/70 backdrop-blur-sm transition-transform duration-500 ease-out group-hover:translate-y-0">
           <div className="p-5">
             <p className="text-sm leading-relaxed text-white/80 line-clamp-3">
               {agent.shortBio}

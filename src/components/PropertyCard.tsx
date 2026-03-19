@@ -14,7 +14,7 @@ export default function PropertyCard({ property }: { property: Property }) {
   return (
     <Link
       href={`/properties/${property.slug}`}
-      className="group block overflow-hidden rounded-xl border border-border bg-card transition-all hover:border-gold/40 hover:shadow-lg"
+      className="group block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-md"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <Image
@@ -37,7 +37,7 @@ export default function PropertyCard({ property }: { property: Property }) {
         </span>
       </div>
       <div className="p-4">
-        <p className="font-heading text-xl font-bold text-gold">{formatPrice(property.price)}</p>
+        <p className="font-heading text-xl font-bold text-foreground">{formatPrice(property.price)}</p>
         <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
           <span>{property.beds} BD</span>
           <span className="text-border">|</span>

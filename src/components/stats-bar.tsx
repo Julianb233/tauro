@@ -1,6 +1,6 @@
 export default function StatsBar() {
   return (
-    <section className="border-y border-border/40 bg-midnight">
+    <section className="border-y border-white/10 bg-foreground">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-8 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         {[
           { value: "500+", label: "Properties Sold" },
@@ -12,7 +12,7 @@ export default function StatsBar() {
             <p className="font-heading text-3xl font-bold text-gold sm:text-4xl">
               {stat.value}
             </p>
-            <p className="mt-1 text-sm text-muted-foreground">
+            <p className="mt-1 text-sm text-white/60">
               {stat.label}
             </p>
           </div>

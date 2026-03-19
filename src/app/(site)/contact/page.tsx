@@ -34,8 +34,8 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-near-black pb-16 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Get in Touch
@@ -51,12 +51,12 @@ export default function ContactPage() {
       </section>
 
       {/* Form + Contact Info */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-5">
             {/* Left column — Form (3/5) */}
             <div className="lg:col-span-3">
-              <div className="rounded-2xl border border-border/40 bg-near-black p-8 shadow-xl">
+              <div className="rounded-2xl border border-border/40 bg-white p-8 shadow-xl">
                 <ContactForm />
               </div>
             </div>
@@ -64,7 +64,7 @@ export default function ContactPage() {
             {/* Right column — Contact info (2/5) */}
             <div className="space-y-6 lg:col-span-2">
               <div className="rounded-xl border border-border/40 bg-card p-6">
-                <h2 className="font-heading text-lg font-bold text-white">
+                <h2 className="font-heading text-lg font-bold text-foreground">
                   Contact Information
                 </h2>
                 <div className="mt-5 space-y-5">
@@ -97,7 +97,7 @@ export default function ContactPage() {
 
               {/* Quick links */}
               <div className="rounded-xl border border-border/40 bg-card p-6">
-                <h3 className="font-heading text-lg font-bold text-white">
+                <h3 className="font-heading text-lg font-bold text-foreground">
                   Other Ways We Can Help
                 </h3>
                 <ul className="mt-4 space-y-3">
@@ -110,9 +110,9 @@ export default function ContactPage() {
                     <li key={link.href}>
                       <a
                         href={link.href}
-                        className="group flex items-center justify-between rounded-lg border border-border/40 px-4 py-3 transition-all hover:border-gold/40 hover:bg-midnight"
+                        className="group flex items-center justify-between rounded-lg border border-border/40 px-4 py-3 transition-all hover:border-gold/40 hover:bg-cream"
                       >
-                        <span className="text-sm font-medium text-white/80 group-hover:text-white">
+                        <span className="text-sm font-medium text-foreground/80 group-hover:text-white">
                           {link.label}
                         </span>
                         <ArrowRight className="size-4 text-gold opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />

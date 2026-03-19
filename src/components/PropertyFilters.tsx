@@ -53,7 +53,7 @@ export default function PropertyFilters({
     "w-full rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold";
 
   return (
-    <div className="border-b border-border bg-near-black/50 backdrop-blur-sm">
+    <div className="border-b border-border bg-cream/80 backdrop-blur-sm">
       {/* Mobile toggle */}
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <button

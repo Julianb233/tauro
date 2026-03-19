@@ -13,8 +13,8 @@ export default function Hero() {
         sizes="100vw"
         className="object-cover"
       />
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-near-black/70 via-near-black/50 to-near-black" />
+      {/* Lighter gradient overlay — magazine cover feel */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 text-center sm:px-6 lg:px-8">
         <p className="mb-4 font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">

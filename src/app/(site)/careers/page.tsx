@@ -85,7 +85,7 @@ export default function CareersPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
+      <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80"
@@ -94,7 +94,7 @@ export default function CareersPage() {
             className="object-cover opacity-15"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-near-black/80 via-near-black/70 to-near-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/50" />
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
@@ -127,7 +127,7 @@ export default function CareersPage() {
       </section>
 
       {/* Stats Strip */}
-      <section className="bg-midnight py-12">
+      <section className="bg-foreground py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {stats.map((stat) => (
@@ -145,13 +145,13 @@ export default function CareersPage() {
       </section>
 
       {/* Why Agents Choose Tauro */}
-      <section id="why-tauro" className="bg-near-black py-20">
+      <section id="why-tauro" className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               The Tauro Advantage
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               Why Agents Choose Tauro
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -169,7 +169,7 @@ export default function CareersPage() {
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <item.icon className="size-6 text-gold" />
                 </div>
-                <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -182,13 +182,13 @@ export default function CareersPage() {
       </section>
 
       {/* Who We're Looking For */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Opportunities
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               A Place for Every Stage of Your Career
             </h2>
           </div>
@@ -197,12 +197,12 @@ export default function CareersPage() {
             {agentTypes.map((type) => (
               <div
                 key={type.title}
-                className="rounded-xl border border-border/40 bg-near-black p-8"
+                className="rounded-xl border border-border/40 bg-white p-8"
               >
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <type.icon className="size-6 text-gold" />
                 </div>
-                <h3 className="mt-5 font-heading text-xl font-bold text-white">
+                <h3 className="mt-5 font-heading text-xl font-bold text-foreground">
                   {type.title}
                 </h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -215,14 +215,14 @@ export default function CareersPage() {
       </section>
 
       {/* What We Look For */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                 Requirements
               </p>
-              <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+              <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
                 What We Look For
               </h2>
               <p className="mt-4 text-muted-foreground">
@@ -244,7 +244,7 @@ export default function CareersPage() {
                   className="flex items-start gap-3 rounded-lg border border-border/40 bg-card px-5 py-4"
                 >
                   <CheckCircle className="mt-0.5 size-5 shrink-0 text-gold" />
-                  <span className="text-sm text-white/80">{req}</span>
+                  <span className="text-sm text-foreground/80">{req}</span>
                 </div>
               ))}
             </div>
@@ -253,9 +253,9 @@ export default function CareersPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
             Ready to Elevate Your Career?
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">

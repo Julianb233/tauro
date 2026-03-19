@@ -123,8 +123,8 @@ export default function WhyJoinPage() {
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Agent Opportunity
@@ -156,7 +156,7 @@ export default function WhyJoinPage() {
       </section>
 
       {/* ── By the Numbers ────────────────────────────────────── */}
-      <section className="bg-midnight py-20">
+      <section className="bg-foreground py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
@@ -171,7 +171,7 @@ export default function WhyJoinPage() {
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-xl border border-border/40 bg-near-black p-6 text-center"
+                className="rounded-xl border border-border/40 bg-white p-6 text-center"
               >
                 <p className="font-heading text-3xl font-bold text-gold">
                   {stat.value}
@@ -186,13 +186,13 @@ export default function WhyJoinPage() {
       </section>
 
       {/* ── Benefits Deep Dive ────────────────────────────────── */}
-      <section id="benefits" className="bg-near-black py-20">
+      <section id="benefits" className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               The Tauro Advantage
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               What Sets Tauro Apart
             </h2>
           </div>
@@ -201,12 +201,12 @@ export default function WhyJoinPage() {
             {benefits.map((item) => (
               <div
                 key={item.title}
-                className="rounded-xl border border-border/40 bg-midnight p-8 transition-all hover:border-gold/30 hover:shadow-lg"
+                className="rounded-xl border border-border/40 bg-cream p-8 transition-all hover:border-gold/30 hover:shadow-lg"
               >
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <item.icon className="size-6 text-gold" />
                 </div>
-                <h3 className="mt-4 font-heading text-xl font-bold text-white">
+                <h3 className="mt-4 font-heading text-xl font-bold text-foreground">
                   {item.title}
                 </h3>
                 <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -219,13 +219,13 @@ export default function WhyJoinPage() {
       </section>
 
       {/* ── Agent Testimonials ────────────────────────────────── */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Real Stories
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               What Our Agents Say
             </h2>
           </div>
@@ -234,9 +234,9 @@ export default function WhyJoinPage() {
             {testimonials.map((t) => (
               <div
                 key={t.name}
-                className="rounded-xl border border-border/40 bg-near-black p-6"
+                className="rounded-xl border border-border/40 bg-white p-6"
               >
-                <p className="italic leading-relaxed text-white">
+                <p className="italic leading-relaxed text-foreground">
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <p className="mt-4 font-semibold text-gold">
@@ -252,13 +252,13 @@ export default function WhyJoinPage() {
       </section>
 
       {/* ── Career Paths ──────────────────────────────────────── */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Your Future
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               Your Growth Path at Tauro
             </h2>
           </div>
@@ -267,12 +267,12 @@ export default function WhyJoinPage() {
             {careerPaths.map((path) => (
               <div
                 key={path.step}
-                className="relative rounded-xl border border-border/40 bg-midnight p-6"
+                className="relative rounded-xl border border-border/40 bg-cream p-6"
               >
                 <span className="font-heading text-4xl font-bold text-gold/20">
                   {String(path.step).padStart(2, "0")}
                 </span>
-                <h3 className="mt-2 font-heading text-lg font-bold text-white">
+                <h3 className="mt-2 font-heading text-lg font-bold text-foreground">
                   {path.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -285,9 +285,9 @@ export default function WhyJoinPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
             Ready to Elevate Your Real Estate Career?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-muted-foreground">

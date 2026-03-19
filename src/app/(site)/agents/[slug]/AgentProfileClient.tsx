@@ -103,7 +103,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
   return (
     <>
       {/* -- Hero / Header ------------------------------------------------- */}
-      <section className="bg-near-black pb-16 pt-32">
+      <section className="bg-foreground pb-16 pt-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Back link */}
           <Link
@@ -152,7 +152,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                   {agent.languages.map((lang) => (
                     <span
                       key={lang}
-                      className="rounded-full border border-border/40 bg-midnight px-3 py-1 text-xs text-white/80"
+                      className="rounded-full border border-border/40 bg-white/10 px-3 py-1 text-xs text-white/80"
                     >
                       {lang}
                     </span>
@@ -207,7 +207,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
       </section>
 
       {/* -- Stats Bar ----------------------------------------------------- */}
-      <section className="border-y border-border/40 bg-midnight py-12">
+      <section className="border-y border-border/40 bg-foreground py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {[
@@ -247,12 +247,12 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
       </section>
 
       {/* -- Specialties & Neighborhoods ----------------------------------- */}
-      <section className="bg-near-black py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-2">
             {/* Specialties */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-foreground">
                 Specialties
               </h2>
               <div className="mt-4 flex flex-wrap gap-2">
@@ -269,14 +269,14 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
 
             {/* Neighborhoods */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-foreground">
                 Neighborhoods
               </h2>
               <div className="mt-4 flex flex-wrap gap-2">
                 {agent.neighborhoods.map((n) => (
                   <span
                     key={n}
-                    className="rounded-full border border-border/40 px-4 py-1.5 text-sm text-white/80"
+                    className="rounded-full border border-border/40 px-4 py-1.5 text-sm text-foreground/80"
                   >
                     {n}
                   </span>
@@ -289,19 +289,19 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
 
       {/* -- Awards -------------------------------------------------------- */}
       {agent.awards.length > 0 && (
-        <section className="bg-midnight py-16">
+        <section className="bg-cream py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <h2 className="font-heading text-2xl font-bold text-white">
+            <h2 className="font-heading text-2xl font-bold text-foreground">
               Awards & Recognition
             </h2>
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {agent.awards.map((award) => (
                 <div
                   key={`${award.title}-${award.year}`}
-                  className="rounded-xl border border-border/40 bg-near-black p-6"
+                  className="rounded-xl border border-border/40 bg-white p-6"
                 >
                   <Award className="size-6 text-gold" />
-                  <h3 className="mt-3 font-semibold text-white">
+                  <h3 className="mt-3 font-semibold text-foreground">
                     {award.title}
                   </h3>
                   <p className="mt-1 text-sm text-muted-foreground">
@@ -316,11 +316,11 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
 
       {/* -- Video Introduction -------------------------------------------- */}
       {agent.videoIntroUrl && (
-        <section className="bg-near-black py-16">
+        <section className="bg-white py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-8 flex items-center gap-3">
               <Play className="size-5 text-gold" />
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-foreground">
                 Video Introduction
               </h2>
             </div>
@@ -339,10 +339,10 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
 
       {/* -- Active Listings ----------------------------------------------- */}
       {activeListings.length > 0 && (
-        <section className="bg-midnight py-16">
+        <section className="bg-cream py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-8 flex items-center gap-3">
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-foreground">
                 {agent.firstName}&apos;s Active Listings
               </h2>
               <span className="rounded-full bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">
@@ -359,19 +359,19 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
       )}
 
       {/* -- Contact Form -------------------------------------------------- */}
-      <section className="bg-near-black py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-8 text-center font-heading text-2xl font-bold text-white">
+          <h2 className="mb-8 text-center font-heading text-2xl font-bold text-foreground">
             Contact {agent.firstName}
           </h2>
 
-          <div className="rounded-2xl border border-border/40 bg-midnight p-8 shadow-xl">
+          <div className="rounded-2xl border border-border/50 bg-white p-8 shadow-sm">
             {state === "success" ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
                 <div className="flex size-16 items-center justify-center rounded-full bg-gold/10">
                   <CheckCircle className="size-8 text-gold" />
                 </div>
-                <h3 className="mt-5 font-heading text-2xl font-bold text-white">
+                <h3 className="mt-5 font-heading text-2xl font-bold text-foreground">
                   Message Sent to {agent.firstName}!
                 </h3>
                 <p className="mt-3 max-w-sm text-muted-foreground">
@@ -407,7 +407,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                   <div>
                     <label
                       htmlFor="firstName"
-                      className="mb-1.5 block text-sm font-medium text-white"
+                      className="mb-1.5 block text-sm font-medium text-foreground"
                     >
                       First Name <span className="text-gold">*</span>
                     </label>
@@ -420,13 +420,13 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                       value={form.firstName}
                       onChange={handleChange}
                       placeholder="Jane"
-                      className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
                   <div>
                     <label
                       htmlFor="lastName"
-                      className="mb-1.5 block text-sm font-medium text-white"
+                      className="mb-1.5 block text-sm font-medium text-foreground"
                     >
                       Last Name <span className="text-gold">*</span>
                     </label>
@@ -439,7 +439,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                       value={form.lastName}
                       onChange={handleChange}
                       placeholder="Smith"
-                      className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                     />
                   </div>
                 </div>
@@ -448,7 +448,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                 <div>
                   <label
                     htmlFor="email"
-                    className="mb-1.5 block text-sm font-medium text-white"
+                    className="mb-1.5 block text-sm font-medium text-foreground"
                   >
                     Email Address <span className="text-gold">*</span>
                   </label>
@@ -461,7 +461,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                     value={form.email}
                     onChange={handleChange}
                     placeholder="jane@example.com"
-                    className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
                 </div>
 
@@ -469,7 +469,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                 <div>
                   <label
                     htmlFor="phone"
-                    className="mb-1.5 block text-sm font-medium text-white"
+                    className="mb-1.5 block text-sm font-medium text-foreground"
                   >
                     Phone Number <span className="text-gold">*</span>
                   </label>
@@ -482,7 +482,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                     value={form.phone}
                     onChange={handleChange}
                     placeholder="(215) 555-0100"
-                    className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
                 </div>
 
@@ -490,7 +490,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                 <div>
                   <label
                     htmlFor="message"
-                    className="mb-1.5 block text-sm font-medium text-white"
+                    className="mb-1.5 block text-sm font-medium text-foreground"
                   >
                     Message
                   </label>
@@ -501,7 +501,7 @@ export default function AgentProfileClient({ slug }: { slug: string }) {
                     value={form.message}
                     onChange={handleChange}
                     placeholder={`Tell ${agent.firstName} how they can help...`}
-                    className="w-full resize-none rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full resize-none rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
                 </div>
 

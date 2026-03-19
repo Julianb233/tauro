@@ -157,7 +157,7 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
 
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-0">
-      <h2 className="font-heading text-2xl font-bold text-white">
+      <h2 className="font-heading text-2xl font-bold text-foreground">
         Schedule Your Showing
       </h2>
       <p className="mt-1 text-sm text-muted-foreground">
@@ -183,7 +183,7 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
         </div>
 
         <div>
-          <label htmlFor="propertyId" className="mb-1.5 block text-sm font-medium text-white">
+          <label htmlFor="propertyId" className="mb-1.5 block text-sm font-medium text-foreground">
             Select Property <span className="text-gold">*</span>
           </label>
           <select
@@ -192,24 +192,24 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
             required
             value={form.propertyId}
             onChange={handleChange}
-            className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+            className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
           >
             <option value="" className="text-muted-foreground">
               Choose a property...
             </option>
             {properties.map((p) => (
-              <option key={p.id} value={p.id} className="bg-midnight text-white">
+              <option key={p.id} value={p.id} className="bg-background text-foreground">
                 {p.address}, {p.city} — ${p.price.toLocaleString()}
               </option>
             ))}
-            <option value="other" className="bg-midnight text-white">
+            <option value="other" className="bg-background text-foreground">
               Other / Not Listed
             </option>
           </select>
         </div>
 
         {selectedProperty && (
-          <div className="mt-3 flex items-center gap-4 rounded-lg border border-gold/20 bg-midnight p-3">
+          <div className="mt-3 flex items-center gap-4 rounded-lg border border-gold/20 bg-cream/50 p-3">
             <Image
               src={selectedProperty.images[0]}
               alt={selectedProperty.address}
@@ -219,7 +219,7 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
               sizes="80px"
             />
             <div className="min-w-0">
-              <p className="truncate text-sm font-semibold text-white">
+              <p className="truncate text-sm font-semibold text-foreground">
                 {selectedProperty.address}
               </p>
               <p className="text-xs text-muted-foreground">
@@ -247,7 +247,7 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="preferredDate" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="preferredDate" className="mb-1.5 block text-sm font-medium text-foreground">
               Preferred Date <span className="text-gold">*</span>
             </label>
             <input
@@ -259,11 +259,11 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
               max={getMaxDate()}
               value={form.preferredDate}
               onChange={handleChange}
-              className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20 [color-scheme:dark]"
+              className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20 [color-scheme:light]"
             />
           </div>
           <div>
-            <label htmlFor="preferredTime" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="preferredTime" className="mb-1.5 block text-sm font-medium text-foreground">
               Preferred Time <span className="text-gold">*</span>
             </label>
             <select
@@ -272,13 +272,13 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
               required
               value={form.preferredTime}
               onChange={handleChange}
-              className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+              className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
             >
               <option value="" className="text-muted-foreground">
                 Choose a time...
               </option>
               {timeSlots.map((slot) => (
-                <option key={slot} value={slot} className="bg-midnight text-white">
+                <option key={slot} value={slot} className="bg-background text-foreground">
                   {slot}
                 </option>
               ))}
@@ -286,7 +286,7 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
           </div>
         </div>
 
-        <div className="mt-3 flex items-center gap-2 rounded-lg border border-border/40 bg-midnight p-3">
+        <div className="mt-3 flex items-center gap-2 rounded-lg border border-border/40 bg-cream/50 p-3">
           <Clock className="size-4 shrink-0 text-gold" />
           <p className="text-xs text-muted-foreground">
             Showings are typically 30-60 minutes. An agent will confirm availability after submission.
@@ -308,7 +308,7 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
         <div className="space-y-4">
           <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-white">
+              <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-foreground">
                 First Name <span className="text-gold">*</span>
               </label>
               <input
@@ -320,11 +320,11 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
                 value={form.firstName}
                 onChange={handleChange}
                 placeholder="Jane"
-                className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
               />
             </div>
             <div>
-              <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-white">
+              <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-foreground">
                 Last Name <span className="text-gold">*</span>
               </label>
               <input
@@ -336,13 +336,13 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
                 value={form.lastName}
                 onChange={handleChange}
                 placeholder="Smith"
-                className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
               />
             </div>
           </div>
 
           <div>
-            <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
               Email Address <span className="text-gold">*</span>
             </label>
             <input
@@ -354,12 +354,12 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
               value={form.email}
               onChange={handleChange}
               placeholder="jane@example.com"
-              className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+              className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
             />
           </div>
 
           <div>
-            <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-foreground">
               Phone Number <span className="text-gold">*</span>
             </label>
             <input
@@ -371,12 +371,12 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
               value={form.phone}
               onChange={handleChange}
               placeholder="(215) 555-0100"
-              className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+              className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
             />
           </div>
 
           <div>
-            <label htmlFor="agentPreference" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="agentPreference" className="mb-1.5 block text-sm font-medium text-foreground">
               Agent Preference <span className="text-xs text-muted-foreground">(optional)</span>
             </label>
             <select
@@ -384,13 +384,13 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
               name="agentPreference"
               value={form.agentPreference}
               onChange={handleChange}
-              className="w-full rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+              className="w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
             >
               <option value="" className="text-muted-foreground">
                 No preference (first available)
               </option>
               {agents.map((agent) => (
-                <option key={agent.id} value={agent.fullName} className="bg-midnight text-white">
+                <option key={agent.id} value={agent.fullName} className="bg-background text-foreground">
                   {agent.fullName}
                 </option>
               ))}
@@ -398,7 +398,7 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
           </div>
 
           <div>
-            <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-white">
+            <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
               Any special requests or questions?
             </label>
             <textarea
@@ -408,7 +408,7 @@ export function TourBookingForm({ preselectedPropertyId }: TourBookingFormProps)
               value={form.message}
               onChange={handleChange}
               placeholder="Accessibility needs, specific features you'd like to see, or any other questions..."
-              className="w-full resize-none rounded-lg border border-border/40 bg-midnight px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+              className="w-full resize-none rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
             />
           </div>
         </div>

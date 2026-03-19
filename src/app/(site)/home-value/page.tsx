@@ -125,7 +125,7 @@ export default function HomeValuePage() {
   return (
     <>
       {/* -- Hero ---------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
+      <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=1920&q=80"
@@ -134,7 +134,7 @@ export default function HomeValuePage() {
             className="object-cover opacity-15"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-near-black/80 via-near-black/70 to-near-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/50" />
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
@@ -153,13 +153,13 @@ export default function HomeValuePage() {
       </section>
 
       {/* -- Value Proposition Strip --------------------------------- */}
-      <section className="bg-midnight py-12">
+      <section className="bg-cream py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-3">
             {valueProps.map((item) => (
               <div
                 key={item.title}
-                className="flex items-start gap-4 rounded-xl border border-border/40 bg-near-black p-5"
+                className="flex items-start gap-4 rounded-xl border border-border/40 bg-white p-5"
               >
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
                   <item.icon className="size-5 text-gold" />
@@ -179,7 +179,7 @@ export default function HomeValuePage() {
       </section>
 
       {/* -- Lead Capture Form -------------------------------------- */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
@@ -195,7 +195,7 @@ export default function HomeValuePage() {
           </div>
 
           {state === "success" ? (
-            <div className="flex flex-col items-center rounded-2xl border border-border/40 bg-midnight p-12 text-center shadow-xl">
+            <div className="flex flex-col items-center rounded-2xl border border-border/40 bg-cream p-12 text-center shadow-xl">
               <div className="flex size-20 items-center justify-center rounded-full bg-gold/10">
                 <CheckCircle className="size-10 text-gold" />
               </div>
@@ -226,7 +226,7 @@ export default function HomeValuePage() {
             <form
               onSubmit={handleSubmit}
               noValidate
-              className="space-y-6 rounded-2xl border border-border/40 bg-midnight p-8 shadow-xl"
+              className="space-y-6 rounded-2xl border border-border/40 bg-cream p-8 shadow-xl"
             >
               {state === "error" && (
                 <div className="flex items-start gap-2.5 rounded-lg border border-destructive/40 bg-destructive/10 p-3.5">
@@ -254,7 +254,7 @@ export default function HomeValuePage() {
                     value={form.homeAddress}
                     onChange={handleChange}
                     placeholder="123 Walnut St, Philadelphia, PA 19103"
-                    className="w-full rounded-lg border border-border/40 bg-near-black py-3 pl-10 pr-4 text-base text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 text-base text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
                 </div>
               </div>
@@ -277,7 +277,7 @@ export default function HomeValuePage() {
                     value={form.firstName}
                     onChange={handleChange}
                     placeholder="Jane"
-                    className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
                 </div>
                 <div>
@@ -296,7 +296,7 @@ export default function HomeValuePage() {
                     value={form.lastName}
                     onChange={handleChange}
                     placeholder="Smith"
-                    className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                   />
                 </div>
               </div>
@@ -318,7 +318,7 @@ export default function HomeValuePage() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="jane@example.com"
-                  className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                  className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                 />
               </div>
 
@@ -339,7 +339,7 @@ export default function HomeValuePage() {
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="(215) 555-0100"
-                  className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                  className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                 />
               </div>
 
@@ -358,7 +358,7 @@ export default function HomeValuePage() {
                   value={form.message}
                   onChange={handleChange}
                   placeholder="Recent renovations, timeline to sell, special circumstances..."
-                  className="w-full resize-none rounded-lg border border-border/40 bg-near-black px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
+                  className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
                 />
               </div>
 
@@ -385,7 +385,7 @@ export default function HomeValuePage() {
       </section>
 
       {/* -- How It Works ------------------------------------------- */}
-      <section className="bg-midnight py-16">
+      <section className="bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">

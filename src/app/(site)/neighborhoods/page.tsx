@@ -14,8 +14,8 @@ export default function NeighborhoodsPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────── */}
-      <section className="relative bg-near-black pt-32 pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-near-black via-midnight to-near-black" />
+      <section className="relative bg-foreground pt-32 pb-16">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/30" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Explore Philadelphia
@@ -32,7 +32,7 @@ export default function NeighborhoodsPage() {
       </section>
 
       {/* ── Grid ─────────────────────────────────────────────── */}
-      <section className="bg-midnight py-16">
+      <section className="bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {neighborhoods.map((hood) => (
@@ -49,17 +49,17 @@ export default function NeighborhoodsPage() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-near-black/90 via-near-black/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                 </div>
 
                 <div className="absolute inset-x-0 bottom-0 p-5">
                   <div className="flex items-center gap-2">
                     <MapPin className="size-4 text-gold" />
-                    <h2 className="font-heading text-xl font-bold text-white">
+                    <h2 className="font-heading text-xl font-bold text-foreground">
                       {hood.name}
                     </h2>
                   </div>
-                  <p className="mt-1 text-sm text-white/70">{hood.tagline}</p>
+                  <p className="mt-1 text-sm text-foreground/70">{hood.tagline}</p>
                   <span className="mt-2 inline-block rounded-full bg-gold/20 px-3 py-1 text-xs font-semibold text-gold">
                     Median: {hood.stats.medianPrice}
                   </span>
@@ -71,7 +71,7 @@ export default function NeighborhoodsPage() {
       </section>
 
       {/* ── CTA ──────────────────────────────────────────────── */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Find Your Fit

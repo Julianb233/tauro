@@ -111,7 +111,7 @@ export function ContactForm() {
         <div className="flex size-16 items-center justify-center rounded-full bg-gold/10">
           <CheckCircle className="size-8 text-gold" />
         </div>
-        <h3 className="mt-5 font-heading text-2xl font-bold text-white">
+        <h3 className="mt-5 font-heading text-2xl font-bold text-foreground">
           Message Sent!
         </h3>
         <p className="mt-3 max-w-sm text-muted-foreground">
@@ -131,7 +131,7 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} noValidate className="space-y-5">
       <div>
-        <h2 className="font-heading text-2xl font-bold text-white">
+        <h2 className="font-heading text-2xl font-bold text-foreground">
           Send a Message
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
@@ -149,7 +149,7 @@ export function ContactForm() {
       {/* Name row */}
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-white">
+          <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-foreground">
             First Name <span className="text-gold">*</span>
           </label>
           <input
@@ -161,14 +161,14 @@ export function ContactForm() {
             value={form.firstName}
             onChange={handleChange}
             placeholder="Jane"
-            className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
           />
           {errors.firstName && (
             <p className="text-red-400 text-xs mt-1">{errors.firstName}</p>
           )}
         </div>
         <div>
-          <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-white">
+          <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-foreground">
             Last Name <span className="text-gold">*</span>
           </label>
           <input
@@ -180,7 +180,7 @@ export function ContactForm() {
             value={form.lastName}
             onChange={handleChange}
             placeholder="Smith"
-            className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+            className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
           />
           {errors.lastName && (
             <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>
@@ -190,7 +190,7 @@ export function ContactForm() {
 
       {/* Email */}
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-white">
+        <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
           Email Address <span className="text-gold">*</span>
         </label>
         <input
@@ -202,7 +202,7 @@ export function ContactForm() {
           value={form.email}
           onChange={handleChange}
           placeholder="jane@example.com"
-          className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
         />
         {errors.email && (
           <p className="text-red-400 text-xs mt-1">{errors.email}</p>
@@ -211,7 +211,7 @@ export function ContactForm() {
 
       {/* Phone */}
       <div>
-        <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-white">
+        <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-foreground">
           Phone Number <span className="text-gold">*</span>
         </label>
         <input
@@ -223,7 +223,7 @@ export function ContactForm() {
           value={form.phone}
           onChange={handleChange}
           placeholder="(215) 555-0100"
-          className="w-full rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          className="w-full rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
         />
         {errors.phone && (
           <p className="text-red-400 text-xs mt-1">{errors.phone}</p>
@@ -232,7 +232,7 @@ export function ContactForm() {
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-white">
+        <label htmlFor="message" className="mb-1.5 block text-sm font-medium text-foreground">
           Message
         </label>
         <textarea
@@ -242,7 +242,7 @@ export function ContactForm() {
           value={form.message}
           onChange={handleChange}
           placeholder="Tell us how we can help..."
-          className="w-full resize-none rounded-lg border border-border/40 bg-near-black px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
+          className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold transition-colors"
         />
       </div>
 

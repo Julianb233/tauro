@@ -22,7 +22,7 @@ const neighborhoods = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border/40 bg-near-black">
+    <footer className="border-t border-white/10 bg-foreground">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
@@ -30,7 +30,7 @@ export function Footer() {
             <Link href="/" className="inline-block">
               <Logo width={100} height={34} />
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
+            <p className="max-w-xs text-sm leading-relaxed text-white/60">
               Premium real estate brokerage serving Philadelphia&apos;s most
               sought-after neighborhoods.
             </p>
@@ -46,7 +46,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-gold"
+                    className="text-sm text-white/60 transition-colors hover:text-gold"
                   >
                     {link.label}
                   </Link>
@@ -65,7 +65,7 @@ export function Footer() {
                 <li key={area}>
                   <Link
                     href={`/neighborhoods/${area.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="text-sm text-muted-foreground transition-colors hover:text-gold"
+                    className="text-sm text-white/60 transition-colors hover:text-gold"
                   >
                     {area}
                   </Link>
@@ -83,7 +83,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+12155550100"
-                  className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-gold"
+                  className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Phone className="size-4 shrink-0" />
                   (215) 555-0100
@@ -92,14 +92,14 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:info@taurorealty.com"
-                  className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-gold"
+                  className="flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Mail className="size-4 shrink-0" />
                   info@taurorealty.com
                 </a>
               </li>
               <li>
-                <span className="flex items-start gap-2 text-sm text-muted-foreground">
+                <span className="flex items-start gap-2 text-sm text-white/60">
                   <MapPin className="mt-0.5 size-4 shrink-0" />
                   Philadelphia, PA
                 </span>
@@ -110,9 +110,9 @@ export function Footer() {
               href="https://maps.google.com/?q=Philadelphia+PA"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-border/40 bg-midnight transition-colors hover:border-gold/40"
+              className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-white/10 bg-white/5 transition-colors hover:border-gold/40"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-muted-foreground">
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-white/60">
                 <MapPin className="size-5 text-gold" />
                 <span>Philadelphia, PA</span>
                 <span className="text-gold/70">View on Map</span>
@@ -122,8 +122,8 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-border/40 pt-8 sm:flex-row">
-          <p className="text-xs text-muted-foreground">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+          <p className="text-xs text-white/50">
             &copy; {new Date().getFullYear()} Tauro. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
@@ -132,7 +132,7 @@ export function Footer() {
                 href="https://instagram.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
                 aria-label="Instagram"
               >
                 <Instagram className="size-5" />
@@ -143,7 +143,7 @@ export function Footer() {
                 href="https://facebook.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
                 aria-label="Facebook"
               >
                 <Facebook className="size-5" />
@@ -154,7 +154,7 @@ export function Footer() {
                 href="https://linkedin.com/company/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
@@ -165,7 +165,7 @@ export function Footer() {
                 href="https://x.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-md p-2 text-muted-foreground transition-colors hover:text-gold"
+                className="inline-flex items-center justify-center rounded-md p-2 text-white/50 transition-colors hover:text-gold"
                 aria-label="X (Twitter)"
               >
                 <Twitter className="size-5" />
@@ -175,13 +175,13 @@ export function Footer() {
           <div className="flex gap-4">
             <Link
               href="/privacy"
-              className="text-xs text-muted-foreground transition-colors hover:text-gold"
+              className="text-xs text-white/50 transition-colors hover:text-gold"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="text-xs text-muted-foreground transition-colors hover:text-gold"
+              className="text-xs text-white/50 transition-colors hover:text-gold"
             >
               Terms of Service
             </Link>

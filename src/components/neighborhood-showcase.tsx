@@ -5,13 +5,13 @@ import { homepageNeighborhoods } from "@/data/homepage-neighborhoods";
 
 export default function NeighborhoodShowcase() {
   return (
-    <section className="border-t border-border/40 bg-midnight py-20">
+    <section className="bg-cream py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Explore Philadelphia
           </p>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
             Premier Neighborhoods
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
@@ -25,7 +25,7 @@ export default function NeighborhoodShowcase() {
             <Link
               key={hood.slug}
               href={`/neighborhoods/${hood.slug}`}
-              className="group relative overflow-hidden rounded-xl border border-border/40 transition-all hover:border-gold/40 hover:shadow-xl"
+              className="group relative overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-md"
             >
               <div className="relative aspect-[16/10] overflow-hidden">
                 <Image
@@ -35,7 +35,7 @@ export default function NeighborhoodShowcase() {
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-near-black/90 via-near-black/30 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               </div>
               <div className="absolute inset-x-0 bottom-0 p-5">
                 <div className="flex items-center gap-2">

@@ -24,8 +24,8 @@ function BookTourContent() {
   return (
     <>
       {/* -- Hero -- */}
-      <section className="relative overflow-hidden bg-near-black pb-12 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-12 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Schedule a Visit
@@ -42,7 +42,7 @@ function BookTourContent() {
       </section>
 
       {/* -- Info Banner -- */}
-      <section className="bg-near-black pb-8">
+      <section className="bg-cream pb-8">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-xl border border-border/40 bg-card p-6">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
@@ -52,7 +52,7 @@ function BookTourContent() {
                     <item.icon className="size-5 text-gold" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">{item.label}</p>
+                    <p className="text-sm font-semibold text-foreground">{item.label}</p>
                     <p className="mt-0.5 text-xs text-muted-foreground">{item.desc}</p>
                   </div>
                 </div>
@@ -63,7 +63,7 @@ function BookTourContent() {
       </section>
 
       {/* -- Form Section -- */}
-      <section className="bg-midnight py-16">
+      <section className="bg-cream py-16">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-xl border border-border/40 bg-card p-8">
             <TourBookingForm preselectedPropertyId={propertyId} />
@@ -72,9 +72,9 @@ function BookTourContent() {
       </section>
 
       {/* -- Trust Section: What to Expect -- */}
-      <section className="bg-near-black py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+          <h2 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">
             What to Expect
           </h2>
           <p className="mx-auto mt-3 max-w-lg text-muted-foreground">
@@ -87,7 +87,7 @@ function BookTourContent() {
                 <div className="flex size-12 items-center justify-center rounded-full bg-gold text-lg font-bold text-near-black">
                   {step.num}
                 </div>
-                <h3 className="mt-4 text-sm font-semibold text-white">
+                <h3 className="mt-4 text-sm font-semibold text-foreground">
                   {step.title}
                 </h3>
                 <p className="mt-2 text-xs text-muted-foreground">

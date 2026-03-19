@@ -74,7 +74,7 @@ export default function PropertyDetailClient({
   return (
     <div className="min-h-screen pt-16">
       {/* Back link */}
-      <div className="border-b border-border bg-near-black">
+      <div className="border-b border-border bg-white">
         <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
           <Link
             href="/properties"
@@ -87,7 +87,7 @@ export default function PropertyDetailClient({
       </div>
 
       {/* Gallery */}
-      <div className="relative bg-near-black">
+      <div className="relative bg-white">
         <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <ImageGallery images={property.images} address={property.address} />
         </div>
@@ -194,7 +194,7 @@ export default function PropertyDetailClient({
                   <Play className="mr-2 inline-block h-5 w-5 text-gold" />
                   Video Tour
                 </h2>
-                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-midnight">
+                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-cream">
                   <iframe
                     src={property.videoUrl}
                     title={`Video tour of ${property.address}`}
@@ -213,7 +213,7 @@ export default function PropertyDetailClient({
                   <View className="mr-2 inline-block h-5 w-5 text-gold" />
                   3D Virtual Tour
                 </h2>
-                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-midnight">
+                <div className="mt-4 aspect-video overflow-hidden rounded-xl border border-border bg-cream">
                   <iframe
                     src={property.virtualTourUrl}
                     title={`3D walkthrough of ${property.address}`}

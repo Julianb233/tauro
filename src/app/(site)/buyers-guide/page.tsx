@@ -93,8 +93,8 @@ export default function BuyersGuidePage() {
   return (
     <>
       {/* -- Hero --------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Buyer&apos;s Guide
@@ -111,13 +111,13 @@ export default function BuyersGuidePage() {
       </section>
 
       {/* -- Step-by-Step Process ----------------------------------- */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               The Buying Process
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               7 Steps to Your New Home
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -130,14 +130,14 @@ export default function BuyersGuidePage() {
             {buyingSteps.map((item) => (
               <div
                 key={item.step}
-                className="rounded-xl border border-border/40 bg-near-black p-6 transition-all hover:border-gold/30 sm:p-8"
+                className="rounded-xl border border-border/40 bg-white p-6 transition-all hover:border-gold/30 sm:p-8"
               >
                 <div className="flex items-start gap-5">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-gold/10 font-heading text-lg font-bold text-gold">
                     {item.step}
                   </div>
                   <div>
-                    <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
+                    <h3 className="font-heading text-lg font-bold text-foreground sm:text-xl">
                       {item.title}
                     </h3>
                     <p className="mt-2 leading-relaxed text-muted-foreground">
@@ -152,13 +152,13 @@ export default function BuyersGuidePage() {
       </section>
 
       {/* -- First-Time Buyer Tips ---------------------------------- */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               First-Time Buyers
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               Tips for First-Time Home Buyers
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -171,12 +171,12 @@ export default function BuyersGuidePage() {
             {firstTimeTips.map((tip) => (
               <div
                 key={tip.title}
-                className="rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30"
+                className="rounded-xl border border-border/40 bg-cream p-6 transition-all hover:border-gold/30"
               >
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <tip.icon className="size-6 text-gold" />
                 </div>
-                <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                   {tip.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -189,20 +189,20 @@ export default function BuyersGuidePage() {
       </section>
 
       {/* -- Financing 101 ----------------------------------------- */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Financing 101
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               Understanding Your Mortgage Options
             </h2>
           </div>
 
           <div className="mx-auto mt-12 max-w-4xl space-y-10">
             <div>
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 Conventional Loans
               </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -216,7 +216,7 @@ export default function BuyersGuidePage() {
             </div>
 
             <div>
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 FHA Loans
               </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -229,7 +229,7 @@ export default function BuyersGuidePage() {
             </div>
 
             <div>
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 VA Loans
               </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -241,7 +241,7 @@ export default function BuyersGuidePage() {
             </div>
 
             <div>
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 USDA Loans
               </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -255,7 +255,7 @@ export default function BuyersGuidePage() {
             </div>
 
             <div>
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 PHFA Down Payment Assistance
               </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -270,8 +270,8 @@ export default function BuyersGuidePage() {
               </p>
             </div>
 
-            <div className="rounded-xl border border-border/40 bg-near-black p-6">
-              <h3 className="font-heading text-xl font-bold text-white">
+            <div className="rounded-xl border border-border/40 bg-white p-6">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 Key Terms to Know
               </h3>
               <div className="mt-4 space-y-3">
@@ -314,13 +314,13 @@ export default function BuyersGuidePage() {
       </section>
 
       {/* -- What to Expect at Closing ----------------------------- */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               The Finish Line
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               What to Expect at Closing
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -330,11 +330,11 @@ export default function BuyersGuidePage() {
           </div>
 
           <div className="mx-auto mt-12 grid max-w-5xl gap-6 lg:grid-cols-3">
-            <div className="rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30">
+            <div className="rounded-xl border border-border/40 bg-cream p-6 transition-all hover:border-gold/30">
               <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                 <Clock className="size-6 text-gold" />
               </div>
-              <h3 className="mt-4 font-heading text-lg font-bold text-white">
+              <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                 Timeline
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -345,11 +345,11 @@ export default function BuyersGuidePage() {
               </p>
             </div>
 
-            <div className="rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30">
+            <div className="rounded-xl border border-border/40 bg-cream p-6 transition-all hover:border-gold/30">
               <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                 <DollarSign className="size-6 text-gold" />
               </div>
-              <h3 className="mt-4 font-heading text-lg font-bold text-white">
+              <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                 Closing Costs
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -361,11 +361,11 @@ export default function BuyersGuidePage() {
               </p>
             </div>
 
-            <div className="rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30">
+            <div className="rounded-xl border border-border/40 bg-cream p-6 transition-all hover:border-gold/30">
               <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                 <FileText className="size-6 text-gold" />
               </div>
-              <h3 className="mt-4 font-heading text-lg font-bold text-white">
+              <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                 Documents You&apos;ll Need
               </h3>
               <ul className="mt-2 space-y-1.5 text-sm text-muted-foreground">
@@ -392,9 +392,9 @@ export default function BuyersGuidePage() {
       </section>
 
       {/* -- CTA --------------------------------------------------- */}
-      <section className="bg-midnight py-16">
+      <section className="bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
             Ready to Start Your Home Search?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">

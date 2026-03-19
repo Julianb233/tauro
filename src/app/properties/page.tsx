@@ -97,7 +97,7 @@ function PropertiesContent() {
   return (
     <div className="min-h-screen pt-16">
       {/* Header */}
-      <div className="border-b border-border bg-near-black">
+      <div className="border-b border-border bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-6 sm:px-6 lg:px-8">
           <div>
             <h1 className="font-heading text-3xl font-bold text-foreground">Properties</h1>

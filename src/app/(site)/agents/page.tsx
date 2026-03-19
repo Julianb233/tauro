@@ -20,8 +20,8 @@ export default function AgentsPage() {
   return (
     <>
       {/* -- Hero ---------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-4 h-px w-16 bg-gold/60" />
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
@@ -66,11 +66,11 @@ export default function AgentsPage() {
       </section>
 
       {/* -- Team Grid ------------------------------------------------ */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10">
             <div className="mb-3 h-px w-12 bg-gold/60" />
-            <h2 className="font-heading text-2xl font-bold text-white">
+            <h2 className="font-heading text-2xl font-bold text-foreground">
               Meet the Team
             </h2>
           </div>
@@ -84,10 +84,10 @@ export default function AgentsPage() {
       </section>
 
       {/* -- Join CTA ------------------------------------------------- */}
-      <section className="bg-midnight pb-20">
+      <section className="bg-cream pb-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-2xl border border-border/40 bg-near-black p-12 text-center">
-            <h2 className="font-heading text-3xl font-bold text-white">
+          <div className="rounded-2xl border border-border/40 bg-white p-12 text-center">
+            <h2 className="font-heading text-3xl font-bold text-foreground">
               Interested in Joining Tauro?
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-muted-foreground">

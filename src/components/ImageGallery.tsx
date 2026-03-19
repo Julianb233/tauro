@@ -22,7 +22,7 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
 
   if (!images || images.length === 0) {
     return (
-      <div className="flex aspect-[16/9] w-full items-center justify-center rounded-xl bg-near-black/20">
+      <div className="flex aspect-[16/9] w-full items-center justify-center rounded-xl bg-white/20">
         <p className="text-sm text-gray-400">No images available</p>
       </div>
     );

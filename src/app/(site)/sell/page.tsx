@@ -53,7 +53,7 @@ export default function SellPage() {
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-near-black pb-16 pt-32">
+      <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80"
@@ -62,7 +62,7 @@ export default function SellPage() {
             className="object-cover opacity-20"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-near-black/80 via-near-black/70 to-near-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/50" />
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
@@ -94,7 +94,7 @@ export default function SellPage() {
       </section>
 
       {/* ── Value Proposition ───────────────────────────────── */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {whySell.map((item) => (
@@ -105,7 +105,7 @@ export default function SellPage() {
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <item.icon className="size-6 text-gold" />
                 </div>
-                <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -118,11 +118,11 @@ export default function SellPage() {
       </section>
 
       {/* ── Valuation Form ────────────────────────────────────── */}
-      <section id="valuation-form" className="bg-midnight py-20">
+      <section id="valuation-form" className="bg-cream py-20">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-xl border border-border/40 bg-card p-8">
             <div className="mb-8 text-center">
-              <h2 className="font-heading text-2xl font-bold text-white sm:text-3xl">
+              <h2 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">
                 Request Your Free Home Valuation
               </h2>
               <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
@@ -136,13 +136,13 @@ export default function SellPage() {
       </section>
 
       {/* ── How It Works ──────────────────────────────────────── */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Simple Process
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               How It Works
             </h2>
           </div>
@@ -157,7 +157,7 @@ export default function SellPage() {
                 <div className="relative z-10 flex size-14 items-center justify-center rounded-full bg-gold text-lg font-bold text-near-black">
                   {step.number}
                 </div>
-                <h3 className="mt-5 font-heading text-lg font-bold text-white">
+                <h3 className="mt-5 font-heading text-lg font-bold text-foreground">
                   {step.title}
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -170,9 +170,9 @@ export default function SellPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
             Ready to Get Started?
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-muted-foreground">

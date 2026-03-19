@@ -4,11 +4,11 @@ import { ArrowRight } from "lucide-react";
 
 export default function HomepageCTAs() {
   return (
-    <section className="bg-near-black py-20">
+    <section className="bg-cream py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-2">
           {/* Buyer CTA */}
-          <div className="relative overflow-hidden rounded-2xl border border-border/40">
+          <div className="relative overflow-hidden rounded-2xl">
             <Image
               src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
               alt="Luxury home interior"
@@ -16,7 +16,7 @@ export default function HomepageCTAs() {
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-near-black/90 via-near-black/70 to-near-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
             <div className="relative z-10 p-8 sm:p-10">
               <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                 For Buyers
@@ -39,7 +39,7 @@ export default function HomepageCTAs() {
           </div>
 
           {/* Seller CTA */}
-          <div className="relative overflow-hidden rounded-2xl border border-border/40">
+          <div className="relative overflow-hidden rounded-2xl">
             <Image
               src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80"
               alt="Modern home exterior"
@@ -47,7 +47,7 @@ export default function HomepageCTAs() {
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-near-black/90 via-near-black/70 to-near-black/40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
             <div className="relative z-10 p-8 sm:p-10">
               <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                 For Sellers

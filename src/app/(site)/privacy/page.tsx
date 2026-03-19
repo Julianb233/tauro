@@ -10,8 +10,8 @@ export default function PrivacyPage() {
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-near-black pb-16 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Legal
@@ -26,7 +26,7 @@ export default function PrivacyPage() {
       </section>
 
       {/* ── Content ───────────────────────────────────────────── */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="space-y-12 text-white/70">
             {/* Intro */}

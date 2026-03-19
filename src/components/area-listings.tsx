@@ -15,7 +15,7 @@ export function AreaListings({
   );
 
   return (
-    <section className="bg-near-black py-16">
+    <section className="bg-white py-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
           Available Listings

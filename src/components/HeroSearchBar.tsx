@@ -20,7 +20,7 @@ export default function HeroSearchBar() {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto mt-10 max-w-2xl">
-      <div className="flex items-center rounded-xl border border-white/10 bg-near-black/60 p-1.5 shadow-2xl backdrop-blur-md">
+      <div className="flex items-center rounded-xl border border-white/10 bg-white/60 p-1.5 shadow-2xl backdrop-blur-md">
         <div className="flex flex-1 items-center gap-2 px-4">
           <Search className="size-5 text-gold" />
           <input

@@ -41,7 +41,7 @@ function FaqSection({
                 onClick={() => onToggle(key)}
                 className="flex w-full items-center justify-between py-5 text-left"
               >
-                <span className="font-medium text-white pr-4">
+                <span className="font-medium text-foreground pr-4">
                   {faq.question}
                 </span>
                 <ChevronDown
@@ -91,8 +91,8 @@ export default function FaqPage() {
   return (
     <>
       {/* -- Hero ---------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-near-black pb-16 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             FAQ
@@ -108,7 +108,7 @@ export default function FaqPage() {
       </section>
 
       {/* -- FAQ Accordion ------------------------------------------- */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <FaqSection
             title="For Buyers"
@@ -141,9 +141,9 @@ export default function FaqPage() {
       </section>
 
       {/* -- CTA ----------------------------------------------------- */}
-      <section className="bg-near-black py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
             Still Have Questions?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">

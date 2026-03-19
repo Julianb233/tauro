@@ -128,8 +128,8 @@ export default function SellersGuidePage() {
   return (
     <>
       {/* -- Hero --------------------------------------------------- */}
-      <section className="relative overflow-hidden bg-near-black pb-20 pt-32">
-        <div className="absolute inset-0 bg-gradient-to-b from-midnight/60 to-near-black" />
+      <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
             Seller&apos;s Guide
@@ -146,13 +146,13 @@ export default function SellersGuidePage() {
       </section>
 
       {/* -- Selling Process Steps ---------------------------------- */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               The Selling Process
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               7 Steps to a Successful Sale
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -165,14 +165,14 @@ export default function SellersGuidePage() {
             {sellingSteps.map((item) => (
               <div
                 key={item.step}
-                className="rounded-xl border border-border/40 bg-near-black p-6 transition-all hover:border-gold/30 sm:p-8"
+                className="rounded-xl border border-border/40 bg-white p-6 transition-all hover:border-gold/30 sm:p-8"
               >
                 <div className="flex items-start gap-5">
                   <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-gold/10 font-heading text-lg font-bold text-gold">
                     {item.step}
                   </div>
                   <div>
-                    <h3 className="font-heading text-lg font-bold text-white sm:text-xl">
+                    <h3 className="font-heading text-lg font-bold text-foreground sm:text-xl">
                       {item.title}
                     </h3>
                     <p className="mt-2 leading-relaxed text-muted-foreground">
@@ -187,13 +187,13 @@ export default function SellersGuidePage() {
       </section>
 
       {/* -- Staging Tips ------------------------------------------- */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Staging Tips
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               Prepare Your Home to Impress
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -206,12 +206,12 @@ export default function SellersGuidePage() {
             {stagingTips.map((tip) => (
               <div
                 key={tip.title}
-                className="rounded-xl border border-border/40 bg-midnight p-6 transition-all hover:border-gold/30"
+                className="rounded-xl border border-border/40 bg-cream p-6 transition-all hover:border-gold/30"
               >
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <tip.icon className="size-6 text-gold" />
                 </div>
-                <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                   {tip.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -224,13 +224,13 @@ export default function SellersGuidePage() {
       </section>
 
       {/* -- Pricing Strategy --------------------------------------- */}
-      <section className="bg-midnight py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               Pricing Strategy
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               The Art and Science of Pricing Your Home
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -242,7 +242,7 @@ export default function SellersGuidePage() {
 
           <div className="mx-auto mt-12 max-w-4xl space-y-10">
             <div>
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 Comparative Market Analysis (CMA)
               </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -255,7 +255,7 @@ export default function SellersGuidePage() {
             </div>
 
             <div>
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 Market Conditions and Timing
               </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -269,7 +269,7 @@ export default function SellersGuidePage() {
             </div>
 
             <div>
-              <h3 className="font-heading text-xl font-bold text-white">
+              <h3 className="font-heading text-xl font-bold text-foreground">
                 Pricing Psychology
               </h3>
               <p className="mt-3 leading-relaxed text-muted-foreground">
@@ -282,7 +282,7 @@ export default function SellersGuidePage() {
               </p>
             </div>
 
-            <div className="rounded-xl border border-gold/20 bg-near-black p-6">
+            <div className="rounded-xl border border-gold/20 bg-white p-6">
               <p className="text-sm font-semibold text-gold">
                 The Overpricing Trap
               </p>
@@ -299,13 +299,13 @@ export default function SellersGuidePage() {
       </section>
 
       {/* -- Tauro's Value Proposition ------------------------------ */}
-      <section className="bg-near-black py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
               The Tauro Advantage
             </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
               The Tauro Selling Advantage
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
@@ -318,12 +318,12 @@ export default function SellersGuidePage() {
             {tauroAdvantages.map((item) => (
               <div
                 key={item.title}
-                className="rounded-xl border border-border/40 bg-near-black p-6 transition-all hover:border-gold/30 hover:shadow-lg"
+                className="rounded-xl border border-border/40 bg-white p-6 transition-all hover:border-gold/30 hover:shadow-lg"
               >
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <item.icon className="size-6 text-gold" />
                 </div>
-                <h3 className="mt-4 font-heading text-lg font-bold text-white">
+                <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -334,7 +334,7 @@ export default function SellersGuidePage() {
           </div>
 
           {/* Stats Bar */}
-          <div className="mt-14 grid grid-cols-3 gap-8 rounded-2xl border border-border/40 bg-near-black p-8">
+          <div className="mt-14 grid grid-cols-3 gap-8 rounded-2xl border border-border/40 bg-white p-8">
             {[
               { value: "$2.1B+", label: "Total Sales Volume" },
               { value: "98%", label: "Client Satisfaction" },
@@ -354,9 +354,9 @@ export default function SellersGuidePage() {
       </section>
 
       {/* -- CTA --------------------------------------------------- */}
-      <section className="bg-near-black py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="font-heading text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
             Ready to Sell Your Home?
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
