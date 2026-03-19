@@ -101,8 +101,8 @@ export const agents: Agent[] = [
         issuer: "Institute for Luxury Home Marketing",
       },
     ],
-    videoIntroUrl: "https://www.youtube.com/embed/K4TOrB7at0Y",
-    videoIntroId: "K4TOrB7at0Y",
+    videoIntroUrl: "https://www.youtube.com/embed/5ugXVlPDSqw",
+    videoIntroId: "5ugXVlPDSqw",
     activeListingIds: ["1", "3", "5"],
     soldListingIds: ["101", "102", "103", "104", "105"],
     soldListings: [
@@ -164,8 +164,8 @@ export const agents: Agent[] = [
         issuer: "Philadelphia Magazine",
       },
     ],
-    videoIntroUrl: "https://www.youtube.com/embed/Tt_tKhBEWsE",
-    videoIntroId: "Tt_tKhBEWsE",
+    videoIntroUrl: "https://www.youtube.com/embed/CLtPoNNzLOc",
+    videoIntroId: "CLtPoNNzLOc",
     activeListingIds: ["2", "4", "6"],
     soldListingIds: ["201", "202", "203"],
     soldListings: [
@@ -344,8 +344,8 @@ export const agents: Agent[] = [
         issuer: "Inman Connect",
       },
     ],
-    videoIntroUrl: "https://www.youtube.com/embed/oqNM_Lviurk",
-    videoIntroId: "oqNM_Lviurk",
+    videoIntroUrl: "https://www.youtube.com/embed/AQyAqjzRupM",
+    videoIntroId: "AQyAqjzRupM",
     activeListingIds: [],
     soldListingIds: ["501", "502", "503", "504"],
     soldListings: [
