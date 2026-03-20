@@ -17,32 +17,32 @@ const neighborhoods = [
   {
     name: "Center City",
     slug: "center-city",
-    image: "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=160&h=96&fit=crop&q=80",
+    image: "/images/neighborhoods/center-city.jpg",
   },
   {
     name: "Rittenhouse",
     slug: "rittenhouse",
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=160&h=96&fit=crop&q=80",
+    image: "/images/neighborhoods/rittenhouse.jpg",
   },
   {
     name: "Fishtown",
     slug: "fishtown",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=160&h=96&fit=crop&q=80",
+    image: "/images/neighborhoods/fishtown.jpg",
   },
   {
     name: "Northern Liberties",
     slug: "northern-liberties",
-    image: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=160&h=96&fit=crop&q=80",
+    image: "/images/neighborhoods/northern-liberties.jpg",
   },
   {
     name: "Old City",
     slug: "old-city",
-    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=160&h=96&fit=crop&q=80",
+    image: "/images/neighborhoods/old-city.jpg",
   },
   {
     name: "South Philadelphia",
     slug: "south-philly",
-    image: "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=160&h=96&fit=crop&q=80",
+    image: "/images/neighborhoods/south-philly.jpg",
   },
 ];
 
@@ -295,7 +295,7 @@ export function Footer() {
               Cookie Policy
             </Link>
             <Link
-              href="/cookie-policy#ccpa"
+              href="/privacy-preferences"
               className="text-xs text-white/70 transition-colors hover:text-gold"
             >
               Do Not Sell My Personal Information
