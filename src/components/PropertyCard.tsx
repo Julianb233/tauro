@@ -3,8 +3,8 @@
 import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Video } from "lucide-react";
-import { Property, formatPrice } from "@/data/properties";
+import { Calendar, Video, Tag } from "lucide-react";
+import { Property, formatPrice, getPropertyTags } from "@/data/properties";
 import { cn } from "@/lib/utils";
 
 const statusStyles: Record<string, string> = {
@@ -257,6 +257,20 @@ export default function PropertyCard({ property }: { property: Property }) {
         <p className="truncate text-sm text-muted-foreground">
           {property.city}, {property.state} {property.zip}
         </p>
+        {/* AI-3872: Lifestyle tags */}
+        {getPropertyTags(property).length > 0 && (
+          <div className="mt-2 flex flex-wrap gap-1">
+            {getPropertyTags(property).map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-0.5 rounded-full border border-gold/20 bg-gold/5 px-2 py-0.5 text-[10px] font-medium text-gold-dark"
+              >
+                <Tag className="h-2.5 w-2.5" />
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
         {property.openHouseEvent && (
           <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-gold/30 bg-gold/10 px-2 py-1">
             <Calendar className="h-3 w-3 text-gold" />
