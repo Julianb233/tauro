@@ -48,12 +48,14 @@ export interface Property {
   tax_annual: number;
   tax_year: number;
   isComingSoon?: boolean;
+  mlsNumber?: string;
 }
 
 export const properties: Property[] = [
   {
     id: "1",
     slug: "1820-rittenhouse-sq-philadelphia",
+    mlsNumber: "PAPH1001234",
     address: "1820 Rittenhouse Square",
     city: "Philadelphia",
     state: "PA",
@@ -68,14 +70,14 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1758796629979-c967b99dec5e?w=1200&q=80",
-      "https://images.unsplash.com/photo-1679245779770-bbd88008190e?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168251394-9241984c8292?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168346641-6aedb68a6c99?w=1200&q=80",
+      "/images/properties/luxury-townhome-1.jpg",
+      "/images/properties/luxury-interior-1.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/living-room-1.jpg",
+      "/images/properties/bedroom-1.jpg",
     ],
     description:
-      "Grand Rittenhouse Square townhome with impeccable period details and modern luxury throughout. Five bedrooms, a chef's kitchen, private garden, and a rooftop terrace overlooking the Square. Steps from Philadelphia's finest dining, shopping, and cultural institutions.",
+      "There are addresses, and then there is 1820 Rittenhouse Square. This commanding five-bedroom townhome, built in 1920, occupies one of the most coveted positions in all of Philadelphia -- directly overlooking the manicured lawns, century-old sycamores, and iconic central fountain of Rittenhouse Square. From the moment you step through the limestone portico, the interplay of original period detail and thoughtful modern renovation is unmistakable: soaring crown moldings frame rooms flooded with natural light, while marble fireplaces anchor formal living spaces that feel both grand and genuinely livable.\n\nThe heart of the home is a chef's kitchen outfitted for serious entertaining, opening to a private garden where the sounds of the city soften to birdsong and rustling leaves. Upstairs, five generous bedrooms offer the kind of space rarely found this close to the Square, and the rooftop terrace -- with its sweeping views of the park and the Center City skyline beyond -- transforms every sunset into an occasion.\n\nSteps from Parc, Vernick, and the boutiques of Walnut Street, this is a residence for those who understand that the finest things in Philadelphia have always revolved around this singular park.",
     features: {
       interior: [
         "Original Crown Moldings",
@@ -100,10 +102,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Julian Bradley",
-      phone: "(215) 555-0100",
-      email: "julian@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+      name: "Tony Goodman",
+      phone: "(215) 427-2870",
+      email: "tcupone@aol.com",
+      photo: "/agents/tony-goodman.jpg",
     },
     lat: 39.9493,
     lng: -75.1718,
@@ -118,6 +120,7 @@ export const properties: Property[] = [
   {
     id: "2",
     slug: "312-delancey-st-society-hill",
+    mlsNumber: "PAPH1002468",
     address: "312 Delancey St",
     city: "Philadelphia",
     state: "PA",
@@ -132,13 +135,13 @@ export const properties: Property[] = [
     status: "New",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1698852908395-75212cfbc63c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1698852880899-60633378ff6f?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168362059-44a0b8a80b39?w=1200&q=80",
+      "/images/properties/federal-exterior-1.jpg",
+      "/images/properties/historic-interior-1.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/bathroom-1.jpg",
     ],
     description:
-      "Exquisite Federal-style residence in Society Hill, meticulously restored with museum-quality finishes. Original exposed brick, wide-plank pine floors, and seven fireplaces complement a stunning modern kitchen and spa-like primary suite. One of Philadelphia's most distinguished addresses.",
+      "Built in 1790, when Philadelphia was the capital of a young nation, 312 Delancey Street has witnessed more than two centuries of American history -- and every era has left its mark in the most elegant way. This meticulously restored Federal-style residence is a masterwork of preservation: seven original fireplaces with carved mantels, wide-plank pine floors worn to a honeyed patina, and walls of exposed brick that speak to the hand of eighteenth-century craftsmen. The restoration is museum-grade, yet the home lives with warmth and ease.\n\nA stunning modern kitchen anchors the main level, where Calacatta marble countertops and custom millwork meet the glow of afternoon light filtering through wavy-glass windows. The primary suite, occupying the entire upper floor, is a private retreat with a spa-caliber bath and views over the walled garden below -- a rare oasis of green in the heart of Society Hill.\n\nOutside, a private carriage house and brick patio extend the living space, while cobblestone streets lead to Headhouse Square, Penn's Landing, and some of the city's most storied restaurants. For connoisseurs of architecture and history, this is Philadelphia at its most distinguished.",
     features: {
       interior: [
         "7 Fireplaces",
@@ -164,10 +167,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Sofia Martinez",
-      phone: "(215) 555-0200",
-      email: "sofia@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
+      name: "Chris Lane",
+      phone: "(215) 427-2870",
+      email: "chris@exitbenchmark.com",
+      photo: "/agents/chris-lane.jpg",
     },
     lat: 39.9431,
     lng: -75.1479,
@@ -180,6 +183,7 @@ export const properties: Property[] = [
   {
     id: "3",
     slug: "2401-pennsylvania-ave-fairmount",
+    mlsNumber: "PAPH1003702",
     address: "2401 Pennsylvania Ave #PH1",
     city: "Philadelphia",
     state: "PA",
@@ -194,13 +198,13 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Condo",
     images: [
-      "https://images.unsplash.com/photo-1506636489208-f1d6c865744e?w=1200&q=80",
-      "https://images.unsplash.com/photo-1652635868230-24248651a8ea?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168251394-9241984c8292?w=1200&q=80",
+      "/images/properties/penthouse-view-1.jpg",
+      "/images/properties/modern-condo-1.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/living-room-1.jpg",
     ],
     description:
-      "Ultra-luxury penthouse overlooking the Philadelphia Museum of Art and Schuylkill River. Floor-to-ceiling glass walls, private elevator entry, two terraces totaling 1,200 SF, and panoramic skyline views from every room. The pinnacle of modern Philadelphia living.",
+      "Perched above the treetops of Fairmount, this 5,600-square-foot penthouse commands what may be the most dramatic view in Philadelphia: the neoclassical facade of the Art Museum, the sculled waters of the Schuylkill, and Boathouse Row glittering at dusk. Accessed by private elevator, the residence unfolds behind floor-to-ceiling glass walls that dissolve the boundary between interior and sky -- a living canvas that shifts from golden sunrise to violet twilight across 270 degrees of uninterrupted panorama.\n\nEvery surface has been considered with the precision of a gallery installation. A custom Italian kitchen anchors the open living plan, flanked by a climate-controlled wine room and a great room scaled for both intimate dinners and grand celebrations. The primary suite opens to its own terrace, where morning coffee comes with a view few cities on earth can rival.\n\nTwo terraces totaling 1,200 square feet, a smart-home system controlling every shade and scene, three-car garage parking, and full concierge service complete a residence that redefines modern luxury in Philadelphia. This is not merely a home; it is a vantage point.",
     features: {
       interior: [
         "Private Elevator Entry",
@@ -226,10 +230,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Julian Bradley",
-      phone: "(215) 555-0100",
-      email: "julian@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+      name: "Tony Goodman",
+      phone: "(215) 427-2870",
+      email: "tcupone@aol.com",
+      photo: "/agents/tony-goodman.jpg",
     },
     lat: 39.9615,
     lng: -75.1756,
@@ -245,6 +249,7 @@ export const properties: Property[] = [
   {
     id: "4",
     slug: "1500-chestnut-st-center-city",
+    mlsNumber: "PAPH1004936",
     address: "1500 Chestnut St #2204",
     city: "Philadelphia",
     state: "PA",
@@ -259,13 +264,13 @@ export const properties: Property[] = [
     status: "Open House",
     propertyType: "Condo",
     images: [
-      "https://images.unsplash.com/photo-1652635868230-24248651a8ea?w=1200&q=80",
-      "https://images.unsplash.com/photo-1506636489208-f1d6c865744e?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168346641-6aedb68a6c99?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168362059-44a0b8a80b39?w=1200&q=80",
+      "/images/properties/modern-condo-1.jpg",
+      "/images/properties/penthouse-view-1.jpg",
+      "/images/properties/bedroom-1.jpg",
+      "/images/properties/bathroom-1.jpg",
     ],
     description:
-      "Sleek Center City condo in a full-service building with 24/7 concierge. Open concept living with floor-to-ceiling windows and a private balcony overlooking City Hall. Walking distance to world-class dining, Broad Street theaters, and Rittenhouse Square.",
+      "High above Chestnut Street, this refined two-bedroom residence captures the electric pulse of Center City through walls of floor-to-ceiling glass. The open living plan is bathed in southern light, with sightlines that frame the illuminated tower of City Hall -- a view that transforms the ordinary ritual of morning coffee into something cinematic. Quartz countertops, custom cabinetry, and in-unit laundry reflect the building's commitment to contemporary comfort without compromise.\n\nA private balcony extends the living space into the sky, offering front-row seats to the Broad Street theater district, the holiday light show at Dilworth Park, and the daily pageant of one of America's great walkable downtowns. With 24/7 concierge, a rooftop pool, and secured parking, this full-service building handles the details so its residents can focus on living.\n\nRittenhouse Square is a ten-minute stroll south; Reading Terminal Market, eight minutes north. The Avenue of the Arts, Philadelphia's concentration of world-class performance venues, is literally at your doorstep. For the buyer who wants to live at the exact center of everything, this is the address.",
     features: {
       interior: [
         "Quartz Countertops",
@@ -284,10 +289,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Sofia Martinez",
-      phone: "(215) 555-0200",
-      email: "sofia@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
+      name: "Stephen Stevens",
+      phone: "(215) 427-2870",
+      email: "stephen@exitbenchmark.com",
+      photo: "/agents/stephen-stevens.jpg",
     },
     lat: 39.951,
     lng: -75.166,
@@ -301,6 +306,7 @@ export const properties: Property[] = [
   {
     id: "5",
     slug: "734-s-front-st-queen-village",
+    mlsNumber: "PAPH1006170",
     address: "734 S Front St",
     city: "Philadelphia",
     state: "PA",
@@ -315,13 +321,13 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1768383236143-8ffc61b85804?w=1200&q=80",
-      "https://images.unsplash.com/photo-1767286795573-8bce39b4d27d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168251394-9241984c8292?w=1200&q=80",
+      "/images/properties/townhome-modern-1.jpg",
+      "/images/properties/townhome-modern-2.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/living-room-1.jpg",
     ],
     description:
-      "Stunning new-construction townhome in Queen Village with designer finishes throughout. Open concept living with a custom chef's kitchen, rooftop deck with skyline views, and a private garage. Steps from South Street, Italian Market, and the Delaware River waterfront.",
+      "Queen Village has long been one of Philadelphia's best-kept secrets -- a neighborhood where cobblestone side streets meet the energy of South Street, and the scent of fresh mozzarella drifts from the Italian Market just blocks away. This 2019 new-construction townhome captures the spirit of the neighborhood while delivering the clean lines and open proportions that modern buyers demand. Four bedrooms across three sun-filled floors, a custom chef's kitchen with waterfall island and premium appliances, and millwork details that elevate every room from beautiful to memorable.\n\nThe rooftop deck is the crown jewel: a private perch with unobstructed views of the Center City skyline, ideal for evening gatherings as the city lights come alive. Below, a private garage and EV charging station address the practical realities of urban living without sacrificing an inch of style.\n\nStep outside and you are minutes from the Delaware River waterfront trail, the eclectic boutiques of Fabric Row, and restaurants ranging from red-sauce Italian classics to James Beard-nominated newcomers. This is Philadelphia living at its most vibrant -- rooted in history, built for today.",
     features: {
       interior: [
         "Open Floor Plan",
@@ -340,10 +346,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Julian Bradley",
-      phone: "(215) 555-0100",
-      email: "julian@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+      name: "Chris Lane",
+      phone: "(215) 427-2870",
+      email: "chris@exitbenchmark.com",
+      photo: "/agents/chris-lane.jpg",
     },
     lat: 39.9378,
     lng: -75.1442,
@@ -355,6 +361,7 @@ export const properties: Property[] = [
   {
     id: "6",
     slug: "2038-e-hagert-st-fishtown",
+    mlsNumber: "PAPH1007404",
     address: "2038 E Hagert St",
     city: "Philadelphia",
     state: "PA",
@@ -369,13 +376,13 @@ export const properties: Property[] = [
     status: "Pending",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1760019941268-d4464c2d517a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1768383235703-116d3ca7e2c3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168346641-6aedb68a6c99?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168362059-44a0b8a80b39?w=1200&q=80",
+      "/images/properties/industrial-loft-1.jpg",
+      "/images/properties/industrial-loft-2.jpg",
+      "/images/properties/bedroom-1.jpg",
+      "/images/properties/bathroom-1.jpg",
     ],
     description:
-      "Brand-new Fishtown townhome blending industrial chic with modern luxury. Soaring ceilings, exposed ductwork, a gourmet kitchen with waterfall island, and a private rooftop with Center City skyline views. Walk to Frankford Avenue's best restaurants, breweries, and boutiques.",
+      "Fishtown's transformation from working-class enclave to Philadelphia's most sought-after creative district is written into the DNA of this brand-new townhome. Soaring ten-foot ceilings and exposed ductwork pay tribute to the neighborhood's industrial heritage, while a gourmet kitchen with waterfall island, custom tile work, and a smart-home system signal a thoroughly modern sensibility. The result is a home that feels both raw and refined -- exactly the duality that defines Fishtown itself.\n\nThree bedrooms are spread across thoughtfully proportioned floors, each with generous closet space and abundant natural light. The private rooftop is the showpiece: a panoramic stage for Center City skyline views that make every weekend barbecue feel like an event.\n\nFrankford Avenue, the neighborhood's vibrant commercial spine, is steps away -- home to Suraya, La Colombe's flagship, craft breweries, independent boutiques, and a nightlife scene that draws visitors from across the region. Penn Treaty Park and the Delaware River waterfront offer a quieter counterpoint. For the buyer who wants energy, authenticity, and a home with real personality, this is the one.",
     features: {
       interior: [
         "10-Foot Ceilings",
@@ -399,10 +406,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Sofia Martinez",
-      phone: "(215) 555-0200",
-      email: "sofia@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
+      name: "Stephen Stevens",
+      phone: "(215) 427-2870",
+      email: "stephen@exitbenchmark.com",
+      photo: "/agents/stephen-stevens.jpg",
     },
     lat: 39.9735,
     lng: -75.1268,
@@ -412,6 +419,7 @@ export const properties: Property[] = [
   {
     id: "7",
     slug: "127-n-2nd-st-northern-liberties",
+    mlsNumber: "PAPH1008638",
     address: "127 N 2nd St #4B",
     city: "Philadelphia",
     state: "PA",
@@ -426,13 +434,13 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Condo",
     images: [
-      "https://images.unsplash.com/photo-1625283518755-6047df2fb180?w=1200&q=80",
-      "https://images.unsplash.com/photo-1628859250369-c513b3468843?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168251394-9241984c8292?w=1200&q=80",
+      "/images/properties/nolibs-loft-1.jpg",
+      "/images/properties/nolibs-loft-2.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/living-room-1.jpg",
     ],
     description:
-      "Sleek modern loft in the heart of Northern Liberties with soaring ceilings and floor-to-ceiling windows. Open-plan living flows into a designer kitchen with quartz countertops and custom cabinetry. Steps from the Piazza, Liberty Lands, and some of Philly's best restaurants.",
+      "Northern Liberties has always attracted people who want to be close to the action without being in the middle of it -- and this sleek two-bedroom loft captures that balance perfectly. Twelve-foot ceilings and floor-to-ceiling windows flood the open living plan with light, creating a sense of space that belies the urban address. The designer kitchen, with its quartz countertops and custom cabinetry, anchors a layout built for both quiet weeknight dinners and lively Saturday gatherings.\n\nThe building offers the essentials of modern city living: secured entry, bike storage, a shared rooftop deck with skyline views, and a dedicated parking space -- a genuine luxury in a neighborhood where street parking is a competitive sport.\n\nOutside, the Piazza at Schmidt's hosts outdoor movie nights and seasonal markets. Liberty Lands Park provides a green escape just steps from your door. And the restaurant scene -- Standard Tap, Honey's Sit 'n Eat, and a rotating cast of acclaimed newcomers along 2nd Street -- rivals any neighborhood in the city. At this price point, in this location, opportunities like this don't stay available long.",
     features: {
       interior: [
         "12-Foot Ceilings",
@@ -456,10 +464,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Sofia Martinez",
-      phone: "(215) 555-0200",
-      email: "sofia@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
+      name: "Chris Lane",
+      phone: "(215) 427-2870",
+      email: "chris@exitbenchmark.com",
+      photo: "/agents/chris-lane.jpg",
     },
     lat: 39.9657,
     lng: -75.1419,
@@ -469,6 +477,7 @@ export const properties: Property[] = [
   {
     id: "8",
     slug: "4218-spruce-st-university-city",
+    mlsNumber: "PAPH1009872",
     address: "4218 Spruce St",
     city: "Philadelphia",
     state: "PA",
@@ -483,13 +492,13 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1601056645510-77f6d98cf7d9?w=1200&q=80",
-      "https://images.unsplash.com/photo-1698852908395-75212cfbc63c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168362059-44a0b8a80b39?w=1200&q=80",
+      "/images/properties/victorian-exterior-1.jpg",
+      "/images/properties/federal-exterior-1.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/bathroom-1.jpg",
     ],
     description:
-      "Beautifully renovated Victorian twin in Spruce Hill, steps from Penn's campus and Clark Park. Original hardwood floors and ornate mantels blend with a modern open kitchen, updated baths, and a landscaped rear yard. Ideal for families or faculty seeking urban convenience with residential charm.",
+      "In Spruce Hill, where Victorian architecture meets the intellectual energy of the University of Pennsylvania, 4218 Spruce Street stands as a testament to what thoughtful renovation can achieve. Original hardwood floors, ornate carved mantels, and generous proportions speak to the home's 1910 origins, while a modern open kitchen with stone countertops, updated baths, and a third-floor suite bring it firmly into the present. The marriage of old and new is seamless -- each room feels both storied and fresh.\n\nFour spacious bedrooms provide room for a growing family, a home office, or a guest suite, while the landscaped rear yard and covered front porch offer the kind of outdoor living space that University City buyers rarely find. Built-in bookshelves throughout hint at the neighborhood's academic character.\n\nClark Park, with its weekend farmers' market and summer concerts, is a two-minute walk. The trolley to Center City stops at the corner. White Dog Cafe and the cafes of Baltimore Avenue are close enough for a spontaneous dinner. For faculty, medical professionals, or anyone who values walkability, culture, and a home with genuine character, this is the address to know.",
     features: {
       interior: [
         "Original Hardwood Floors",
@@ -514,10 +523,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Julian Bradley",
-      phone: "(215) 555-0100",
-      email: "julian@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+      name: "Morris A. Brown",
+      phone: "(215) 416-9113",
+      email: "morris@exitbenchmark.com",
+      photo: "/agents/morris-brown.jpg",
     },
     lat: 39.9522,
     lng: -75.2032,
@@ -527,6 +536,7 @@ export const properties: Property[] = [
   {
     id: "9",
     slug: "4325-main-st-manayunk",
+    mlsNumber: "PAPH1011106",
     address: "4325 Main St",
     city: "Philadelphia",
     state: "PA",
@@ -541,13 +551,13 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1764605974030-fab67cc6ba47?w=1200&q=80",
-      "https://images.unsplash.com/photo-1768383236143-8ffc61b85804?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168251394-9241984c8292?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168346641-6aedb68a6c99?w=1200&q=80",
+      "/images/properties/modern-townhome-1.jpg",
+      "/images/properties/townhome-modern-1.jpg",
+      "/images/properties/living-room-1.jpg",
+      "/images/properties/bedroom-1.jpg",
     ],
     description:
-      "Modern townhouse on Manayunk's iconic Main Street with river views from the upper floors. Open-plan living, a sleek kitchen with waterfall island, and a private rooftop deck overlooking the Schuylkill. Walk to the towpath trail, shops, and dozens of restaurants.",
+      "Manayunk's Main Street has always had a magnetic pull -- a winding stretch of restaurants, shops, and galleries built into the hillside above the Schuylkill River. This 2020 townhome sits right in the thick of it, offering the rare combination of walkable urban energy and river-valley tranquility. Upper-floor windows frame views of the Schuylkill that shift with the seasons: green canopy in summer, golden hillsides in autumn, and sculled water catching the low winter sun.\n\nInside, an open floor plan with hardwood floors and recessed lighting flows into a sleek kitchen anchored by a waterfall island -- a layout designed for the kind of easy entertaining that Manayunk's social culture demands. Three bedrooms, in-unit laundry, and an integral garage cover the practical essentials.\n\nThe rooftop deck is the signature space: a private overlook where the Schuylkill River Trail, the towpath, and the wooded hillside of the Wissahickon Valley stretch out below. Weekends here mean cycling the trail to Valley Forge, browsing Main Street's boutiques, or settling into a sidewalk table at one of the avenue's dozens of restaurants. For the buyer who wants village charm within city limits, Manayunk delivers -- and this home is its best expression.",
     features: {
       interior: [
         "Open Floor Plan",
@@ -571,10 +581,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Sofia Martinez",
-      phone: "(215) 555-0200",
-      email: "sofia@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
+      name: "Morris A. Brown",
+      phone: "(215) 416-9113",
+      email: "morris@exitbenchmark.com",
+      photo: "/agents/morris-brown.jpg",
     },
     lat: 40.0261,
     lng: -75.2243,
@@ -584,6 +594,7 @@ export const properties: Property[] = [
   {
     id: "10",
     slug: "8411-germantown-ave-chestnut-hill",
+    mlsNumber: "PAPH1012340",
     address: "8411 Germantown Ave",
     city: "Philadelphia",
     state: "PA",
@@ -598,14 +609,14 @@ export const properties: Property[] = [
     status: "New",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1698852908395-75212cfbc63c?w=1200&q=80",
-      "https://images.unsplash.com/photo-1698852880899-60633378ff6f?w=1200&q=80",
-      "https://images.unsplash.com/photo-1601056645510-77f6d98cf7d9?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168362059-44a0b8a80b39?w=1200&q=80",
+      "/images/properties/federal-exterior-1.jpg",
+      "/images/properties/historic-interior-1.jpg",
+      "/images/properties/victorian-exterior-1.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/bathroom-1.jpg",
     ],
     description:
-      "Stately stone Colonial Revival on a tree-lined lot in the heart of Chestnut Hill. Five generous bedrooms, a sun-drenched conservatory, original chestnut woodwork, and a landscaped garden with stone patio. Steps from Germantown Avenue shops and the Wissahickon Valley trails.",
+      "Chestnut Hill feels like a small New England town that happens to sit within Philadelphia city limits -- tree-canopied streets, independent shops along Germantown Avenue, and some of the most distinguished residential architecture in the region. This stately stone Colonial Revival, set on a generous 12,000-square-foot lot, exemplifies everything that draws buyers to the neighborhood. Five bedrooms, a sun-drenched conservatory, and original chestnut woodwork throughout create a home that rewards close attention at every turn.\n\nThe chef's kitchen and butler's pantry anchor the main level, flanked by a library with a working fireplace -- the kind of room where a rainy Sunday afternoon feels like a gift. Heated floors in the primary bath and a third-floor flex space add layers of modern comfort to the home's classic bones.\n\nOutside, landscaped gardens and a stone patio are framed by mature specimen trees, offering privacy and beauty through every season. The Wissahickon Valley Park trailhead is a short walk away, as are the Morris Arboretum and Chestnut Hill's beloved shops and restaurants. Regional Rail connects to Center City in under 30 minutes. For the buyer who wants space, nature, and architectural distinction without leaving the city, this is the gold standard.",
     features: {
       interior: [
         "Original Chestnut Woodwork",
@@ -631,10 +642,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Julian Bradley",
-      phone: "(215) 555-0100",
-      email: "julian@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+      name: "Tony Goodman",
+      phone: "(215) 427-2870",
+      email: "tcupone@aol.com",
+      photo: "/agents/tony-goodman.jpg",
     },
     lat: 40.0781,
     lng: -75.2085,
@@ -646,6 +657,7 @@ export const properties: Property[] = [
   {
     id: "11",
     slug: "1631-n-27th-st-brewerytown",
+    mlsNumber: "PAPH1013574",
     address: "1631 N 27th St",
     city: "Philadelphia",
     state: "PA",
@@ -660,13 +672,13 @@ export const properties: Property[] = [
     status: "New",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1767286795573-8bce39b4d27d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1768383235703-116d3ca7e2c3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168251394-9241984c8292?w=1200&q=80",
+      "/images/properties/townhome-modern-2.jpg",
+      "/images/properties/industrial-loft-2.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/living-room-1.jpg",
     ],
     description:
-      "Brand-new construction townhome in booming Brewerytown with a modern open layout and premium finishes. Three floors of living with a rooftop deck offering sweeping Fairmount Park views. Walk to the Art Museum, Schuylkill River Trail, and Girard Avenue's craft breweries.",
+      "Brewerytown is Philadelphia's next great neighborhood story -- a community undergoing a creative renaissance fueled by young professionals, artists, and entrepreneurs drawn by proximity to Fairmount Park and a housing stock that rewards vision. This brand-new townhome arrives at exactly the right moment: three floors of open, light-filled living with premium finishes that set the bar for new construction in the area. Wide-plank LVP floors, a quartz waterfall island, and a smart-home system come standard.\n\nThe rooftop deck is the defining feature -- a private aerie with sweeping views of Fairmount Park's canopy, the Art Museum's silhouette, and the city skyline beyond. It is, quite simply, one of the best rooftop perspectives available at this price point anywhere in Philadelphia.\n\nGirard Avenue's emerging corridor of craft breweries, cafes, and restaurants is steps away. The Schuylkill River Trail offers miles of car-free running and cycling. The Philadelphia Zoo and Please Touch Museum make the neighborhood especially appealing to young families. And with an EV-ready garage and modern efficiency throughout, this home is built not just for today, but for the decade ahead.",
     features: {
       interior: [
         "Open Concept Layout",
@@ -691,10 +703,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Sofia Martinez",
-      phone: "(215) 555-0200",
-      email: "sofia@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
+      name: "Shaquonda Garrett",
+      phone: "(215) 817-5777",
+      email: "shaquonda@exitbenchmark.com",
+      photo: "/agents/shaquonda-garrett.jpg",
     },
     lat: 39.9775,
     lng: -75.1756,
@@ -706,6 +718,7 @@ export const properties: Property[] = [
   {
     id: "12",
     slug: "1847-mifflin-st-point-breeze",
+    mlsNumber: "PAPH1014808",
     address: "1847 Mifflin St",
     city: "Philadelphia",
     state: "PA",
@@ -720,10 +733,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Townhouse",
     images: [
-      "https://images.unsplash.com/photo-1764605974030-fab67cc6ba47?w=1200&q=80",
-      "https://images.unsplash.com/photo-1760019941268-d4464c2d517a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168346641-6aedb68a6c99?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168362059-44a0b8a80b39?w=1200&q=80",
+      "/images/properties/modern-townhome-1.jpg",
+      "/images/properties/industrial-loft-1.jpg",
+      "/images/properties/bedroom-1.jpg",
+      "/images/properties/bathroom-1.jpg",
     ],
     description:
       "Fully renovated rowhome in fast-growing Point Breeze with a contemporary open layout and designer finishes. New kitchen with shaker cabinets and quartz countertops, exposed brick accent wall, and a private rear patio. Minutes from the Broad Street Line and East Passyunk dining.",
@@ -750,10 +763,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Julian Bradley",
-      phone: "(215) 555-0100",
-      email: "julian@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+      name: "Shaquonda Garrett",
+      phone: "(215) 817-5777",
+      email: "shaquonda@exitbenchmark.com",
+      photo: "/agents/shaquonda-garrett.jpg",
     },
     lat: 39.9343,
     lng: -75.1824,
@@ -763,6 +776,7 @@ export const properties: Property[] = [
   {
     id: "13",
     slug: "2517-frankford-ave-kensington",
+    mlsNumber: "PAPH1016042",
     address: "2517 Frankford Ave",
     city: "Philadelphia",
     state: "PA",
@@ -777,10 +791,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Multi-Family",
     images: [
-      "https://images.unsplash.com/photo-1768383236143-8ffc61b85804?w=1200&q=80",
-      "https://images.unsplash.com/photo-1768383235703-116d3ca7e2c3?w=1200&q=80",
-      "https://images.unsplash.com/photo-1760019941268-d4464c2d517a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168251394-9241984c8292?w=1200&q=80",
+      "/images/properties/townhome-modern-1.jpg",
+      "/images/properties/industrial-loft-2.jpg",
+      "/images/properties/industrial-loft-1.jpg",
+      "/images/properties/living-room-1.jpg",
     ],
     description:
       "Well-maintained duplex on the Kensington-Fishtown border with strong rental income potential. Each unit features two bedrooms, updated kitchens, and separate utilities. Steps from the Market-Frankford Line, Front Street breweries, and the booming Frankford Avenue corridor.",
@@ -807,10 +821,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Sofia Martinez",
-      phone: "(215) 555-0200",
-      email: "sofia@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
+      name: "Morris A. Brown",
+      phone: "(215) 416-9113",
+      email: "morris@exitbenchmark.com",
+      photo: "/agents/morris-brown.jpg",
     },
     lat: 39.9867,
     lng: -75.1277,
@@ -820,6 +834,7 @@ export const properties: Property[] = [
   {
     id: "14",
     slug: "4812-chester-ave-west-philly",
+    mlsNumber: "PAPH1017276",
     address: "4812 Chester Ave",
     city: "Philadelphia",
     state: "PA",
@@ -834,10 +849,10 @@ export const properties: Property[] = [
     status: "Active",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1698852880899-60633378ff6f?w=1200&q=80",
-      "https://images.unsplash.com/photo-1601056645510-77f6d98cf7d9?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168346641-6aedb68a6c99?w=1200&q=80",
+      "/images/properties/historic-interior-1.jpg",
+      "/images/properties/victorian-exterior-1.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/bedroom-1.jpg",
     ],
     description:
       "Charming Victorian near Clark Park with a classic wrap-around porch and sun-filled interior. Four spacious bedrooms, original stained glass, a renovated kitchen with butcher block counters, and a deep backyard garden. Walk to Baltimore Avenue cafes, trolley stops, and UPenn campus.",
@@ -865,10 +880,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Julian Bradley",
-      phone: "(215) 555-0100",
-      email: "julian@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+      name: "Shaquonda Garrett",
+      phone: "(215) 817-5777",
+      email: "shaquonda@exitbenchmark.com",
+      photo: "/agents/shaquonda-garrett.jpg",
     },
     lat: 39.9507,
     lng: -75.2213,
@@ -878,6 +893,7 @@ export const properties: Property[] = [
   {
     id: "15",
     slug: "1811-delancey-pl-rittenhouse",
+    mlsNumber: "PAPH1018510",
     address: "1811 Delancey Pl #PH",
     city: "Philadelphia",
     state: "PA",
@@ -892,11 +908,11 @@ export const properties: Property[] = [
     status: "New",
     propertyType: "Condo",
     images: [
-      "https://images.unsplash.com/photo-1679245779770-bbd88008190e?w=1200&q=80",
-      "https://images.unsplash.com/photo-1758796629979-c967b99dec5e?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168246881-40f35f8aba0a?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168251394-9241984c8292?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168362059-44a0b8a80b39?w=1200&q=80",
+      "/images/properties/luxury-interior-1.jpg",
+      "/images/properties/luxury-townhome-1.jpg",
+      "/images/properties/kitchen-1.jpg",
+      "/images/properties/living-room-1.jpg",
+      "/images/properties/bathroom-1.jpg",
     ],
     description:
       "Penthouse condo on Delancey Place with private terrace and unobstructed Rittenhouse Square views. Custom Italian cabinetry, Calacatta marble baths, wide-plank oak floors, and a chef's kitchen with Sub-Zero and Wolf appliances. Full-service building with concierge and valet.",
@@ -925,10 +941,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Sofia Martinez",
-      phone: "(215) 555-0200",
-      email: "sofia@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1589156280159-27698a70f29e?w=200&q=80",
+      name: "Stephen Stevens",
+      phone: "(215) 427-2870",
+      email: "stephen@exitbenchmark.com",
+      photo: "/agents/stephen-stevens.jpg",
     },
     lat: 39.9487,
     lng: -75.1725,
@@ -939,6 +955,7 @@ export const properties: Property[] = [
   {
     id: "16",
     slug: "1245-e-palmer-st-fishtown",
+    mlsNumber: "PAPH1019744",
     address: "1245 E Palmer St",
     city: "Philadelphia",
     state: "PA",
@@ -953,11 +970,11 @@ export const properties: Property[] = [
     status: "Open House",
     propertyType: "Single Family",
     images: [
-      "https://images.unsplash.com/photo-1767286795573-8bce39b4d27d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1764605974030-fab67cc6ba47?w=1200&q=80",
-      "https://images.unsplash.com/photo-1768383236143-8ffc61b85804?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168346641-6aedb68a6c99?w=1200&q=80",
-      "https://images.unsplash.com/photo-1738168362059-44a0b8a80b39?w=1200&q=80",
+      "/images/properties/townhome-modern-2.jpg",
+      "/images/properties/modern-townhome-1.jpg",
+      "/images/properties/townhome-modern-1.jpg",
+      "/images/properties/bedroom-1.jpg",
+      "/images/properties/bathroom-1.jpg",
     ],
     description:
       "Architect-designed new construction in the heart of Fishtown with a striking modern facade and premium finishes throughout. Three bedrooms, a sun-drenched great room, chef's kitchen with waterfall quartz island, and a landscaped rooftop with skyline views. Steps from Suraya, La Colombe, and Frankford Avenue nightlife.",
@@ -986,10 +1003,10 @@ export const properties: Property[] = [
       ],
     },
     agent: {
-      name: "Julian Bradley",
-      phone: "(215) 555-0100",
-      email: "julian@tauro.realty",
-      photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+      name: "Stephen Stevens",
+      phone: "(215) 427-2870",
+      email: "stephen@exitbenchmark.com",
+      photo: "/agents/stephen-stevens.jpg",
     },
     lat: 39.9721,
     lng: -75.1305,

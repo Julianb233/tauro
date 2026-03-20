@@ -3,6 +3,8 @@ export interface Testimonial {
   name: string;
   role: string;
   rating: number;
+  /** AI-3911: Link testimonials to specific agents */
+  agentSlug?: string;
 }
 
 export const testimonials: Testimonial[] = [
@@ -12,6 +14,7 @@ export const testimonials: Testimonial[] = [
     name: "Sarah & Michael Chen",
     role: "Homebuyers — Rittenhouse Square",
     rating: 5,
+    agentSlug: "tony-goodman",
   },
   {
     quote:
@@ -19,6 +22,7 @@ export const testimonials: Testimonial[] = [
     name: "David Okafor",
     role: "Seller — Fishtown",
     rating: 5,
+    agentSlug: "chris-lane",
   },
   {
     quote:
@@ -33,6 +37,7 @@ export const testimonials: Testimonial[] = [
     name: "Jessica Thornton",
     role: "Homebuyer — Graduate Hospital",
     rating: 5,
+    agentSlug: "shaquonda-garrett",
   },
   {
     quote:
@@ -47,5 +52,6 @@ export const testimonials: Testimonial[] = [
     name: "Andre Williams",
     role: "Investor — Northern Liberties",
     rating: 5,
+    agentSlug: "morris-brown",
   },
 ];

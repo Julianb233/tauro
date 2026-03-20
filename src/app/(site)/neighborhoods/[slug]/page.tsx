@@ -12,6 +12,7 @@ import { ScoreGauges } from "@/components/neighborhood/ScoreGauges";
 import { SchoolsSection } from "@/components/neighborhood/SchoolsSection";
 import { LocalFavorites } from "@/components/neighborhood/LocalFavorites";
 import { LifestyleSection } from "@/components/neighborhood/LifestyleSection";
+import SocialShareButtons from "@/components/SocialShareButtons";
 
 export const revalidate = 86400;
 
@@ -24,20 +25,25 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const neighborhood = await loadNeighborhoodBySlug(slug);
   if (!neighborhood) return { title: "Neighborhood Not Found | Tauro" };
-  const title = `${neighborhood.name} Homes for Sale`;
-  const description = `Explore homes for sale in ${neighborhood.name}, Philadelphia. ${neighborhood.tagline} Browse listings, local insights, and market data with Tauro Real Estate.`;
+  /* AI-3950: Enhanced SEO metadata for neighborhood pages */
+  const title = `${neighborhood.name} Homes for Sale | Philadelphia Real Estate | Tauro`;
+  const description = `Explore homes for sale in ${neighborhood.name}, Philadelphia. ${neighborhood.tagline} Median price: ${neighborhood.stats.medianPrice}. Walk Score: ${neighborhood.walkScore}. Browse listings, local insights, schools, and market data with Tauro Real Estate.`;
   return {
     title,
     description,
+    alternates: {
+      canonical: `${siteUrl}/neighborhoods/${neighborhood.slug}`,
+    },
     openGraph: {
-      title,
+      title: `${neighborhood.name} Homes for Sale | Tauro Realty`,
       description,
       url: `${siteUrl}/neighborhoods/${neighborhood.slug}`,
-      images: [{ url: neighborhood.image, width: 1200, height: 630, alt: `${neighborhood.name}, Philadelphia` }],
+      type: "website",
+      images: [{ url: neighborhood.image, width: 1200, height: 630, alt: `${neighborhood.name} neighborhood, Philadelphia PA` }],
     },
     twitter: {
       card: "summary_large_image" as const,
-      title,
+      title: `${neighborhood.name} Homes for Sale | Tauro`,
       description,
       images: [neighborhood.image],
     },
@@ -62,16 +68,29 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
       />
       <AreaHero neighborhood={neighborhood} />
 
-      {/* About */}
+      {/* AI-3917: Enhanced editorial-quality neighborhood description */}
       <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
             <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">About the Neighborhood</p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">Living in {neighborhood.name}</h2>
-            <div className="mt-6 space-y-4 text-muted-foreground leading-relaxed">
+            <div className="mt-6 space-y-4 leading-[1.8]">
               {neighborhood.description.split("\n\n").map((para, i) => (
-                <p key={i}>{para}</p>
+                <p key={i} className={
+                  i === 0
+                    ? "text-base font-medium text-foreground/80 first-letter:text-3xl first-letter:font-heading first-letter:font-bold first-letter:text-gold first-letter:float-left first-letter:mr-1 first-letter:leading-none"
+                    : "text-muted-foreground"
+                }>{para}</p>
               ))}
+            </div>
+            {/* AI-3944: Social sharing buttons */}
+            <div className="mt-6 flex items-center gap-3">
+              <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Share:</span>
+              <SocialShareButtons
+                url={`${siteUrl}/neighborhoods/${neighborhood.slug}`}
+                title={`${neighborhood.name} - Philadelphia Neighborhood Guide`}
+                compact
+              />
             </div>
           </div>
         </div>

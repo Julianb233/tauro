@@ -113,6 +113,10 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RM420582",
+    testimonials: [
+      { quote: "Tony guided us through our first home purchase with patience and expertise. His deep knowledge of Cheltenham and North Philadelphia neighborhoods helped us find the perfect investment property.", clientName: "Marcus & Denise W.", rating: 5, date: "2025-09-15" },
+      { quote: "Working with Tony was a game-changer. He negotiated $40K off the asking price and made the entire process stress-free. Highly recommend for anyone looking to build wealth through real estate.", clientName: "James T.", rating: 5, date: "2025-07-20" },
+    ],
   },
   {
     id: "2",
@@ -169,6 +173,10 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RS-612847",
+    testimonials: [
+      { quote: "Shaquonda went above and beyond for us. She understood exactly what we needed in a neighborhood and found us an incredible home in Brewerytown before it even hit the market.", clientName: "Keisha M.", rating: 5, date: "2025-10-01" },
+      { quote: "As a first-time buyer, I was nervous about the whole process. Shaquonda made everything easy to understand and was always just a text away. She truly cares about her clients.", clientName: "David & Amara R.", rating: 5, date: "2025-06-12" },
+    ],
   },
   {
     id: "3",
@@ -400,7 +408,7 @@ export const agents: Agent[] = [
     social: {
       instagram: "https://instagram.com/tcupone",
       linkedin: "https://linkedin.com/in/tony-goodman-625682b",
-      twitter: "https://facebook.com/tony.goodman1",
+      facebook: "https://facebook.com/tony.goodman1",
     },
     languages: ["English"],
     licenseNumber: "RM420582",

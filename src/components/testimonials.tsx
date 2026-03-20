@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Star, Quote } from "lucide-react";
 import { loadTestimonials } from "@/lib/data";
 
@@ -19,7 +20,21 @@ export default async function Testimonials() {
               </div>
               <blockquote className="mt-3 text-sm leading-relaxed text-foreground/80 sm:mt-4">&ldquo;{testimonial.quote}&rdquo;</blockquote>
               <div className="gold-divider mt-3 sm:mt-4" />
-              <div className="pt-3 sm:pt-4"><p className="text-sm font-semibold text-foreground">{testimonial.name}</p><p className="font-label text-xs tracking-wider text-muted-foreground">{testimonial.role}</p></div>
+              <div className="flex items-center justify-between pt-3 sm:pt-4">
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{testimonial.name}</p>
+                  <p className="font-label text-xs tracking-wider text-muted-foreground">{testimonial.role}</p>
+                </div>
+                {/* AI-3911: Link testimonials to specific agents */}
+                {testimonial.agentSlug && (
+                  <Link
+                    href={`/agents/${testimonial.agentSlug}`}
+                    className="text-xs text-gold transition-colors hover:text-gold-dark hover:underline"
+                  >
+                    View Agent
+                  </Link>
+                )}
+              </div>
             </div>
           ))}
         </div>

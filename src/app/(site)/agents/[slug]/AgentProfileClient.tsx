@@ -7,6 +7,7 @@ import { Phone, Mail, Award, Play, Home, TrendingUp, Clock, CheckCircle, AlertCi
 import type { Agent } from "@/data/agents";
 import type { Property } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import SocialShareButtons from "@/components/SocialShareButtons";
 import type { LeadPayload } from "@/app/api/leads/route";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -60,6 +61,11 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
               <div className="mt-6 flex flex-wrap gap-3">
                 <a href={`tel:${agent.phone.replace(/[^+\d]/g, "")}`} className="inline-flex items-center gap-2 rounded-lg border border-gold/40 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold/10"><Phone className="size-4" />{agent.phone}</a>
                 <a href={`mailto:${agent.email}`} className="inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"><Mail className="size-4" />Email {agent.firstName}</a>
+                {/* AI-3913: Schedule a Consultation CTA */}
+                <a href="#contact-form" className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/20">
+                  <Clock className="size-4" />
+                  Schedule a Consultation
+                </a>
               </div>
             </div>
           </div>
@@ -112,8 +118,55 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
         </section>
       )}
       {agent.videoIntroUrl && (<section className="bg-white py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="mb-8 flex items-center gap-3"><Play className="size-5 text-gold" /><h2 className="font-heading text-2xl font-bold text-foreground">Video Introduction</h2></div><div className="aspect-video overflow-hidden rounded-xl border border-border/40"><iframe src={agent.videoIntroUrl} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="h-full w-full" title={`${agent.fullName} video introduction`} /></div></div></section>)}
+      {/* AI-3910: Active listings on agent profile */}
       {activeListings.length > 0 && (<section className="bg-cream py-16"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="mb-8 flex items-center gap-3"><h2 className="font-heading text-2xl font-bold text-foreground">{agent.firstName}&apos;s Active Listings</h2><span className="rounded-full bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">{activeListings.length}</span></div><div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">{activeListings.map((p) => (<PropertyCard key={p.id} property={p} />))}</div></div></section>)}
-      <section className="bg-white py-16">
+
+      {/* AI-3907: Recent sold transactions */}
+      {agent.soldListings && agent.soldListings.length > 0 && (
+        <section className="bg-white py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-8 flex items-center gap-3">
+              <TrendingUp className="size-5 text-gold" />
+              <h2 className="font-heading text-2xl font-bold text-foreground">Recent Transactions</h2>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-border/40">
+              <table className="w-full text-left text-sm">
+                <thead className="border-b border-border/40 bg-cream">
+                  <tr>
+                    <th className="px-4 py-3 font-label text-xs font-semibold uppercase tracking-wider text-muted-foreground">Address</th>
+                    <th className="px-4 py-3 font-label text-xs font-semibold uppercase tracking-wider text-muted-foreground">Price</th>
+                    <th className="hidden px-4 py-3 font-label text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:table-cell">Neighborhood</th>
+                    <th className="px-4 py-3 font-label text-xs font-semibold uppercase tracking-wider text-muted-foreground">Date</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border/40">
+                  {agent.soldListings.map((listing) => (
+                    <tr key={listing.address} className="hover:bg-cream/50">
+                      <td className="px-4 py-3 font-medium text-foreground">{listing.address}</td>
+                      <td className="px-4 py-3 font-semibold text-gold">${listing.price.toLocaleString()}</td>
+                      <td className="hidden px-4 py-3 text-muted-foreground sm:table-cell">{listing.neighborhood}</td>
+                      <td className="px-4 py-3 text-muted-foreground">{new Date(listing.soldDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* AI-3913: Schedule a Consultation CTA banner */}
+      <section className="bg-foreground py-12">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="font-heading text-2xl font-bold text-white">Ready to Work with {agent.firstName}?</h2>
+          <p className="mt-2 text-muted-foreground">Schedule a free consultation to discuss your real estate goals.</p>
+          <a href="#contact-form" className="shimmer-gold mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-8 py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light">
+            Schedule a Consultation
+          </a>
+        </div>
+      </section>
+
+      <section id="contact-form" className="bg-white py-16">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <h2 className="mb-8 text-center font-heading text-2xl font-bold text-foreground">Contact {agent.firstName}</h2>
           <div className="rounded-2xl border border-border/50 bg-white p-8 shadow-sm">

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { loadAgents } from "@/lib/data";
-import AgentCard from "@/components/AgentCard";
+import AgentDirectoryClient from "@/components/AgentDirectoryClient";
 
 export const revalidate = 3600;
 
@@ -15,6 +15,11 @@ export const metadata: Metadata = {
 export default async function AgentsPage() {
   const agents = await loadAgents();
   const totalSold = agents.reduce((sum, a) => sum + (a.stats?.propertiesSold ?? 0), 0);
+  const totalVolume = agents.reduce((sum, a) => {
+    const vol = a.stats?.totalVolume ?? "$0";
+    const num = parseFloat(vol.replace(/[^0-9.]/g, ""));
+    return sum + (isNaN(num) ? 0 : num);
+  }, 0);
   const avgYears = agents.length > 0 ? Math.round(agents.reduce((sum, a) => sum + (a.stats?.yearsExperience ?? 0), 0) / agents.length) : 0;
 
   return (
@@ -26,17 +31,31 @@ export default async function AgentsPage() {
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">Our Team</p>
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">Philadelphia&apos;s Finest Real Estate Professionals</h1>
           <p className="mt-4 max-w-xl text-lg text-white/60">Each Tauro agent is hand-selected for their market expertise, negotiation skill, and unwavering commitment to client success.</p>
+          {/* AI-3907: Agent sales volume and transaction stats */}
           <div className="mt-8 flex gap-8">
-            <div><p className="font-heading text-2xl font-bold text-gold">{totalSold}+</p><p className="mt-1 text-xs uppercase tracking-wider text-white/50">Properties Sold</p></div>
-            <div><p className="font-heading text-2xl font-bold text-gold">$500M+</p><p className="mt-1 text-xs uppercase tracking-wider text-white/50">Total Volume</p></div>
-            <div><p className="font-heading text-2xl font-bold text-gold">{avgYears}+</p><p className="mt-1 text-xs uppercase tracking-wider text-white/50">Avg Years Experience</p></div>
+            <div>
+              <p className="font-heading text-2xl font-bold text-gold">{totalSold}+</p>
+              <p className="mt-1 text-xs uppercase tracking-wider text-white/50">Properties Sold</p>
+            </div>
+            <div>
+              <p className="font-heading text-2xl font-bold text-gold">${Math.round(totalVolume)}M+</p>
+              <p className="mt-1 text-xs uppercase tracking-wider text-white/50">Total Volume</p>
+            </div>
+            <div>
+              <p className="font-heading text-2xl font-bold text-gold">{avgYears}+</p>
+              <p className="mt-1 text-xs uppercase tracking-wider text-white/50">Avg Years Experience</p>
+            </div>
           </div>
         </div>
       </section>
       <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-10"><div className="mb-3 h-px w-12 bg-gold/60" /><h2 className="font-heading text-2xl font-bold text-foreground">Meet the Team</h2></div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">{agents.map((agent) => (<AgentCard key={agent.id} agent={agent} />))}</div>
+          <div className="mb-10">
+            <div className="mb-3 h-px w-12 bg-gold/60" />
+            <h2 className="font-heading text-2xl font-bold text-foreground">Meet the Team</h2>
+          </div>
+          {/* AI-3903: Agent directory with search and filter */}
+          <AgentDirectoryClient agents={agents} />
         </div>
       </section>
       <section className="bg-cream pb-20">
