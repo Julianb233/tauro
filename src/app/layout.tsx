@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { GoogleTagManager, GoogleTagManagerNoScript } from "@/components/GoogleTagManager";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
 import { CookieConsent } from "@/components/CookieConsent";
 import { loadTestimonials } from "@/lib/data";
@@ -84,6 +85,8 @@ export default async function RootLayout({
       <body
         className={`${playfair.variable} ${dmSans.variable} ${montserrat.variable} min-h-screen bg-background text-foreground antialiased`}
       >
+        <GoogleTagManager />
+        <GoogleTagManagerNoScript />
         <a
           href="#main-content"
           className="fixed top-0 left-0 z-[9999] -translate-y-full rounded-br-lg bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-transform focus:translate-y-0"
