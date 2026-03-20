@@ -20,6 +20,7 @@ import {
   Lock,
   Download,
   Loader2,
+  Heart,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -33,6 +34,9 @@ import { cn } from "@/lib/utils";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { siteUrl } from "@/lib/site-config";
 import { Logo } from "@/components/logo";
+import ShareButton from "@/components/ShareButton";
+import SocialShareButtons from "@/components/SocialShareButtons";
+import { validateScheduleForm, toE164, formatPhoneDisplay } from "@/lib/validation";
 
 /** Minimal QR code SVG component using a simple matrix encoding approach */
 function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
@@ -93,7 +97,8 @@ export default function PropertyDetailClient({
   property: Property;
   similar: Property[];
 }) {
-  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "", preferredDate: "", preferredTime: "" });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -102,7 +107,26 @@ export default function PropertyDetailClient({
   const [earlyAccessSuccess, setEarlyAccessSuccess] = useState(false);
   const [earlyAccessError, setEarlyAccessError] = useState("");
   const [downloadingBrochure, setDownloadingBrochure] = useState(false);
+  const [saved, setSaved] = useState(() => {
+    if (typeof window === "undefined") return false;
+    try {
+      const favs = JSON.parse(localStorage.getItem("tauro-favorites") || "[]");
+      return favs.includes(property.id);
+    } catch { return false; }
+  });
   const { track } = useRecentlyViewed();
+
+  const toggleSave = () => {
+    setSaved((prev: boolean) => {
+      const next = !prev;
+      try {
+        const favs = JSON.parse(localStorage.getItem("tauro-favorites") || "[]") as string[];
+        if (next) { favs.push(property.id); } else { const idx = favs.indexOf(property.id); if (idx > -1) favs.splice(idx, 1); }
+        localStorage.setItem("tauro-favorites", JSON.stringify(favs));
+      } catch { /* localStorage may be unavailable */ }
+      return next;
+    });
+  };
 
   const handleDownloadBrochure = async () => {
     if (downloadingBrochure) return;
@@ -146,12 +170,27 @@ export default function PropertyDetailClient({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
     setSubmitError("");
+
+    // AI-3937: Validate with E.164 phone format
+    const errors = validateScheduleForm({
+      name: formData.name,
+      email: formData.email,
+      phone: formData.phone,
+      preferredDate: formData.preferredDate,
+      preferredTime: formData.preferredTime,
+    });
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    setFormErrors({});
+    setSubmitting(true);
     setSubmitSuccess(false);
 
     try {
       const [firstName, ...rest] = formData.name.split(" ");
+      const normalizedPhone = toE164(formData.phone) || formData.phone;
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -160,8 +199,10 @@ export default function PropertyDetailClient({
           firstName,
           lastName: rest.join(" ") || firstName,
           email: formData.email,
-          phone: formData.phone,
+          phone: normalizedPhone,
           message: formData.message || undefined,
+          preferredDate: formData.preferredDate || undefined,
+          preferredTime: formData.preferredTime || undefined,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
         }),
@@ -169,7 +210,7 @@ export default function PropertyDetailClient({
 
       if (res.ok) {
         setSubmitSuccess(true);
-        setFormData({ name: "", email: "", phone: "", message: "" });
+        setFormData({ name: "", email: "", phone: "", message: "", preferredDate: "", preferredTime: "" });
       } else {
         setSubmitError("Something went wrong. Please try again.");
       }
@@ -270,7 +311,9 @@ export default function PropertyDetailClient({
         {/* Description */}
         <div style={{ marginBottom: "20px" }}>
           <h2 style={{ fontSize: "14pt", fontWeight: 700, marginBottom: "8px" }}>About This Property</h2>
-          <p style={{ fontSize: "10pt", lineHeight: 1.6 }}>{property.description}</p>
+          {property.description.split("\n\n").map((para, i) => (
+            <p key={i} style={{ fontSize: "10pt", lineHeight: 1.6, marginBottom: i < property.description.split("\n\n").length - 1 ? "8px" : 0 }}>{para}</p>
+          ))}
         </div>
 
         {/* Agent info */}
@@ -420,6 +463,26 @@ export default function PropertyDetailClient({
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {/* AI-3900: Save/heart button */}
+            <button
+              onClick={toggleSave}
+              className={cn(
+                "no-print flex items-center gap-1.5 rounded-lg border px-4 py-2.5 text-sm font-medium transition-colors",
+                saved
+                  ? "border-red-400/40 text-red-500 hover:border-red-400"
+                  : "border-border text-muted-foreground hover:border-gold hover:text-gold"
+              )}
+              aria-label={saved ? "Remove from saved" : "Save property"}
+            >
+              <Heart className={cn("h-4 w-4", saved && "fill-red-500")} />
+              <span className="hidden sm:inline">{saved ? "Saved" : "Save"}</span>
+            </button>
+            {/* AI-3899: Share button */}
+            <ShareButton
+              url={listingUrl}
+              title={`${property.address} | ${formatPriceFull(property.price)}`}
+              description={property.description.slice(0, 160)}
+            />
             <button
               onClick={() => window.print()}
               className="no-print flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-gold hover:text-gold"
@@ -442,7 +505,7 @@ export default function PropertyDetailClient({
                 <Download className="h-4 w-4" />
               )}
               <span className="hidden sm:inline">
-                {downloadingBrochure ? "Generating…" : "Brochure"}
+                {downloadingBrochure ? "Generating..." : "Brochure"}
               </span>
             </button>
             <a
@@ -498,10 +561,25 @@ export default function PropertyDetailClient({
               <OpenHouseBanner property={property} />
             )}
 
-            {/* Description */}
+            {/* AI-3889: Enhanced editorial-quality description */}
             <div>
               <h2 className="font-heading text-xl font-bold">About This Property</h2>
-              <p className="mt-3 leading-relaxed text-muted-foreground">{property.description}</p>
+              <div className="mt-4 space-y-4">
+                {property.description.split("\n\n").map((para, i) => (
+                  <p key={i} className={cn(
+                    "leading-[1.8] text-muted-foreground",
+                    i === 0 && "text-base font-medium text-foreground/80 first-letter:text-3xl first-letter:font-heading first-letter:font-bold first-letter:text-gold first-letter:float-left first-letter:mr-1 first-letter:leading-none"
+                  )}>{para}</p>
+                ))}
+              </div>
+              {/* AI-3894: MLS number and data source attribution */}
+              {property.mlsNumber && (
+                <div className="mt-4 flex items-center gap-2 rounded-lg border border-border/40 bg-cream/50 px-3 py-2 text-xs text-muted-foreground">
+                  <span>MLS# {property.mlsNumber}</span>
+                  <span className="text-border">|</span>
+                  <span>Data courtesy of BRIGHT MLS. Information deemed reliable but not guaranteed.</span>
+                </div>
+              )}
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
                 <div className="rounded-lg border border-border bg-card p-3 text-center">
                   <p className="text-xs text-muted-foreground">Year Built</p>
@@ -615,6 +693,15 @@ export default function PropertyDetailClient({
                 </div>
               </div>
             )}
+
+            {/* AI-3944: Social sharing buttons */}
+            <div className="border-t border-border pt-6">
+              <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">Share This Property</h3>
+              <SocialShareButtons
+                url={listingUrl}
+                title={`${property.address} | ${formatPriceFull(property.price)}`}
+              />
+            </div>
           </div>
 
           {/* Right column - Agent card + Schedule form */}
@@ -677,33 +764,79 @@ export default function PropertyDetailClient({
                   <p className="mt-1 text-sm text-muted-foreground">
                     Interested in this property? Fill out the form and we will be in touch.
                   </p>
-                  <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      required
-                      disabled={submitting}
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Email Address"
-                      required
-                      disabled={submitting}
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
-                    />
-                    <input
-                      type="tel"
-                      placeholder="Phone Number"
-                      disabled={submitting}
-                      value={formData.phone}
-                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
-                    />
+                  <form className="mt-4 space-y-3" onSubmit={handleSubmit} noValidate>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Full Name *"
+                        required
+                        disabled={submitting}
+                        value={formData.name}
+                        onChange={(e) => { setFormData({ ...formData, name: e.target.value }); if (formErrors.name) setFormErrors((p) => { const n = { ...p }; delete n.name; return n; }); }}
+                        className={cn("w-full rounded-lg border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50", formErrors.name ? "border-red-400" : "border-border")}
+                      />
+                      {formErrors.name && <p className="mt-1 text-xs text-red-400">{formErrors.name}</p>}
+                    </div>
+                    <div>
+                      <input
+                        type="email"
+                        placeholder="Email Address *"
+                        required
+                        disabled={submitting}
+                        value={formData.email}
+                        onChange={(e) => { setFormData({ ...formData, email: e.target.value }); if (formErrors.email) setFormErrors((p) => { const n = { ...p }; delete n.email; return n; }); }}
+                        className={cn("w-full rounded-lg border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50", formErrors.email ? "border-red-400" : "border-border")}
+                      />
+                      {formErrors.email && <p className="mt-1 text-xs text-red-400">{formErrors.email}</p>}
+                    </div>
+                    <div>
+                      <input
+                        type="tel"
+                        placeholder="Phone Number * (e.g., (215) 839-4172)"
+                        required
+                        disabled={submitting}
+                        value={formData.phone}
+                        onChange={(e) => { setFormData({ ...formData, phone: e.target.value }); if (formErrors.phone) setFormErrors((p) => { const n = { ...p }; delete n.phone; return n; }); }}
+                        onBlur={() => {
+                          if (formData.phone) {
+                            const display = formatPhoneDisplay(formData.phone);
+                            if (display !== formData.phone) setFormData((p) => ({ ...p, phone: display }));
+                          }
+                        }}
+                        className={cn("w-full rounded-lg border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50", formErrors.phone ? "border-red-400" : "border-border")}
+                      />
+                      {formErrors.phone && <p className="mt-1 text-xs text-red-400">{formErrors.phone}</p>}
+                    </div>
+                    {/* AI-3942: Date/time picker for Schedule a Showing */}
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="mb-1 block text-xs text-muted-foreground">Preferred Date</label>
+                        <input
+                          type="date"
+                          disabled={submitting}
+                          value={formData.preferredDate}
+                          min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
+                          max={new Date(Date.now() + 90 * 86400000).toISOString().split("T")[0]}
+                          onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
+                          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                        />
+                        {formErrors.preferredDate && <p className="mt-1 text-xs text-red-400">{formErrors.preferredDate}</p>}
+                      </div>
+                      <div>
+                        <label className="mb-1 block text-xs text-muted-foreground">Preferred Time</label>
+                        <select
+                          disabled={submitting}
+                          value={formData.preferredTime}
+                          onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
+                          className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold disabled:opacity-50"
+                        >
+                          <option value="">Any time</option>
+                          {["9:00 AM","10:00 AM","11:00 AM","12:00 PM","1:00 PM","2:00 PM","3:00 PM","4:00 PM","5:00 PM"].map((t) => (
+                            <option key={t} value={t}>{t}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
                     <textarea
                       placeholder="Message (optional)"
                       rows={3}

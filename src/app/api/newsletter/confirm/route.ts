@@ -16,11 +16,12 @@ export async function GET(request: NextRequest) {
   }
 
   // Find subscriber by confirm token
-  const { data: subscriber, error: fetchError } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { data: subscriber, error: fetchError } = (await supabase
     .from("newsletter_subscribers")
     .select("*")
     .eq("confirm_token", token)
-    .maybeSingle();
+    .maybeSingle()) as { data: any; error: any };
 
   if (fetchError || !subscriber) {
     return NextResponse.redirect(`${siteUrl}/newsletter/confirm?status=invalid`);

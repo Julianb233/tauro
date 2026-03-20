@@ -400,7 +400,7 @@ export const agents: Agent[] = [
     social: {
       instagram: "https://instagram.com/tcupone",
       linkedin: "https://linkedin.com/in/tony-goodman-625682b",
-      twitter: "https://facebook.com/tony.goodman1",
+      facebook: "https://facebook.com/tony.goodman1",
     },
     languages: ["English"],
     licenseNumber: "RM420582",
