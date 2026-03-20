@@ -20,6 +20,8 @@ export interface FilterState {
   propertyType: string;
   status: string;
   sort: string;
+  /** AI-3874: Open house date filter */
+  openHouse: string;
 }
 
 export const defaultFilters: FilterState = {
@@ -33,6 +35,7 @@ export const defaultFilters: FilterState = {
   propertyType: "",
   status: "",
   sort: "price-desc",
+  openHouse: "",
 };
 
 export default function PropertyFilters({
@@ -198,6 +201,21 @@ export default function PropertyFilters({
               <option value="New">New</option>
               <option value="Open House">Open House</option>
               <option value="Pending">Pending</option>
+            </select>
+          </div>
+          {/* AI-3874: Open house date filter */}
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">Open House</label>
+            <select
+              value={filters.openHouse}
+              onChange={(e) => update("openHouse", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">Any Date</option>
+              <option value="this-week">This Week</option>
+              <option value="this-weekend">This Weekend</option>
+              <option value="next-week">Next Week</option>
+              <option value="next-30">Next 30 Days</option>
             </select>
           </div>
         </div>

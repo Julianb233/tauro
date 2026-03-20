@@ -34,6 +34,7 @@ export default function PropertiesClient({
     propertyType: searchParams.get("type") || "",
     status: searchParams.get("status") || "",
     sort: searchParams.get("sort") || "price-desc",
+    openHouse: searchParams.get("openHouse") || "",
   }), [searchParams]);
 
   const updateFilter = useCallback((key: keyof FilterState, value: string) => {
@@ -86,6 +87,29 @@ export default function PropertiesClient({
     if (filters.area) result = result.filter((p) => p.neighborhood === filters.area);
     if (filters.propertyType) result = result.filter((p) => p.propertyType === filters.propertyType);
     if (filters.status) result = result.filter((p) => p.status === filters.status);
+    /* AI-3874: Open house date filter */
+    if (filters.openHouse) {
+      const now = new Date();
+      const dayOfWeek = now.getDay(); // 0=Sun
+      result = result.filter((p) => {
+        if (!p.openHouseEvent?.date) return false;
+        const ohDate = new Date(p.openHouseEvent.date + "T00:00:00");
+        const diffDays = Math.floor((ohDate.getTime() - now.getTime()) / 86400000);
+        switch (filters.openHouse) {
+          case "this-week": return diffDays >= 0 && diffDays < (7 - dayOfWeek);
+          case "this-weekend": {
+            const satOffset = (6 - dayOfWeek + 7) % 7;
+            return diffDays >= satOffset && diffDays <= satOffset + 1;
+          }
+          case "next-week": {
+            const nextMonOffset = ((8 - dayOfWeek) % 7) || 7;
+            return diffDays >= nextMonOffset && diffDays < nextMonOffset + 7;
+          }
+          case "next-30": return diffDays >= 0 && diffDays <= 30;
+          default: return true;
+        }
+      });
+    }
     switch (filters.sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
       case "price-desc": result.sort((a, b) => b.price - a.price); break;
