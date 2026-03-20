@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CheckCircle, AlertCircle } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { Turnstile } from "@/components/turnstile";
 import { useUtm } from "@/hooks/useUtm";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -30,6 +31,7 @@ export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [errorMsg, setErrorMsg] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string>("");
   const utm = useUtm();
 
   function handleChange(
@@ -82,6 +84,7 @@ export function ContactForm() {
       email: form.email,
       phone: form.phone,
       message: form.message,
+      captchaToken: turnstileToken || undefined,
       ...utm,
     };
 
@@ -100,6 +103,7 @@ export function ContactForm() {
       setFormState("success");
       setForm(initialForm);
       setErrors({});
+      setTurnstileToken("");
     } catch (err) {
       setFormState("error");
       setErrorMsg(
@@ -249,9 +253,11 @@ export function ContactForm() {
         />
       </div>
 
+      <Turnstile onVerify={setTurnstileToken} onExpire={() => setTurnstileToken("")} className="mt-2" />
+
       <button
         type="submit"
-        disabled={formState === "submitting"}
+        disabled={formState === "submitting" || !turnstileToken}
         className="shimmer-gold min-h-[48px] w-full rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-all duration-300 hover:bg-gold-light hover:shadow-lg hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
       >
         {formState === "submitting" ? "Sending..." : "Send Message"}
