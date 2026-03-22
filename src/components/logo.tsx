@@ -33,17 +33,16 @@ export function Logo({
     ? { width, height }
     : sizeMap[size];
 
+  // light = white logo for dark backgrounds, dark = gold logo for light backgrounds
+  const src = variant === "light" ? "/tauro-logo-white.png" : "/tauro-logo.png";
+
   return (
     <Image
-      src="/tauro-logo.png"
+      src={src}
       alt="Tauro Realty logo"
       width={dimensions.width}
       height={dimensions.height}
-      className={cn(
-        "shrink-0 object-contain",
-        variant === "dark" && "brightness-0",
-        className
-      )}
+      className={cn("shrink-0 object-contain", className)}
       priority
     />
   );
