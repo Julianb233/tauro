@@ -32,18 +32,31 @@ function subscribe(callback: () => void) {
   return () => listeners.delete(callback);
 }
 
+// Snapshot reference must be stable when data hasn't changed
+let cachedSnapshot: RecentlyViewedItem[] = [];
+
 function getSnapshot(): RecentlyViewedItem[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return cachedSnapshot;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as RecentlyViewedItem[]) : [];
+    const next: RecentlyViewedItem[] = raw ? (JSON.parse(raw) as RecentlyViewedItem[]) : [];
+    if (
+      next.length === cachedSnapshot.length &&
+      next.every((item, i) => item.id === cachedSnapshot[i]?.id && item.viewedAt === cachedSnapshot[i]?.viewedAt)
+    ) {
+      return cachedSnapshot;
+    }
+    cachedSnapshot = next;
+    return cachedSnapshot;
   } catch {
-    return [];
+    return cachedSnapshot;
   }
 }
 
+const EMPTY: RecentlyViewedItem[] = [];
+
 function getServerSnapshot(): RecentlyViewedItem[] {
-  return [];
+  return EMPTY;
 }
 
 // ---------- helper to persist ----------
