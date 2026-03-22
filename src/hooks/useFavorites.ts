@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 
 const STORAGE_KEY = "tauro_favorites";
 
@@ -16,18 +16,30 @@ function subscribe(callback: () => void) {
   return () => listeners.delete(callback);
 }
 
+// Snapshot reference must be stable when data hasn't changed
+let cachedSnapshot: string[] = [];
+const EMPTY: string[] = [];
+
 function getSnapshot(): string[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return EMPTY;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as string[]) : [];
+    const next: string[] = raw ? (JSON.parse(raw) as string[]) : [];
+    if (
+      next.length === cachedSnapshot.length &&
+      next.every((id, i) => id === cachedSnapshot[i])
+    ) {
+      return cachedSnapshot;
+    }
+    cachedSnapshot = next;
+    return cachedSnapshot;
   } catch {
-    return [];
+    return cachedSnapshot;
   }
 }
 
 function getServerSnapshot(): string[] {
-  return [];
+  return EMPTY;
 }
 
 // ---------- helper to persist ----------

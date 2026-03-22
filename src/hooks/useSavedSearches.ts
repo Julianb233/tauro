@@ -25,18 +25,30 @@ function subscribe(callback: () => void) {
   return () => listeners.delete(callback);
 }
 
+// Snapshot reference must be stable when data hasn't changed
+let cachedSnapshot: SavedSearch[] = [];
+const EMPTY: SavedSearch[] = [];
+
 function getSnapshot(): SavedSearch[] {
-  if (typeof window === "undefined") return [];
+  if (typeof window === "undefined") return EMPTY;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as SavedSearch[]) : [];
+    const next: SavedSearch[] = raw ? (JSON.parse(raw) as SavedSearch[]) : [];
+    if (
+      next.length === cachedSnapshot.length &&
+      next.every((s, i) => s.id === cachedSnapshot[i]?.id)
+    ) {
+      return cachedSnapshot;
+    }
+    cachedSnapshot = next;
+    return cachedSnapshot;
   } catch {
-    return [];
+    return cachedSnapshot;
   }
 }
 
 function getServerSnapshot(): SavedSearch[] {
-  return [];
+  return EMPTY;
 }
 
 function persist(searches: SavedSearch[]) {
