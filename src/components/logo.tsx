@@ -33,8 +33,8 @@ export function Logo({
     ? { width, height }
     : sizeMap[size];
 
-  // light = white logo for dark backgrounds, dark = gold logo for light backgrounds
-  const src = variant === "light" ? "/tauro-logo-white.png" : "/tauro-logo.png";
+  // light = white logo for dark backgrounds, dark = dark logo for light backgrounds
+  const src = variant === "light" ? "/tauro-logo-white.png" : "/tauro-logo-dark.png";
 
   return (
     <Image
