@@ -86,6 +86,8 @@ export default function PriceRangeSlider({
   /* --- dragging ----------------------------------------------------- */
   const trackRef = useRef<HTMLDivElement>(null);
   const dragging = useRef<"min" | "max" | null>(null);
+  /* AI-3869: Track active drag for tooltip display */
+  const [activeDrag, setActiveDrag] = useState<"min" | "max" | null>(null);
 
   const pctOf = (idx: number) => (idx / MAX_IDX) * 100;
 
@@ -118,6 +120,7 @@ export default function PriceRangeSlider({
       e.preventDefault();
       (e.target as HTMLElement).setPointerCapture(e.pointerId);
       dragging.current = thumb;
+      setActiveDrag(thumb);
     },
     []
   );
@@ -144,6 +147,7 @@ export default function PriceRangeSlider({
       if (dragging.current === "min") commitMin(idx);
       else commitMax(idx);
       dragging.current = null;
+      setActiveDrag(null);
     },
     [idxFromPointer, commitMin, commitMax]
   );
@@ -246,9 +250,9 @@ export default function PriceRangeSlider({
             {/* Background track */}
             <div className="absolute top-1/2 left-0 h-1.5 w-full -translate-y-1/2 rounded-full bg-border" />
 
-            {/* Active (gold) track */}
+            {/* AI-3869: Active track with gradient fill */}
             <div
-              className="absolute top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-gold"
+              className="absolute top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-gradient-to-r from-gold/80 via-gold to-gold-light"
               style={{
                 left: `${leftPct}%`,
                 width: `${rightPct - leftPct}%`,
@@ -261,6 +265,12 @@ export default function PriceRangeSlider({
               style={{ left: `${leftPct}%` }}
               onPointerDown={onPointerDown("min")}
             >
+              {/* AI-3869: Tooltip on drag */}
+              {activeDrag === "min" && (
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-near-black px-2 py-0.5 text-[10px] font-semibold text-gold shadow-lg">
+                  {minIdx === MIN_IDX ? "No Min" : formatPrice(STEPS[minIdx])}
+                </div>
+              )}
               <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-gold bg-white shadow-md transition-transform hover:scale-110 active:scale-95">
                 <div className="h-1.5 w-1.5 rounded-full bg-gold" />
               </div>
@@ -272,6 +282,12 @@ export default function PriceRangeSlider({
               style={{ left: `${rightPct}%` }}
               onPointerDown={onPointerDown("max")}
             >
+              {/* AI-3869: Tooltip on drag */}
+              {activeDrag === "max" && (
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-near-black px-2 py-0.5 text-[10px] font-semibold text-gold shadow-lg">
+                  {maxIdx === MAX_IDX ? "No Max" : formatPrice(STEPS[maxIdx])}
+                </div>
+              )}
               <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-gold bg-white shadow-md transition-transform hover:scale-110 active:scale-95">
                 <div className="h-1.5 w-1.5 rounded-full bg-gold" />
               </div>

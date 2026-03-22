@@ -48,6 +48,9 @@ export interface Property {
   tax_annual: number;
   tax_year: number;
   isComingSoon?: boolean;
+  mlsNumber?: string;
+  /** AI-3872: Lifestyle/property tags for browsing */
+  tags?: string[];
 }
 
 export const properties: Property[] = [
@@ -1014,4 +1017,46 @@ export function formatPriceFull(price: number): string {
 
 export function getPropertyBySlug(slug: string): Property | undefined {
   return properties.find((p) => p.slug === slug);
+}
+
+/* AI-3872: Lifestyle/property tags derived from property data */
+export const LIFESTYLE_TAGS = [
+  "Luxury",
+  "Walkable",
+  "Family-Friendly",
+  "Entertainer",
+  "Investment",
+  "Historic",
+  "Urban",
+  "Outdoor Space",
+  "Move-In Ready",
+  "Fixer-Upper Potential",
+] as const;
+
+export type LifestyleTag = (typeof LIFESTYLE_TAGS)[number];
+
+/** Derive lifestyle tags from a property's attributes. */
+export function getPropertyTags(property: Property): LifestyleTag[] {
+  const tags: LifestyleTag[] = [];
+
+  if (property.price >= 1_500_000) tags.push("Luxury");
+  if (property.beds >= 4) tags.push("Family-Friendly");
+  if (property.sqft >= 3000) tags.push("Entertainer");
+  if (property.propertyType === "Multi-Family") tags.push("Investment");
+  if (property.yearBuilt < 1950) tags.push("Historic");
+
+  const urbanHoods = ["Rittenhouse", "Center City", "Old City", "Fishtown", "Northern Liberties"];
+  if (urbanHoods.includes(property.neighborhood)) {
+    tags.push("Walkable");
+    tags.push("Urban");
+  }
+
+  if (property.features.exterior.some((f) => f.toLowerCase().includes("garden") || f.toLowerCase().includes("patio") || f.toLowerCase().includes("deck") || f.toLowerCase().includes("yard"))) {
+    tags.push("Outdoor Space");
+  }
+
+  if (property.status === "New" || property.yearBuilt >= 2020) tags.push("Move-In Ready");
+
+  // Deduplicate and limit to 4
+  return [...new Set(tags)].slice(0, 4);
 }

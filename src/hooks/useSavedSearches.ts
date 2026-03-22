@@ -89,6 +89,7 @@ export function buildSearchUrl(filters: FilterState): string {
   if (filters.propertyType) params.set("type", filters.propertyType);
   if (filters.status) params.set("status", filters.status);
   if (filters.sort && filters.sort !== "price-desc") params.set("sort", filters.sort);
+  if (filters.openHouse) params.set("openHouse", filters.openHouse);
   const qs = params.toString();
   return `/properties${qs ? `?${qs}` : ""}`;
 }

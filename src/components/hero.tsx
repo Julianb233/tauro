@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import HeroSearchBar from "@/components/HeroSearchBar";
 
 const HERO_IMAGE =
@@ -57,6 +59,23 @@ export default function Hero() {
           Discover luxury homes and condos across Philadelphia&apos;s most
           coveted neighborhoods with Tauro&apos;s expert agents.
         </p>
+
+        {/* AI-3866: Explicit primary CTA */}
+        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+          <Link
+            href="/properties"
+            className="inline-flex items-center gap-2 rounded-full bg-gold px-10 py-4 font-label text-base font-bold uppercase tracking-wider text-near-black shadow-lg shadow-gold/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-gold/40 active:scale-[0.98]"
+          >
+            Search All Properties
+            <ArrowRight className="size-5" strokeWidth={2} />
+          </Link>
+          <Link
+            href="/home-value"
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-4 font-label text-sm font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-gold/50 hover:text-gold"
+          >
+            Get Your Home Value
+          </Link>
+        </div>
 
         {/* Search overlay */}
         <HeroSearchBar />

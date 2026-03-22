@@ -34,10 +34,9 @@ function subscribe(callback: () => void) {
 
 // Snapshot reference must be stable when data hasn't changed
 let cachedSnapshot: RecentlyViewedItem[] = [];
-const EMPTY: RecentlyViewedItem[] = [];
 
 function getSnapshot(): RecentlyViewedItem[] {
-  if (typeof window === "undefined") return EMPTY;
+  if (typeof window === "undefined") return cachedSnapshot;
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     const next: RecentlyViewedItem[] = raw ? (JSON.parse(raw) as RecentlyViewedItem[]) : [];
@@ -53,6 +52,8 @@ function getSnapshot(): RecentlyViewedItem[] {
     return cachedSnapshot;
   }
 }
+
+const EMPTY: RecentlyViewedItem[] = [];
 
 function getServerSnapshot(): RecentlyViewedItem[] {
   return EMPTY;
