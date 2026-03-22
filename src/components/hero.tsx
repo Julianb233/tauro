@@ -1,46 +1,26 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import HeroSearchBar from "@/components/HeroSearchBar";
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1506636489208-f1d6c865744e?w=1920&q=80";
-
-const HERO_VIDEO =
-  "https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4";
+// Philadelphia skyline — golden hour over Center City
+const HERO_IMAGES = [
+  "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1920&q=80",
+  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80",
+  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
+];
 
 export default function Hero() {
-  const [videoFailed, setVideoFailed] = useState(false);
-
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Cinematic video background with image fallback */}
-      {!videoFailed && (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster={HERO_IMAGE}
-          onError={() => setVideoFailed(true)}
-          className="absolute inset-0 h-full w-full object-cover"
-        >
-          <source src={HERO_VIDEO} type="video/mp4" />
-        </video>
-      )}
-
-      {/* Fallback image — shown if video fails or while poster loads */}
+      {/* Philadelphia skyline hero image */}
       <Image
-        src={HERO_IMAGE}
-        alt="Philadelphia skyline"
+        src={HERO_IMAGES[0]}
+        alt="Philadelphia skyline at golden hour"
         fill
         priority
         sizes="100vw"
-        className={`object-cover ${!videoFailed ? "opacity-0" : ""}`}
-        aria-hidden={!videoFailed}
+        className="object-cover"
       />
 
       {/* Lighter gradient overlay — magazine cover feel */}
