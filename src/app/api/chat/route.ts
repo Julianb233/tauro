@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import OpenAI from "openai";
 import { properties } from "@/data/properties";
 import { neighborhoods } from "@/data/neighborhoods";
 import { agents } from "@/data/agents";
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 // Build context summaries for the AI
 function buildPropertyContext() {
@@ -87,28 +84,60 @@ ${buildAgentContext()}
 - When linking to pages, use relative paths like /properties, /agents, /contact
 - End conversations warmly — "Happy to help with anything else!"`;
 
+interface GeminiMessage {
+  role: "user" | "model";
+  parts: { text: string }[];
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json();
 
-    if (!process.env.OPENAI_API_KEY) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
       return NextResponse.json(
         { error: "Chat service is not configured" },
         { status: 503 }
       );
     }
 
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: SYSTEM_PROMPT },
-        ...messages.slice(-20), // Keep last 20 messages for context
-      ],
-      temperature: 0.7,
-      max_tokens: 500,
-    });
+    // Convert chat messages to Gemini format
+    const geminiMessages: GeminiMessage[] = messages.slice(-20).map(
+      (m: { role: string; content: string }) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      })
+    );
 
-    const reply = completion.choices[0]?.message?.content ?? "I'm sorry, I couldn't process that. Please try again.";
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          contents: geminiMessages,
+          generationConfig: {
+            temperature: 0.7,
+            maxOutputTokens: 500,
+          },
+        }),
+      }
+    );
+
+    const data = await res.json();
+
+    if (data.error) {
+      console.error("Gemini API error:", data.error);
+      return NextResponse.json(
+        { error: "Something went wrong. Please try again." },
+        { status: 500 }
+      );
+    }
+
+    const reply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ??
+      "I'm sorry, I couldn't process that. Please try again.";
 
     return NextResponse.json({ reply });
   } catch (error) {
