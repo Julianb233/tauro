@@ -6,11 +6,15 @@ import { defaultFilters } from "@/components/PropertyFilters";
 
 const STORAGE_KEY = "tauro_saved_searches";
 
+export type AlertFrequency = "none" | "daily" | "weekly";
+
 export interface SavedSearch {
   id: string;
   name: string;
   filters: FilterState;
   createdAt: string;
+  alertFrequency: AlertFrequency;
+  alertEmail?: string;
 }
 
 // ---------- shared external store so every component stays in sync ----------
@@ -125,22 +129,44 @@ function formatPrice(n: number): string {
 export function useSavedSearches() {
   const searches = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
-  const save = useCallback((filters: FilterState, name?: string) => {
-    const current = getSnapshot();
-    const newSearch: SavedSearch = {
-      id: crypto.randomUUID(),
-      name: name || buildFilterSummary(filters),
-      filters,
-      createdAt: new Date().toISOString(),
-    };
-    persist([newSearch, ...current]);
-    return newSearch;
-  }, []);
+  const save = useCallback(
+    (
+      filters: FilterState,
+      name?: string,
+      alertFrequency: AlertFrequency = "none",
+      alertEmail?: string,
+    ) => {
+      const current = getSnapshot();
+      const newSearch: SavedSearch = {
+        id: crypto.randomUUID(),
+        name: name || buildFilterSummary(filters),
+        filters,
+        createdAt: new Date().toISOString(),
+        alertFrequency,
+        alertEmail,
+      };
+      persist([newSearch, ...current]);
+      return newSearch;
+    },
+    [],
+  );
 
   const remove = useCallback((id: string) => {
     const current = getSnapshot();
     persist(current.filter((s) => s.id !== id));
   }, []);
+
+  const updateAlert = useCallback(
+    (id: string, alertFrequency: AlertFrequency, alertEmail?: string) => {
+      const current = getSnapshot();
+      persist(
+        current.map((s) =>
+          s.id === id ? { ...s, alertFrequency, alertEmail } : s,
+        ),
+      );
+    },
+    [],
+  );
 
   const getAll = useCallback(() => searches, [searches]);
 
@@ -148,6 +174,7 @@ export function useSavedSearches() {
     searches,
     save,
     remove,
+    updateAlert,
     getAll,
     count: searches.length,
   };
