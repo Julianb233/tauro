@@ -81,6 +81,13 @@ export function buildFilterSummary(filters: FilterState): string {
     const max = filters.sqftMax ? `${Number(filters.sqftMax).toLocaleString()} SF` : "Any";
     parts.push(`Sqft: ${min} - ${max}`);
   }
+  /* AI-3870: Lot size filter summary */
+  if (filters.lotSizeMin || filters.lotSizeMax) {
+    const formatLot = (n: number) => n >= 43560 ? `${(n / 43560).toFixed(n % 43560 === 0 ? 0 : 1)} Acre${n >= 87120 ? "s" : ""}` : `${n.toLocaleString()} SF`;
+    const min = filters.lotSizeMin ? formatLot(Number(filters.lotSizeMin)) : "Any";
+    const max = filters.lotSizeMax ? formatLot(Number(filters.lotSizeMax)) : "Any";
+    parts.push(`Lot: ${min} - ${max}`);
+  }
   if (filters.area) parts.push(filters.area);
   if (filters.propertyType) parts.push(filters.propertyType);
   if (filters.status) parts.push(filters.status);
@@ -97,6 +104,8 @@ export function buildSearchUrl(filters: FilterState): string {
   if (filters.baths) params.set("baths", filters.baths);
   if (filters.sqftMin) params.set("sqftMin", filters.sqftMin);
   if (filters.sqftMax) params.set("sqftMax", filters.sqftMax);
+  if (filters.lotSizeMin) params.set("lotSizeMin", filters.lotSizeMin);
+  if (filters.lotSizeMax) params.set("lotSizeMax", filters.lotSizeMax);
   if (filters.area) params.set("area", filters.area);
   if (filters.propertyType) params.set("type", filters.propertyType);
   if (filters.status) params.set("status", filters.status);

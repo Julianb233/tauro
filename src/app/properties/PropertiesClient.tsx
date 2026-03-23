@@ -30,6 +30,8 @@ export default function PropertiesClient({
     baths: searchParams.get("baths") || "",
     sqftMin: searchParams.get("sqftMin") || "",
     sqftMax: searchParams.get("sqftMax") || "",
+    lotSizeMin: searchParams.get("lotSizeMin") || "",
+    lotSizeMax: searchParams.get("lotSizeMax") || "",
     area: searchParams.get("area") || "",
     propertyType: searchParams.get("type") || "",
     status: searchParams.get("status") || "",
@@ -84,6 +86,9 @@ export default function PropertiesClient({
     if (filters.baths) result = result.filter((p) => p.baths >= Number(filters.baths));
     if (filters.sqftMin) result = result.filter((p) => p.sqft >= Number(filters.sqftMin));
     if (filters.sqftMax) result = result.filter((p) => p.sqft <= Number(filters.sqftMax));
+    /* AI-3870: Lot size filter */
+    if (filters.lotSizeMin) result = result.filter((p) => p.lotSqft >= Number(filters.lotSizeMin));
+    if (filters.lotSizeMax) result = result.filter((p) => p.lotSqft <= Number(filters.lotSizeMax));
     if (filters.area) result = result.filter((p) => p.neighborhood === filters.area);
     if (filters.propertyType) result = result.filter((p) => p.propertyType === filters.propertyType);
     if (filters.status) result = result.filter((p) => p.status === filters.status);
