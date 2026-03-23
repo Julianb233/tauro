@@ -5,36 +5,176 @@ import FadeInView from "@/components/animations/FadeInView";
 import StaggerReveal from "@/components/animations/StaggerReveal";
 
 /* ------------------------------------------------------------------ */
-/*  Media Logos — simple SVG text treatments for "As Featured In"     */
+/*  Press Mention Logos — inline SVGs styled after real mastheads      */
 /* ------------------------------------------------------------------ */
 
-const mediaOutlets = [
-  { name: "Philadelphia Inquirer", displayName: "Philadelphia Inquirer" },
-  { name: "Forbes", displayName: "Forbes" },
-  { name: "Architectural Digest", displayName: "Architectural Digest" },
-  { name: "Philadelphia Magazine", displayName: "Philadelphia Magazine" },
-  { name: "Curbed", displayName: "Curbed" },
-  { name: "The Wall Street Journal", displayName: "Wall Street Journal" },
-];
-
-function MediaLogo({ displayName }: { displayName: string }) {
-  // Determine font style per outlet for visual variety
-  const isSerif = [
-    "Philadelphia Inquirer",
-    "Wall Street Journal",
-    "Forbes",
-  ].includes(displayName);
-
-  return (
-    <span
-      className={`select-none whitespace-nowrap text-sm font-bold uppercase tracking-widest sm:text-base md:text-lg ${
-        isSerif ? "font-heading" : "font-label"
-      }`}
-    >
-      {displayName}
-    </span>
-  );
+interface MediaOutlet {
+  name: string;
+  displayName: string;
+  logo: React.ReactNode;
 }
+
+const mediaOutlets: MediaOutlet[] = [
+  {
+    name: "Philadelphia Inquirer",
+    displayName: "Philadelphia Inquirer",
+    logo: (
+      <svg viewBox="0 0 220 32" className="h-6 w-auto sm:h-7 md:h-8" aria-hidden="true">
+        <text
+          x="110"
+          y="24"
+          textAnchor="middle"
+          fontFamily="Georgia, 'Times New Roman', serif"
+          fontSize="18"
+          fontWeight="700"
+          fontStyle="italic"
+          letterSpacing="0.5"
+          fill="currentColor"
+        >
+          The Philadelphia Inquirer
+        </text>
+      </svg>
+    ),
+  },
+  {
+    name: "Forbes",
+    displayName: "Forbes",
+    logo: (
+      <svg viewBox="0 0 100 32" className="h-6 w-auto sm:h-7 md:h-8" aria-hidden="true">
+        <text
+          x="50"
+          y="24"
+          textAnchor="middle"
+          fontFamily="Georgia, 'Times New Roman', serif"
+          fontSize="26"
+          fontWeight="700"
+          letterSpacing="2"
+          fill="currentColor"
+        >
+          Forbes
+        </text>
+      </svg>
+    ),
+  },
+  {
+    name: "Architectural Digest",
+    displayName: "Architectural Digest",
+    logo: (
+      <svg viewBox="0 0 50 36" className="h-6 w-auto sm:h-7 md:h-8" aria-hidden="true">
+        <text
+          x="25"
+          y="16"
+          textAnchor="middle"
+          fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+          fontSize="10"
+          fontWeight="300"
+          letterSpacing="4"
+          fill="currentColor"
+        >
+          AD
+        </text>
+        <line x1="6" y1="20" x2="44" y2="20" stroke="currentColor" strokeWidth="0.5" />
+        <text
+          x="25"
+          y="30"
+          textAnchor="middle"
+          fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+          fontSize="4.5"
+          fontWeight="300"
+          letterSpacing="2.5"
+          fill="currentColor"
+        >
+          ARCHITECTURAL DIGEST
+        </text>
+      </svg>
+    ),
+  },
+  {
+    name: "Philadelphia Magazine",
+    displayName: "Philadelphia Magazine",
+    logo: (
+      <svg viewBox="0 0 180 32" className="h-6 w-auto sm:h-7 md:h-8" aria-hidden="true">
+        <text
+          x="90"
+          y="23"
+          textAnchor="middle"
+          fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+          fontSize="16"
+          fontWeight="700"
+          letterSpacing="3"
+          fill="currentColor"
+        >
+          PHILADELPHIA
+        </text>
+        <text
+          x="90"
+          y="31"
+          textAnchor="middle"
+          fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+          fontSize="6"
+          fontWeight="400"
+          letterSpacing="4"
+          fill="currentColor"
+        >
+          MAGAZINE
+        </text>
+      </svg>
+    ),
+  },
+  {
+    name: "Curbed",
+    displayName: "Curbed",
+    logo: (
+      <svg viewBox="0 0 100 32" className="h-6 w-auto sm:h-7 md:h-8" aria-hidden="true">
+        <text
+          x="50"
+          y="24"
+          textAnchor="middle"
+          fontFamily="'Helvetica Neue', Helvetica, Arial, sans-serif"
+          fontSize="22"
+          fontWeight="900"
+          letterSpacing="1"
+          fill="currentColor"
+        >
+          CURBED
+        </text>
+      </svg>
+    ),
+  },
+  {
+    name: "The Wall Street Journal",
+    displayName: "Wall Street Journal",
+    logo: (
+      <svg viewBox="0 0 220 36" className="h-6 w-auto sm:h-7 md:h-8" aria-hidden="true">
+        <text
+          x="110"
+          y="15"
+          textAnchor="middle"
+          fontFamily="Georgia, 'Times New Roman', serif"
+          fontSize="7"
+          fontWeight="400"
+          letterSpacing="5"
+          fill="currentColor"
+        >
+          THE
+        </text>
+        <text
+          x="110"
+          y="28"
+          textAnchor="middle"
+          fontFamily="Georgia, 'Times New Roman', serif"
+          fontSize="14"
+          fontWeight="700"
+          letterSpacing="1"
+          fill="currentColor"
+        >
+          WALL STREET JOURNAL
+        </text>
+        <line x1="20" y1="32" x2="200" y2="32" stroke="currentColor" strokeWidth="0.75" />
+      </svg>
+    ),
+  },
+];
 
 /* ------------------------------------------------------------------ */
 /*  Awards data                                                       */
@@ -120,20 +260,22 @@ export default function SocialProof() {
 
 export function AsSeenInStrip() {
   return (
-    <section className="border-y border-border/30 bg-cream py-10 sm:py-14">
+    <section className="border-y border-border/30 bg-cream py-10 sm:py-14" aria-label="Press mentions">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeInView direction="up">
           <p className="text-center font-label text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             As Featured In
           </p>
         </FadeInView>
-        <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 sm:gap-x-12 md:gap-x-16">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 sm:gap-x-14 md:gap-x-16">
           {mediaOutlets.map((outlet) => (
             <div
               key={outlet.name}
-              className="text-foreground/40 grayscale transition-all duration-300 hover:text-gold hover:grayscale-0"
+              className="text-foreground/30 transition-all duration-300 hover:text-gold"
+              title={outlet.displayName}
             >
-              <MediaLogo displayName={outlet.displayName} />
+              <span className="sr-only">{outlet.displayName}</span>
+              {outlet.logo}
             </div>
           ))}
         </div>
