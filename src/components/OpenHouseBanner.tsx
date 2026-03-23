@@ -7,6 +7,7 @@ import { Calendar, Clock, Download, X } from "lucide-react";
 import { Property } from "@/data/properties";
 import { siteUrl } from "@/lib/site-config";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useUtm } from "@/hooks/useUtm";
 
 /* ------------------------------------------------------------------ */
 /*  .ics file generator                                                */
@@ -121,6 +122,7 @@ function RsvpModal({
   property: Property;
   onClose: () => void;
 }) {
+  const utm = useUtm();
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -150,6 +152,7 @@ function RsvpModal({
           message: `RSVP for Open House on ${property.openHouse}`,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          ...utm,
         }),
       });
 

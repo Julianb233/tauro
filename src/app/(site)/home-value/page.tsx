@@ -15,6 +15,7 @@ import {
   FileText,
 } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { useUtm } from "@/hooks/useUtm";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -76,6 +77,7 @@ const steps = [
 ];
 
 export default function HomeValuePage() {
+  const utm = useUtm();
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -99,6 +101,7 @@ export default function HomeValuePage() {
       phone: form.phone,
       homeAddress: form.homeAddress,
       message: form.message,
+      ...utm,
     };
 
     try {
