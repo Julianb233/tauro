@@ -523,11 +523,15 @@ export default function PropertyDetailClient({
               <PropertyDetailsTable property={property} />
             </div>
 
-            {/* Video Tour (PROP-08) */}
+            {/* Video Tour (PROP-08) — agent-narrated Sotheby's style */}
             {property.videoTourUrl && (
               <PropertyVideoTour
-                videoId={property.videoTourUrl}
+                videoUrl={property.videoTourUrl}
                 address={property.address}
+                agent={{
+                  name: property.agent.name,
+                  photo: property.agent.photo,
+                }}
               />
             )}
 
