@@ -5,6 +5,7 @@ import { RealEstateListingJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { siteUrl } from "@/lib/site-config";
 import PropertyDetailClient from "./PropertyDetailClient";
+import { NeighborhoodTestimonials } from "@/components/neighborhood/NeighborhoodTestimonials";
 
 export const revalidate = 3600;
 
@@ -102,6 +103,9 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
             : undefined
         }
       />
+      {matchedNeighborhood && (
+        <NeighborhoodTestimonials neighborhoodName={matchedNeighborhood.name} />
+      )}
     </>
   );
 }
