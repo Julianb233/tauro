@@ -12,7 +12,7 @@ import { createGhlContact } from "@/lib/ghl";
 // ---------------------------------------------------------------------------
 
 const LeadCreateSchema = z.object({
-  type: z.enum(["contact", "showing", "seller", "agent-application", "agent-contact"]),
+  type: z.enum(["contact", "showing", "seller", "agent-application", "agent-contact", "open_house_rsvp"]),
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   email: z.string().email(),

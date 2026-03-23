@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { Calendar, Clock, Download, X } from "lucide-react";
+import { Calendar, Clock, Download, X, ChevronDown } from "lucide-react";
 import { Property } from "@/data/properties";
 import { siteUrl } from "@/lib/site-config";
 
@@ -59,6 +59,26 @@ function downloadIcs(property: Property) {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+}
+
+function googleCalendarUrl(property: Property): string {
+  const ev = property.openHouseEvent!;
+  const start = toIcsDateLocal(ev.date, ev.startTime);
+  const end = toIcsDateLocal(ev.date, ev.endTime);
+  const location = encodeURIComponent(`${property.address}, ${property.city}, ${property.state} ${property.zip}`);
+  const title = encodeURIComponent(`Open House: ${property.address}`);
+  const details = encodeURIComponent(`View listing: ${siteUrl}/properties/${property.slug}`);
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&location=${location}&details=${details}`;
+}
+
+function outlookCalendarUrl(property: Property): string {
+  const ev = property.openHouseEvent!;
+  const location = encodeURIComponent(`${property.address}, ${property.city}, ${property.state} ${property.zip}`);
+  const title = encodeURIComponent(`Open House: ${property.address}`);
+  const startdt = `${ev.date}T${ev.startTime}:00`;
+  const enddt = `${ev.date}T${ev.endTime}:00`;
+  const body = encodeURIComponent(`View listing: ${siteUrl}/properties/${property.slug}`);
+  return `https://outlook.live.com/calendar/0/action/compose?subject=${title}&startdt=${startdt}&enddt=${enddt}&location=${location}&body=${body}`;
 }
 
 /* ------------------------------------------------------------------ */
@@ -238,6 +258,7 @@ function CountdownUnit({ value, label }: { value: number; label: string }) {
 
 export default function OpenHouseBanner({ property }: { property: Property }) {
   const [showRsvp, setShowRsvp] = useState(false);
+  const [showCalMenu, setShowCalMenu] = useState(false);
 
   const ev = property.openHouseEvent;
   if (!ev) return null;
@@ -283,13 +304,56 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
             >
               RSVP
             </button>
-            <button
-              onClick={() => downloadIcs(property)}
-              className="flex items-center gap-2 rounded-lg border border-gold/40 bg-gold/10 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold/20"
-            >
-              <Download className="h-4 w-4" />
-              Add to Calendar
-            </button>
+            {/* Calendar dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setShowCalMenu((v) => !v)}
+                aria-expanded={showCalMenu}
+                aria-haspopup="true"
+                className="flex items-center gap-2 rounded-lg border border-gold/40 bg-gold/10 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold/20"
+              >
+                <Download className="h-4 w-4" />
+                Add to Calendar
+                <ChevronDown className={`h-3.5 w-3.5 transition-transform ${showCalMenu ? "rotate-180" : ""}`} />
+              </button>
+              {showCalMenu && (
+                <div
+                  role="menu"
+                  className="absolute right-0 z-20 mt-1 min-w-[180px] rounded-lg border border-border bg-card py-1 shadow-xl"
+                >
+                  <button
+                    role="menuitem"
+                    onClick={() => { downloadIcs(property); setShowCalMenu(false); }}
+                    className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-foreground transition-colors hover:bg-muted"
+                  >
+                    <Download className="h-4 w-4 shrink-0 text-gold" />
+                    Apple / iCal (.ics)
+                  </button>
+                  <a
+                    role="menuitem"
+                    href={googleCalendarUrl(property)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowCalMenu(false)}
+                    className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-foreground transition-colors hover:bg-muted"
+                  >
+                    <Calendar className="h-4 w-4 shrink-0 text-gold" />
+                    Google Calendar
+                  </a>
+                  <a
+                    role="menuitem"
+                    href={outlookCalendarUrl(property)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setShowCalMenu(false)}
+                    className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-foreground transition-colors hover:bg-muted"
+                  >
+                    <Calendar className="h-4 w-4 shrink-0 text-gold" />
+                    Outlook
+                  </a>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

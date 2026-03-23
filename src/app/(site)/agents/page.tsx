@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { loadAgents } from "@/lib/data";
-import AgentCard from "@/components/AgentCard";
+import AgentsGrid from "@/components/AgentsGrid";
 
 export const revalidate = 3600;
 
@@ -36,7 +36,7 @@ export default async function AgentsPage() {
       <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10"><div className="mb-3 h-px w-12 bg-gold/60" /><h2 className="font-heading text-2xl font-bold text-foreground">Meet the Team</h2></div>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">{agents.map((agent) => (<AgentCard key={agent.id} agent={agent} />))}</div>
+          <AgentsGrid agents={agents} />
         </div>
       </section>
       <section className="bg-cream pb-20">
