@@ -11,6 +11,11 @@ import {
 import { siteUrl } from "@/lib/site-config";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import {
+  Q4PriceTrendChart,
+  Q4NeighborhoodPriceChart,
+  Q4NeighborhoodDomChart,
+} from "@/components/charts/Q4MarketCharts";
 
 /* ------------------------------------------------------------------ */
 /*  Static params for SSG                                              */
@@ -103,6 +108,32 @@ function formatDate(dateStr: string): string {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Chart-aware content renderer                                       */
+/* ------------------------------------------------------------------ */
+
+const chartComponents: Record<string, React.ComponentType> = {
+  "price-trend": Q4PriceTrendChart,
+  "neighborhood-prices": Q4NeighborhoodPriceChart,
+  "neighborhood-dom": Q4NeighborhoodDomChart,
+};
+
+function renderContentWithCharts(html: string) {
+  // Split on chart placeholder comments: <!--charts:key-->
+  const parts = html.split(/<!--charts:(\w[\w-]*)-->/);
+  // parts alternates: [html, chartKey, html, chartKey, html, ...]
+  return parts.map((part, i) => {
+    if (i % 2 === 1) {
+      const Chart = chartComponents[part];
+      return Chart ? <Chart key={`chart-${part}`} /> : null;
+    }
+    if (!part.trim()) return null;
+    return (
+      <div key={`content-${i}`} dangerouslySetInnerHTML={{ __html: part }} />
+    );
+  });
+}
+
+/* ------------------------------------------------------------------ */
 /*  Page                                                               */
 /* ------------------------------------------------------------------ */
 export default async function BlogPostPage({
@@ -183,10 +214,9 @@ export default async function BlogPostPage({
 
       {/* ── Article Content ───────────────────────────────────── */}
       <article className="bg-white py-16 lg:py-24">
-        <div
-          className="prose-tauro mx-auto max-w-3xl px-4 sm:px-6 lg:px-8"
-          dangerouslySetInnerHTML={{ __html: contentHtml }}
-        />
+        <div className="prose-tauro mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          {renderContentWithCharts(contentHtml)}
+        </div>
       </article>
 
       {/* ── Related Posts ─────────────────────────────────────── */}

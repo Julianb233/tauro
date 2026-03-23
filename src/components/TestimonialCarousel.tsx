@@ -76,36 +76,23 @@ export default function TestimonialCarousel({
   );
 
   return (
-<>
-<div
-      className="relative outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-xl"
-      role="region"
-      aria-label="Testimonials carousel"
-      aria-roledescription="carousel"
-      tabIndex={0}
-      onKeyDown={handleKeyDown}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-      className="relative"
-      aria-label="Client testimonials"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
-    >
-      {/* Cards */}
+    <>
       <div
-className="relative"
+        className="relative outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-xl"
+        role="region"
+        aria-label="Testimonials carousel"
+        aria-roledescription="carousel"
+        tabIndex={0}
+        onKeyDown={handleKeyDown}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-aria-live="polite"
-        aria-atomic="true"
-        className={`grid gap-4 sm:gap-6 md:grid-cols-3 transition-opacity duration-500 ease-in-out ${
-          isTransitioning ? "opacity-0" : "opacity-100"
-        }`}
+        onFocus={() => setPaused(true)}
+        onBlur={() => setPaused(false)}
       >
         {/* Cards */}
         <div
+          aria-live="polite"
+          aria-atomic="true"
           className={`grid gap-4 sm:gap-6 md:grid-cols-3 transition-opacity duration-500 ease-in-out ${
             isTransitioning ? "opacity-0" : "opacity-100"
           }`}
@@ -120,9 +107,9 @@ aria-live="polite"
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex gap-1">
+                  <div className="flex gap-1" role="img" aria-label={`Rating: ${t.rating} out of 5 stars`}>
                     {Array.from({ length: t.rating }).map((_, i) => (
-                      <Star key={i} className="size-4 fill-gold text-gold" />
+                      <Star key={i} className="size-4 fill-gold text-gold" aria-hidden="true" />
                     ))}
                   </div>
                   {t.videoUrl && (
@@ -141,9 +128,7 @@ aria-live="polite"
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <div className="mt-3 border-t border-border/50 pt-3 sm:mt-4 sm:pt-4">
-                  <p className="text-sm font-semibold text-foreground">
-                    {t.name}
-                  </p>
+                  <p className="text-sm font-semibold text-foreground">{t.name}</p>
                   <p className="text-xs text-muted-foreground">{t.role}</p>
                 </div>
               </div>
@@ -169,36 +154,29 @@ aria-live="polite"
           <ChevronRight className="size-5 text-foreground" />
         </button>
 
+        {/* Live region for screen readers */}
+        <div className="sr-only" aria-live="polite" aria-atomic="true">
+          Showing testimonial {current + 1} of {total}
+        </div>
+
         {/* Dots */}
-        <div className="mt-6 flex items-center justify-center gap-2 sm:mt-8">
+        <div className="mt-6 flex items-center justify-center gap-2 sm:mt-8" role="tablist" aria-label="Testimonial slides">
           {testimonials.map((_, idx) => (
             <button
               key={idx}
               type="button"
+              role="tab"
               onClick={() => goTo(idx)}
               aria-label={`Go to testimonial ${idx + 1}`}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              aria-selected={idx === current}
+              className={`h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${
                 idx === current
                   ? "w-6 bg-gold"
                   : "w-2 bg-border hover:bg-muted-foreground"
               }`}
-/>
+            />
           ))}
         </div>
->
-              <div className="flex gap-1" role="img" aria-label={`Rating: ${t.rating} out of 5 stars`}>
-                {Array.from({ length: t.rating }).map((_, i) => (
-                  <Star key={i} className="size-4 fill-gold text-gold" aria-hidden="true" />
-              <blockquote className="mt-3 text-sm leading-relaxed text-foreground sm:mt-4">
-                &ldquo;{t.quote}&rdquo;
-              </blockquote>
-              <div className="mt-3 border-t border-border/50 pt-3 sm:mt-4 sm:pt-4">
-                <p className="text-sm font-semibold text-foreground">
-                  {t.name}
-                </p>
-                <p className="text-xs text-muted-foreground">{t.role}</p>
-          );
-        })}
       </div>
 
       {/* Video modal */}
@@ -231,42 +209,9 @@ aria-live="polite"
                 className="absolute inset-0 size-full"
               />
             </div>
-</div>
+          </div>
+        </div>
       )}
     </>
-);
-        })}
-
-      {/* Navigation arrows */}
-      <button
-        type="button"
-        onClick={prev}
-        aria-label="Previous testimonial"
-        className="absolute -left-3 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2 shadow-md transition-colors hover:bg-muted sm:-left-5"
-      >
-        <ChevronLeft className="size-5 text-foreground" />
-      </button>
-        onClick={next}
-        aria-label="Next testimonial"
-        className="absolute -right-3 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2 shadow-md transition-colors hover:bg-muted sm:-right-5"
-        <ChevronRight className="size-5 text-foreground" />
-      {/* Live region for screen readers */}
-      <div className="sr-only" aria-live="polite" aria-atomic="true">
-        Showing testimonial {current + 1} of {total}
-      {/* Dots */}
-      <div className="mt-6 flex items-center justify-center gap-2 sm:mt-8" role="tablist" aria-label="Testimonial slides">
-        {testimonials.map((_, idx) => (
-            key={idx}
-            role="tab"
-            onClick={() => goTo(idx)}
-            aria-label={`Go to testimonial ${idx + 1}`}
-            aria-selected={idx === current}
-            className={`h-2 rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 ${
-              idx === current
-                ? "w-6 bg-gold"
-                : "w-2 bg-border hover:bg-muted-foreground"
-            }`}
-          />
-        ))}
   );
 }

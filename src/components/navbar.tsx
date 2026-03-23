@@ -69,14 +69,14 @@ export function Navbar() {
         className={cn(
           "fixed top-0 z-50 w-full transition-all duration-300",
           scrolled
-            ? "border-b border-border/40 bg-white/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.06)]"
+            ? "border-b border-white/10 bg-midnight/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.15)]"
             : "bg-transparent"
         )}
       >
         <nav aria-label="Main navigation" className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2">
-            <Logo size="sm" variant={scrolled ? "dark" : "light"} />
+            <Logo size="sm" variant="light" />
           </Link>
 
           {/* Desktop nav */}
@@ -87,7 +87,7 @@ export function Navbar() {
                   href={link.href}
                   className={cn(
                     "rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-                    scrolled ? "text-foreground/70" : "text-white/80"
+                    scrolled ? "text-white/80" : "text-white/80"
                   )}
                 >
                   {link.label}
@@ -102,7 +102,7 @@ export function Navbar() {
               href="tel:+12158394172"
               className={cn(
                 "flex items-center gap-1.5 rounded-md text-sm transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-                scrolled ? "text-muted-foreground" : "text-white/70"
+                scrolled ? "text-white/70" : "text-white/70"
               )}
             >
               <Phone className="size-4" />
@@ -114,7 +114,7 @@ export function Navbar() {
                 <span
                   className={cn(
                     "text-sm font-medium transition-all duration-300",
-                    scrolled ? "text-foreground" : "text-white/90",
+                    scrolled ? "text-white/90" : "text-white/90",
                   )}
                 >
                   {user.name}
@@ -123,7 +123,7 @@ export function Navbar() {
                   onClick={handleSignOut}
                   className={cn(
                     "rounded-md p-1.5 transition-all duration-300 hover:text-gold",
-                    scrolled ? "text-muted-foreground" : "text-white/70",
+                    scrolled ? "text-white/70" : "text-white/70",
                   )}
                   aria-label="Sign out"
                 >
@@ -135,7 +135,7 @@ export function Navbar() {
                 onClick={() => setAuthOpen(true)}
                 className={cn(
                   "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-gold",
-                  scrolled ? "text-foreground/70" : "text-white/80",
+                  scrolled ? "text-white/80" : "text-white/80",
                 )}
               >
                 <UserCircle className="size-4" />
@@ -148,7 +148,7 @@ export function Navbar() {
               className={cn(
                 "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
                 scrolled
-                  ? "bg-foreground text-white hover:bg-gold hover:text-white"
+                  ? "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"
                   : "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"
               )}
             >
@@ -161,7 +161,7 @@ export function Navbar() {
             type="button"
             className={cn(
               "rounded-md p-2.5 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-              scrolled ? "text-foreground" : "text-white"
+              scrolled ? "text-white" : "text-white"
             )}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}

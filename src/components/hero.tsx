@@ -1,79 +1,39 @@
+"use client";
+
+<<<<<<< HEAD
+import Image from "next/image";
 import Link from "next/link";
+import { useRef, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import HeroSearchBar from "@/components/HeroSearchBar";
 import HeroVideo from "@/components/HeroVideo";
-"use client";
 
-import Image from "next/image";
-import { useRef, useEffect } from "react";
-import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 // Philadelphia skyline — golden hour over Center City
 const HERO_IMAGES = [
   "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1920&q=80",
   "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80",
   "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
 ];
+=======
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import HeroSearchBar from "@/components/HeroSearchBar";
+import HeroVideo from "@/components/HeroVideo";
+>>>>>>> origin/main
 
 export default function Hero() {
-  const imgRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!imgRef.current) return;
-      const scrollY = window.scrollY;
-      // Move image at 40% the scroll speed for a natural parallax feel
-      imgRef.current.style.transform = `translateY(${scrollY * 0.4}px)`;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-<section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-{/* Cinematic video background with image fallback */}
+    <section aria-label="Hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
+      {/* Cinematic video background with image fallback */}
       <HeroVideo />
-{/* Parallax image container — oversized vertically so parallax shift stays in frame */}
-      <div
-        ref={imgRef}
-        className="absolute inset-x-0 will-change-transform"
-        style={{ top: "-20%", bottom: "-20%" }}
-      >
-        <Image
-          src={HERO_IMAGES[0]}
-          alt="Philadelphia skyline at golden hour"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-          placeholder="blur"
-          blurDataURL={BLUR_LANDSCAPE}
-        />
-      </div>
 
+<<<<<<< HEAD
       {/* Gradient overlay — magazine cover feel */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
-<section aria-label="Hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {!videoFailed && (
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          aria-hidden="true"
-          poster={HERO_IMAGE}
-          onError={() => setVideoFailed(true)}
-          className="absolute inset-0 h-full w-full object-cover"
-          <source src={HERO_VIDEO} type="video/mp4" />
-        </video>
-      )}
-      {/* Fallback image — shown if video fails or while poster loads */}
-        src={HERO_IMAGE}
-        alt="Philadelphia skyline"
-        className={`object-cover ${!videoFailed ? "opacity-0" : ""}`}
-        aria-hidden={!videoFailed}
-      {/* Lighter gradient overlay — magazine cover feel */}
+=======
+      {/* Gradient overlay */}
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
+>>>>>>> origin/main
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
         <p className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.25em] text-gold sm:text-sm">
@@ -89,7 +49,7 @@ export default function Hero() {
           coveted neighborhoods with Tauro&apos;s expert agents.
         </p>
 
-        {/* AI-3866: Explicit primary CTA */}
+        {/* Primary CTA */}
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link
             href="/properties"

@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Turnstile } from "@/components/turnstile";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { useUtm } from "@/hooks/useUtm";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -51,6 +52,7 @@ const requirements = [
 ];
 
 export default function JoinPage() {
+  const utm = useUtm();
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -79,6 +81,7 @@ export default function JoinPage() {
       whyJoin: form.whyJoin,
       message: form.message,
       captchaToken: turnstileToken || undefined,
+      ...utm,
     };
 
     try {

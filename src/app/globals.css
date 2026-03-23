@@ -391,6 +391,16 @@ h1, h2, h3, h4, h5, h6 {
   animation: scale-in 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
+/* ─── Skeleton shimmer animation ─── */
+@keyframes skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.animate-skeleton-shimmer {
+  animation: skeleton-shimmer 2s ease-in-out infinite;
+}
+
 /* ─── Print Styles ─── */
 @media print {
   /* Hide non-essential UI elements */

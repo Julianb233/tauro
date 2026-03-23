@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Calendar, Clock, Download, X, ChevronDown } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Calendar, Clock, Download, X } from "lucide-react";
+import { Calendar, Clock, Download, X, ChevronDown } from "lucide-react";
 import { Property } from "@/data/properties";
 import { siteUrl } from "@/lib/site-config";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useUtm } from "@/hooks/useUtm";
 
 /* ------------------------------------------------------------------ */
 /*  .ics file generator                                                */
@@ -17,7 +16,6 @@ function pad(n: number) {
 }
 
 function toIcsDateLocal(dateStr: string, time: string): string {
-  // dateStr = "YYYY-MM-DD", time = "HH:MM"
   const [y, m, d] = dateStr.split("-");
   const [h, min] = time.split(":");
   return `${y}${m}${d}T${h}${min}00`;
@@ -121,6 +119,7 @@ function RsvpModal({
   property: Property;
   onClose: () => void;
 }) {
+  const utm = useUtm();
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -150,6 +149,7 @@ function RsvpModal({
           message: `RSVP for Open House on ${property.openHouse}`,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          ...utm,
         }),
       });
 
@@ -166,7 +166,7 @@ function RsvpModal({
   };
 
   return (
-<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div
         ref={focusTrapRef}
         role="dialog"
@@ -174,8 +174,6 @@ function RsvpModal({
         aria-label="RSVP for Open House"
         className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl"
       >
-<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="RSVP for Open House">
-      <div className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl">
         <button
           onClick={onClose}
           className="absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -283,16 +281,13 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
   const ev = property.openHouseEvent;
   if (!ev) return null;
 
-  // Parse the open house start into a Date for countdown
   const [y, m, d] = ev.date.split("-").map(Number);
   const [sh, sm] = ev.startTime.split(":").map(Number);
   const startDate = new Date(y, m - 1, d, sh, sm);
 
-  // Only show if the open house is in the future
   const now = new Date();
   if (startDate.getTime() < now.getTime()) return null;
 
-  // Show countdown only if within 7 days
   const msUntil = startDate.getTime() - now.getTime();
   const showCountdown = msUntil <= 7 * 86400000;
 
@@ -300,7 +295,6 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
     <>
       <div className="rounded-xl border-2 border-gold/40 bg-gradient-to-r from-gold/10 via-gold/5 to-transparent p-5 sm:p-6">
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          {/* Left: event info */}
           <div className="flex items-start gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gold/20">
               <Calendar className="h-6 w-6 text-gold" />
@@ -316,7 +310,6 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
             </div>
           </div>
 
-          {/* Right: actions */}
           <div className="flex flex-wrap gap-3">
             <button
               onClick={() => setShowRsvp(true)}
@@ -324,7 +317,6 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
             >
               RSVP
             </button>
-            {/* Calendar dropdown */}
             <div className="relative">
               <button
                 onClick={() => setShowCalMenu((v) => !v)}
@@ -377,11 +369,9 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
           </div>
         </div>
 
-        {/* Countdown */}
         {showCountdown && <CountdownDisplay targetDate={startDate} />}
       </div>
 
-      {/* RSVP modal */}
       {showRsvp && (
         <RsvpModal property={property} onClose={() => setShowRsvp(false)} />
       )}
@@ -389,7 +379,6 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
   );
 }
 
-/* Separate client component so the hook isn't called conditionally */
 function CountdownDisplay({ targetDate }: { targetDate: Date }) {
   const countdown = useCountdown(targetDate);
   if (!countdown) return null;

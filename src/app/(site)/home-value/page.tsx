@@ -15,6 +15,7 @@ import {
   FileText,
 } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { useUtm } from "@/hooks/useUtm";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -76,6 +77,7 @@ const steps = [
 ];
 
 export default function HomeValuePage() {
+  const utm = useUtm();
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -99,6 +101,7 @@ export default function HomeValuePage() {
       phone: form.phone,
       homeAddress: form.homeAddress,
       message: form.message,
+      ...utm,
     };
 
     try {
@@ -256,8 +259,7 @@ export default function HomeValuePage() {
                     value={form.homeAddress}
                     onChange={handleChange}
                     placeholder="123 Walnut St, Philadelphia, PA 19103"
-className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 text-base text-midnight placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
-className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 text-base text-white placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                   />
                 </div>
               </div>
@@ -280,8 +282,7 @@ className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 te
                     value={form.firstName}
                     onChange={handleChange}
                     placeholder="Jane"
-className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-midnight placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
-className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                   />
                 </div>
                 <div>
@@ -300,8 +301,7 @@ className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-s
                     value={form.lastName}
                     onChange={handleChange}
                     placeholder="Smith"
-className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-midnight placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
-className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                   />
                 </div>
               </div>
@@ -323,8 +323,7 @@ className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-s
                   value={form.email}
                   onChange={handleChange}
                   placeholder="jane@example.com"
-className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-midnight placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
-className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                 />
               </div>
 
@@ -345,8 +344,7 @@ className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-s
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="(215) 839-4172"
-className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-midnight placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
-className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                 />
               </div>
 
@@ -365,8 +363,7 @@ className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-s
                   value={form.message}
                   onChange={handleChange}
                   placeholder="Recent renovations, timeline to sell, special circumstances..."
-className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-midnight placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
-className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-white placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                 />
               </div>
 
