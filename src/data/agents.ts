@@ -40,6 +40,7 @@ export interface Agent {
     linkedin?: string;
     facebook?: string;
   };
+  areasServed: string[];
   languages: string[];
   licenseNumber: string;
   testimonials?: {
@@ -111,6 +112,16 @@ export const agents: Agent[] = [
       linkedin: "https://linkedin.com/in/tony-goodman-625682b",
       facebook: "https://facebook.com/tony.goodman1",
     },
+    areasServed: [
+      "North Philadelphia",
+      "Cheltenham Township",
+      "Germantown",
+      "Mount Airy",
+      "Fishtown",
+      "West Oak Lane",
+      "Logan",
+      "Olney",
+    ],
     languages: ["English"],
     licenseNumber: "RM420582",
     testimonials: [
@@ -173,6 +184,16 @@ export const agents: Agent[] = [
       instagram: "https://instagram.com/shaquondagarrett",
       linkedin: "https://linkedin.com/in/shaquonda-garrett",
     },
+    areasServed: [
+      "West Philadelphia",
+      "Brewerytown",
+      "Strawberry Mansion",
+      "Point Breeze",
+      "Germantown",
+      "Mantua",
+      "Powelton Village",
+      "Parkside",
+    ],
     languages: ["English"],
     licenseNumber: "RS-612847",
     testimonials: [
@@ -239,6 +260,16 @@ export const agents: Agent[] = [
     social: {
       linkedin: "https://linkedin.com/in/morris-brown-philly",
     },
+    areasServed: [
+      "East Falls",
+      "Kensington",
+      "Manayunk",
+      "Roxborough",
+      "Wynnefield",
+      "Fairmount",
+      "Spring Garden",
+      "Wissahickon",
+    ],
     languages: ["English"],
     licenseNumber: "RS-445821",
     testimonials: [
@@ -300,6 +331,16 @@ export const agents: Agent[] = [
     social: {
       linkedin: "https://linkedin.com/in/stephen-stevens-realty",
     },
+    areasServed: [
+      "Northeast Philadelphia",
+      "Frankford",
+      "Mayfair",
+      "Torresdale",
+      "Holmesburg",
+      "Tacony",
+      "Bridesburg",
+      "Port Richmond",
+    ],
     languages: ["English", "Spanish"],
     licenseNumber: "RS-678432",
     testimonials: [
@@ -361,6 +402,16 @@ export const agents: Agent[] = [
     social: {
       linkedin: "https://linkedin.com/in/chris-lane-philly-re",
     },
+    areasServed: [
+      "South Philadelphia",
+      "Northern Liberties",
+      "Fishtown",
+      "Old City",
+      "Queen Village",
+      "Center City",
+      "Passyunk Square",
+      "Bella Vista",
+    ],
     languages: ["English"],
     licenseNumber: "RS-521976",
     testimonials: [

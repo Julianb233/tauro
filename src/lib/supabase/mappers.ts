@@ -152,6 +152,7 @@ export function mapAgentRow(row: any): Agent {
     soldListingIds: [],
     soldListings: (row.sold_listings as Agent["soldListings"]) ?? [],
     social: (row.social as Agent["social"]) ?? {},
+    areasServed: row.areas_served ?? row.neighborhoods ?? [],
     languages: row.languages ?? [],
     licenseNumber: row.license_number ?? "",
   };

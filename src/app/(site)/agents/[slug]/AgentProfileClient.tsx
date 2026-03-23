@@ -296,6 +296,30 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
               </div>
             </div>
 
+            {/* Areas Served */}
+            {agent.areasServed && agent.areasServed.length > 0 && (
+              <div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="size-5 text-gold" />
+                  <h2 className="font-heading text-2xl font-bold text-foreground">Areas Served</h2>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  {agent.firstName} serves clients across the following Philadelphia areas.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {agent.areasServed.map((area) => (
+                    <span
+                      key={area}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/5 px-4 py-1.5 text-sm text-foreground/80 transition-colors hover:border-gold/40 hover:bg-gold/10"
+                    >
+                      <MapPin className="size-3 text-gold/60" />
+                      {area}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {/* Awards */}
             {agent.awards.length > 0 && (
               <div>
