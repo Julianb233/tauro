@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Calendar, Lock, Video, Tag } from "lucide-react";
 import { Calendar, Video, Tag, Glasses } from "lucide-react";
 import { Property, formatPrice, getPropertyTags } from "@/data/properties";
+import { Calendar, Clock, Video, Tag } from "lucide-react";
+import { Property, formatPrice, getPropertyTags, formatDaysOnMarket } from "@/data/properties";
 import { cn } from "@/lib/utils";
 
 const statusStyles: Record<string, string> = {
@@ -322,6 +324,13 @@ export default function PropertyCard({ property }: { property: Property }) {
         <p className="truncate text-sm text-muted-foreground">
           {property.city}, {property.state} {property.zip}
         </p>
+        {/* AI-3786: Days on market */}
+        {formatDaysOnMarket(property.listingDate) && (
+          <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+            <Clock className="h-3 w-3" />
+            {formatDaysOnMarket(property.listingDate)}
+          </p>
+        )}
         {/* AI-3872: Lifestyle tags */}
         {getPropertyTags(property).length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1">
