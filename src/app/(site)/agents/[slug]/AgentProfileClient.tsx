@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   Phone, Mail, Award, Play, Home, TrendingUp, Clock, CheckCircle,
-  AlertCircle, ArrowLeft, Instagram, Linkedin, Star, Quote, DollarSign,
+  AlertCircle, ArrowLeft, Instagram, Linkedin, Facebook, Star, Quote, DollarSign,
   MapPin, Calendar, Send,
 } from "lucide-react";
 import type { Agent } from "@/data/agents";
@@ -235,6 +235,11 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                 {agent.social.linkedin && (
                   <a href={agent.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex size-10 items-center justify-center rounded-lg border border-border/40 text-muted-foreground transition-colors hover:border-gold/40 hover:text-gold">
                     <Linkedin className="size-5" />
+                  </a>
+                )}
+                {agent.social.facebook && (
+                  <a href={agent.social.facebook} target="_blank" rel="noopener noreferrer" className="flex size-10 items-center justify-center rounded-lg border border-border/40 text-muted-foreground transition-colors hover:border-gold/40 hover:text-gold">
+                    <Facebook className="size-5" />
                   </a>
                 )}
               </div>

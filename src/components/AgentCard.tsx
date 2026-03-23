@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Instagram, Linkedin, Facebook } from "lucide-react";
 import type { Agent } from "@/data/agents";
 import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 
@@ -69,6 +69,45 @@ export default function AgentCard({ agent }: { agent: Agent }) {
               <span className="text-white/30">|</span>
               <span>{agent.stats.totalVolume} Volume</span>
             </div>
+
+            {/* Social links */}
+            {(agent.social.instagram || agent.social.linkedin || agent.social.facebook) && (
+              <div className="mt-3 flex gap-2">
+                {agent.social.instagram && (
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); window.open(agent.social.instagram, "_blank"); }}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.stopPropagation(); e.preventDefault(); window.open(agent.social.instagram, "_blank"); } }}
+                    className="flex size-8 cursor-pointer items-center justify-center rounded-lg border border-white/20 text-white/60 transition-colors hover:border-gold/40 hover:text-gold"
+                  >
+                    <Instagram className="size-4" />
+                  </span>
+                )}
+                {agent.social.linkedin && (
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); window.open(agent.social.linkedin, "_blank"); }}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.stopPropagation(); e.preventDefault(); window.open(agent.social.linkedin, "_blank"); } }}
+                    className="flex size-8 cursor-pointer items-center justify-center rounded-lg border border-white/20 text-white/60 transition-colors hover:border-gold/40 hover:text-gold"
+                  >
+                    <Linkedin className="size-4" />
+                  </span>
+                )}
+                {agent.social.facebook && (
+                  <span
+                    role="button"
+                    tabIndex={0}
+                    onClick={(e) => { e.stopPropagation(); e.preventDefault(); window.open(agent.social.facebook, "_blank"); }}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.stopPropagation(); e.preventDefault(); window.open(agent.social.facebook, "_blank"); } }}
+                    className="flex size-8 cursor-pointer items-center justify-center rounded-lg border border-white/20 text-white/60 transition-colors hover:border-gold/40 hover:text-gold"
+                  >
+                    <Facebook className="size-4" />
+                  </span>
+                )}
+              </div>
+            )}
 
             {/* Contact info */}
             <div className="mt-3 flex flex-col gap-1">
