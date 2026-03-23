@@ -13,6 +13,7 @@ import { ScoreGauges } from "@/components/neighborhood/ScoreGauges";
 import { SchoolsSection } from "@/components/neighborhood/SchoolsSection";
 import { LocalFavorites } from "@/components/neighborhood/LocalFavorites";
 import { LifestyleSection } from "@/components/neighborhood/LifestyleSection";
+import { FeaturedAgent } from "@/components/neighborhood/FeaturedAgent";
 import { NeighborhoodAgents } from "@/components/neighborhood/NeighborhoodAgents";
 import { PhotoGallery } from "@/components/neighborhood/PhotoGallery";
 import { VideoTour } from "@/components/neighborhood/VideoTour";
@@ -157,6 +158,9 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
         localSpots={neighborhood.localSpots}
         neighborhoodName={neighborhood.name}
       />
+
+      {/* Featured Top Agent */}
+      <FeaturedAgent neighborhoodName={neighborhood.name} />
 
       {/* Agent Specialists */}
       <NeighborhoodAgents neighborhoodName={neighborhood.name} />

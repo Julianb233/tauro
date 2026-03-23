@@ -4,11 +4,23 @@ import { Phone, Mail, ArrowRight } from "lucide-react";
 import { agents, type Agent } from "@/data/agents";
 
 function getAgentsForNeighborhood(neighborhoodName: string): Agent[] {
-  return agents.filter((agent) =>
+  const matched = agents.filter((agent) =>
     agent.neighborhoods.some(
       (n) => n.toLowerCase() === neighborhoodName.toLowerCase()
     )
   );
+  if (matched.length <= 1) return [];
+
+  // Sort by properties sold descending, skip the top agent (shown in FeaturedAgent)
+  const sorted = matched.sort((a, b) => {
+    if (b.stats.propertiesSold !== a.stats.propertiesSold) {
+      return b.stats.propertiesSold - a.stats.propertiesSold;
+    }
+    return b.stats.yearsExperience - a.stats.yearsExperience;
+  });
+
+  // Remove the featured (top) agent
+  return sorted.slice(1);
 }
 
 export function NeighborhoodAgents({
@@ -26,10 +38,10 @@ export function NeighborhoodAgents({
           Local Experts
         </p>
         <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
-          {neighborhoodName} Specialists
+          More {neighborhoodName} Specialists
         </h2>
         <p className="mt-2 text-muted-foreground">
-          Our agents who know {neighborhoodName} inside and out.
+          Other agents who know {neighborhoodName} inside and out.
         </p>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

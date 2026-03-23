@@ -9,18 +9,18 @@ See: .planning/PROJECT.md (updated 2026-03-18)
 
 ## Current Position
 
-Phase: 10 of 13 (Database & Supabase)
-Plan: 06 of 07 (schema and seed gap fixes)
-Status: In progress
-Last activity: 2026-03-23 — Completed 10-06: migration renumbering, video_intro_id column, storage policies migration, database.ts type sync, seed open-house field mappings
+Phase: 13 of 13 (GHL Sync & Production Hardening)
+Plan: 04 of 04 — COMPLETE
+Status: All phases complete
+Last activity: 2026-03-23 — Fixed missing PropertyAmenities.tsx (untracked file), created 06-02 + 06-03 SUMMARY files, pushed fixes to PRs #54 and #58
 
-Progress: █████████████████░░░░░ 69% (9/13 phases)
+Progress: ██████████████████████ 100% (13/13 phases)
 
 ### Milestone: v1 Frontend — COMPLETE
 Phases 1-9 shipped and deployed to https://tauro-henna.vercel.app
 
-### Milestone: v2 Backend — IN PROGRESS
-Phases 10-13: database, auth portal, email, GHL sync, production hardening
+### Milestone: v2 Backend — COMPLETE
+Phases 10-13: database, auth portal, email, GHL sync, production hardening — all done
 
 ## Performance Metrics
 
