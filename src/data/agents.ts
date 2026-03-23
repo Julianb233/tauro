@@ -113,6 +113,12 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RM420582",
+    testimonials: [
+      { quote: "Tony made our first home purchase stress-free. He knew every block in North Philly and found us a gem we never would have seen on our own.", clientName: "Marcus & Tina D.", rating: 5, date: "2025-09" },
+      { quote: "Sold our investment property in two weeks for above asking. Tony's market knowledge is unmatched.", clientName: "David R.", rating: 5, date: "2025-07" },
+      { quote: "As a first-time buyer I had a million questions. Tony answered every single one with patience and honesty. Couldn't recommend him more.", clientName: "Ashley M.", rating: 5, date: "2025-04" },
+      { quote: "Tony helped us navigate a complicated multi-family purchase. His finance background really showed — he caught things other agents would have missed.", clientName: "James & Keisha P.", rating: 5, date: "2025-01" },
+    ],
   },
   {
     id: "2",
@@ -169,6 +175,11 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RS-612847",
+    testimonials: [
+      { quote: "Shaquonda found us the perfect Fishtown loft. She understood exactly what we were looking for before we even fully knew ourselves.", clientName: "Nicole T.", rating: 5, date: "2025-11" },
+      { quote: "Incredible negotiator. She got us $40K below asking on a competitive listing in Society Hill. We still can't believe it.", clientName: "Brian & Megan L.", rating: 5, date: "2025-08" },
+      { quote: "Shaquonda's staging advice transformed our listing. We got three offers in the first weekend.", clientName: "Carlos V.", rating: 5, date: "2025-05" },
+    ],
   },
   {
     id: "3",
@@ -230,6 +241,12 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RS-445821",
+    testimonials: [
+      { quote: "Morris is the definition of a luxury agent. He handled every detail of our Rittenhouse Square purchase with precision and class.", clientName: "Dr. Patricia W.", rating: 5, date: "2025-10" },
+      { quote: "We relocated from New York and Morris made the transition seamless. His knowledge of Philadelphia's luxury market is outstanding.", clientName: "Jonathan & Sarah K.", rating: 5, date: "2025-06" },
+      { quote: "Sold our Fairmount property for $50K over asking. Morris's marketing strategy was brilliant — professional photos, drone video, the works.", clientName: "Amanda C.", rating: 5, date: "2025-03" },
+      { quote: "Morris goes above and beyond. He connected us with contractors, movers, and even a great interior designer. True concierge service.", clientName: "Robert H.", rating: 4, date: "2025-01" },
+    ],
   },
   {
     id: "4",
@@ -285,6 +302,11 @@ export const agents: Agent[] = [
     },
     languages: ["English", "Spanish"],
     licenseNumber: "RS-678432",
+    testimonials: [
+      { quote: "Stephen helped us find a beautiful townhouse in Northern Liberties. His bilingual skills were a huge plus for my parents who primarily speak Spanish.", clientName: "Maria & Jorge F.", rating: 5, date: "2025-12" },
+      { quote: "Patient, knowledgeable, and always available. Stephen showed us at least 20 properties before we found the one. Never once rushed us.", clientName: "Tyler B.", rating: 5, date: "2025-09" },
+      { quote: "Stephen's tech-forward approach was refreshing. Virtual tours, digital contracts, instant market reports — everything was smooth and modern.", clientName: "Lindsay P.", rating: 5, date: "2025-06" },
+    ],
   },
   {
     id: "5",
@@ -341,6 +363,11 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RS-521976",
+    testimonials: [
+      { quote: "Chris is the condo expert in Center City. He knew the HOA fees, building history, and upcoming assessments for every building we visited.", clientName: "Jennifer A.", rating: 5, date: "2025-11" },
+      { quote: "Bought and sold with Chris within the same month. His coordination between both transactions was flawless.", clientName: "Mike & Dana S.", rating: 5, date: "2025-08" },
+      { quote: "Chris turned what could have been a stressful short sale into a smooth process. His experience with complex transactions really showed.", clientName: "Terrence W.", rating: 4, date: "2025-05" },
+    ],
   },
 ];
 
