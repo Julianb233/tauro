@@ -49,6 +49,7 @@ import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import ShareButton from "@/components/ShareButton";
 import { cn } from "@/lib/utils";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { useUtm } from "@/hooks/useUtm";
 import { siteUrl } from "@/lib/site-config";
 import { Logo } from "@/components/logo";
 
@@ -204,6 +205,7 @@ export default function PropertyDetailClient({
   neighborhoodName?: string;
   neighborhoodMiniGuide?: NeighborhoodMiniGuide;
 }) {
+  const utm = useUtm();
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -295,6 +297,7 @@ export default function PropertyDetailClient({
           message: formData.message || undefined,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          ...utm,
         }),
       });
 
@@ -330,6 +333,7 @@ export default function PropertyDetailClient({
           message: `Early access request for ${property.address}`,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          ...utm,
         }),
       });
 
