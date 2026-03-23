@@ -42,7 +42,37 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
   const property = await loadPropertyBySlug(slug);
   if (!property) notFound();
   const allProperties = await loadProperties();
-  const similar = allProperties.filter((p) => p.id !== property.id).slice(0, 3);
+
+  // Match similar properties by neighborhood first, then by price range (±30%)
+  const priceMin = property.price * 0.7;
+  const priceMax = property.price * 1.3;
+  const others = allProperties.filter((p) => p.id !== property.id);
+
+  const sameNeighborhood = others.filter(
+    (p) => p.neighborhood.toLowerCase() === property.neighborhood.toLowerCase(),
+  );
+  const sameNeighborhoodAndPrice = sameNeighborhood.filter(
+    (p) => p.price >= priceMin && p.price <= priceMax,
+  );
+
+  // Prioritize: same neighborhood + similar price > same neighborhood > similar price > any
+  let similar: typeof others;
+  if (sameNeighborhoodAndPrice.length >= 4) {
+    similar = sameNeighborhoodAndPrice.slice(0, 8);
+  } else {
+    const similarPrice = others
+      .filter((p) => p.price >= priceMin && p.price <= priceMax)
+      .filter((p) => !sameNeighborhood.includes(p));
+    similar = [
+      ...sameNeighborhood.slice(0, 4),
+      ...similarPrice.slice(0, 8 - Math.min(sameNeighborhood.length, 4)),
+    ].slice(0, 8);
+  }
+  if (similar.length < 4) {
+    const ids = new Set(similar.map((s) => s.id));
+    const fill = others.filter((p) => !ids.has(p.id)).slice(0, 8 - similar.length);
+    similar = [...similar, ...fill];
+  }
   const neighborhoods = await loadNeighborhoods();
   const matchedNeighborhood = neighborhoods.find(
     (n) => n.propertyFilter.toLowerCase() === property.neighborhood.toLowerCase()

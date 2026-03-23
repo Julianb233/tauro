@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -20,7 +21,7 @@ import {
   Lock,
   Download,
   Loader2,
-  Flame,
+Flame,
   Car,
   Snowflake,
   Heater,
@@ -32,6 +33,8 @@ import {
   Footprints,
   TrainFront,
   Star,
+ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -810,16 +813,9 @@ export default function PropertyDetailClient({
             {/* Mortgage Calculator */}
             <MortgageCalculator homePrice={property.price} taxAnnual={property.tax_annual} />
 
-            {/* Similar properties */}
+            {/* Similar properties carousel */}
             {similar.length > 0 && (
-              <div>
-                <h2 className="font-heading text-xl font-bold">Similar Properties</h2>
-                <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                  {similar.map((p) => (
-                    <PropertyCard key={p.id} property={p} />
-                  ))}
-                </div>
-              </div>
+              <SimilarListingsCarousel similar={similar} neighborhoodName={neighborhoodName} />
             )}
           </div>
 
@@ -980,6 +976,91 @@ export default function PropertyDetailClient({
             </a>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Similar Listings Carousel
+// ---------------------------------------------------------------------------
+
+function SimilarListingsCarousel({
+  similar,
+  neighborhoodName,
+}: {
+  similar: Property[];
+  neighborhoodName?: string;
+}) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanScrollLeft(el.scrollLeft > 0);
+    setCanScrollRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+  }, [checkScroll]);
+
+  const scroll = (direction: "left" | "right") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const cardWidth = el.querySelector("div")?.offsetWidth || 320;
+    el.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" });
+  };
+
+  return (
+    <div>
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="font-heading text-xl font-bold">Similar Properties</h2>
+          {neighborhoodName && (
+            <p className="mt-1 text-sm text-muted-foreground">
+              In {neighborhoodName} and nearby areas
+            </p>
+          )}
+        </div>
+        {similar.length > 3 && (
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => scroll("left")}
+              disabled={!canScrollLeft}
+              className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:border-gold hover:text-gold disabled:opacity-30 disabled:hover:border-border disabled:hover:text-muted-foreground"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              onClick={() => scroll("right")}
+              disabled={!canScrollRight}
+              className="rounded-full border border-border p-2 text-muted-foreground transition-colors hover:border-gold hover:text-gold disabled:opacity-30 disabled:hover:border-border disabled:hover:text-muted-foreground"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+      </div>
+      <div
+        ref={scrollRef}
+        onScroll={checkScroll}
+        className="mt-4 flex gap-5 overflow-x-auto scroll-smooth pb-4 scrollbar-hide"
+        style={{ scrollSnapType: "x mandatory" }}
+      >
+        {similar.map((p) => (
+          <div
+            key={p.id}
+            className="w-[300px] shrink-0 sm:w-[320px]"
+            style={{ scrollSnapAlign: "start" }}
+          >
+            <PropertyCard property={p} />
+          </div>
+        ))}
       </div>
     </div>
   );
