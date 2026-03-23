@@ -128,6 +128,8 @@ export function mapNeighborhoodRow(row: any): Neighborhood {
     localSpots: (row.local_spots as Neighborhood["localSpots"]) ?? [],
     image: row.image ?? "",
     cardImage: row.card_image ?? "",
+    gallery: (row.gallery as string[]) ?? [],
+    monthlyTrend: (row.monthly_trend as Neighborhood["monthlyTrend"]) ?? [],
     mapCenter: (row.map_center as { lat: number; lng: number }) ?? { lat: 0, lng: 0 },
     propertyFilter: row.property_filter ?? "",
     featured: row.featured ?? false,

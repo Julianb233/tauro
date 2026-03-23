@@ -8,10 +8,13 @@ import NeighborhoodMap from "@/components/NeighborhoodMap";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { siteUrl } from "@/lib/site-config";
 import { MarketDataSection } from "@/components/neighborhood/MarketDataSection";
+import { MarketTrendChart } from "@/components/neighborhood/MarketTrendChart";
 import { ScoreGauges } from "@/components/neighborhood/ScoreGauges";
 import { SchoolsSection } from "@/components/neighborhood/SchoolsSection";
 import { LocalFavorites } from "@/components/neighborhood/LocalFavorites";
 import { LifestyleSection } from "@/components/neighborhood/LifestyleSection";
+import { NeighborhoodAgents } from "@/components/neighborhood/NeighborhoodAgents";
+import { PhotoGallery } from "@/components/neighborhood/PhotoGallery";
 
 export const revalidate = 86400;
 
@@ -123,6 +126,12 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
         neighborhoodName={neighborhood.name}
       />
 
+      {/* Market Trend Chart */}
+      <MarketTrendChart
+        data={neighborhood.monthlyTrend}
+        neighborhoodName={neighborhood.name}
+      />
+
       {/* Walk / Transit / Bike Scores */}
       <ScoreGauges
         walkScore={neighborhood.walkScore}
@@ -145,6 +154,15 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
       {/* Local Favorites */}
       <LocalFavorites
         localSpots={neighborhood.localSpots}
+        neighborhoodName={neighborhood.name}
+      />
+
+      {/* Agent Specialists */}
+      <NeighborhoodAgents neighborhoodName={neighborhood.name} />
+
+      {/* Photo Gallery */}
+      <PhotoGallery
+        images={neighborhood.gallery}
         neighborhoodName={neighborhood.name}
       />
 
