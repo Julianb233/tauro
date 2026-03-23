@@ -89,9 +89,13 @@ function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
 export default function PropertyDetailClient({
   property,
   similar,
+  neighborhoodSlug,
+  neighborhoodName,
 }: {
   property: Property;
   similar: Property[];
+  neighborhoodSlug?: string;
+  neighborhoodName?: string;
 }) {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
@@ -602,6 +606,15 @@ export default function PropertyDetailClient({
                   zoom={14}
                 />
               </div>
+              {neighborhoodSlug && neighborhoodName && (
+                <Link
+                  href={`/neighborhoods/${neighborhoodSlug}`}
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-gold"
+                >
+                  <MapPin className="h-4 w-4" />
+                  Explore the {neighborhoodName} Neighborhood Guide
+                </Link>
+              )}
             </div>
 
             {/* Mortgage Calculator */}
@@ -654,6 +667,14 @@ export default function PropertyDetailClient({
                   {property.agent.email}
                 </a>
               </div>
+              {property.agent.slug && (
+                <Link
+                  href={`/agents/${property.agent.slug}`}
+                  className="mt-4 block text-center text-sm font-medium text-gold transition-colors hover:text-gold/80"
+                >
+                  View all listings by {property.agent.name}
+                </Link>
+              )}
             </div>
 
             {/* Schedule form */}
