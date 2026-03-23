@@ -1,39 +1,18 @@
 "use client";
 
-<<<<<<< HEAD
-import Image from "next/image";
-import Link from "next/link";
-import { useRef, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
-import HeroSearchBar from "@/components/HeroSearchBar";
-import HeroVideo from "@/components/HeroVideo";
-
-// Philadelphia skyline — golden hour over Center City
-const HERO_IMAGES = [
-  "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1920&q=80",
-  "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80",
-  "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1920&q=80",
-];
-=======
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import HeroSearchBar from "@/components/HeroSearchBar";
 import HeroVideo from "@/components/HeroVideo";
->>>>>>> origin/main
 
 export default function Hero() {
   return (
-    <section aria-label="Hero" className="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <section aria-label="Hero" className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
       {/* Cinematic video background with image fallback */}
       <HeroVideo />
 
-<<<<<<< HEAD
-      {/* Gradient overlay — magazine cover feel */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
-=======
       {/* Gradient overlay */}
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
->>>>>>> origin/main
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
         <p className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.25em] text-gold sm:text-sm">
