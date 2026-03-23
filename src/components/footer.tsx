@@ -42,7 +42,7 @@ const neighborhoods = [
   {
     name: "South Philadelphia",
     slug: "south-philly",
-    image: "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=160&h=96&fit=crop&q=80",
+    image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=160&h=96&fit=crop&q=80",
   },
 ];
 
@@ -118,11 +118,11 @@ export function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="tel:+12155550100"
+                  href="tel:+12158394172"
                   className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
                 >
                   <Phone className="size-4 shrink-0" />
-                  (215) 555-0100
+                  (215) 839-4172
                 </a>
               </li>
               <li>

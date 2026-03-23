@@ -227,7 +227,7 @@ export default function PropertyDetailClient({
           <div style={{ textAlign: "right", fontSize: "10pt" }}>
             <div style={{ fontWeight: 600 }}>Tauro Realty</div>
             <div>info@taurorealty.com</div>
-            <div>(215) 555-0100</div>
+            <div>(215) 839-4172</div>
           </div>
         </div>
 
