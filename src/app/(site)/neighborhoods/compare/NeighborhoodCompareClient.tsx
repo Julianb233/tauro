@@ -18,7 +18,7 @@ import {
   Palette,
 } from "lucide-react";
 import { useNeighborhoodCompare } from "@/hooks/useNeighborhoodCompare";
-import { neighborhoods as allNeighborhoods, type Neighborhood } from "@/data/neighborhoods";
+import type { Neighborhood } from "@/data/neighborhoods";
 import { cn } from "@/lib/utils";
 
 type BestFn = (vals: (number | null)[]) => number | null;
@@ -157,11 +157,15 @@ function ScoreBar({ score, label }: { score: number; label: string }) {
   );
 }
 
-export default function NeighborhoodCompareClient() {
+export default function NeighborhoodCompareClient({
+  neighborhoods,
+}: {
+  neighborhoods: Neighborhood[];
+}) {
   const { ids, remove, clear } = useNeighborhoodCompare();
 
   const selected = ids
-    .map((id) => allNeighborhoods.find((n) => n.id === id))
+    .map((id) => neighborhoods.find((n) => n.id === id))
     .filter((n): n is Neighborhood => !!n);
 
   if (selected.length === 0) {

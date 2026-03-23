@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import NeighborhoodCompareClient from "./NeighborhoodCompareClient";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { loadNeighborhoods } from "@/lib/data";
+
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: "Compare Neighborhoods | TAURO Realty",
@@ -8,7 +11,8 @@ export const metadata: Metadata = {
     "Compare up to 3 Philadelphia neighborhoods side by side — median price, walk score, schools, vibe, and more.",
 };
 
-export default function NeighborhoodComparePage() {
+export default async function NeighborhoodComparePage() {
+  const neighborhoods = await loadNeighborhoods();
   return (
     <>
       <Breadcrumbs
@@ -17,7 +21,7 @@ export default function NeighborhoodComparePage() {
           { label: "Compare", href: "/neighborhoods/compare" },
         ]}
       />
-      <NeighborhoodCompareClient />
+      <NeighborhoodCompareClient neighborhoods={neighborhoods} />
     </>
   );
 }
