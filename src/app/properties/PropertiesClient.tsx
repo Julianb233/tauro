@@ -49,6 +49,8 @@ export default function PropertiesClient({
     openHouse: searchParams.get("openHouse") || "",
     virtualTour: searchParams.get("virtualTour") || "",
     newConstruction: searchParams.get("newConstruction") || "",
+    yearBuiltMin: searchParams.get("yearBuiltMin") || "",
+    yearBuiltMax: searchParams.get("yearBuiltMax") || "",
   }), [searchParams]);
 
   const updateFilter = useCallback((key: keyof FilterState, value: string) => {
@@ -141,6 +143,9 @@ export default function PropertiesClient({
     if (filters.newConstruction) {
       result = result.filter((p) => p.isNewConstruction);
     }
+    /* AI-3807: Year built range filter */
+    if (filters.yearBuiltMin) result = result.filter((p) => p.yearBuilt >= Number(filters.yearBuiltMin));
+    if (filters.yearBuiltMax) result = result.filter((p) => p.yearBuilt <= Number(filters.yearBuiltMax));
     switch (filters.sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
       case "price-desc": result.sort((a, b) => b.price - a.price); break;

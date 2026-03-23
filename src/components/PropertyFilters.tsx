@@ -29,6 +29,9 @@ export interface FilterState {
   virtualTour: string;
   /** AI-3806: New construction filter */
   newConstruction: string;
+  /** AI-3807: Year built range filter */
+  yearBuiltMin: string;
+  yearBuiltMax: string;
 }
 
 export const defaultFilters: FilterState = {
@@ -47,6 +50,8 @@ export const defaultFilters: FilterState = {
   openHouse: "",
   virtualTour: "",
   newConstruction: "",
+  yearBuiltMin: "",
+  yearBuiltMax: "",
 };
 
 export default function PropertyFilters({
@@ -218,6 +223,47 @@ export default function PropertyFilters({
               <option value="43560">1 Acre</option>
               <option value="87120">2 Acres</option>
               <option value="217800">5 Acres</option>
+            </select>
+          </div>
+          {/* AI-3807: Year built range filter */}
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Year Min
+            </label>
+            <select
+              value={filters.yearBuiltMin}
+              onChange={(e) => update("yearBuiltMin", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">No Min</option>
+              <option value="2020">2020</option>
+              <option value="2010">2010</option>
+              <option value="2000">2000</option>
+              <option value="1990">1990</option>
+              <option value="1980">1980</option>
+              <option value="1960">1960</option>
+              <option value="1940">1940</option>
+              <option value="1900">1900</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Year Max
+            </label>
+            <select
+              value={filters.yearBuiltMax}
+              onChange={(e) => update("yearBuiltMax", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">No Max</option>
+              <option value="2026">2026</option>
+              <option value="2020">2020</option>
+              <option value="2010">2010</option>
+              <option value="2000">2000</option>
+              <option value="1990">1990</option>
+              <option value="1980">1980</option>
+              <option value="1960">1960</option>
+              <option value="1940">1940</option>
             </select>
           </div>
           <div>
