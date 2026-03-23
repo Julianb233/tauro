@@ -29,7 +29,7 @@ export function TourBookingForm({ preselectedPropertyId, properties, agents }: T
     e.preventDefault(); setState("submitting"); setErrorMsg("");
     const selectedProperty = properties.find((p) => p.id === form.propertyId);
     const propertyAddress = selectedProperty ? `${selectedProperty.address}, ${selectedProperty.city}, ${selectedProperty.state}` : undefined;
-    const payload: LeadPayload = { type: "showing", firstName: form.firstName, lastName: form.lastName, email: form.email, phone: form.phone, propertyId: form.propertyId || undefined, propertyAddress, preferredDate: form.preferredDate || undefined, preferredTime: form.preferredTime || undefined, agentPreference: form.agentPreference || undefined, message: form.message || undefined };
+    const payload: LeadPayload = { type: "showing", firstName: form.firstName, lastName: form.lastName, email: form.email, phone: form.phone, propertyId: form.propertyId || undefined, propertyAddress, preferredDate: form.preferredDate || undefined, preferredTime: form.preferredTime || undefined, agentPreference: form.agentPreference || undefined, message: form.message || undefined, ...utm };
     try {
       const res = await fetch("/api/leads", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       if (!res.ok) { const data = await res.json().catch(() => ({})); throw new Error(data.error ?? "Submission failed"); }
