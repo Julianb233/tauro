@@ -48,6 +48,7 @@ export default function PropertiesClient({
     sort: searchParams.get("sort") || "price-desc",
     openHouse: searchParams.get("openHouse") || "",
     virtualTour: searchParams.get("virtualTour") || "",
+    newConstruction: searchParams.get("newConstruction") || "",
   }), [searchParams]);
 
   const updateFilter = useCallback((key: keyof FilterState, value: string) => {
@@ -135,6 +136,10 @@ export default function PropertiesClient({
     /* AI-3805: Virtual tour filter */
     if (filters.virtualTour) {
       result = result.filter((p) => !!p.virtualTourUrl);
+    }
+    /* AI-3806: New construction filter */
+    if (filters.newConstruction) {
+      result = result.filter((p) => p.isNewConstruction);
     }
     switch (filters.sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;

@@ -27,6 +27,8 @@ export interface FilterState {
   openHouse: string;
   /** AI-3805: Virtual tour filter */
   virtualTour: string;
+  /** AI-3806: New construction filter */
+  newConstruction: string;
 }
 
 export const defaultFilters: FilterState = {
@@ -44,6 +46,7 @@ export const defaultFilters: FilterState = {
   sort: "price-desc",
   openHouse: "",
   virtualTour: "",
+  newConstruction: "",
 };
 
 export default function PropertyFilters({
@@ -289,6 +292,29 @@ export default function PropertyFilters({
                 <circle cx="12" cy="12" r="3" />
               </svg>
               3D Tour
+            </button>
+          </div>
+          {/* AI-3806: New construction filter */}
+          <div className="flex items-end">
+            <button
+              type="button"
+              onClick={() => update("newConstruction", filters.newConstruction ? "" : "yes")}
+              className={`flex items-center gap-1.5 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
+                filters.newConstruction
+                  ? "border-gold bg-gold/10 text-gold"
+                  : "border-border text-muted-foreground hover:border-gold/50 hover:text-foreground"
+              }`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3 21h18" />
+                <path d="M5 21V7l8-4v18" />
+                <path d="M19 21V11l-6-4" />
+                <path d="M9 9v.01" />
+                <path d="M9 12v.01" />
+                <path d="M9 15v.01" />
+                <path d="M9 18v.01" />
+              </svg>
+              New Construction
             </button>
           </div>
         </div>

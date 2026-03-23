@@ -28,6 +28,7 @@ function ImageCarousel({
   status,
   isComingSoon,
   isExclusive,
+  isNewConstruction,
   videoTourUrl,
   virtualTourUrl,
 }: {
@@ -36,6 +37,7 @@ function ImageCarousel({
   status: string;
   isComingSoon?: boolean;
   isExclusive?: boolean;
+  isNewConstruction?: boolean;
   videoTourUrl?: string | null;
   virtualTourUrl?: string | null;
 }) {
@@ -136,6 +138,11 @@ function ImageCarousel({
         {isExclusive && (
           <span className="rounded-md bg-gradient-to-r from-amber-500 to-yellow-300 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-near-black">
             Exclusive
+          </span>
+        )}
+        {isNewConstruction && (
+          <span className="rounded-md bg-emerald-500 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+            New Construction
           </span>
         )}
       </div>
@@ -284,6 +291,7 @@ export default function PropertyCard({ property }: { property: Property }) {
         status={property.status}
         isComingSoon={property.isComingSoon}
         isExclusive={property.isExclusive}
+        isNewConstruction={property.isNewConstruction}
         videoTourUrl={property.videoTourUrl}
         virtualTourUrl={property.virtualTourUrl}
       />
