@@ -3,6 +3,7 @@ export interface Testimonial {
   name: string;
   role: string;
   rating: number;
+  videoUrl?: string;
 }
 
 export const testimonials: Testimonial[] = [
@@ -12,6 +13,7 @@ export const testimonials: Testimonial[] = [
     name: "Sarah & Michael Chen",
     role: "Homebuyers — Rittenhouse Square",
     rating: 5,
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WcXgQ",
   },
   {
     quote:
@@ -33,6 +35,7 @@ export const testimonials: Testimonial[] = [
     name: "Jessica Thornton",
     role: "Homebuyer — Graduate Hospital",
     rating: 5,
+    videoUrl: "https://www.youtube.com/embed/dQw4w9WcXgQ",
   },
   {
     quote:

@@ -211,6 +211,7 @@ export function mapTestimonialRow(row: any): Testimonial {
     name: row.name,
     role: row.role ?? "",
     rating: row.rating,
+    ...(row.video_url ? { videoUrl: row.video_url } : {}),
   };
 }
 
