@@ -3,7 +3,7 @@
 import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Video, Tag } from "lucide-react";
+import { Calendar, Lock, Video, Tag } from "lucide-react";
 import { Property, formatPrice, getPropertyTags } from "@/data/properties";
 import { cn } from "@/lib/utils";
 
@@ -230,6 +230,57 @@ function ChevronRight() {
 /* ------------------------------------------------------------------ */
 
 export default function PropertyCard({ property }: { property: Property }) {
+  if (property.isComingSoon) {
+    return (
+      <Link
+        href={`/properties/${property.slug}`}
+        className="group depth-hover block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-lg"
+      >
+        {/* Blurred teaser image */}
+        <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+          <Image
+            src={property.images[0]}
+            alt={property.address}
+            fill
+            className="object-cover blur-md scale-105 brightness-75"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+          {/* Coming Soon badge */}
+          <div className="absolute top-3 left-3 z-10">
+            <span className="rounded-md bg-gradient-to-r from-purple-600 to-gold px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+              Coming Soon
+            </span>
+          </div>
+          {/* Register overlay */}
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+              <Lock className="h-5 w-5 text-white" />
+            </div>
+            <span className="mt-3 rounded-lg bg-gradient-to-r from-purple-600 to-gold px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform group-hover:scale-105">
+              Register for Access
+            </span>
+          </div>
+        </div>
+        <div className="p-3 sm:p-4">
+          <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
+          <div className="mt-1 flex flex-wrap items-center gap-1.5 font-label text-xs tracking-wider text-muted-foreground sm:gap-2">
+            <span>{property.beds} BD</span>
+            <span className="text-gold/30">|</span>
+            <span>{property.baths} BA</span>
+            <span className="text-gold/30">|</span>
+            <span>{property.sqft.toLocaleString()} SF</span>
+          </div>
+          <p className="mt-2 truncate font-medium text-foreground">
+            {property.address}
+          </p>
+          <p className="truncate text-sm text-muted-foreground">
+            {property.city}, {property.state} {property.zip}
+          </p>
+        </div>
+      </Link>
+    );
+  }
+
   return (
     <Link
       href={`/properties/${property.slug}`}

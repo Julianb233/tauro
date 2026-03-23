@@ -243,6 +243,7 @@ export default function PropertyFilters({
               <option value="New">New</option>
               <option value="Open House">Open House</option>
               <option value="Pending">Pending</option>
+              <option value="Coming Soon">Coming Soon</option>
             </select>
           </div>
           {/* AI-3874: Open house date filter */}
