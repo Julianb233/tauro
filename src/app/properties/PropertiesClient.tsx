@@ -92,7 +92,13 @@ export default function PropertiesClient({
     if (filters.lotSizeMax) result = result.filter((p) => p.lotSqft <= Number(filters.lotSizeMax));
     if (filters.area) result = result.filter((p) => p.neighborhood === filters.area);
     if (filters.propertyType) result = result.filter((p) => p.propertyType === filters.propertyType);
-    if (filters.status) result = result.filter((p) => p.status === filters.status);
+    if (filters.status) {
+      if (filters.status === "Coming Soon") {
+        result = result.filter((p) => p.isComingSoon);
+      } else {
+        result = result.filter((p) => p.status === filters.status);
+      }
+    }
     /* AI-3874: Open house date filter */
     if (filters.openHouse) {
       const now = new Date();
