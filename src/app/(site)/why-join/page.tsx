@@ -10,6 +10,7 @@ import {
   Heart,
   ArrowRight,
   Phone,
+  Star,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -74,18 +75,21 @@ const testimonials = [
       "Switching to Tauro was the best career decision I've made. The support system here is unmatched.",
     name: "Sarah M.",
     role: "5-Year Agent",
+    rating: 5,
   },
   {
     quote:
       "I doubled my production in my first year at Tauro. The leads and training made all the difference.",
     name: "James R.",
     role: "Top Producer",
+    rating: 5,
   },
   {
     quote:
       "The culture here is genuinely collaborative. Other agents celebrate your wins with you.",
     name: "Maria L.",
     role: "Team Lead",
+    rating: 5,
   },
 ];
 
@@ -238,6 +242,11 @@ export default function WhyJoinPage() {
                 key={t.name}
                 className="rounded-xl border border-border/40 bg-white p-6"
               >
+                <div className="mb-3 flex gap-0.5" role="img" aria-label={`Rating: ${t.rating} out of 5 stars`}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className={`size-4 ${i < t.rating ? "fill-gold text-gold" : "fill-gray-200 text-gray-200"}`} aria-hidden="true" />
+                  ))}
+                </div>
                 <p className="italic leading-relaxed text-foreground">
                   &ldquo;{t.quote}&rdquo;
                 </p>
