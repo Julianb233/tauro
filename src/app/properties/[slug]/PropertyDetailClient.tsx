@@ -46,6 +46,7 @@ import PriceHistory from "@/components/PriceHistory";
 import RoomBreakdown from "@/components/RoomBreakdown";
 import MortgageCalculator from "@/components/MortgageCalculator";
 import PropertyDetailsTable from "@/components/PropertyDetailsTable";
+import ShareButton from "@/components/ShareButton";
 import { cn } from "@/lib/utils";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { siteUrl } from "@/lib/site-config";
@@ -564,6 +565,12 @@ export default function PropertyDetailClient({
             </div>
           </div>
           <div className="flex items-center gap-2">
+            <ShareButton
+              url={listingUrl}
+              title={`${property.address} — ${formatPriceFull(property.price)}`}
+              description={property.description}
+              image={property.images[0]}
+            />
             <button
               onClick={() => window.print()}
               className="no-print flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:border-gold hover:text-gold"

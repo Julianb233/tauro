@@ -8,6 +8,8 @@ import { Calendar, Video, Tag, Glasses } from "lucide-react";
 import { Property, formatPrice, getPropertyTags } from "@/data/properties";
 import { Calendar, Clock, Video, Tag } from "lucide-react";
 import { Property, formatPrice, getPropertyTags, formatDaysOnMarket } from "@/data/properties";
+import ShareButton from "@/components/ShareButton";
+import { siteUrl } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 
 const statusStyles: Record<string, string> = {
@@ -255,7 +257,7 @@ function ChevronRight() {
 /* ------------------------------------------------------------------ */
 
 export default function PropertyCard({ property }: { property: Property }) {
-  if (property.isComingSoon) {
+if (property.isComingSoon) {
     return (
       <Link
         href={`/properties/${property.slug}`}
@@ -280,38 +282,31 @@ export default function PropertyCard({ property }: { property: Property }) {
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
               <Lock className="h-5 w-5 text-white" />
-            </div>
             <span className="mt-3 rounded-lg bg-gradient-to-r from-purple-600 to-gold px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform group-hover:scale-105">
               Register for Access
-            </span>
-          </div>
-        </div>
         <div className="p-3 sm:p-4">
           <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
           <div className="mt-1 flex flex-wrap items-center gap-1.5 font-label text-xs tracking-wider text-muted-foreground sm:gap-2">
             <span>{property.beds} BD</span>
             <span className="text-gold/30">|</span>
             <span>{property.baths} BA</span>
-            <span className="text-gold/30">|</span>
             <span>{property.sqft.toLocaleString()} SF</span>
-          </div>
           <p className="mt-2 truncate font-medium text-foreground">
             {property.address}
           </p>
           <p className="truncate text-sm text-muted-foreground">
             {property.city}, {property.state} {property.zip}
-          </p>
-        </div>
       </Link>
     );
   }
+const shareUrl = `${siteUrl}/properties/${property.slug}`;
 
   return (
     <Link
       href={`/properties/${property.slug}`}
       className="group depth-hover block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-lg"
     >
-      <ImageCarousel
+<ImageCarousel
         images={property.images}
         alt={property.address}
         status={property.status}
@@ -320,6 +315,15 @@ export default function PropertyCard({ property }: { property: Property }) {
         videoTourUrl={property.videoTourUrl}
         virtualTourUrl={property.virtualTourUrl}
       />
+<div className="relative">
+        {/* Share button — visible on hover */}
+        <div className="absolute top-3 right-3 z-20 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          <ShareButton
+            url={shareUrl}
+            title={`${property.address} — ${formatPrice(property.price)}`}
+            image={property.images[0]}
+            compact
+        </div>
       <div className="p-3 sm:p-4">
         {/* AI-3883: Property type label */}
         <p className="mb-0.5 font-label text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
