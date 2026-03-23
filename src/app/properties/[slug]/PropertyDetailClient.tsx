@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -118,6 +118,26 @@ export default function PropertyDetailClient({
   const [earlyAccessError, setEarlyAccessError] = useState("");
   const [downloadingBrochure, setDownloadingBrochure] = useState(false);
   const { track } = useRecentlyViewed();
+
+  // Mobile floating CTA: visible when sidebar agent card scrolls out of view
+  const [showMobileCta, setShowMobileCta] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const sidebar = sidebarRef.current;
+    if (!sidebar) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Show floating CTA when the sidebar is NOT visible
+        setShowMobileCta(!entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(sidebar);
+    return () => observer.disconnect();
+  }, []);
 
   const handleDownloadBrochure = async () => {
     if (downloadingBrochure) return;
@@ -617,7 +637,7 @@ export default function PropertyDetailClient({
           </div>
 
           {/* Right column - Agent card + Schedule form */}
-          <div className="space-y-6 lg:sticky lg:top-36 lg:self-start">
+          <div ref={sidebarRef} className="space-y-6 lg:sticky lg:top-36 lg:self-start">
             {/* Agent card */}
             <div className="rounded-xl border border-border bg-card p-6">
               <div className="flex items-center gap-4">
@@ -733,6 +753,44 @@ export default function PropertyDetailClient({
                 </>
               )}
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile floating CTA - appears when sidebar scrolls out of view */}
+      <div
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 backdrop-blur-md transition-transform duration-300 lg:hidden",
+          showMobileCta ? "translate-y-0" : "translate-y-full"
+        )}
+      >
+        <div className="flex items-center gap-3 px-4 py-3">
+          <Image
+            src={property.agent.photo}
+            alt={property.agent.name}
+            width={40}
+            height={40}
+            className="shrink-0 rounded-full border-2 border-gold object-cover"
+            sizes="40px"
+          />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-bold">{property.agent.name}</p>
+            <p className="text-xs text-muted-foreground">Listing Agent</p>
+          </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <a
+              href={`tel:${property.agent.phone}`}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-border transition-colors hover:border-gold hover:text-gold"
+              aria-label={`Call ${property.agent.name}`}
+            >
+              <Phone className="h-4 w-4" />
+            </a>
+            <a
+              href="#schedule"
+              className="rounded-lg bg-gold px-4 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
+            >
+              Schedule
+            </a>
           </div>
         </div>
       </div>
