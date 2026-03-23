@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,14 +20,6 @@ import {
   Lock,
   Download,
   Loader2,
-Flame,
-  Car,
-  Snowflake,
-  Heater,
-  Trees,
-  Building2,
-  Waves,
-  type LucideIcon,
   DollarSign,
   Footprints,
   TrainFront,
@@ -47,6 +38,7 @@ import RoomBreakdown from "@/components/RoomBreakdown";
 import MortgageCalculator from "@/components/MortgageCalculator";
 import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import ShareButton from "@/components/ShareButton";
+import PropertyAmenities from "@/components/PropertyAmenities";
 import { cn } from "@/lib/utils";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { siteUrl } from "@/lib/site-config";
@@ -102,76 +94,6 @@ function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
       <rect x="92" y="92" width="4" height="4" fill="black" />
     </svg>
   );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Amenity chip derivation from structured property data              */
-/* ------------------------------------------------------------------ */
-
-interface AmenityChip {
-  label: string;
-  icon: LucideIcon;
-}
-
-const AMENITY_ICONS: Record<string, LucideIcon> = {
-  garage: Car,
-  fireplace: Flame,
-  pool: Waves,
-  "central air": Snowflake,
-  heating: Heater,
-  "hardwood floors": Trees,
-  hoa: Building2,
-};
-
-function deriveAmenities(property: Property): AmenityChip[] {
-  const amenities: AmenityChip[] = [];
-
-  if (property.garage && property.garage !== "None") {
-    amenities.push({ label: property.garage, icon: Car });
-  }
-  if (property.parkingSpaces && property.parkingSpaces > 0) {
-    amenities.push({ label: `${property.parkingSpaces} Parking Spaces`, icon: Car });
-  }
-  if (property.cooling) {
-    amenities.push({ label: property.cooling, icon: Snowflake });
-  }
-  if (property.heating) {
-    amenities.push({ label: property.heating, icon: Heater });
-  }
-  if (property.flooring && property.flooring.length > 0) {
-    property.flooring.forEach((f) => amenities.push({ label: f, icon: Home }));
-  }
-  if (property.stories && property.stories > 1) {
-    amenities.push({ label: `${property.stories} Stories`, icon: Building2 });
-  }
-  if (property.construction) {
-    amenities.push({ label: property.construction, icon: Building2 });
-  }
-  if (property.roofType) {
-    amenities.push({ label: `${property.roofType} Roof`, icon: Home });
-  }
-  if (property.has_hoa) {
-    amenities.push({ label: "HOA Community", icon: Building2 });
-  }
-
-  // Scan features for common amenities
-  const allFeatures = [
-    ...property.features.interior,
-    ...property.features.exterior,
-    ...property.features.community,
-  ];
-  const featureKeywords: { pattern: RegExp; label: string; icon: LucideIcon }[] = [
-    { pattern: /pool/i, label: "Pool", icon: Waves },
-    { pattern: /fireplace/i, label: "Fireplace", icon: Flame },
-    { pattern: /hardwood/i, label: "Hardwood Floors", icon: Trees },
-  ];
-  for (const { pattern, label, icon } of featureKeywords) {
-    if (allFeatures.some((f) => pattern.test(f)) && !amenities.some((a) => a.label === label)) {
-      amenities.push({ label, icon });
-    }
-  }
-
-  return amenities;
 }
 
 /** Convert HOA fee to monthly amount for payment calculation */
@@ -662,27 +584,8 @@ export default function PropertyDetailClient({
               <OpenHouseBanner property={property} />
             )}
 
-            {/* Amenity Chips */}
-            {(() => {
-              const amenities = deriveAmenities(property);
-              if (amenities.length === 0) return null;
-              return (
-                <div>
-                  <h2 className="font-heading text-xl font-bold">Property Amenities</h2>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {amenities.map((amenity) => (
-                      <span
-                        key={amenity.label}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/5 px-3.5 py-2 text-sm font-medium text-foreground transition-colors hover:border-gold/40 hover:bg-gold/10"
-                      >
-                        <amenity.icon className="h-3.5 w-3.5 flex-shrink-0 text-gold" />
-                        {amenity.label}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              );
-            })()}
+            {/* Structured Amenities — Interior / Exterior / Community */}
+            <PropertyAmenities property={property} />
 
             {/* Description */}
             <div>
