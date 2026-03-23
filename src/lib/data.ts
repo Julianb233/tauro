@@ -163,44 +163,102 @@ export async function loadAgentBySlug(
 // Neighborhoods
 // ---------------------------------------------------------------------------
 
+/** Count active listings per neighborhood by matching propertyFilter. */
+function enrichWithListingCounts(
+  neighborhoods: Neighborhood[],
+  properties: Property[],
+): Neighborhood[] {
+  const countByFilter = new Map<string, number>();
+  for (const p of properties) {
+    const key = p.neighborhood.toLowerCase();
+    countByFilter.set(key, (countByFilter.get(key) ?? 0) + 1);
+  }
+  return neighborhoods.map((n) => {
+    const count = countByFilter.get(n.propertyFilter.toLowerCase()) ?? 0;
+    if (count === n.marketData.activeListings) return n;
+    return {
+      ...n,
+      marketData: { ...n.marketData, activeListings: count },
+    };
+  });
+}
+
 export async function loadNeighborhoods(): Promise<Neighborhood[]> {
-  if (!hasSupabase()) return staticNeighborhoods;
+  if (!hasSupabase()) {
+    return enrichWithListingCounts(staticNeighborhoods, staticProperties);
+  }
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const data = await queries.getNeighborhoods();
-    if (!data) return staticNeighborhoods;
-    return data.map(mappers.mapNeighborhoodRow);
+    const [neighborhoodData, propertyData] = await Promise.all([
+      queries.getNeighborhoods(),
+      queries.getProperties({ limit: 5000 }),
+    ]);
+    const neighborhoods = (neighborhoodData ?? []).map(mappers.mapNeighborhoodRow);
+    const properties = (propertyData?.data ?? []).map(mappers.mapPropertyRow);
+    return enrichWithListingCounts(
+      neighborhoods.length ? neighborhoods : staticNeighborhoods,
+      properties.length ? properties : staticProperties,
+    );
   } catch {
-    return staticNeighborhoods;
+    return enrichWithListingCounts(staticNeighborhoods, staticProperties);
   }
 }
 
 export async function loadNeighborhoodBySlug(
   slug: string,
 ): Promise<Neighborhood | undefined> {
-  if (!hasSupabase()) return staticGetNeighborhoodBySlug(slug);
+  if (!hasSupabase()) {
+    const n = staticGetNeighborhoodBySlug(slug);
+    if (!n) return undefined;
+    return enrichWithListingCounts([n], staticProperties)[0];
+  }
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
     const row = await queries.getNeighborhoodBySlug(slug);
-    if (!row) return staticGetNeighborhoodBySlug(slug);
-    return mappers.mapNeighborhoodRow(row);
+    const neighborhood = row
+      ? mappers.mapNeighborhoodRow(row)
+      : staticGetNeighborhoodBySlug(slug);
+    if (!neighborhood) return undefined;
+    const propertyData = await queries.getProperties({ limit: 5000 });
+    const properties = (propertyData?.data ?? []).map(mappers.mapPropertyRow);
+    return enrichWithListingCounts(
+      [neighborhood],
+      properties.length ? properties : staticProperties,
+    )[0];
   } catch {
-    return staticGetNeighborhoodBySlug(slug);
+    const n = staticGetNeighborhoodBySlug(slug);
+    if (!n) return undefined;
+    return enrichWithListingCounts([n], staticProperties)[0];
   }
 }
 
 export async function loadFeaturedNeighborhoods(): Promise<Neighborhood[]> {
-  if (!hasSupabase()) return staticGetFeaturedNeighborhoods();
+  if (!hasSupabase()) {
+    return enrichWithListingCounts(
+      staticGetFeaturedNeighborhoods(),
+      staticProperties,
+    );
+  }
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const data = await queries.getFeaturedNeighborhoods();
-    if (!data) return staticGetFeaturedNeighborhoods();
-    return data.map(mappers.mapNeighborhoodRow);
+    const [neighborhoodData, propertyData] = await Promise.all([
+      queries.getFeaturedNeighborhoods(),
+      queries.getProperties({ limit: 5000 }),
+    ]);
+    const neighborhoods = (neighborhoodData ?? []).map(mappers.mapNeighborhoodRow);
+    const properties = (propertyData?.data ?? []).map(mappers.mapPropertyRow);
+    return enrichWithListingCounts(
+      neighborhoods.length ? neighborhoods : staticGetFeaturedNeighborhoods(),
+      properties.length ? properties : staticProperties,
+    );
   } catch {
-    return staticGetFeaturedNeighborhoods();
+    return enrichWithListingCounts(
+      staticGetFeaturedNeighborhoods(),
+      staticProperties,
+    );
   }
 }
 
@@ -264,19 +322,21 @@ export async function loadHomepageNeighborhoods(): Promise<
   try {
     const queries = await getQueries();
     const mappers = await getMappers();
-    const data = await queries.getFeaturedNeighborhoods();
+    const [data, propertyData] = await Promise.all([
+      queries.getFeaturedNeighborhoods(),
+      queries.getProperties({ limit: 5000 }),
+    ]);
     if (!data) return staticHomepageNeighborhoods;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return data.map((row: any): HomepageNeighborhood => {
-      const n = mappers.mapNeighborhoodRow(row);
-      return {
-        name: n.name,
-        slug: n.slug,
-        description: n.tagline,
-        image: n.cardImage || n.image,
-        listings: 0,
-      };
-    });
+    const properties = (propertyData?.data ?? []).map(mappers.mapPropertyRow);
+    const neighborhoods = data.map(mappers.mapNeighborhoodRow);
+    const enriched = enrichWithListingCounts(neighborhoods, properties);
+    return enriched.map((n): HomepageNeighborhood => ({
+      name: n.name,
+      slug: n.slug,
+      description: n.tagline,
+      image: n.cardImage || n.image,
+      listings: n.marketData.activeListings,
+    }));
   } catch {
     return staticHomepageNeighborhoods;
   }
