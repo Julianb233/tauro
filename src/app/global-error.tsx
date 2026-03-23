@@ -151,6 +151,69 @@ export default function GlobalError({
           </a>
         </div>
 
+        {/* Helpful links */}
+        <div style={{ marginTop: "3rem" }}>
+          <p
+            style={{
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              letterSpacing: "0.2em",
+              color: "rgba(201, 169, 110, 0.6)",
+              marginBottom: "1rem",
+            }}
+          >
+            Helpful Links
+          </p>
+          <nav
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "1.5rem",
+              justifyContent: "center",
+            }}
+          >
+            {[
+              { href: "/properties", label: "Browse Properties" },
+              { href: "/neighborhoods", label: "Explore Neighborhoods" },
+              { href: "/contact", label: "Contact Us" },
+              { href: "/agents", label: "Meet Our Agents" },
+            ].map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                style={{
+                  fontSize: "0.875rem",
+                  color: "rgba(248, 246, 241, 0.8)",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "4px",
+                  textDecorationColor: "rgba(201, 169, 110, 0.3)",
+                }}
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+
+        {/* Contact info */}
+        <p
+          style={{
+            fontSize: "0.875rem",
+            color: "rgba(212, 196, 160, 0.5)",
+            marginTop: "2rem",
+          }}
+        >
+          Need help? Call{" "}
+          <a href="tel:+12158394172" style={{ color: "rgba(201, 169, 110, 0.8)", textDecoration: "underline", textUnderlineOffset: "4px" }}>
+            (215) 839-4172
+          </a>
+          {" "}or email{" "}
+          <a href="mailto:info@taurorealty.com" style={{ color: "rgba(201, 169, 110, 0.8)", textDecoration: "underline", textUnderlineOffset: "4px" }}>
+            info@taurorealty.com
+          </a>
+        </p>
+
         {/* Bottom decorative line */}
         <div
           style={{
