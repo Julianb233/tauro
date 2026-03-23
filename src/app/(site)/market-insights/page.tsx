@@ -15,9 +15,10 @@ import {
 
 import { monthlyTrend, neighborhoods, summaryStats } from "@/data/market-data";
 import {
-  PriceTrendChart,
+  InteractiveTrendChart,
   NeighborhoodPriceChart,
   NeighborhoodDomChart,
+  NeighborhoodPricePerSqftChart,
 } from "./MarketCharts";
 
 export const metadata: Metadata = {
@@ -90,10 +91,14 @@ const trendInsights = [
 
 export default function MarketInsightsPage() {
   /* Prepare chart data */
-  const priceTrendData = monthlyTrend.map((d) => ({
-    label: d.month.replace("20", "'"),
-    value: d.medianPrice,
-  }));
+  const formatMonth = (m: string) => m.replace("20", "'");
+
+  const trendDataSets = {
+    medianPrice: monthlyTrend.map((d) => ({ label: formatMonth(d.month), value: d.medianPrice })),
+    inventory: monthlyTrend.map((d) => ({ label: formatMonth(d.month), value: d.activeInventory })),
+    daysOnMarket: monthlyTrend.map((d) => ({ label: formatMonth(d.month), value: d.daysOnMarket })),
+    pricePerSqft: monthlyTrend.map((d) => ({ label: formatMonth(d.month), value: d.pricePerSqft })),
+  };
 
   const neighborhoodPriceData = neighborhoods.map((n) => ({
     label: n.name,
@@ -103,6 +108,11 @@ export default function MarketInsightsPage() {
   const neighborhoodDomData = neighborhoods.map((n) => ({
     label: n.name,
     value: n.daysOnMarket,
+  }));
+
+  const neighborhoodPricePerSqftData = neighborhoods.map((n) => ({
+    label: n.name,
+    value: n.pricePerSqft,
   }));
 
   return (
@@ -173,23 +183,24 @@ export default function MarketInsightsPage() {
         </div>
       </section>
 
-      {/* ── Median Price Trend (Line Chart) ────────────────────── */}
+      {/* ── Interactive Market Trends (Tabbed Line Chart) ─────── */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-              Price Trend
+              Market Trends
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-              Median Home Price Over Time
+              Philadelphia Market Over Time
             </h2>
             <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
-              City-wide median sale price from January 2025 through March 2026.
+              Toggle between metrics to explore median price, inventory levels,
+              days on market, and price per square foot from January 2025 through March 2026.
             </p>
           </div>
 
           <div className="mt-12 rounded-xl border border-border/40 bg-cream p-6 sm:p-8">
-            <PriceTrendChart data={priceTrendData} />
+            <InteractiveTrendChart data={trendDataSets} />
           </div>
         </div>
       </section>
@@ -212,8 +223,30 @@ export default function MarketInsightsPage() {
         </div>
       </section>
 
-      {/* ── Days on Market by Neighborhood (Bar Chart) ─────────── */}
+      {/* ── Price per Sqft by Neighborhood (Bar Chart) ─────────── */}
       <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              Value Comparison
+            </p>
+            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
+              Price per Square Foot by Neighborhood
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-sm text-muted-foreground">
+              Compare the cost per square foot across Philadelphia neighborhoods
+              to find the best value for your budget.
+            </p>
+          </div>
+
+          <div className="mt-12 rounded-xl border border-border/40 bg-cream p-6 sm:p-8">
+            <NeighborhoodPricePerSqftChart data={neighborhoodPricePerSqftData} />
+          </div>
+        </div>
+      </section>
+
+      {/* ── Days on Market by Neighborhood (Bar Chart) ─────────── */}
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
@@ -227,14 +260,14 @@ export default function MarketInsightsPage() {
             </p>
           </div>
 
-          <div className="mt-12 rounded-xl border border-border/40 bg-cream p-6 sm:p-8">
+          <div className="mt-12 rounded-xl border border-border/40 bg-white p-6 sm:p-8">
             <NeighborhoodDomChart data={neighborhoodDomData} />
           </div>
         </div>
       </section>
 
       {/* ── Market Trends / What the Numbers Mean ─────────────── */}
-      <section className="bg-cream py-20">
+      <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
@@ -249,7 +282,7 @@ export default function MarketInsightsPage() {
             {trendInsights.map((insight) => (
               <div
                 key={insight.title}
-                className="rounded-xl border border-border/40 bg-white p-8"
+                className="rounded-xl border border-border/40 bg-cream p-8"
               >
                 <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                   <insight.icon className="size-6 text-gold" />
@@ -267,7 +300,7 @@ export default function MarketInsightsPage() {
       </section>
 
       {/* ── When to Buy / When to Sell ────────────────────────── */}
-      <section className="bg-white py-20">
+      <section className="bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
@@ -280,7 +313,7 @@ export default function MarketInsightsPage() {
 
           <div className="mt-12 grid gap-8 lg:grid-cols-2">
             {/* When to Buy */}
-            <div className="rounded-xl border border-border/40 bg-cream p-8">
+            <div className="rounded-xl border border-border/40 bg-white p-8">
               <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                 <ShoppingCart className="size-6 text-gold" />
               </div>
@@ -310,7 +343,7 @@ export default function MarketInsightsPage() {
             </div>
 
             {/* When to Sell */}
-            <div className="rounded-xl border border-border/40 bg-cream p-8">
+            <div className="rounded-xl border border-border/40 bg-white p-8">
               <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
                 <Banknote className="size-6 text-gold" />
               </div>
@@ -343,9 +376,9 @@ export default function MarketInsightsPage() {
       </section>
 
       {/* ── Market Snapshot Download CTA ──────────────────────── */}
-      <section className="bg-cream py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-          <div className="rounded-xl border border-gold/20 bg-white p-10 sm:p-12">
+          <div className="rounded-xl border border-gold/20 bg-cream p-10 sm:p-12">
             <div className="mx-auto flex size-14 items-center justify-center rounded-full bg-gold/10">
               <Download className="size-6 text-gold" />
             </div>
@@ -371,7 +404,7 @@ export default function MarketInsightsPage() {
       </section>
 
       {/* ── CTA ───────────────────────────────────────────────── */}
-      <section className="bg-white py-16">
+      <section className="bg-cream py-16">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
             Want to Know What Your Home Is Worth?
@@ -399,7 +432,7 @@ export default function MarketInsightsPage() {
       </section>
 
       {/* ── Disclaimer ────────────────────────────────────────── */}
-      <div className="bg-cream py-6">
+      <div className="bg-white py-6">
         <p className="mx-auto max-w-4xl px-4 text-center text-xs italic text-muted-foreground">
           Data is approximate and based on publicly available MLS records.
           Contact a Tauro agent for the most current information.
