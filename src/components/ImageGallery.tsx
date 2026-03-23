@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, GalleryHorizontalEnd, LayoutGrid } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
 import Counter from "yet-another-react-lightbox/plugins/counter";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
@@ -21,6 +21,7 @@ interface ImageGalleryProps {
 export default function ImageGallery({ images, address }: ImageGalleryProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<"carousel" | "grid">("carousel");
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -81,6 +82,61 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
 
   return (
     <div>
+      {/* View mode toggle */}
+      {images.length > 1 && (
+        <div className="mb-2 flex items-center justify-end gap-1">
+          <button
+            onClick={() => setViewMode("carousel")}
+            className={cn(
+              "rounded-lg p-2 transition-colors",
+              viewMode === "carousel"
+                ? "bg-gold/20 text-gold"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+            aria-label="Carousel view"
+          >
+            <GalleryHorizontalEnd className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() => setViewMode("grid")}
+            className={cn(
+              "rounded-lg p-2 transition-colors",
+              viewMode === "grid"
+                ? "bg-gold/20 text-gold"
+                : "text-muted-foreground hover:text-foreground",
+            )}
+            aria-label="Grid view"
+          >
+            <LayoutGrid className="h-4 w-4" />
+          </button>
+        </div>
+      )}
+
+      {viewMode === "grid" ? (
+        /* Grid view — all photos in a responsive grid */
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+          {images.map((src, i) => (
+            <button
+              key={i}
+              onClick={() => {
+                setActiveIndex(i);
+                setOpen(true);
+              }}
+              className="relative aspect-[4/3] overflow-hidden rounded-lg"
+              aria-label={`View photo ${i + 1} of ${images.length}`}
+            >
+              <Image
+                src={src}
+                alt={`${address} - Photo ${i + 1}`}
+                fill
+                className="object-cover transition-transform hover:scale-105"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              />
+            </button>
+          ))}
+        </div>
+      ) : (
+      <>
       {/* Hero image — shows images[activeIndex] */}
       <button
         onClick={() => openLightbox(activeIndex)}
@@ -154,7 +210,8 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
           )}
         </div>
       )}
-
+      </>
+      )}
       {/* Lightbox */}
       <Lightbox
         open={open}
