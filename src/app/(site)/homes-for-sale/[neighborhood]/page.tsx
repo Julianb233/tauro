@@ -22,6 +22,7 @@ import { siteUrl } from "@/lib/site-config";
 import PropertyCard from "@/components/PropertyCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MarketStats } from "@/components/market-stats";
+import { PhotoGallery } from "@/components/neighborhood/PhotoGallery";
 
 export const revalidate = 86400;
 
@@ -327,6 +328,12 @@ export default async function HomesForSaleNeighborhoodPage({
           </div>
         </div>
       </section>
+
+      {/* Photo Gallery */}
+      <PhotoGallery
+        images={neighborhood.gallery}
+        neighborhoodName={neighborhood.name}
+      />
 
       {/* Market stats */}
       <MarketStats
