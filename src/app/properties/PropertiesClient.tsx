@@ -151,6 +151,9 @@ export default function PropertiesClient({
       case "beds-asc": result.sort((a, b) => a.beds - b.beds); break;
       case "baths-desc": result.sort((a, b) => b.baths - a.baths); break;
       case "baths-asc": result.sort((a, b) => a.baths - b.baths); break;
+      // AI-3809: Sort by days on market
+      case "dom-asc": result.sort((a, b) => (b.listingDate ?? "").localeCompare(a.listingDate ?? "")); break;
+      case "dom-desc": result.sort((a, b) => (a.listingDate ?? "").localeCompare(b.listingDate ?? "")); break;
     }
     return result;
   }, [filters, properties, searchQuery]);

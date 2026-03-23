@@ -94,6 +94,8 @@ export default function PropertyFilters({
           <option value="price-desc">Price: High to Low</option>
           <option value="price-asc">Price: Low to High</option>
           <option value="newest">Newest</option>
+          <option value="dom-asc">Newest Listings</option>
+          <option value="dom-desc">Longest on Market</option>
           <option value="sqft">Largest</option>
           <option value="beds-desc">Most Beds</option>
           <option value="beds-asc">Fewest Beds</option>
@@ -337,6 +339,8 @@ export default function PropertyFilters({
               <option value="price-desc">Price: High to Low</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="newest">Newest</option>
+              <option value="dom-asc">Newest Listings</option>
+              <option value="dom-desc">Longest on Market</option>
               <option value="sqft">Largest</option>
               <option value="beds-desc">Most Beds</option>
               <option value="beds-asc">Fewest Beds</option>
