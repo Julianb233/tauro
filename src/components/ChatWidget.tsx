@@ -1,7 +1,18 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback, type FormEvent } from "react";
-import { MessageCircle, X, Send, Loader2, Home, MapPin, Calculator, Calendar } from "lucide-react";
+import {
+  MessageCircle,
+  X,
+  Send,
+  Home,
+  MapPin,
+  Calculator,
+  Calendar,
+  Sparkles,
+  RotateCcw,
+} from "lucide-react";
+import Image from "next/image";
 
 interface Message {
   role: "user" | "assistant";
@@ -9,11 +20,79 @@ interface Message {
 }
 
 const QUICK_ACTIONS = [
-  { icon: Home, label: "Find a home", prompt: "I'm looking for a home in Philadelphia. Can you help me find something?" },
-  { icon: MapPin, label: "Neighborhoods", prompt: "Tell me about the best neighborhoods in Philadelphia for families." },
-  { icon: Calculator, label: "Affordability", prompt: "Can you help me estimate what I can afford? My budget is around $500K." },
-  { icon: Calendar, label: "Book a tour", prompt: "I'd like to schedule a showing." },
+  {
+    icon: Home,
+    label: "Find a home",
+    prompt:
+      "I'm looking for a home in Philadelphia. What do you have available right now?",
+  },
+  {
+    icon: MapPin,
+    label: "Explore neighborhoods",
+    prompt:
+      "Tell me about the best neighborhoods in Philadelphia — what are the vibes, prices, and walkability?",
+  },
+  {
+    icon: Calculator,
+    label: "Mortgage estimate",
+    prompt:
+      "Can you estimate my monthly mortgage payment if I buy a $500K home?",
+  },
+  {
+    icon: Calendar,
+    label: "Schedule a tour",
+    prompt: "I'd like to schedule a property showing this week.",
+  },
 ];
+
+/** Render markdown-lite: bold, links, line breaks */
+function renderContent(text: string) {
+  return text.split("\n").map((line, i) => {
+    // Bold: **text**
+    const parts = line.split(/(\*\*[^*]+\*\*)/g).map((part, j) => {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <strong key={j} className="font-semibold">
+            {part.slice(2, -2)}
+          </strong>
+        );
+      }
+      // Links: convert /path references to clickable links
+      return part.split(/(\/(?:properties|agents|contact|neighborhoods|sell|about|home-value)(?:\/\S*)?)/g).map((seg, k) => {
+        if (seg.startsWith("/")) {
+          return (
+            <a
+              key={k}
+              href={seg}
+              className="text-gold underline underline-offset-2 hover:text-gold-dark"
+            >
+              {seg}
+            </a>
+          );
+        }
+        return seg;
+      });
+    });
+
+    if (!line.trim()) return <br key={i} />;
+
+    // Bullet points
+    if (line.trim().startsWith("- ") || line.trim().startsWith("• ")) {
+      return (
+        <p key={i} className={`flex gap-1.5 ${i > 0 ? "mt-1" : ""}`}>
+          <span className="shrink-0 text-gold">•</span>
+          <span>{parts}</span>
+        </p>
+      );
+    }
+
+    return (
+      <p key={i} className={i > 0 ? "mt-1.5" : ""}>
+        {parts}
+      </p>
+    );
+  });
+}
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
@@ -22,21 +101,20 @@ export function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, loading]);
 
   useEffect(() => {
     if (open && inputRef.current) {
-      inputRef.current.focus();
+      setTimeout(() => inputRef.current?.focus(), 100);
     }
   }, [open]);
 
-  // Close on escape
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape" && open) setOpen(false);
@@ -54,6 +132,9 @@ export function ChatWidget() {
       setMessages(updatedMessages);
       setInput("");
       setLoading(true);
+
+      // Reset textarea height
+      if (inputRef.current) inputRef.current.style.height = "auto";
 
       try {
         const res = await fetch("/api/chat", {
@@ -80,7 +161,7 @@ export function ChatWidget() {
             {
               role: "assistant",
               content:
-                "I'm having trouble connecting right now. Please call us at (215) 839-4172 or visit our contact page.",
+                "I'm having trouble connecting right now. Please call us at **(215) 839-4172** or visit /contact.",
             },
           ]);
         }
@@ -90,7 +171,7 @@ export function ChatWidget() {
           {
             role: "assistant",
             content:
-              "I'm having trouble connecting right now. Please call us at (215) 839-4172 or visit our contact page.",
+              "I'm having trouble connecting right now. Please call us at **(215) 839-4172** or visit /contact.",
           },
         ]);
       } finally {
@@ -105,72 +186,129 @@ export function ChatWidget() {
     sendMessage(input);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage(input);
+    }
+  };
+
+  const resetChat = () => {
+    setMessages([]);
+    setInput("");
+  };
+
   if (!mounted) return null;
 
   return (
     <>
-      {/* Chat bubble trigger */}
+      {/* Floating chat trigger */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-[9997] flex h-14 w-14 items-center justify-center rounded-full bg-gold text-near-black shadow-lg shadow-gold/30 transition-all duration-300 hover:scale-110 hover:shadow-xl hover:shadow-gold/40 active:scale-95"
+          className="group fixed bottom-6 right-6 z-[9997] flex items-center gap-2.5 rounded-full bg-midnight pl-4 pr-5 py-3 text-white shadow-xl shadow-black/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/30 hover:-translate-y-0.5"
           aria-label="Open chat"
         >
-          <MessageCircle className="size-6" strokeWidth={2} />
-          {/* Notification dot */}
-          <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gold/20">
+            <Sparkles className="size-4 text-gold" />
+          </div>
+          <span className="text-sm font-medium">Chat with Tauro AI</span>
+          <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex h-4 w-4 rounded-full bg-green-500 border-2 border-white" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
           </span>
         </button>
       )}
 
       {/* Chat window */}
       {open && (
-        <div className="fixed bottom-4 right-4 z-[9997] flex h-[min(600px,85vh)] w-[min(400px,92vw)] flex-col overflow-hidden rounded-2xl border border-border/30 bg-white shadow-2xl shadow-black/20 animate-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-4 right-4 z-[9997] flex h-[min(640px,88vh)] w-[min(420px,93vw)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-white shadow-2xl shadow-black/25">
           {/* Header */}
-          <div className="flex items-center justify-between bg-midnight px-4 py-3">
+          <div className="relative flex items-center justify-between bg-gradient-to-r from-midnight to-[#252545] px-4 py-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gold/20">
-                <MessageCircle className="size-5 text-gold" />
+              <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-gold/30 bg-midnight">
+                <Image
+                  src="/tauro-logo-white.png"
+                  alt="Tauro"
+                  fill
+                  className="object-contain p-1"
+                  sizes="40px"
+                />
               </div>
               <div>
-                <h3 className="text-sm font-semibold text-white">Tauro Assistant</h3>
-                <p className="text-xs text-white/50">
-                  {loading ? "Typing..." : "Online — Ask me anything"}
-                </p>
+                <h3 className="flex items-center gap-1.5 text-sm font-semibold text-white">
+                  Tauro AI
+                  <span className="inline-flex items-center rounded-full bg-gold/20 px-1.5 py-0.5 text-[10px] font-medium text-gold">
+                    PRO
+                  </span>
+                </h3>
+                <div className="flex items-center gap-1.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                    <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+                  </span>
+                  <p className="text-[11px] text-white/50">
+                    {loading ? "Typing a response..." : "Online now"}
+                  </p>
+                </div>
               </div>
             </div>
-            <button
-              onClick={() => setOpen(false)}
-              className="rounded-lg p-1.5 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
-              aria-label="Close chat"
-            >
-              <X className="size-5" />
-            </button>
+            <div className="flex items-center gap-1">
+              {messages.length > 0 && (
+                <button
+                  onClick={resetChat}
+                  className="rounded-lg p-2 text-white/40 transition-colors hover:bg-white/10 hover:text-white"
+                  aria-label="New conversation"
+                  title="New conversation"
+                >
+                  <RotateCcw className="size-4" />
+                </button>
+              )}
+              <button
+                onClick={() => setOpen(false)}
+                className="rounded-lg p-2 text-white/40 transition-colors hover:bg-white/10 hover:text-white"
+                aria-label="Close chat"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
           </div>
 
           {/* Messages area */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4 bg-cream/30">
-            {/* Welcome message */}
+          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 bg-gradient-to-b from-cream/40 to-white">
+            {/* Welcome state */}
             {messages.length === 0 && (
               <div className="space-y-4">
-                <div className="rounded-xl bg-white p-4 shadow-sm border border-border/30">
-                  <p className="text-sm text-foreground">
-                    Hi! I&apos;m Tauro&apos;s AI assistant. I can help you find properties, explore Philadelphia neighborhoods, estimate mortgage payments, or schedule a showing. What can I help with?
+                {/* Welcome card */}
+                <div className="rounded-2xl bg-gradient-to-br from-midnight to-[#252545] p-5 text-white">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Sparkles className="size-4 text-gold" />
+                    <span className="text-xs font-semibold uppercase tracking-wider text-gold">
+                      AI-Powered
+                    </span>
+                  </div>
+                  <p className="text-[15px] font-medium leading-snug">
+                    Hi! I&apos;m your Philadelphia real estate expert.
+                  </p>
+                  <p className="mt-1.5 text-sm text-white/60 leading-relaxed">
+                    I know every listing, neighborhood, and market trend. How can I help you today?
                   </p>
                 </div>
 
-                {/* Quick action buttons */}
+                {/* Quick actions */}
                 <div className="grid grid-cols-2 gap-2">
                   {QUICK_ACTIONS.map((action) => (
                     <button
                       key={action.label}
                       onClick={() => sendMessage(action.prompt)}
-                      className="flex items-center gap-2 rounded-lg border border-border/50 bg-white p-3 text-left text-xs font-medium text-foreground/80 shadow-sm transition-all hover:border-gold/40 hover:shadow-md hover:text-foreground"
+                      className="group flex items-center gap-2.5 rounded-xl border border-border/40 bg-white p-3.5 text-left transition-all hover:border-gold/50 hover:shadow-md hover:shadow-gold/5 hover:-translate-y-0.5"
                     >
-                      <action.icon className="size-4 shrink-0 text-gold" />
-                      {action.label}
+                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gold/10 transition-colors group-hover:bg-gold/20">
+                        <action.icon className="size-4 text-gold" />
+                      </div>
+                      <span className="text-xs font-medium text-foreground/70 group-hover:text-foreground">
+                        {action.label}
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -183,18 +321,19 @@ export function ChatWidget() {
                 key={i}
                 className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
               >
+                {msg.role === "assistant" && (
+                  <div className="mr-2 mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/10">
+                    <Sparkles className="size-3.5 text-gold" />
+                  </div>
+                )}
                 <div
-                  className={`max-w-[85%] rounded-xl px-4 py-2.5 text-sm leading-relaxed ${
+                  className={`max-w-[80%] rounded-2xl px-4 py-3 text-[13px] leading-relaxed ${
                     msg.role === "user"
-                      ? "bg-midnight text-white rounded-br-sm"
-                      : "bg-white text-foreground shadow-sm border border-border/30 rounded-bl-sm"
+                      ? "bg-midnight text-white rounded-br-md"
+                      : "bg-white text-foreground shadow-sm border border-border/20 rounded-bl-md"
                   }`}
                 >
-                  {msg.content.split("\n").map((line, j) => (
-                    <p key={j} className={j > 0 ? "mt-2" : ""}>
-                      {line}
-                    </p>
-                  ))}
+                  {renderContent(msg.content)}
                 </div>
               </div>
             ))}
@@ -202,9 +341,15 @@ export function ChatWidget() {
             {/* Typing indicator */}
             {loading && (
               <div className="flex justify-start">
-                <div className="flex items-center gap-2 rounded-xl bg-white px-4 py-3 shadow-sm border border-border/30">
-                  <Loader2 className="size-4 animate-spin text-gold" />
-                  <span className="text-xs text-muted-foreground">Thinking...</span>
+                <div className="mr-2 mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gold/10">
+                  <Sparkles className="size-3.5 text-gold" />
+                </div>
+                <div className="flex items-center gap-1.5 rounded-2xl bg-white px-4 py-3 shadow-sm border border-border/20">
+                  <div className="flex gap-1">
+                    <span className="h-2 w-2 rounded-full bg-gold/60 animate-bounce [animation-delay:0ms]" />
+                    <span className="h-2 w-2 rounded-full bg-gold/60 animate-bounce [animation-delay:150ms]" />
+                    <span className="h-2 w-2 rounded-full bg-gold/60 animate-bounce [animation-delay:300ms]" />
+                  </div>
                 </div>
               </div>
             )}
@@ -213,33 +358,38 @@ export function ChatWidget() {
           </div>
 
           {/* Input area */}
-          <form
-            onSubmit={handleSubmit}
-            className="flex items-center gap-2 border-t border-border/30 bg-white px-3 py-3"
-          >
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about properties, neighborhoods..."
-              disabled={loading}
-              className="flex-1 rounded-lg border border-border/50 bg-cream/30 px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-gold/50 focus:outline-none focus:ring-2 focus:ring-gold/20 disabled:opacity-50"
-            />
-            <button
-              type="submit"
-              disabled={!input.trim() || loading}
-              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gold text-near-black transition-all hover:bg-gold-light disabled:opacity-40 disabled:cursor-not-allowed"
-              aria-label="Send message"
+          <div className="border-t border-border/20 bg-white px-3 py-3">
+            <form
+              onSubmit={handleSubmit}
+              className="flex items-end gap-2 rounded-xl border border-border/40 bg-cream/30 px-3 py-2 transition-colors focus-within:border-gold/50 focus-within:ring-2 focus-within:ring-gold/10"
             >
-              <Send className="size-4" />
-            </button>
-          </form>
-
-          {/* Footer */}
-          <div className="border-t border-border/20 bg-cream/50 px-4 py-1.5 text-center">
-            <p className="text-[10px] text-muted-foreground/50">
-              AI assistant — not a licensed agent. For formal advice, contact our team.
+              <textarea
+                ref={inputRef}
+                value={input}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                  // Auto-resize
+                  e.target.style.height = "auto";
+                  e.target.style.height = Math.min(e.target.scrollHeight, 80) + "px";
+                }}
+                onKeyDown={handleKeyDown}
+                placeholder="Ask me anything about Philly real estate..."
+                disabled={loading}
+                rows={1}
+                className="flex-1 resize-none bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none disabled:opacity-50"
+                style={{ maxHeight: "80px" }}
+              />
+              <button
+                type="submit"
+                disabled={!input.trim() || loading}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gold text-near-black transition-all hover:bg-gold-light active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed"
+                aria-label="Send message"
+              >
+                <Send className="size-3.5" />
+              </button>
+            </form>
+            <p className="mt-1.5 text-center text-[10px] text-muted-foreground/40">
+              AI assistant — for formal advice, contact our team directly
             </p>
           </div>
         </div>
