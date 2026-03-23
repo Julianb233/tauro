@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-18)
 ## Current Position
 
 Phase: 10 of 13 (Database & Supabase)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-03-18 — Added 4 backend phases (10-13) for database, auth, email, and production hardening
+Plan: 07 of 07 (gap fixes)
+Status: Phase 10 complete
+Last activity: 2026-03-23 — Completed 10-07: agents/add DB migration + env cleanup
 
 Progress: █████████████████░░░░░ 69% (9/13 phases)
 
@@ -67,6 +67,8 @@ Recent decisions affecting current work:
 - JSONLD-01: Consolidated PropertyJsonLd into JsonLd.tsx with named exports (OrganizationJsonLd, RealEstateListingJsonLd)
 - OPENGRAPH-01: metadataBase set to https://tauro.com for absolute URL resolution
 - HOMEPAGE-REFACTOR-01: Homepage decomposed into 7 section components with separated data files
+- AGENTS-ADD-AUTH-01: /api/agents/add uses UPLOAD_API_KEY (x-api-key header) for auth — same key as /api/upload
+- AGENTS-ADD-STORAGE-01: Agent photos upload to Supabase Storage (agent-photos bucket) not filesystem
 
 ### Roadmap Evolution
 
@@ -89,6 +91,6 @@ Recent decisions affecting current work:
 
 ## Session Continuity
 
-Last session: 2026-03-18
-Stopped at: ALL PHASES COMPLETE — deployed to Vercel production
+Last session: 2026-03-23
+Stopped at: Completed 10-07-PLAN — agents/add route Supabase migration + env gaps fixed
 Resume file: None
