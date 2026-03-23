@@ -28,6 +28,10 @@ import {
   Building2,
   Waves,
   type LucideIcon,
+  DollarSign,
+  Footprints,
+  TrainFront,
+  Star,
 } from "lucide-react";
 import { Property, formatPriceFull } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -176,16 +180,25 @@ function getMonthlyHoa(property: Property): number {
   }
 }
 
+interface NeighborhoodMiniGuide {
+  medianPrice: string;
+  walkScore: number;
+  transitScore: number;
+  localSpots: { name: string; type: string; description: string }[];
+}
+
 export default function PropertyDetailClient({
   property,
   similar,
   neighborhoodSlug,
   neighborhoodName,
+  neighborhoodMiniGuide,
 }: {
   property: Property;
   similar: Property[];
   neighborhoodSlug?: string;
   neighborhoodName?: string;
+  neighborhoodMiniGuide?: NeighborhoodMiniGuide;
 }) {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
@@ -720,13 +733,72 @@ export default function PropertyDetailClient({
                 />
               </div>
               {neighborhoodSlug && neighborhoodName && (
-                <Link
-                  href={`/neighborhoods/${neighborhoodSlug}`}
-                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-gold"
-                >
-                  <MapPin className="h-4 w-4" />
-                  Explore the {neighborhoodName} Neighborhood Guide
-                </Link>
+                <>
+                  {/* Neighborhood Mini-Guide */}
+                  {neighborhoodMiniGuide && (
+                    <div className="mt-6 rounded-xl border border-border bg-cream/50 p-5">
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-heading text-lg font-bold text-foreground">
+                          {neighborhoodName}
+                        </h3>
+                        <Link
+                          href={`/neighborhoods/${neighborhoodSlug}`}
+                          className="text-xs font-medium text-gold hover:underline"
+                        >
+                          Full Guide
+                        </Link>
+                      </div>
+
+                      {/* Stats row */}
+                      <div className="mt-3 flex flex-wrap gap-4">
+                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <DollarSign className="h-3.5 w-3.5 text-gold" />
+                          <span>Median {neighborhoodMiniGuide.medianPrice}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <Footprints className="h-3.5 w-3.5 text-gold" />
+                          <span>Walk Score {neighborhoodMiniGuide.walkScore}</span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <TrainFront className="h-3.5 w-3.5 text-gold" />
+                          <span>Transit {neighborhoodMiniGuide.transitScore}</span>
+                        </div>
+                      </div>
+
+                      {/* Local spots */}
+                      {neighborhoodMiniGuide.localSpots.length > 0 && (
+                        <div className="mt-4 space-y-2.5">
+                          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                            Nearby Favorites
+                          </p>
+                          {neighborhoodMiniGuide.localSpots.map((spot) => (
+                            <div
+                              key={spot.name}
+                              className="flex items-start gap-2"
+                            >
+                              <Star className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold" />
+                              <div>
+                                <span className="text-sm font-medium text-foreground">
+                                  {spot.name}
+                                </span>
+                                <span className="ml-1.5 text-xs text-muted-foreground">
+                                  {spot.type}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  <Link
+                    href={`/neighborhoods/${neighborhoodSlug}`}
+                    className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-gold"
+                  >
+                    <MapPin className="h-4 w-4" />
+                    Explore the {neighborhoodName} Neighborhood Guide
+                  </Link>
+                </>
               )}
             </div>
 

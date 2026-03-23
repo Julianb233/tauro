@@ -16,6 +16,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const propertyPages = properties.map((p) => ({ url: `${baseUrl}/properties/${p.slug}`, lastModified: new Date(), changeFrequency: "daily" as const, priority: 0.9 }));
   const neighborhoodPages = neighborhoods.map((n) => ({ url: `${baseUrl}/neighborhoods/${n.slug}`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 }));
   const agentPages = agents.map((a) => ({ url: `${baseUrl}/agents/${a.slug}`, lastModified: new Date(), changeFrequency: "monthly" as const, priority: 0.7 }));
+  const homesForSalePages = neighborhoods.map((n) => ({ url: `${baseUrl}/homes-for-sale/${n.slug}`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.8 }));
+  const locationLandingPages = neighborhoods.map((n) => ({ url: `${baseUrl}/homes-for-sale-in-${n.slug}`, lastModified: new Date(), changeFrequency: "weekly" as const, priority: 0.85 }));
 
-  return [...staticPages, ...propertyPages, ...neighborhoodPages, ...agentPages];
+  return [...staticPages, ...propertyPages, ...neighborhoodPages, ...agentPages, ...homesForSalePages, ...locationLandingPages];
 }
