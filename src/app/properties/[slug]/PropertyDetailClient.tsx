@@ -36,7 +36,7 @@ Flame,
 ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { Property, formatPriceFull } from "@/data/properties";
+import { Property, formatPriceFull, formatDaysOnMarket } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import OpenHouseBanner from "@/components/OpenHouseBanner";
 import ImageGallery from "@/components/ImageGallery";
@@ -628,6 +628,13 @@ export default function PropertyDetailClient({
                 <p className="mt-2 flex items-center gap-1.5 text-sm font-semibold text-gold">
                   <Calendar className="h-4 w-4" />
                   Open House: {property.openHouse}
+                </p>
+              )}
+              {/* AI-3786: Days on market */}
+              {formatDaysOnMarket(property.listingDate) && (
+                <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <Calendar className="h-4 w-4" />
+                  {formatDaysOnMarket(property.listingDate)}
                 </p>
               )}
             </div>

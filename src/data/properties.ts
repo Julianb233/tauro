@@ -52,6 +52,8 @@ export interface Property {
   hoa_frequency?: "monthly" | "quarterly" | "annual";
   has_hoa?: boolean;          // Whether property is in an HOA
   isComingSoon?: boolean;
+  /** AI-3786: Date the property was listed (YYYY-MM-DD) */
+  listingDate?: string;
   mlsNumber?: string;
   /** AI-3872: Lifestyle/property tags for browsing */
   tags?: string[];
@@ -137,6 +139,7 @@ export const properties: Property[] = [
     videoTourUrl: "D6_9B2I9e9o",
     virtualTourUrl: "https://my.matterport.com/show/?m=SxQL3iGyoDo",
     mlsNumber: "PAPH2385001",
+    listingDate: "2026-02-15",
     heating: "Forced Air, Gas",
     cooling: "Central Air",
     garage: "Attached 2-Car",
@@ -221,6 +224,7 @@ export const properties: Property[] = [
     videoTourUrl: "cuVKO4iRPzM",
     virtualTourUrl: "https://my.matterport.com/show/?m=oj3GnqCwEvR",
     mlsNumber: "PAPH2312002",
+    listingDate: "2026-03-01",
     heating: "Hot Water Radiant",
     cooling: "Window Units",
     garage: "Detached Carriage House",
@@ -310,6 +314,7 @@ export const properties: Property[] = [
     virtualTourUrl: "https://my.matterport.com/show/?m=iSMwSo2xECA",
     isComingSoon: true,
     mlsNumber: "PAPH2398003",
+    listingDate: "2026-03-18",
     heating: "Radiant Floor, Electric",
     cooling: "Central Air",
     garage: "3-Car Private Garage",
@@ -391,6 +396,7 @@ export const properties: Property[] = [
     videoUrl: "https://www.youtube.com/embed/dkdrcVR83NU",
     videoTourUrl: "dkdrcVR83NU",
     mlsNumber: "PAPH2361004",
+    listingDate: "2026-01-20",
     heating: "Forced Air, Electric",
     cooling: "Central Air",
     garage: "Secured Parking (1 Space)",
@@ -466,6 +472,7 @@ export const properties: Property[] = [
     videoUrl: "https://www.youtube.com/embed/ev7nhD-EE6M",
     videoTourUrl: "ev7nhD-EE6M",
     mlsNumber: "PAPH2347005",
+    listingDate: "2026-02-28",
     heating: "Forced Air, Gas",
     cooling: "Central Air",
     garage: "Private Attached Garage",
@@ -548,6 +555,7 @@ export const properties: Property[] = [
     hoa_frequency: "monthly",
     has_hoa: true,
     mlsNumber: "PAPH2371006",
+    listingDate: "2026-03-10",
     heating: "Forced Air, Gas",
     cooling: "Central Air",
     garage: "Integral 1-Car Garage",
@@ -624,6 +632,7 @@ export const properties: Property[] = [
     hoa_frequency: "monthly",
     has_hoa: true,
     mlsNumber: "PAPH2318007",
+    listingDate: "2026-01-05",
     heating: "Forced Air, Electric",
     cooling: "Central Air",
     garage: "Secured Building Parking (1 Space)",
@@ -697,6 +706,7 @@ export const properties: Property[] = [
     tax_annual: 15400,
     tax_year: 2025,
     mlsNumber: "PAPH2310008",
+    listingDate: "2026-03-05",
     heating: "Hot Water Radiant, Gas",
     cooling: "Central Air",
     garage: "None (Off-Street Parking)",
@@ -773,6 +783,7 @@ export const properties: Property[] = [
     hoa_frequency: "monthly",
     has_hoa: true,
     mlsNumber: "PAPH2320009",
+    listingDate: "2026-02-10",
     heating: "Forced Air, Gas",
     cooling: "Central Air",
     garage: "Integral 1-Car Garage",
@@ -851,6 +862,7 @@ export const properties: Property[] = [
     videoTourUrl: "Ga7ySE8rCxk",
     isComingSoon: true,
     mlsNumber: "PAPH2325010",
+    listingDate: "2026-03-20",
     heating: "Hot Water Radiant, Gas",
     cooling: "Central Air",
     garage: "Detached 2-Car Garage",
@@ -931,6 +943,7 @@ export const properties: Property[] = [
     openHouse: "Sat, Mar 29 · 12:00 PM - 3:00 PM",
     openHouseEvent: { date: "2026-03-29", startTime: "12:00", endTime: "15:00" },
     mlsNumber: "PAPH2324011",
+    listingDate: "2026-03-15",
     heating: "Forced Air, Gas",
     cooling: "Central Air",
     garage: "Integral 1-Car Garage",
@@ -1007,6 +1020,7 @@ export const properties: Property[] = [
     hoa_frequency: "monthly",
     has_hoa: true,
     mlsNumber: "PAPH2323012",
+    listingDate: "2026-02-01",
     heating: "Forced Air, Gas",
     cooling: "Central Air",
     garage: "None",
@@ -1079,6 +1093,7 @@ export const properties: Property[] = [
     tax_annual: 5250,
     tax_year: 2025,
     mlsNumber: "PAPH2320013",
+    listingDate: "2026-01-15",
     heating: "Hot Water Radiant, Gas",
     cooling: "Window Units",
     garage: "None (Street Parking)",
@@ -1152,6 +1167,7 @@ export const properties: Property[] = [
     tax_annual: 8120,
     tax_year: 2025,
     mlsNumber: "PAPH2305014",
+    listingDate: "2025-12-20",
     heating: "Hot Water Radiant, Gas",
     cooling: "Window Units",
     garage: "Detached 1-Car Garage",
@@ -1233,6 +1249,7 @@ export const properties: Property[] = [
     has_hoa: true,
     isComingSoon: true,
     mlsNumber: "PAPH2321015",
+    listingDate: "2026-03-22",
     heating: "Radiant Floor, Electric",
     cooling: "Central Air",
     garage: "Valet Parking",
@@ -1312,6 +1329,7 @@ export const properties: Property[] = [
     openHouse: "Sun, Mar 30 · 1:00 PM - 4:00 PM",
     openHouseEvent: { date: "2026-03-30", startTime: "13:00", endTime: "16:00" },
     mlsNumber: "PAPH2324016",
+    listingDate: "2026-03-12",
     heating: "Forced Air, Gas",
     cooling: "Central Air",
     garage: "Integral 1-Car Garage",
@@ -1344,6 +1362,24 @@ export function formatPriceFull(price: number): string {
 
 export function getPropertyBySlug(slug: string): Property | undefined {
   return properties.find((p) => p.slug === slug);
+}
+
+/** AI-3786: Calculate days on market from listing date */
+export function getDaysOnMarket(listingDate?: string): number | null {
+  if (!listingDate) return null;
+  const listed = new Date(listingDate + "T00:00:00");
+  const now = new Date();
+  const diff = Math.floor((now.getTime() - listed.getTime()) / 86400000);
+  return diff >= 0 ? diff : null;
+}
+
+/** AI-3786: Human-readable days on market label */
+export function formatDaysOnMarket(listingDate?: string): string | null {
+  const days = getDaysOnMarket(listingDate);
+  if (days === null) return null;
+  if (days === 0) return "Listed today";
+  if (days === 1) return "Listed 1 day ago";
+  return `Listed ${days} days ago`;
 }
 
 /* AI-3872: Lifestyle/property tags derived from property data */
