@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
-import { MapPin, ExternalLink, ChevronDown } from "lucide-react";
+import { MapPin, ExternalLink, ChevronDown, Layers } from "lucide-react";
 import { Property, formatPrice } from "@/data/properties";
 import { cn } from "@/lib/utils";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -18,6 +18,9 @@ const GOLD = "#C9A96E";
 const PHILLY_CENTER: [number, number] = [-75.1652, 39.9526];
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "";
 const DARK_STYLE = "mapbox://styles/mapbox/dark-v11";
+const SATELLITE_STYLE = "mapbox://styles/mapbox/satellite-streets-v12";
+
+type MapStyleMode = "street" | "satellite";
 
 function clampZoom(z: number) {
   return Math.min(Math.max(Math.round(z), 1), 19);
@@ -144,6 +147,7 @@ function MapboxClusterMap({
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [popupData, setPopupData] = useState<Property | null>(null);
   const [popupPos, setPopupPos] = useState<{ x: number; y: number } | null>(null);
+  const [mapStyle, setMapStyle] = useState<MapStyleMode>("street");
 
   const geojson = useMemo(() => ({
     type: "FeatureCollection" as const,
@@ -166,10 +170,114 @@ function MapboxClusterMap({
     })),
   }), [properties]);
 
+  /* Helper: add property source + layers to the map */
+  const addPropertyLayers = useCallback((map: mapboxgl.Map, data: typeof geojson) => {
+    map.addSource("properties", {
+      type: "geojson",
+      data,
+      cluster: true,
+      clusterMaxZoom: 14,
+      clusterRadius: 50,
+    });
+    map.addLayer({
+      id: "clusters",
+      type: "circle",
+      source: "properties",
+      filter: ["has", "point_count"],
+      paint: {
+        "circle-color": GOLD,
+        "circle-opacity": 0.85,
+        "circle-radius": [
+          "step",
+          ["get", "point_count"],
+          18,
+          10, 24,
+          30, 32,
+        ],
+        "circle-stroke-width": 2,
+        "circle-stroke-color": "#111111",
+      },
+    });
+    map.addLayer({
+      id: "cluster-count",
+      type: "symbol",
+      source: "properties",
+      filter: ["has", "point_count"],
+      layout: {
+        "text-field": "{point_count_abbreviated}",
+        "text-font": ["DIN Pro Medium", "Arial Unicode MS Bold"],
+        "text-size": 13,
+      },
+      paint: {
+        "text-color": "#111111",
+      },
+    });
+    map.addLayer({
+      id: "unclustered-point",
+      type: "circle",
+      source: "properties",
+      filter: ["!", ["has", "point_count"]],
+      paint: {
+        "circle-color": GOLD,
+        "circle-radius": 7,
+        "circle-stroke-width": 2,
+        "circle-stroke-color": "#111111",
+      },
+    });
+  }, []);
+
+  /* Helper: bind click/hover handlers for property layers */
+  const bindLayerEvents = useCallback((map: mapboxgl.Map) => {
+    map.on("click", "clusters", (e) => {
+      const features = map.queryRenderedFeatures(e.point, { layers: ["clusters"] });
+      if (!features.length) return;
+      const clusterId = features[0].properties!.cluster_id;
+      (map.getSource("properties") as mapboxgl.GeoJSONSource).getClusterExpansionZoom(
+        clusterId,
+        (err: Error | null | undefined, expansionZoom: number | null | undefined) => {
+          if (err || expansionZoom == null) return;
+          const geometry = features[0].geometry;
+          if (geometry.type !== "Point") return;
+          map.easeTo({
+            center: geometry.coordinates as [number, number],
+            zoom: expansionZoom,
+          });
+        },
+      );
+    });
+    map.on("click", "unclustered-point", (e) => {
+      if (!e.features?.length) return;
+      const props = e.features[0].properties!;
+      setPopupData({
+        slug: props.slug,
+        address: props.address,
+        price: props.price,
+        neighborhood: props.neighborhood,
+        beds: props.beds,
+        baths: props.baths,
+        sqft: props.sqft,
+        status: props.status,
+      } as unknown as Property);
+      setPopupPos({ x: e.point.x, y: e.point.y });
+    });
+    map.on("mouseenter", "clusters", () => { map.getCanvas().style.cursor = "pointer"; });
+    map.on("mouseleave", "clusters", () => { map.getCanvas().style.cursor = ""; });
+    map.on("mouseenter", "unclustered-point", () => { map.getCanvas().style.cursor = "pointer"; });
+    map.on("mouseleave", "unclustered-point", () => { map.getCanvas().style.cursor = ""; });
+    map.on("click", (e) => {
+      const features = map.queryRenderedFeatures(e.point, {
+        layers: ["clusters", "unclustered-point"],
+      });
+      if (!features.length) {
+        setPopupData(null);
+        setPopupPos(null);
+      }
+    });
+  }, []);
+
   const initMap = useCallback(async () => {
     if (!containerRef.current || mapRef.current) return;
     const mapboxgl = (await import("mapbox-gl")).default;
-    // Inject Mapbox GL CSS if not already present
     if (!document.getElementById("mapbox-gl-css")) {
       const link = document.createElement("link");
       link.id = "mapbox-gl-css";
@@ -187,114 +295,27 @@ function MapboxClusterMap({
     });
     map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "bottom-right");
     map.on("load", () => {
-      /* ── Source with clustering ─────────────────────────── */
-      map.addSource("properties", {
-        type: "geojson",
-        data: geojson,
-        cluster: true,
-        clusterMaxZoom: 14,
-        clusterRadius: 50,
-      });
-      /* ── Cluster circles ────────────────────────────────── */
-      map.addLayer({
-        id: "clusters",
-        type: "circle",
-        source: "properties",
-        filter: ["has", "point_count"],
-        paint: {
-          "circle-color": GOLD,
-          "circle-opacity": 0.85,
-          "circle-radius": [
-            "step",
-            ["get", "point_count"],
-            18,  // radius for count < 10
-            10, 24, // radius for count < 30
-            30, 32, // radius for count >= 30
-          ],
-          "circle-stroke-width": 2,
-          "circle-stroke-color": "#111111",
-        },
-      });
-      /* ── Cluster count labels ───────────────────────────── */
-      map.addLayer({
-        id: "cluster-count",
-        type: "symbol",
-        source: "properties",
-        filter: ["has", "point_count"],
-        layout: {
-          "text-field": "{point_count_abbreviated}",
-          "text-font": ["DIN Pro Medium", "Arial Unicode MS Bold"],
-          "text-size": 13,
-        },
-        paint: {
-          "text-color": "#111111",
-        },
-      });
-      /* ── Individual property pins ──────────────────────── */
-      map.addLayer({
-        id: "unclustered-point",
-        type: "circle",
-        source: "properties",
-        filter: ["!", ["has", "point_count"]],
-        paint: {
-          "circle-color": GOLD,
-          "circle-radius": 7,
-          "circle-stroke-width": 2,
-          "circle-stroke-color": "#111111",
-        },
-      });
-      /* ── Click cluster → zoom in ───────────────────────── */
-      map.on("click", "clusters", (e) => {
-        const features = map.queryRenderedFeatures(e.point, { layers: ["clusters"] });
-        if (!features.length) return;
-        const clusterId = features[0].properties!.cluster_id;
-        (map.getSource("properties") as mapboxgl.GeoJSONSource).getClusterExpansionZoom(
-          clusterId,
-          (err: Error | null | undefined, expansionZoom: number | null | undefined) => {
-            if (err || expansionZoom == null) return;
-            const geometry = features[0].geometry;
-            if (geometry.type !== "Point") return;
-            map.easeTo({
-              center: geometry.coordinates as [number, number],
-              zoom: expansionZoom,
-            });
-          },
-        );
-      });
-      /* ── Click individual pin → show popup ─────────────── */
-      map.on("click", "unclustered-point", (e) => {
-        if (!e.features?.length) return;
-        const props = e.features[0].properties!;
-        setPopupData({
-          slug: props.slug,
-          address: props.address,
-          price: props.price,
-          neighborhood: props.neighborhood,
-          beds: props.beds,
-          baths: props.baths,
-          sqft: props.sqft,
-          status: props.status,
-        } as unknown as Property);
-        setPopupPos({ x: e.point.x, y: e.point.y });
-      });
-      /* ── Cursor changes ─────────────────────────────────── */
-      map.on("mouseenter", "clusters", () => { map.getCanvas().style.cursor = "pointer"; });
-      map.on("mouseleave", "clusters", () => { map.getCanvas().style.cursor = ""; });
-      map.on("mouseenter", "unclustered-point", () => { map.getCanvas().style.cursor = "pointer"; });
-      map.on("mouseleave", "unclustered-point", () => { map.getCanvas().style.cursor = ""; });
-      /* ── Close popup on map click ──────────────────────── */
-      map.on("click", (e) => {
-        const features = map.queryRenderedFeatures(e.point, {
-          layers: ["clusters", "unclustered-point"],
-        });
-        if (!features.length) {
-          setPopupData(null);
-          setPopupPos(null);
-        }
-      });
+      addPropertyLayers(map, geojson);
+      bindLayerEvents(map);
     });
     mapRef.current = map;
-  }, [center, zoom, geojson]);
+  }, [center, zoom, geojson, addPropertyLayers, bindLayerEvents]);
+
+  /* Toggle map style between street and satellite */
+  const toggleMapStyle = useCallback(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const nextMode: MapStyleMode = mapStyle === "street" ? "satellite" : "street";
+    const nextStyle = nextMode === "satellite" ? SATELLITE_STYLE : DARK_STYLE;
+    setMapStyle(nextMode);
+    setPopupData(null);
+    setPopupPos(null);
+    map.once("style.load", () => {
+      addPropertyLayers(map, geojson);
+      bindLayerEvents(map);
+    });
+    map.setStyle(nextStyle);
+  }, [mapStyle, geojson, addPropertyLayers, bindLayerEvents]);
 
   useEffect(() => {
     if (!MAPBOX_TOKEN) return;
@@ -318,6 +339,15 @@ function MapboxClusterMap({
   return (
     <>
       <div ref={containerRef} className="h-full w-full" style={{ minHeight: "300px" }} />
+      {/* Map style toggle button */}
+      <button
+        onClick={toggleMapStyle}
+        className="absolute right-3 top-3 z-10 flex items-center gap-1.5 rounded-lg border border-[#C9A96E]/20 bg-[#111111]/90 px-2.5 py-2 text-[11px] font-medium text-[#F5F0E8] shadow-lg backdrop-blur-sm transition-colors hover:border-[#C9A96E]/40 hover:bg-[#111111]"
+        title={mapStyle === "street" ? "Switch to satellite view" : "Switch to street view"}
+      >
+        <Layers className="h-3.5 w-3.5" style={{ color: GOLD }} />
+        {mapStyle === "street" ? "Satellite" : "Street"}
+      </button>
       {popupData && popupPos && (
         <div
           className="absolute z-10 w-56 rounded-lg border border-[#C9A96E]/30 bg-[#111111]/95 p-3 shadow-xl backdrop-blur-sm"
