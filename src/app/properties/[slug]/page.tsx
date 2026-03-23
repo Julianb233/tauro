@@ -61,6 +61,16 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
         similar={similar}
         neighborhoodSlug={matchedNeighborhood?.slug}
         neighborhoodName={matchedNeighborhood?.name}
+        neighborhoodMiniGuide={
+          matchedNeighborhood
+            ? {
+                medianPrice: matchedNeighborhood.marketData.medianPrice,
+                walkScore: matchedNeighborhood.walkScore,
+                transitScore: matchedNeighborhood.transitScore,
+                localSpots: matchedNeighborhood.localSpots.slice(0, 3),
+              }
+            : undefined
+        }
       />
     </>
   );
