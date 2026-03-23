@@ -127,7 +127,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=800&q=80",
     mapCenter: { lat: 39.9526, lng: -75.1652 },
-    gallery: ["https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=800&q=80", "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=800&q=80", "https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?w=800&q=80", "https://images.unsplash.com/photo-1581347058729-d93c3800e76e?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=800&q=80",
+      "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=800&q=80",
+      "https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?w=800&q=80",
+      "https://images.unsplash.com/photo-1581347058729-d93c3800e76e?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80",
+      "https://images.unsplash.com/photo-1600077106724-946750eeaf3c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 373811 },
       { month: "May 2025", medianPrice: 377642 },
@@ -205,7 +214,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
     mapCenter: { lat: 39.9494, lng: -75.1717 },
-    gallery: ["https://images.unsplash.com/photo-1605130284535-11983c652e51?w=800&q=80", "https://images.unsplash.com/photo-1573325846218-60b6f4a07ede?w=800&q=80", "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=80", "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1605130284535-11983c652e51?w=800&q=80",
+      "https://images.unsplash.com/photo-1573325846218-60b6f4a07ede?w=800&q=80",
+      "https://images.unsplash.com/photo-1591588582259-e675bd2e6088?w=800&q=80",
+      "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472556-e636c2acda9e?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047508006-6f663a1f745c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 492236 },
       { month: "May 2025", medianPrice: 500585 },
@@ -282,7 +300,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
     mapCenter: { lat: 39.9735, lng: -75.1328 },
-    gallery: ["https://images.unsplash.com/photo-1594560890703-8f29c3d40ce6?w=800&q=80", "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&q=80", "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80", "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1594560890703-8f29c3d40ce6?w=800&q=80",
+      "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?w=800&q=80",
+      "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752734-2a0cd64e79f8?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585153491-d17488227f0c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472572-8aba140c3185?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 363270 },
       { month: "May 2025", medianPrice: 368871 },
@@ -360,7 +387,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
     mapCenter: { lat: 39.9657, lng: -75.1419 },
-    gallery: ["https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80", "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80", "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
+      "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585153921-b2d8e4eb5781?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607687920-4e03c0cdc337?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752547-33a0cb240a49?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 377289 },
       { month: "May 2025", medianPrice: 382903 },
@@ -437,7 +473,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80",
     mapCenter: { lat: 39.9524, lng: -75.1438 },
-    gallery: ["https://images.unsplash.com/photo-1598928506311-c55ez637b483?w=800&q=80", "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80", "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80", "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1598928506311-c55ez637b483?w=800&q=80",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80",
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047508788-11fc13b5b3b5?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472573-e0e1b4d5eb47?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585153897-c4c023fd5876?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210491862-ed420cd4dbc3?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 418530 },
       { month: "May 2025", medianPrice: 424389 },
@@ -515,7 +560,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=800&q=80",
     mapCenter: { lat: 39.9284, lng: -75.1645 },
-    gallery: ["https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80", "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80", "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80", "https://images.unsplash.com/photo-1599427303058-f04cbcf4756f?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "https://images.unsplash.com/photo-1599427303058-f04cbcf4756f?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752584-e78a5f1d3f39?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047508312-ea56b0d3b35e?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154084-4e6b9f1a3a4c?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 275930 },
       { month: "May 2025", medianPrice: 279876 },
@@ -593,7 +647,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1562774053-701939374585?w=800&q=80",
     mapCenter: { lat: 39.9522, lng: -75.1932 },
-    gallery: ["https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80", "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80", "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80", "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472592-8aba140c3195?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210492093-c96418da7dda?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752406-e1a4f453cd60?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607688066-890987f18a86?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 339521 },
       { month: "May 2025", medianPrice: 343364 },
@@ -671,7 +734,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80",
     mapCenter: { lat: 40.0261, lng: -75.2243 },
-    gallery: ["https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80", "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&q=80", "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?w=800&q=80", "https://images.unsplash.com/photo-1592595896551-12b371d546d5?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&q=80",
+      "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?w=800&q=80",
+      "https://images.unsplash.com/photo-1592595896551-12b371d546d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0e?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047509358-cf9b82a33f4b?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&q=80",
+      "https://images.unsplash.com/photo-1600077106724-946750eeaf3c?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 299287 },
       { month: "May 2025", medianPrice: 303516 },
@@ -749,7 +821,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
     mapCenter: { lat: 40.0781, lng: -75.2085 },
-    gallery: ["https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80", "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80", "https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80", "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80",
+      "https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80",
+      "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585153490-76fb20a32601?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472556-e636c2acda9e?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 465396 },
       { month: "May 2025", medianPrice: 471288 },
@@ -827,7 +908,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&q=80",
     mapCenter: { lat: 40.0596, lng: -75.1931 },
-    gallery: ["https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80", "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80", "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80", "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047508006-6f663a1f745c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752734-2a0cd64e79f8?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 294977 },
       { month: "May 2025", medianPrice: 299408 },
@@ -905,7 +995,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800&q=80",
     mapCenter: { lat: 40.0413, lng: -75.1766 },
-    gallery: ["https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80", "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80", "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80", "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+      "https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&q=80",
+      "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585153491-d17488227f0c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472572-8aba140c3185?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210491369-e753d80a41f3?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585153921-b2d8e4eb5781?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 189967 },
       { month: "May 2025", medianPrice: 191970 },
@@ -983,7 +1082,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
     mapCenter: { lat: 39.9557, lng: -75.2213 },
-    gallery: ["https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&q=80", "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80", "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80", "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
+      "https://images.unsplash.com/photo-1523217582562-09d0def993a6?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607687920-4e03c0cdc337?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752547-33a0cb240a49?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047508788-11fc13b5b3b5?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472573-e0e1b4d5eb47?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 252388 },
       { month: "May 2025", medianPrice: 257158 },
@@ -1061,7 +1169,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1590725121839-892b458a74fe?w=800&q=80",
     mapCenter: { lat: 39.9867, lng: -75.1277 },
-    gallery: ["https://images.unsplash.com/photo-1599427303058-f04cbcf4756f?w=800&q=80", "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80", "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80", "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1599427303058-f04cbcf4756f?w=800&q=80",
+      "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80",
+      "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80",
+      "https://images.unsplash.com/photo-1605146769289-440113cc3d00?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585153897-c4c023fd5876?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210491862-ed420cd4dbc3?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752584-e78a5f1d3f39?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 267732 },
       { month: "May 2025", medianPrice: 270777 },
@@ -1139,7 +1256,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80",
     mapCenter: { lat: 39.9775, lng: -75.1756 },
-    gallery: ["https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80", "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80", "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80", "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1600563438938-a9a27216b4f5?w=800&q=80",
+      "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=80",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&q=80",
+      "https://images.unsplash.com/photo-1628744448840-55bdb2497bd4?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047508312-ea56b0d3b35e?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154084-4e6b9f1a3a4c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600573472592-8aba140c3195?w=800&q=80",
+      "https://images.unsplash.com/photo-1600210492093-c96418da7dda?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 304185 },
       { month: "May 2025", medianPrice: 310118 },
@@ -1217,7 +1343,16 @@ export const neighborhoods: Neighborhood[] = [
     cardImage:
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&q=80",
     mapCenter: { lat: 39.9343, lng: -75.1824 },
-    gallery: ["https://images.unsplash.com/photo-1592595896551-12b371d546d5?w=800&q=80", "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80", "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80", "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"],
+    gallery: [
+      "https://images.unsplash.com/photo-1592595896551-12b371d546d5?w=800&q=80",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&q=80",
+      "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "https://images.unsplash.com/photo-1600566752406-e1a4f453cd60?w=800&q=80",
+      "https://images.unsplash.com/photo-1600607688066-890987f18a86?w=800&q=80",
+      "https://images.unsplash.com/photo-1600585154526-990dced4db0e?w=800&q=80",
+      "https://images.unsplash.com/photo-1600047509358-cf9b82a33f4b?w=800&q=80"
+    ],
     monthlyTrend: [
       { month: "Apr 2025", medianPrice: 282481 },
       { month: "May 2025", medianPrice: 286887 },
