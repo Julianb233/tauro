@@ -24,6 +24,7 @@ import {
   Footprints,
   TrainFront,
   Star,
+  Bell,
 ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -41,6 +42,7 @@ import ShareButton from "@/components/ShareButton";
 import PropertyAmenities from "@/components/PropertyAmenities";
 import { cn } from "@/lib/utils";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { useUtm } from "@/hooks/useUtm";
 import { siteUrl } from "@/lib/site-config";
 import { Logo } from "@/components/logo";
 
@@ -126,6 +128,7 @@ export default function PropertyDetailClient({
   neighborhoodName?: string;
   neighborhoodMiniGuide?: NeighborhoodMiniGuide;
 }) {
+  const utm = useUtm();
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -217,6 +220,7 @@ export default function PropertyDetailClient({
           message: formData.message || undefined,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          ...utm,
         }),
       });
 
@@ -252,6 +256,7 @@ export default function PropertyDetailClient({
           message: `Early access request for ${property.address}`,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          ...utm,
         }),
       });
 
@@ -763,6 +768,9 @@ export default function PropertyDetailClient({
             {similar.length > 0 && (
               <SimilarListingsCarousel similar={similar} neighborhoodName={neighborhoodName} />
             )}
+
+            {/* Property alert signup */}
+            <PropertyAlertSignup neighborhoodName={neighborhoodName} />
           </div>
 
           {/* Right column - Agent card + Schedule form */}
@@ -928,6 +936,78 @@ export default function PropertyDetailClient({
 }
 
 // ---------------------------------------------------------------------------
+// Property Alert Signup
+// ---------------------------------------------------------------------------
+
+function PropertyAlertSignup({ neighborhoodName }: { neighborhoodName?: string }) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    setStatus("loading");
+    try {
+      await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: email.trim(), source: "property-alert" }),
+      });
+    } catch {
+      // Show success regardless — newsletter API handles gracefully
+    }
+    setStatus("success");
+    setEmail("");
+  }
+
+  if (status === "success") {
+    return (
+      <div className="rounded-xl border border-gold/30 bg-gold/5 p-6 text-center">
+        <Check className="mx-auto h-8 w-8 text-gold" />
+        <p className="mt-2 font-heading text-lg font-semibold">You&apos;re all set!</p>
+        <p className="mt-1 text-sm text-muted-foreground">
+          We&apos;ll notify you when similar properties hit the market.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="rounded-xl border border-border bg-gradient-to-br from-card to-gold/[0.03] p-6">
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gold/10">
+          <Bell className="h-5 w-5 text-gold" />
+        </div>
+        <div>
+          <h3 className="font-heading text-base font-semibold">
+            Get alerts for properties like this
+          </h3>
+          <p className="text-sm text-muted-foreground">
+            Be the first to know when similar {neighborhoodName ? `${neighborhoodName} ` : ""}listings hit the market.
+          </p>
+        </div>
+      </div>
+      <form onSubmit={handleSubmit} className="mt-4 flex gap-2">
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+          className="min-w-0 flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+        />
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="shrink-0 rounded-lg bg-gold px-5 py-2.5 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-colors hover:bg-gold-light disabled:opacity-60"
+        >
+          {status === "loading" ? "..." : "Notify Me"}
+        </button>
+      </form>
+    </div>
+  );
+}
+
 // Similar Listings Carousel
 // ---------------------------------------------------------------------------
 
