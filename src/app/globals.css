@@ -632,3 +632,45 @@ html.a11y-reduce-motion *::after {
 .property-map-popup .mapboxgl-popup-tip {
   border-top-color: #111111;
 }
+
+/* ─── Custom cursor effects on interactive elements (AI-3828) ─── */
+/* Subtle pointer grow on primary CTAs */
+.gold-shimmer,
+a[class*="bg-gold"],
+button[class*="bg-gold"],
+[class*="depth-hover"] {
+  cursor: pointer;
+}
+
+/* Grow cursor effect on CTA hover — uses scale on a pseudo-element */
+@media (pointer: fine) {
+  a[class*="bg-gold"]:hover,
+  button[class*="bg-gold"]:hover {
+    cursor: pointer;
+  }
+
+  /* Interactive card hover lift + pointer */
+  .depth-hover {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .depth-hover:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Gallery/carousel images — crosshair for drag hint */
+  [aria-roledescription="carousel"] {
+    cursor: grab;
+  }
+  [aria-roledescription="carousel"]:active {
+    cursor: grabbing;
+  }
+
+  /* Map container — move cursor */
+  .mapboxgl-canvas {
+    cursor: grab !important;
+  }
+  .mapboxgl-canvas:active {
+    cursor: grabbing !important;
+  }
+}

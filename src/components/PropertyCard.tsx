@@ -249,6 +249,9 @@ export default function PropertyCard({ property }: { property: Property }) {
           </div>
         </div>
         <div className="p-3 sm:p-4">
+          <p className="mb-0.5 font-label text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+            {property.propertyType}
+          </p>
           <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
           <div className="mt-1 flex flex-wrap items-center gap-1.5 font-label text-xs tracking-wider text-muted-foreground sm:gap-2">
             <span>{property.beds} BD</span>

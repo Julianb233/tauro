@@ -1,10 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter, ArrowRight, Users } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
 import { GoogleReviewBadge } from "@/components/GoogleReviewBadge";
 import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
+import { NewsletterForm } from "@/components/NewsletterForm";
+import { blogPosts } from "@/data/blog-posts";
 
 const quickLinks = [
   { href: "/properties", label: "Properties" },
@@ -158,6 +160,61 @@ export function Footer() {
                 <span className="text-gold/70">View on Map</span>
               </div>
             </a>
+          </div>
+        </div>
+
+        {/* Newsletter + Recent Post */}
+        <div className="mt-8 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
+          <div className="grid gap-8 md:grid-cols-2">
+            {/* Newsletter signup with social proof */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <Users className="size-4 text-gold" />
+                <span className="text-xs font-medium text-gold">
+                  Join 2,500+ subscribers
+                </span>
+              </div>
+              <NewsletterForm source="footer" compact />
+              <p className="text-xs text-white/40">
+                Monthly market reports, new listings &amp; neighborhood guides. Unsubscribe anytime.
+              </p>
+            </div>
+
+            {/* Recent post preview */}
+            {blogPosts[0] && (
+              <div>
+                <h3 className="mb-3 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+                  Latest from the Blog
+                </h3>
+                <Link
+                  href={`/blog/${blogPosts[0].slug}`}
+                  className="group flex gap-4 rounded-lg border border-white/5 p-3 transition-all hover:border-gold/30 hover:bg-white/5"
+                >
+                  <div className="relative h-20 w-28 shrink-0 overflow-hidden rounded-md">
+                    <Image
+                      src={blogPosts[0].coverImage}
+                      alt={blogPosts[0].title}
+                      fill
+                      sizes="112px"
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      placeholder="blur"
+                      blurDataURL={BLUR_LANDSCAPE}
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col justify-center">
+                    <span className="mb-1 text-[10px] font-medium uppercase tracking-wider text-gold/70">
+                      {blogPosts[0].category}
+                    </span>
+                    <h4 className="line-clamp-2 text-sm font-medium leading-snug text-white/80 transition-colors group-hover:text-gold">
+                      {blogPosts[0].title}
+                    </h4>
+                    <span className="mt-1.5 inline-flex items-center gap-1 text-xs text-gold/60 transition-colors group-hover:text-gold">
+                      Read more <ArrowRight className="size-3" />
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
 
