@@ -8,6 +8,7 @@ import Counter from "yet-another-react-lightbox/plugins/counter";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/counter.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
@@ -131,6 +132,8 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
                 fill
                 className="object-cover transition-transform hover:scale-105"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                placeholder="blur"
+                blurDataURL={BLUR_LANDSCAPE}
               />
             </button>
           ))}
@@ -150,6 +153,8 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
           className="object-cover"
           priority
           sizes="(max-width: 768px) 100vw, 66vw"
+          placeholder="blur"
+          blurDataURL={BLUR_LANDSCAPE}
         />
       </button>
 

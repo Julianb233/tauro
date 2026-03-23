@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MapPin, ArrowRight } from "lucide-react";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 import { loadNeighborhoods } from "@/lib/data";
 
 export default async function AreasWeServe() {
@@ -42,6 +43,8 @@ export default async function AreasWeServe() {
                   fill
                   sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  placeholder="blur"
+                  blurDataURL={BLUR_LANDSCAPE}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/40 to-transparent" />
               </div>
