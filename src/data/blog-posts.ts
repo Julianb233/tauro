@@ -29,6 +29,72 @@ export const blogCategories: BlogCategory[] = [
 
 export const blogPosts: BlogPost[] = [
   {
+    id: "6",
+    slug: "q4-2025-philadelphia-market-report",
+    title: "Q4 2025 Philadelphia Market Report: Seasonal Cooldown Sets Stage for Spring Rebound",
+    excerpt:
+      "A data-driven look at how Philadelphia's housing market performed in the fourth quarter of 2025 — with neighborhood breakdowns, pricing trends, and what the numbers mean for buyers and sellers heading into 2026.",
+    content: `Philadelphia's real estate market followed its familiar seasonal rhythm in Q4 2025, with prices easing from their summer peaks and inventory ticking upward as buyer urgency softened through the holiday months. But beneath the surface-level cooldown, the fundamentals remain remarkably strong — and the data points to a competitive spring ahead.
+
+## Q4 2025 By the Numbers
+
+The city-wide median home price closed Q4 at $280,000, down from the June peak of $298,000 but still representing a healthy 3.7% gain over Q4 2024. Active inventory rose to 3,600 listings by November before settling at 3,700 in December — a seasonal pattern consistent with prior years.
+
+Average days on market stretched from 27 in October to 33 in December, giving buyers slightly more breathing room than the frenetic spring and summer months. The price per square foot ended the quarter at $198, down modestly from the $212 peak in June.
+
+<!--charts:price-trend-->
+
+## Neighborhood Performance
+
+Not all neighborhoods experienced the Q4 cooldown equally. Fishtown and Northern Liberties continued to outperform, with year-over-year price gains of 6.1% and 5.2% respectively — well above the citywide average. These markets benefit from sustained demand among young professionals and limited new inventory.
+
+South Philly posted a solid 4.5% annual gain, driven by continued interest in the East Passyunk corridor. Center City held steady at 3.8% appreciation, while Rittenhouse Square's 2.5% growth reflects its mature, lower-volatility profile.
+
+<!--charts:neighborhood-prices-->
+
+## Days on Market: Where Homes Sell Fastest
+
+Market speed varied significantly by neighborhood in Q4. Fishtown remained the city's fastest-moving market at just 15 average days on market, followed closely by Northern Liberties at 17. Rittenhouse Square's 18-day average reflects strong demand for its limited luxury inventory.
+
+Old City showed the longest average at 26 days, though this partly reflects the condo-heavy inventory mix in the neighborhood, which typically moves more slowly than rowhomes.
+
+<!--charts:neighborhood-dom-->
+
+## What Drove the Q4 Trends
+
+**Mortgage rates stabilized.** After the volatility of 2023 and 2024, rates settled into the low-to-mid 6% range through Q4, providing buyers with more predictable financing conditions — though still elevated enough to keep some first-time buyers on the sidelines.
+
+**Seasonal patterns held.** The traditional autumn slowdown played out as expected: families settled into the school year, holiday distractions increased, and sellers who could wait pulled listings to relist in spring.
+
+**Inventory remained structurally tight.** Even with Q4's seasonal increase, active listings finished the quarter 8% below Q4 2024 levels. This structural undersupply continues to put a floor under prices and limits meaningful correction risk.
+
+## What It Means for Buyers
+
+Q4 was the best buying window of 2025 for those willing to act. Less competition, slightly more inventory, and motivated sellers created opportunities — particularly in neighborhoods where prices had appreciated rapidly through the spring and summer.
+
+Heading into 2026, buyers should expect competition to intensify by March. Those who get pre-approved now and begin their search in January and February will have a meaningful advantage over the spring rush.
+
+## What It Means for Sellers
+
+If you listed in Q4 and priced accurately, you likely sold — just at a slightly more measured pace than summer. The data confirms that well-priced homes continued to attract offers within 30 days across most neighborhoods.
+
+For sellers planning a spring listing, the message is clear: the market fundamentals strongly favor you. Low inventory, stable demand, and moderating rates point toward another competitive spring season. The key is preparation — professional staging, photography, and accurate pricing from day one.
+
+## Looking Ahead to 2026
+
+The Q4 data reinforces Philadelphia's position as one of the Northeast's most resilient housing markets. Moderate, sustainable appreciation; structurally low inventory; and diverse neighborhood-level demand create a market that rewards both buyers and sellers who approach it with data and local expertise.
+
+Our full 2026 market outlook will be published shortly, but the Q4 numbers give us confidence in the trajectory: steady growth, neighborhood-driven opportunity, and a market that continues to favor the prepared.`,
+    author: "Julian Bradley",
+    authorImage:
+      "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&q=80",
+    category: "Market Trends",
+    coverImage:
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80",
+    publishedAt: "2026-01-05",
+    readTime: 9,
+  },
+  {
     id: "1",
     slug: "2026-philadelphia-real-estate-market-outlook",
     title: "2026 Philadelphia Real Estate Market Outlook",
