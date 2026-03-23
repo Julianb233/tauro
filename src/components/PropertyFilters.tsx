@@ -25,6 +25,8 @@ export interface FilterState {
   sort: string;
   /** AI-3874: Open house date filter */
   openHouse: string;
+  /** AI-3805: Virtual tour filter */
+  virtualTour: string;
 }
 
 export const defaultFilters: FilterState = {
@@ -41,6 +43,7 @@ export const defaultFilters: FilterState = {
   status: "",
   sort: "price-desc",
   openHouse: "",
+  virtualTour: "",
 };
 
 export default function PropertyFilters({
@@ -269,6 +272,24 @@ export default function PropertyFilters({
               <option value="next-week">Next Week</option>
               <option value="next-30">Next 30 Days</option>
             </select>
+          </div>
+          {/* AI-3805: Virtual tour filter */}
+          <div className="flex items-end">
+            <button
+              type="button"
+              onClick={() => update("virtualTour", filters.virtualTour ? "" : "yes")}
+              className={`flex items-center gap-1.5 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
+                filters.virtualTour
+                  ? "border-gold bg-gold/10 text-gold"
+                  : "border-border text-muted-foreground hover:border-gold/50 hover:text-foreground"
+              }`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              3D Tour
+            </button>
           </div>
         </div>
 

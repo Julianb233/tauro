@@ -47,6 +47,7 @@ export default function PropertiesClient({
     status: searchParams.get("status") || "",
     sort: searchParams.get("sort") || "price-desc",
     openHouse: searchParams.get("openHouse") || "",
+    virtualTour: searchParams.get("virtualTour") || "",
   }), [searchParams]);
 
   const updateFilter = useCallback((key: keyof FilterState, value: string) => {
@@ -130,6 +131,10 @@ export default function PropertiesClient({
           default: return true;
         }
       });
+    }
+    /* AI-3805: Virtual tour filter */
+    if (filters.virtualTour) {
+      result = result.filter((p) => !!p.virtualTourUrl);
     }
     switch (filters.sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
