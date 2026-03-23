@@ -3,7 +3,11 @@
 import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+<<<<<<< HEAD
+import { Calendar, Clock, Lock, Video, Tag, Glasses } from "lucide-react";
+=======
 import { Calendar, Clock, Video, Tag, Lock, Glasses } from "lucide-react";
+>>>>>>> origin/main
 import { Property, formatPrice, getPropertyTags, formatDaysOnMarket } from "@/data/properties";
 import ShareButton from "@/components/ShareButton";
 import { siteUrl } from "@/lib/site-config";
@@ -279,6 +283,41 @@ export default function PropertyCard({ property }: { property: Property }) {
         videoTourUrl={property.videoTourUrl}
         virtualTourUrl={property.virtualTourUrl}
       />
+<<<<<<< HEAD
+      {/* Share button — visible on hover */}
+      <div className="absolute top-3 right-3 z-20 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <ShareButton
+          url={shareUrl}
+          title={`${property.address} — ${formatPrice(property.price)}`}
+          image={property.images[0]}
+          compact
+        />
+      </div>
+      <div className="p-3 sm:p-4">
+        {/* AI-3883: Property type label */}
+        <p className="mb-0.5 font-label text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+          {property.propertyType}
+        </p>
+        <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
+        <div className="mt-1 flex flex-wrap items-center gap-1.5 font-label text-xs tracking-wider text-muted-foreground sm:gap-2">
+          <span><span className="sr-only">Bedrooms: </span>{property.beds} BD</span>
+          <span className="text-gold/30" aria-hidden="true">|</span>
+          <span><span className="sr-only">Bathrooms: </span>{property.baths} BA</span>
+          <span className="text-gold/30" aria-hidden="true">|</span>
+          <span><span className="sr-only">Square feet: </span>{property.sqft.toLocaleString()} SF</span>
+        </div>
+        <p className="mt-2 truncate font-medium text-foreground">
+          {property.address}
+        </p>
+        <p className="truncate text-sm text-muted-foreground">
+          {property.city}, {property.state} {property.zip}
+        </p>
+        {/* AI-3786: Days on market */}
+        {formatDaysOnMarket(property.listingDate) && (
+          <p className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
+            <Clock className="h-3 w-3" />
+            {formatDaysOnMarket(property.listingDate)}
+=======
       <div className="relative">
         <div className="absolute top-3 right-3 z-20 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
           <ShareButton
@@ -291,6 +330,7 @@ export default function PropertyCard({ property }: { property: Property }) {
         <div className="p-3 sm:p-4">
           <p className="mb-0.5 font-label text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
             {property.propertyType}
+>>>>>>> origin/main
           </p>
           <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
           <div className="mt-1 flex flex-wrap items-center gap-1.5 font-label text-xs tracking-wider text-muted-foreground sm:gap-2">

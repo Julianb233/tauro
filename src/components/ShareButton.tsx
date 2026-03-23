@@ -320,7 +320,11 @@ export default function ShareButton({
                   className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
                 >
                   <Share2 className="h-4 w-4" />
+<<<<<<< HEAD
+                  More Options…
+=======
                   More Options...
+>>>>>>> origin/main
                 </button>
               </>
             )}

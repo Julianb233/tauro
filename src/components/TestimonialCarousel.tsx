@@ -128,9 +128,7 @@ export default function TestimonialCarousel({
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <div className="mt-3 border-t border-border/50 pt-3 sm:mt-4 sm:pt-4">
-                  <p className="text-sm font-semibold text-foreground">
-                    {t.name}
-                  </p>
+                  <p className="text-sm font-semibold text-foreground">{t.name}</p>
                   <p className="text-xs text-muted-foreground">{t.role}</p>
                 </div>
               </div>
