@@ -23,6 +23,8 @@ import PropertyCard from "@/components/PropertyCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MarketStats } from "@/components/market-stats";
 import { PhotoGallery } from "@/components/neighborhood/PhotoGallery";
+import { FeaturedAgent } from "@/components/neighborhood/FeaturedAgent";
+import { NeighborhoodAgents } from "@/components/neighborhood/NeighborhoodAgents";
 
 export const revalidate = 86400;
 
@@ -334,6 +336,12 @@ export default async function HomesForSaleNeighborhoodPage({
         images={neighborhood.gallery}
         neighborhoodName={neighborhood.name}
       />
+
+      {/* Featured Top Agent */}
+      <FeaturedAgent neighborhoodName={neighborhood.name} />
+
+      {/* Agent Specialists */}
+      <NeighborhoodAgents neighborhoodName={neighborhood.name} />
 
       {/* Market stats */}
       <MarketStats
