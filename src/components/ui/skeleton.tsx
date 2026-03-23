@@ -87,6 +87,26 @@ export function AgentCardSkeleton() {
   );
 }
 
+/** A skeleton that mirrors a blog post card. */
+export function BlogCardSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-xl border border-border/50 bg-white shadow-sm">
+      <Skeleton className="aspect-[16/9] w-full rounded-none" />
+      <div className="space-y-3 p-5">
+        <Skeleton className="h-3 w-20" />
+        <Skeleton className="h-5 w-4/5" />
+        <Skeleton className="h-4 w-full" />
+        <Skeleton className="h-4 w-3/4" />
+        <div className="flex items-center gap-3 pt-2">
+          <Skeleton className="size-8 rounded-full" />
+          <Skeleton className="h-3 w-24" />
+          <Skeleton className="h-3 w-16" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /**
  * Full agents page loading skeleton with filter bar, count, and card grid.
  * Used as the Suspense fallback or in loading.tsx for the agents route.
@@ -126,6 +146,32 @@ export function AgentsGridSkeleton() {
       <div className="mt-4 flex justify-center">
         <Skeleton className="h-4 w-40" />
       </div>
+    </div>
+  );
+}
+
+/** A skeleton that mirrors a neighborhood card with image overlay. */
+export function NeighborhoodCardSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-xl border border-border/40 bg-white shadow-sm">
+      <Skeleton className="aspect-[4/3] w-full rounded-none" />
+      <div className="space-y-2 p-5">
+        <Skeleton className="h-5 w-2/3" />
+        <Skeleton className="h-4 w-4/5" />
+        <Skeleton className="h-6 w-28 rounded-full" />
+      </div>
+    </div>
+  );
+}
+
+/** A skeleton for market stat cards. */
+export function MarketStatSkeleton() {
+  return (
+    <div className="rounded-xl border border-border/40 bg-white p-6">
+      <Skeleton className="size-10 rounded-lg" />
+      <Skeleton className="mt-4 h-8 w-24" />
+      <Skeleton className="mt-2 h-4 w-32" />
+      <Skeleton className="mt-2 h-3 w-20" />
     </div>
   );
 }
