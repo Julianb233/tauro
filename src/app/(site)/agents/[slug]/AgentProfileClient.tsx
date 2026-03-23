@@ -19,15 +19,11 @@ type FormState = "idle" | "submitting" | "success" | "error";
 interface FormData { firstName: string; lastName: string; email: string; phone: string; message: string; }
 const initialForm: FormData = { firstName: "", lastName: "", email: "", phone: "", message: "" };
 
-<<<<<<< HEAD
 /* ------------------------------------------------------------------ */
 /*  Inline Agent Contact Form                                         */
 /* ------------------------------------------------------------------ */
 function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar" | "full" }) {
-=======
-export default function AgentProfileClient({ agent, activeListings }: { agent: Agent; activeListings: Property[] }) {
   const utm = useUtm();
->>>>>>> origin/main
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -42,7 +38,6 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
     setErrorMsg("");
     const formData = new FormData(e.currentTarget);
     const honeypot = formData.get("website") as string;
-<<<<<<< HEAD
     const payload: LeadPayload = {
       type: "agent-contact",
       firstName: form.firstName,
@@ -52,10 +47,8 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
       message: form.message,
       agentName: agent.fullName,
       agentSlug: agent.slug,
+      ...utm,
     };
-=======
-    const payload: LeadPayload = { type: "agent-contact", firstName: form.firstName, lastName: form.lastName, email: form.email, phone: form.phone, message: form.message, agentName: agent.fullName, agentSlug: agent.slug, ...utm };
->>>>>>> origin/main
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
