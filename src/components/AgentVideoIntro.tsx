@@ -5,16 +5,23 @@ import Image from "next/image";
 import { Play, X } from "lucide-react";
 
 interface AgentVideoIntroProps {
-  videoId: string;
+  videoId?: string | null;
+  videoUrl?: string | null;
   agentName: string;
   agentPhoto: string;
 }
 
 export default function AgentVideoIntro({
   videoId,
+  videoUrl,
   agentName,
   agentPhoto,
 }: AgentVideoIntroProps) {
+  const embedSrc = videoId
+    ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
+    : videoUrl || null;
+
+  if (!embedSrc) return null;
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handlePlay = useCallback(() => {
@@ -98,7 +105,7 @@ export default function AgentVideoIntro({
             <div className="relative animate-in fade-in zoom-in-95 duration-300">
               <div className="relative aspect-video">
                 <iframe
-                  src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+                  src={embedSrc}
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   className="h-full w-full"

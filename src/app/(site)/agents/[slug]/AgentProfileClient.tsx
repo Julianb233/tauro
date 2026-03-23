@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Phone, Mail, Award, Play, Home, TrendingUp, Clock, CheckCircle,
+  Phone, Mail, Award, Home, TrendingUp, Clock, CheckCircle,
   AlertCircle, ArrowLeft, Instagram, Linkedin, Facebook, Star, Quote, DollarSign,
   MapPin, Calendar, Send,
 } from "lucide-react";
@@ -14,6 +14,7 @@ import { formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { useUtm } from "@/hooks/useUtm";
+import AgentVideoIntro from "@/components/AgentVideoIntro";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 interface FormData { firstName: string; lastName: string; email: string; phone: string; message: string; }
@@ -385,17 +386,14 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
               </div>
             )}
 
-            {/* Video */}
-            {agent.videoIntroUrl && (
-              <div>
-                <div className="mb-8 flex items-center gap-3">
-                  <Play className="size-5 text-gold" />
-                  <h2 className="font-heading text-2xl font-bold text-foreground">Video Introduction</h2>
-                </div>
-                <div className="aspect-video overflow-hidden rounded-xl border border-border/40">
-                  <iframe src={agent.videoIntroUrl} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="h-full w-full" title={`${agent.fullName} video introduction`} />
-                </div>
-              </div>
+            {/* Video Introduction */}
+            {(agent.videoIntroUrl || agent.videoIntroId) && (
+              <AgentVideoIntro
+                videoId={agent.videoIntroId}
+                videoUrl={agent.videoIntroUrl}
+                agentName={agent.fullName}
+                agentPhoto={agent.photo}
+              />
             )}
           </div>
 
