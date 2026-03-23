@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { loadProperties, loadNeighborhoods } from "@/lib/data";
 import PropertiesClient from "./PropertiesClient";
 import { PropertiesGridSkeleton } from "@/components/ui/skeleton";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Properties for Sale in Philadelphia",
@@ -25,8 +26,11 @@ export default async function PropertiesPage() {
   }));
 
   return (
-    <Suspense fallback={<PropertiesGridSkeleton />}>
-      <PropertiesClient properties={properties} neighborhoods={neighborhoodOptions} />
-    </Suspense>
+    <>
+      <Breadcrumbs items={[{ label: "Properties", href: "/properties" }]} />
+      <Suspense fallback={<PropertiesGridSkeleton />}>
+        <PropertiesClient properties={properties} neighborhoods={neighborhoodOptions} />
+      </Suspense>
+    </>
   );
 }

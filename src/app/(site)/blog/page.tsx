@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ArrowRight, Clock } from "lucide-react";
 import { blogPosts, blogCategories } from "@/data/blog-posts";
 import { BlogCategoryFilter } from "./BlogCategoryFilter";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Journal | Insights on Philadelphia Real Estate",
@@ -32,6 +33,7 @@ export default function BlogPage({
 
   return (
     <>
+      <Breadcrumbs items={[{ label: "Journal", href: "/blog" }]} />
       {/* ── Hero: Featured Post ──────────────────────────────── */}
       <section className="relative overflow-hidden bg-foreground pt-24 pb-16 lg:pb-24">
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />

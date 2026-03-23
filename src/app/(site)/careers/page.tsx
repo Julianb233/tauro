@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { useState } from "react";
 import {
   TrendingUp,
@@ -191,6 +192,7 @@ export default function CareersPage() {
 
   return (
     <>
+      <Breadcrumbs items={[{ label: "Careers", href: "/careers" }]} />
       {/* ── Hero ─────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
         <div className="absolute inset-0">

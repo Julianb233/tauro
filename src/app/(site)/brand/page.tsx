@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { Logo } from "@/components/logo";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Brand | Tauro",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function BrandPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: "Brand", href: "/brand" }]} />
       <header className="mb-16 text-center">
         <h1 className="text-3xl font-semibold tracking-tight text-[#1A1A2E] sm:text-4xl">
           Brand Assets

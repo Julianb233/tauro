@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { loadFaqs } from "@/lib/data";
 import FaqClient from "./FaqClient";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Frequently Asked Questions",
@@ -37,6 +38,7 @@ export default async function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+      <Breadcrumbs items={[{ label: "FAQ", href: "/faq" }]} />
       <FaqClient
         buyerFaqs={buyerFaqs}
         sellerFaqs={sellerFaqs}

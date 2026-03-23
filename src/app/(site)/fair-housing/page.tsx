@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Fair Housing Statement",
@@ -9,6 +10,7 @@ export const metadata: Metadata = {
 export default function FairHousingPage() {
   return (
     <>
+      <Breadcrumbs items={[{ label: "Fair Housing", href: "/fair-housing" }]} />
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />

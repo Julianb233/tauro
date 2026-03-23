@@ -12,6 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Seller's Guide | Tauro Realty",
@@ -127,6 +128,7 @@ const tauroAdvantages = [
 export default function SellersGuidePage() {
   return (
     <>
+      <Breadcrumbs items={[{ label: "Seller's Guide", href: "/sellers-guide" }]} />
       {/* -- Hero --------------------------------------------------- */}
       <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />

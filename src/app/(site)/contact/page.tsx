@@ -2,6 +2,7 @@
 
 import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 const contactInfo = [
   {
@@ -33,6 +34,7 @@ const contactInfo = [
 export default function ContactPage() {
   return (
     <>
+      <Breadcrumbs items={[{ label: "Contact", href: "/contact" }]} />
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />

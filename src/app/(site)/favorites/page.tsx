@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import FavoritesClient from "./FavoritesClient";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Saved Properties",
@@ -7,5 +8,10 @@ export const metadata: Metadata = {
 };
 
 export default function FavoritesPage() {
-  return <FavoritesClient />;
+  return (
+    <>
+      <Breadcrumbs items={[{ label: "Favorites", href: "/favorites" }]} />
+      <FavoritesClient />
+    </>
+  );
 }

@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Home, TrendingUp, Shield, Star, ArrowRight } from "lucide-react";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { SellerInquiryForm } from "@/components/seller-inquiry-form";
 
 const whySell = [
@@ -52,6 +53,7 @@ const steps = [
 export default function SellPage() {
   return (
     <>
+      <Breadcrumbs items={[{ label: "Sell Your Home", href: "/sell" }]} />
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
         <div className="absolute inset-0">

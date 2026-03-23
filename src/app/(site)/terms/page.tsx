@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -63,6 +64,7 @@ const sections = [
 export default function TermsPage() {
   return (
     <div className="pt-20">
+      <Breadcrumbs items={[{ label: "Terms of Service", href: "/terms" }]} />
       {/* Hero */}
       <section className="bg-cream py-16">
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
