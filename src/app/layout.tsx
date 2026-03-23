@@ -7,6 +7,7 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ChatWidget } from "@/components/ChatWidget";
 import AccessibilityWidget from "@/components/AccessibilityWidget";
+import { ContactFAB } from "@/components/ContactFAB";
 import { loadTestimonials } from "@/lib/data";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
@@ -100,6 +101,7 @@ export default async function RootLayout({
           {children}
         </main>
         <ChatWidget />
+        <ContactFAB />
         <AccessibilityWidget />
         <CookieConsent />
       </body>
