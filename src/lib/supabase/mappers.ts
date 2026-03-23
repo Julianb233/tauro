@@ -61,6 +61,17 @@ export function mapPropertyRow(row: any): Property {
     hoa_fee: row.hoa_fee ?? undefined,
     hoa_frequency: row.hoa_frequency ?? undefined,
     has_hoa: row.has_hoa ?? false,
+    // AI-3891: Comprehensive property details
+    mlsNumber: row.mls_number ?? undefined,
+    heating: row.heating ?? undefined,
+    cooling: row.cooling ?? undefined,
+    garage: row.garage ?? undefined,
+    parkingSpaces: row.parking_spaces ?? undefined,
+    stories: row.stories ?? undefined,
+    construction: row.construction ?? undefined,
+    flooring: row.flooring ?? [],
+    roofType: row.roof_type ?? undefined,
+    rooms: (row.rooms as Property["rooms"]) ?? [],
   };
 }
 

@@ -35,6 +35,19 @@ export type Database = {
           featured: boolean;
           created_at: string;
           updated_at: string;
+          // AI-3891: Comprehensive property details
+          heating: string | null;
+          cooling: string | null;
+          garage: string | null;
+          parking_spaces: number | null;
+          stories: number | null;
+          construction: string | null;
+          flooring: string[];
+          roof_type: string | null;
+          rooms: unknown;
+          tax_annual: number;
+          tax_year: number;
+          mls_number: string | null;
         };
         Insert: {
           id?: string;
@@ -69,6 +82,19 @@ export type Database = {
           featured?: boolean;
           created_at?: string;
           updated_at?: string;
+          // AI-3891: Comprehensive property details
+          heating?: string | null;
+          cooling?: string | null;
+          garage?: string | null;
+          parking_spaces?: number | null;
+          stories?: number | null;
+          construction?: string | null;
+          flooring?: string[];
+          roof_type?: string | null;
+          rooms?: unknown;
+          tax_annual?: number;
+          tax_year?: number;
+          mls_number?: string | null;
         };
         Update: {
           id?: string;
@@ -103,6 +129,19 @@ export type Database = {
           featured?: boolean;
           created_at?: string;
           updated_at?: string;
+          // AI-3891: Comprehensive property details
+          heating?: string | null;
+          cooling?: string | null;
+          garage?: string | null;
+          parking_spaces?: number | null;
+          stories?: number | null;
+          construction?: string | null;
+          flooring?: string[];
+          roof_type?: string | null;
+          rooms?: unknown;
+          tax_annual?: number;
+          tax_year?: number;
+          mls_number?: string | null;
         };
         Relationships: [
           {

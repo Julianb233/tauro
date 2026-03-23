@@ -29,6 +29,7 @@ import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PropertyMap from "@/components/PropertyMap";
 import PriceHistory from "@/components/PriceHistory";
 import MortgageCalculator from "@/components/MortgageCalculator";
+import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import { cn } from "@/lib/utils";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { siteUrl } from "@/lib/site-config";
@@ -519,53 +520,7 @@ export default function PropertyDetailClient({
             <div>
               <h2 className="font-heading text-xl font-bold">About This Property</h2>
               <p className="mt-3 leading-relaxed text-muted-foreground">{property.description}</p>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Year Built</p>
-                  <p className="mt-1 font-heading text-lg font-bold">{property.yearBuilt}</p>
-                </div>
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Lot Size</p>
-                  <p className="mt-1 font-heading text-lg font-bold">
-                    {property.lotSqft > 0 ? `${property.lotSqft.toLocaleString()} SF` : "N/A"}
-                  </p>
-                </div>
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Price/SF</p>
-                  <p className="mt-1 font-heading text-lg font-bold">
-                    ${Math.round(property.price / property.sqft).toLocaleString()}
-                  </p>
-                </div>
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Annual Taxes</p>
-                  <p className="mt-1 font-heading text-lg font-bold">
-                    ${property.tax_annual.toLocaleString()}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground">({property.tax_year})</p>
-                </div>
-                {property.has_hoa && property.hoa_fee && (
-                  <div className="rounded-lg border border-border bg-card p-3 text-center">
-                    <p className="text-xs text-muted-foreground">HOA Fee</p>
-                    <p className="mt-1 font-heading text-lg font-bold">
-                      ${property.hoa_fee.toLocaleString()}/mo
-                    </p>
-                    <p className="text-[10px] text-muted-foreground">
-                      {property.hoa_frequency === "monthly" ? "Monthly" :
-                       property.hoa_frequency === "quarterly" ? "Quarterly" :
-                       "Annual"}
-                    </p>
-                  </div>
-                )}
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Est. Payment</p>
-                  <p className="mt-1 font-heading text-lg font-bold">
-                    ${Math.round((property.price * 0.8 * 0.065) / 12 / (1 - Math.pow(1 + 0.065 / 12, -360)) + property.tax_annual / 12 + getMonthlyHoa(property)).toLocaleString()}/mo
-                  </p>
-                  <p className="text-[10px] text-muted-foreground">
-                    {property.has_hoa ? "incl. taxes & HOA" : "incl. taxes"}
-                  </p>
-                </div>
-              </div>
+              <PropertyDetailsTable property={property} />
             </div>
 
             {/* Video Tour (PROP-08) */}

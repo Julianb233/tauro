@@ -38,6 +38,22 @@ const PropertyCreateSchema = z.object({
   video_url: z.string().url().optional(),
   virtual_tour_url: z.string().url().optional(),
   featured: z.boolean().default(false),
+  // AI-3891: Comprehensive property details
+  heating: z.string().optional(),
+  cooling: z.string().optional(),
+  garage: z.string().optional(),
+  parking_spaces: z.number().int().optional(),
+  stories: z.number().int().optional(),
+  construction: z.string().optional(),
+  flooring: z.array(z.string()).optional(),
+  roof_type: z.string().optional(),
+  rooms: z.array(z.object({
+    name: z.string(),
+    size: z.string().optional(),
+    level: z.string().optional(),
+    description: z.string().optional(),
+  })).optional(),
+  mls_number: z.string().optional(),
 });
 
 export async function GET(request: NextRequest) {
