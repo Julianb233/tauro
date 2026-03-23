@@ -86,6 +86,16 @@ function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
   );
 }
 
+/** Convert HOA fee to monthly amount for payment calculation */
+function getMonthlyHoa(property: Property): number {
+  if (!property.has_hoa || !property.hoa_fee) return 0;
+  switch (property.hoa_frequency) {
+    case "quarterly": return property.hoa_fee / 3;
+    case "annual": return property.hoa_fee / 12;
+    default: return property.hoa_fee; // monthly
+  }
+}
+
 export default function PropertyDetailClient({
   property,
   similar,
@@ -257,6 +267,9 @@ export default function PropertyDetailClient({
           <span><strong>{property.yearBuilt}</strong> Year Built</span>
           <span><strong>{property.propertyType}</strong></span>
           <span><strong>${property.tax_annual.toLocaleString()}</strong> Taxes ({property.tax_year})</span>
+          {property.has_hoa && property.hoa_fee && (
+            <span><strong>${property.hoa_fee.toLocaleString()}/mo</strong> HOA</span>
+          )}
         </div>
 
         {/* First 4 images in 2x2 grid */}
@@ -530,12 +543,27 @@ export default function PropertyDetailClient({
                   </p>
                   <p className="text-[10px] text-muted-foreground">({property.tax_year})</p>
                 </div>
+                {property.has_hoa && property.hoa_fee && (
+                  <div className="rounded-lg border border-border bg-card p-3 text-center">
+                    <p className="text-xs text-muted-foreground">HOA Fee</p>
+                    <p className="mt-1 font-heading text-lg font-bold">
+                      ${property.hoa_fee.toLocaleString()}/mo
+                    </p>
+                    <p className="text-[10px] text-muted-foreground">
+                      {property.hoa_frequency === "monthly" ? "Monthly" :
+                       property.hoa_frequency === "quarterly" ? "Quarterly" :
+                       "Annual"}
+                    </p>
+                  </div>
+                )}
                 <div className="rounded-lg border border-border bg-card p-3 text-center">
                   <p className="text-xs text-muted-foreground">Est. Payment</p>
                   <p className="mt-1 font-heading text-lg font-bold">
-                    ${Math.round((property.price * 0.8 * 0.065) / 12 / (1 - Math.pow(1 + 0.065 / 12, -360)) + property.tax_annual / 12).toLocaleString()}/mo
+                    ${Math.round((property.price * 0.8 * 0.065) / 12 / (1 - Math.pow(1 + 0.065 / 12, -360)) + property.tax_annual / 12 + getMonthlyHoa(property)).toLocaleString()}/mo
                   </p>
-                  <p className="text-[10px] text-muted-foreground">incl. taxes</p>
+                  <p className="text-[10px] text-muted-foreground">
+                    {property.has_hoa ? "incl. taxes & HOA" : "incl. taxes"}
+                  </p>
                 </div>
               </div>
             </div>

@@ -29,6 +29,9 @@ export type Database = {
           open_house: string | null;
           video_url: string | null;
           virtual_tour_url: string | null;
+          hoa_fee: number | null;
+          hoa_frequency: string | null;
+          has_hoa: boolean | null;
           featured: boolean;
           created_at: string;
           updated_at: string;
@@ -60,6 +63,9 @@ export type Database = {
           open_house?: string | null;
           video_url?: string | null;
           virtual_tour_url?: string | null;
+          hoa_fee?: number | null;
+          hoa_frequency?: string | null;
+          has_hoa?: boolean | null;
           featured?: boolean;
           created_at?: string;
           updated_at?: string;
@@ -91,6 +97,9 @@ export type Database = {
           open_house?: string | null;
           video_url?: string | null;
           virtual_tour_url?: string | null;
+          hoa_fee?: number | null;
+          hoa_frequency?: string | null;
+          has_hoa?: boolean | null;
           featured?: boolean;
           created_at?: string;
           updated_at?: string;
