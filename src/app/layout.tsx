@@ -6,6 +6,7 @@ import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ChatWidget } from "@/components/ChatWidget";
+import AccessibilityWidget from "@/components/AccessibilityWidget";
 import { loadTestimonials } from "@/lib/data";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
@@ -86,8 +87,7 @@ export default async function RootLayout({
       >
         <a
           href="#main-content"
-className="fixed top-0 left-0 z-[9999] -translate-y-full rounded-br-lg bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-transform focus:translate-y-0 focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-background"
-className="fixed top-0 left-0 z-[9999] -translate-y-full rounded-br-lg bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-transform focus-visible:translate-y-0"
+          className="fixed top-0 left-0 z-[9999] -translate-y-full rounded-br-lg bg-gold px-4 py-2 text-sm font-semibold text-near-black transition-transform focus-visible:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         >
           Skip to main content
         </a>

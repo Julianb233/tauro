@@ -73,17 +73,11 @@ function PinterestIcon({ className }: { className?: string }) {
 /* ------------------------------------------------------------------ */
 
 interface ShareButtonProps {
-  /** Full URL to the property listing */
   url: string;
-  /** Property title / address */
   title: string;
-  /** Short description for native share */
   description?: string;
-  /** Hero image URL (for Pinterest) */
   image?: string;
-  /** Compact icon-only mode for PropertyCard overlay */
   compact?: boolean;
-  /** Extra class names on the trigger */
   className?: string;
 }
 
@@ -158,7 +152,6 @@ export default function ShareButton({
     (e: React.MouseEvent) => {
       e.preventDefault();
       e.stopPropagation();
-      /* On touch devices, prefer native Web Share API */
       if (
         typeof navigator !== "undefined" &&
         typeof navigator.share === "function" &&
@@ -201,20 +194,19 @@ export default function ShareButton({
           className,
         )}
         aria-label="Share this property"
-aria-expanded={open}
+        aria-expanded={open}
         aria-haspopup="true"
+        title="Share"
       >
-        <Share2 className="h-4 w-4" aria-hidden="true" />
-        Share
-title="Share"
         <Share2 className={compact ? "h-3.5 w-3.5" : "h-4 w-4"} />
         {!compact && <span className="hidden sm:inline">Share</span>}
       </button>
 
       {/* Dropdown popover */}
       {open && (
-<div role="menu" aria-label="Share options" className="absolute right-0 top-full z-50 mt-2 w-56 overflow-hidden rounded-xl border border-border/60 bg-white/95 shadow-lg backdrop-blur-xl">
-<div
+        <div
+          role="menu"
+          aria-label="Share options"
           className={cn(
             "absolute z-50 w-56 overflow-hidden rounded-xl border border-border/60 bg-white/95 shadow-lg backdrop-blur-xl",
             compact ? "right-0 bottom-full mb-2" : "right-0 top-full mt-2",
@@ -239,35 +231,33 @@ title="Share"
             <div className="mx-3 my-1 border-t border-border/40" />
 
             {/* Email */}
-<a
-              href={`mailto:?subject=${emailSubject}&body=${emailBody}`}
+            <button
+              type="button"
               role="menuitem"
-              onClick={() => setOpen(false)}
+              onClick={openPopup(urls.email, "email")}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
               <Mail className="h-4 w-4" aria-hidden="true" />
-              Share via Email
-            </a>
-
-            {/* SMS */}
-              href={`sms:?body=${smsBody}`}
-              <MessageSquare className="h-4 w-4" aria-hidden="true" />
-              Share via SMS
-<button
-              type="button"
-              onClick={openPopup(urls.email, "email")}
-              <Mail className="h-4 w-4" />
               Email
             </button>
+
+            {/* SMS */}
+            <button
+              type="button"
+              role="menuitem"
               onClick={openPopup(urls.sms, "sms")}
-              <MessageSquare className="h-4 w-4" />
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
+            >
+              <MessageSquare className="h-4 w-4" aria-hidden="true" />
               Text / SMS
+            </button>
 
             <div className="mx-3 my-1 border-t border-border/40" />
 
             {/* Facebook */}
             <button
               type="button"
+              role="menuitem"
               onClick={openPopup(urls.facebook, "facebook")}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
@@ -278,6 +268,7 @@ title="Share"
             {/* Twitter / X */}
             <button
               type="button"
+              role="menuitem"
               onClick={openPopup(urls.twitter, "twitter")}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
@@ -288,6 +279,7 @@ title="Share"
             {/* LinkedIn */}
             <button
               type="button"
+              role="menuitem"
               onClick={openPopup(urls.linkedin, "linkedin")}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
@@ -298,6 +290,7 @@ title="Share"
             {/* WhatsApp */}
             <button
               type="button"
+              role="menuitem"
               onClick={openPopup(urls.whatsapp, "whatsapp")}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
@@ -308,6 +301,7 @@ title="Share"
             {/* Pinterest */}
             <button
               type="button"
+              role="menuitem"
               onClick={openPopup(urls.pinterest, "pinterest")}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
@@ -315,26 +309,23 @@ title="Share"
               Pinterest
             </button>
 
-            {/* Native share (desktop fallback, always visible on mobile) */}
+            {/* Native share */}
             {hasNativeShare && (
-<button
-                type="button"
-                role="menuitem"
-                onClick={handleNativeShare}
-                className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
-              >
-                <Share2 className="h-4 w-4" aria-hidden="true" />
-                More Options...
-              </button>
-<>
+              <>
                 <div className="mx-3 my-1 border-t border-border/40" />
+                <button
+                  type="button"
+                  role="menuitem"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     handleNativeShare();
                   }}
+                  className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
+                >
                   <Share2 className="h-4 w-4" />
                   More Options…
+                </button>
               </>
             )}
           </div>

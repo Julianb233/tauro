@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import { Calendar, Clock, Download, X, ChevronDown } from "lucide-react";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Calendar, Clock, Download, X } from "lucide-react";
+import { Calendar, Clock, Download, X, ChevronDown } from "lucide-react";
 import { Property } from "@/data/properties";
 import { siteUrl } from "@/lib/site-config";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
@@ -166,7 +164,7 @@ function RsvpModal({
   };
 
   return (
-<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
       <div
         ref={focusTrapRef}
         role="dialog"
@@ -174,8 +172,6 @@ function RsvpModal({
         aria-label="RSVP for Open House"
         className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl"
       >
-<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" role="dialog" aria-modal="true" aria-label="RSVP for Open House">
-      <div className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl">
         <button
           onClick={onClose}
           className="absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
