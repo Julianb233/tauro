@@ -202,21 +202,14 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* Floating chat trigger */}
+      {/* Floating chat trigger — subtle icon */}
       {!open && (
         <button
           onClick={() => setOpen(true)}
-          className="group fixed bottom-6 right-6 z-[9997] flex items-center gap-2.5 rounded-full bg-midnight pl-4 pr-5 py-3 text-white shadow-xl shadow-black/20 transition-all duration-300 hover:shadow-2xl hover:shadow-black/30 hover:-translate-y-0.5"
-          aria-label="Open chat"
+          className="fixed bottom-6 right-6 z-[9997] flex h-12 w-12 items-center justify-center rounded-full bg-midnight text-gold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+          aria-label="Chat with Tauro AI"
         >
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gold/20">
-            <Sparkles className="size-4 text-gold" />
-          </div>
-          <span className="text-sm font-medium">Chat with Tauro AI</span>
-          <span className="relative flex h-2.5 w-2.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-green-500" />
-          </span>
+          <MessageCircle className="size-5" strokeWidth={2} />
         </button>
       )}
 

@@ -4,7 +4,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
-import AccessibilityWidget from "@/components/AccessibilityWidget";
 import { CookieConsent } from "@/components/CookieConsent";
 import { ChatWidget } from "@/components/ChatWidget";
 import { loadTestimonials } from "@/lib/data";
@@ -99,7 +98,6 @@ export default async function RootLayout({
         <main id="main-content">
           {children}
         </main>
-        <AccessibilityWidget />
         <ChatWidget />
         <CookieConsent />
       </body>
