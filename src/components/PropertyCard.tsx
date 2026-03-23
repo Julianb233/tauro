@@ -15,6 +15,7 @@ const statusStyles: Record<string, string> = {
   New: "bg-gold text-near-black",
   "Open House": "bg-blue-600",
   Pending: "bg-orange-500",
+  "Coming Soon": "bg-gradient-to-r from-purple-600 to-gold",
 };
 
 /* ------------------------------------------------------------------ */
@@ -26,6 +27,7 @@ function ImageCarousel({
   alt,
   status,
   isComingSoon,
+  isExclusive,
   videoTourUrl,
   virtualTourUrl,
 }: {
@@ -33,6 +35,7 @@ function ImageCarousel({
   alt: string;
   status: string;
   isComingSoon?: boolean;
+  isExclusive?: boolean;
   videoTourUrl?: string | null;
   virtualTourUrl?: string | null;
 }) {
@@ -116,7 +119,7 @@ function ImageCarousel({
         );
       })}
 
-      {/* ---- status & coming soon badges ---- */}
+      {/* ---- status, coming soon & exclusive badges ---- */}
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
         <span
           className={cn(
@@ -126,9 +129,14 @@ function ImageCarousel({
         >
           {status}
         </span>
-        {isComingSoon && (
+        {isComingSoon && status !== "Coming Soon" && (
           <span className="rounded-md bg-gradient-to-r from-purple-600 to-gold px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
             Coming Soon
+          </span>
+        )}
+        {isExclusive && (
+          <span className="rounded-md bg-gradient-to-r from-amber-500 to-yellow-300 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-near-black">
+            Exclusive
           </span>
         )}
       </div>
@@ -302,6 +310,7 @@ export default function PropertyCard({ property }: { property: Property }) {
         alt={property.address}
         status={property.status}
         isComingSoon={property.isComingSoon}
+        isExclusive={property.isExclusive}
         videoTourUrl={property.videoTourUrl}
         virtualTourUrl={property.virtualTourUrl}
       />

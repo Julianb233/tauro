@@ -19,7 +19,7 @@ export interface Property {
   sqft: number;
   lotSqft: number;
   yearBuilt: number;
-  status: "Active" | "Pending" | "Open House" | "New";
+  status: "Active" | "Pending" | "Open House" | "New" | "Coming Soon";
   propertyType: "Single Family" | "Condo" | "Townhouse" | "Multi-Family" | "Land";
   images: string[];
   description: string;
@@ -52,8 +52,9 @@ export interface Property {
   hoa_frequency?: "monthly" | "quarterly" | "annual";
   has_hoa?: boolean;          // Whether property is in an HOA
   isComingSoon?: boolean;
-  /** AI-3786: Date the property was listed (YYYY-MM-DD) */
+/** AI-3786: Date the property was listed (YYYY-MM-DD) */
   listingDate?: string;
+isExclusive?: boolean;
   mlsNumber?: string;
   /** AI-3872: Lifestyle/property tags for browsing */
   tags?: string[];
