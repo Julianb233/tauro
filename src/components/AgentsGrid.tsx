@@ -14,11 +14,31 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
     return Array.from(set).sort((a, b) => a.localeCompare(b));
   }, [agents]);
 
+  const allSpecialties = useMemo(() => {
+    const set = new Set<string>();
+    agents.forEach((a) => a.specialties.forEach((s) => set.add(s)));
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [agents]);
+
   const filtered = useMemo(() => {
     let result = [...agents];
 
+    if (filters.search) {
+      const q = filters.search.toLowerCase();
+      result = result.filter(
+        (a) =>
+          a.fullName.toLowerCase().includes(q) ||
+          a.firstName.toLowerCase().includes(q) ||
+          a.lastName.toLowerCase().includes(q)
+      );
+    }
+
     if (filters.neighborhood) {
       result = result.filter((a) => a.neighborhoods.includes(filters.neighborhood));
+    }
+
+    if (filters.specialty) {
+      result = result.filter((a) => a.specialties.includes(filters.specialty));
     }
 
     if (filters.sort === "az") {
@@ -45,12 +65,13 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
         onChange={handleChange}
         onClear={handleClear}
         neighborhoods={allNeighborhoods}
+        specialties={allSpecialties}
       />
 
       {filtered.length === 0 ? (
         <div className="py-16 text-center">
           <p className="text-muted-foreground">
-            No agents found for this neighborhood. Try clearing your filters.
+            No agents match your search. Try adjusting your filters.
           </p>
         </div>
       ) : (

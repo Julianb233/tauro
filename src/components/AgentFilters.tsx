@@ -1,16 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import { Search, SlidersHorizontal, X } from "lucide-react";
 
 export interface AgentFilterState {
   sort: string;
   neighborhood: string;
+  search: string;
+  specialty: string;
 }
 
 export const defaultAgentFilters: AgentFilterState = {
   sort: "",
   neighborhood: "",
+  search: "",
+  specialty: "",
 };
 
 export default function AgentFilters({
@@ -18,21 +22,47 @@ export default function AgentFilters({
   onChange,
   onClear,
   neighborhoods,
+  specialties,
 }: {
   filters: AgentFilterState;
   onChange: (key: keyof AgentFilterState, value: string) => void;
   onClear: () => void;
   neighborhoods: string[];
+  specialties: string[];
 }) {
   const [open, setOpen] = useState(false);
 
-  const activeCount = Object.entries(filters).filter(([, v]) => v !== "").length;
+  const activeCount = Object.entries(filters).filter(
+    ([k, v]) => v !== "" && k !== "sort"
+  ).length;
 
   const selectClasses =
     "w-full rounded-lg border border-border bg-card px-3 py-2.5 text-sm text-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold sm:py-2";
 
   return (
     <div className="border-b border-border bg-cream/80 backdrop-blur-sm mb-8">
+      {/* Search bar - always visible */}
+      <div className="px-4 pt-4 lg:px-6 lg:pt-4">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            type="text"
+            value={filters.search}
+            onChange={(e) => onChange("search", e.target.value)}
+            placeholder="Search agents by name..."
+            className="w-full rounded-lg border border-border bg-card py-2.5 pl-10 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+          />
+          {filters.search && (
+            <button
+              onClick={() => onChange("search", "")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Mobile toggle */}
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <button
@@ -71,6 +101,23 @@ export default function AgentFilters({
               {neighborhoods.map((n) => (
                 <option key={n} value={n}>
                   {n}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Specialty
+            </label>
+            <select
+              value={filters.specialty}
+              onChange={(e) => onChange("specialty", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">All Specialties</option>
+              {specialties.map((s) => (
+                <option key={s} value={s}>
+                  {s}
                 </option>
               ))}
             </select>
