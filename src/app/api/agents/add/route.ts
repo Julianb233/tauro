@@ -1,11 +1,40 @@
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
-import { addAgentToFile } from "@/lib/agents-writer";
+import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/types/database";
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
 
+function getAdminClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!url || !serviceKey) {
+    return null;
+  }
+
+  return createClient<Database>(url, serviceKey);
+}
+
 export async function POST(request: NextRequest) {
+  // Validate API key
+  const apiKey = request.headers.get("x-api-key");
+  const expectedKey = process.env.UPLOAD_API_KEY;
+
+  if (!expectedKey || apiKey !== expectedKey) {
+    return NextResponse.json(
+      { error: "Unauthorized" },
+      { status: 401 },
+    );
+  }
+
+  const supabase = getAdminClient();
+  if (!supabase) {
+    return NextResponse.json(
+      { error: "Database not configured" },
+      { status: 503 },
+    );
+  }
+
   try {
     let formData: FormData;
 
@@ -51,14 +80,28 @@ export async function POST(request: NextRequest) {
       ? neighborhoodsRaw.split(",").map((s) => s.trim()).filter(Boolean)
       : [];
 
-    // Generate slug for file naming
+    // Generate slug
     const slug = `${firstName}-${lastName}`
       .toLowerCase()
       .replace(/[^a-z0-9-]/g, "")
       .replace(/-+/g, "-");
 
-    // Handle photo upload
-    let photoPath = "/agents/placeholder.jpg";
+    // Check for duplicate slug
+    const { data: existingAgent } = await supabase
+      .from("agents")
+      .select("id")
+      .eq("slug", slug)
+      .maybeSingle();
+
+    if (existingAgent) {
+      return NextResponse.json(
+        { error: `An agent with slug "${slug}" already exists` },
+        { status: 409 },
+      );
+    }
+
+    // Handle photo upload to Supabase Storage
+    let photoUrl: string | null = null;
     const photoFile = formData.get("photo");
 
     if (photoFile && photoFile instanceof File && photoFile.size > 0) {
@@ -76,42 +119,80 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      const agentsDir = path.join(process.cwd(), "public", "agents");
-      await mkdir(agentsDir, { recursive: true });
+      const ext = photoFile.type.split("/")[1] || "jpg";
+      const filePath = `${slug}.${ext}`;
+      const fileBuffer = Buffer.from(await photoFile.arrayBuffer());
 
-      const buffer = Buffer.from(await photoFile.arrayBuffer());
-      const filename = `${slug}.jpg`;
-      const filePath = path.join(agentsDir, filename);
+      const { error: uploadError } = await supabase.storage
+        .from("agent-photos")
+        .upload(filePath, fileBuffer, {
+          contentType: photoFile.type,
+          upsert: true,
+        });
 
-      await writeFile(filePath, buffer);
-      photoPath = `/agents/${filename}`;
+      if (uploadError) {
+        return NextResponse.json(
+          { error: "Photo upload failed: " + uploadError.message },
+          { status: 500 },
+        );
+      }
+
+      const { data: { publicUrl } } = supabase.storage
+        .from("agent-photos")
+        .getPublicUrl(filePath);
+
+      photoUrl = publicUrl;
     }
 
-    // Add agent to the data file
-    const result = await addAgentToFile({
-      firstName,
-      lastName,
-      title,
-      email,
-      phone,
-      photo: photoPath,
-      bio,
-      shortBio,
-      specialties,
-      neighborhoods,
-      licenseNumber,
-      social: {
-        instagram: instagram || undefined,
-        linkedin: linkedin || undefined,
-        facebook: facebook || undefined,
-      },
-    });
+    // Build social object
+    const social: Record<string, string> = {};
+    if (instagram) social.instagram = instagram;
+    if (linkedin) social.linkedin = linkedin;
+    if (facebook) social.facebook = facebook;
+
+    // Insert agent into database
+    const { data: newAgent, error: insertError } = await supabase
+      .from("agents")
+      .insert({
+        slug,
+        first_name: firstName,
+        last_name: lastName,
+        full_name: `${firstName} ${lastName}`,
+        title,
+        email,
+        phone,
+        photo: photoUrl,
+        bio: bio || null,
+        short_bio: shortBio || null,
+        specialties,
+        neighborhoods,
+        license_number: licenseNumber || null,
+        social,
+        languages: ["English"],
+        stats: {
+          propertiesSold: 0,
+          totalVolume: "$0",
+          avgDaysOnMarket: 0,
+          yearsExperience: 0,
+        },
+        awards: [],
+      })
+      .select("id, slug")
+      .single();
+
+    if (insertError) {
+      console.error("POST /api/agents/add DB insert error:", insertError);
+      return NextResponse.json(
+        { error: insertError.message },
+        { status: 500 },
+      );
+    }
 
     return NextResponse.json(
       {
         success: true,
-        slug: result.slug,
-        id: result.id,
+        slug: newAgent.slug,
+        id: newAgent.id,
         message: `Agent ${firstName} ${lastName} added successfully`,
       },
       { status: 201 },

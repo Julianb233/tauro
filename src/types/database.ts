@@ -180,6 +180,7 @@ export type Database = {
           stats: Record<string, unknown>;
           awards: Record<string, unknown>[];
           video_intro_url: string | null;
+          video_intro_id: string | null;
           social: Record<string, unknown>;
           languages: string[];
           license_number: string | null;
@@ -202,6 +203,7 @@ export type Database = {
           stats?: Record<string, unknown>;
           awards?: Record<string, unknown>[];
           video_intro_url?: string | null;
+          video_intro_id?: string | null;
           social?: Record<string, unknown>;
           languages?: string[];
           license_number?: string | null;
@@ -224,6 +226,7 @@ export type Database = {
           stats?: Record<string, unknown>;
           awards?: Record<string, unknown>[];
           video_intro_url?: string | null;
+          video_intro_id?: string | null;
           social?: Record<string, unknown>;
           languages?: string[];
           license_number?: string | null;

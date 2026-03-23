@@ -1,11 +1,30 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, UserCircle, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
+import { AuthModal, getStoredUser, clearStoredUser, type StoredUser } from "@/components/AuthModal";
+
+// Reactive auth state via useSyncExternalStore
+const authListeners = new Set<() => void>();
+function subscribeAuth(cb: () => void) {
+  authListeners.add(cb);
+  const handler = () => authListeners.forEach((l) => l());
+  window.addEventListener("tauro-auth-change", handler);
+  return () => {
+    authListeners.delete(cb);
+    window.removeEventListener("tauro-auth-change", handler);
+  };
+}
+function getAuthSnapshot(): StoredUser | null {
+  return getStoredUser();
+}
+function getAuthServerSnapshot(): StoredUser | null {
+  return null;
+}
 
 const navLinks = [
   { href: "/properties", label: "Properties" },
@@ -17,7 +36,14 @@ const navLinks = [
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
   const scrolled = useScrolled();
+  const user = useSyncExternalStore(subscribeAuth, getAuthSnapshot, getAuthServerSnapshot);
+
+  const handleSignOut = useCallback(() => {
+    clearStoredUser();
+    window.dispatchEvent(new Event("tauro-auth-change"));
+  }, []);
 
   // Escape key closes overlay
   useEffect(() => {
@@ -82,6 +108,41 @@ export function Navbar() {
               <Phone className="size-4" />
               <span>(215) 839-4172</span>
             </a>
+
+            {user ? (
+              <div className="flex items-center gap-2">
+                <span
+                  className={cn(
+                    "text-sm font-medium transition-all duration-300",
+                    scrolled ? "text-foreground" : "text-white/90",
+                  )}
+                >
+                  {user.name}
+                </span>
+                <button
+                  onClick={handleSignOut}
+                  className={cn(
+                    "rounded-md p-1.5 transition-all duration-300 hover:text-gold",
+                    scrolled ? "text-muted-foreground" : "text-white/70",
+                  )}
+                  aria-label="Sign out"
+                >
+                  <LogOut className="size-4" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setAuthOpen(true)}
+                className={cn(
+                  "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-gold",
+                  scrolled ? "text-foreground/70" : "text-white/80",
+                )}
+              >
+                <UserCircle className="size-4" />
+                Sign In
+              </button>
+            )}
+
             <Link
               href="/contact"
               className={cn(
@@ -149,8 +210,29 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Bottom section with CTA and phone */}
+          {/* Bottom section with CTA, auth, and phone */}
           <div className="flex flex-col items-center gap-4 border-t border-white/10 px-4 py-8">
+            {user ? (
+              <div className="flex items-center gap-3">
+                <span className="text-sm font-medium text-white/90">
+                  {user.name}
+                </span>
+                <button
+                  onClick={() => { handleSignOut(); setMobileOpen(false); }}
+                  className="text-sm text-white/60 hover:text-gold"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => { setAuthOpen(true); setMobileOpen(false); }}
+                className="flex items-center gap-2 text-sm font-medium text-white/80 hover:text-gold"
+              >
+                <UserCircle className="size-5" />
+                Sign In / Register
+              </button>
+            )}
             <Link
               href="/contact"
               className="shimmer-gold rounded-md bg-gold px-8 py-3 font-label text-lg font-semibold text-near-black transition-colors hover:bg-gold-light"
@@ -168,6 +250,9 @@ export function Navbar() {
           </div>
         </div>
       )}
+
+      {/* Auth Modal */}
+      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} />
     </>
   );
 }
