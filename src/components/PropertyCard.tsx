@@ -4,6 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Calendar, Lock, Video, Tag } from "lucide-react";
+import { Calendar, Video, Tag, Glasses } from "lucide-react";
 import { Property, formatPrice, getPropertyTags } from "@/data/properties";
 import { cn } from "@/lib/utils";
 
@@ -24,12 +25,14 @@ function ImageCarousel({
   status,
   isComingSoon,
   videoTourUrl,
+  virtualTourUrl,
 }: {
   images: string[];
   alt: string;
   status: string;
   isComingSoon?: boolean;
   videoTourUrl?: string | null;
+  virtualTourUrl?: string | null;
 }) {
   const [current, setCurrent] = useState(0);
   const total = images.length;
@@ -128,8 +131,14 @@ function ImageCarousel({
         )}
       </div>
 
-      {/* ---- video tour & photo count ---- */}
+      {/* ---- tour badges & photo count ---- */}
       <div className="absolute right-3 bottom-3 z-10 flex items-center gap-1.5">
+        {virtualTourUrl && (
+          <span className="flex items-center gap-1 rounded-md bg-blue-600/90 px-2 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+            <Glasses className="h-3 w-3" />
+            Virtual Tour
+          </span>
+        )}
         {videoTourUrl && (
           <span className="flex items-center gap-1 rounded-md bg-gold/90 px-2 py-1 text-xs font-semibold text-near-black backdrop-blur-sm">
             <Video className="h-3 w-3" />
@@ -292,8 +301,13 @@ export default function PropertyCard({ property }: { property: Property }) {
         status={property.status}
         isComingSoon={property.isComingSoon}
         videoTourUrl={property.videoTourUrl}
+        virtualTourUrl={property.virtualTourUrl}
       />
       <div className="p-3 sm:p-4">
+        {/* AI-3883: Property type label */}
+        <p className="mb-0.5 font-label text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+          {property.propertyType}
+        </p>
         <p className="font-heading text-lg font-bold text-foreground sm:text-xl">{formatPrice(property.price)}</p>
         <div className="mt-1 flex flex-wrap items-center gap-1.5 font-label text-xs tracking-wider text-muted-foreground sm:gap-2">
           <span>{property.beds} BD</span>
