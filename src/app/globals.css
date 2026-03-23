@@ -406,6 +406,7 @@ h1, h2, h3, h4, h5, h6 {
   /* Hide non-essential UI elements */
   nav,
   footer,
+  header,
   [data-cookie-consent],
   .cookie-consent,
   [role="banner"] nav,
@@ -496,6 +497,127 @@ h1, h2, h3, h4, h5, h6 {
   /* Page margins */
   @page {
     margin: 1.5cm;
+  }
+
+  /* ─── Property Detail Page Print Enhancements ─── */
+
+  /* Hide interactive/non-printable property page elements */
+  #calculator,
+  [aria-label="Page sections"],
+  [aria-label="Scroll to top"] {
+    display: none !important;
+  }
+
+  /* Hide the on-screen property layout — the .print-only block replaces it */
+  #photos,
+  #photos + .sticky {
+    display: none !important;
+  }
+
+  /* Hide sidebar (agent card + schedule form) — agent info is in print-only layout */
+  .lg\:sticky.lg\:self-start {
+    display: none !important;
+  }
+
+  /* Hide similar properties carousel, property alerts, mobile floating CTA */
+  [class*="SimilarListings"],
+  [class*="PropertyAlert"] {
+    display: none !important;
+  }
+
+  /* Hide form elements and buttons that are not useful in print */
+  form,
+  button:not(.print-keep),
+  [role="dialog"],
+  [data-radix-popper-content-wrapper] {
+    display: none !important;
+  }
+
+  /* Ensure the print-only header gold border prints */
+  .print-only div[style*="border-bottom"] {
+    border-color: #C9A96E !important;
+  }
+
+  .print-only div[style*="border-top: 2px"] {
+    border-color: #C9A96E !important;
+  }
+
+  /* Allow color on the price in print layout */
+  .print-only p[style*="color: #C9A96E"] {
+    color: #C9A96E !important;
+  }
+
+  /* Print-only images: preserve colors and allow 2-column grid */
+  .print-only div[style*="grid-template-columns"] {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .print-only img {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    break-inside: avoid;
+  }
+
+  /* Print-only flex layouts */
+  .print-only div[style*="display: flex"] {
+    display: flex !important;
+  }
+
+  /* Keep the property description section visible */
+  #details,
+  #features {
+    break-inside: avoid;
+  }
+
+  /* Feature tags: print-friendly borders */
+  #features .rounded-full {
+    border: 1px solid #ddd !important;
+    padding: 2px 8px !important;
+    margin: 2px !important;
+    display: inline-block !important;
+  }
+
+  /* Amenity/feature grids: flow in columns for print */
+  #features .grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Property details table: keep together */
+  table {
+    break-inside: avoid;
+  }
+
+  /* SVG QR code in print-only: preserve rendering */
+  .print-only svg rect {
+    fill: initial;
+  }
+
+  /* Remove top padding from main container (nav is hidden) */
+  .min-h-screen.pt-16 {
+    padding-top: 0 !important;
+    min-height: auto !important;
+  }
+
+  /* Remove max-width constraints for cleaner print */
+  .max-w-7xl {
+    max-width: none !important;
+  }
+
+  /* Remove blur effects */
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Disable all animations */
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
 

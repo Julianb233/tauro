@@ -447,7 +447,7 @@ export default function PropertyDetailClient({
       </div>
 
       {/* Back link */}
-      <div className="border-b border-border bg-white">
+      <div className="no-print border-b border-border bg-white">
         <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
           <Link
             href="/properties"
@@ -460,7 +460,7 @@ export default function PropertyDetailClient({
       </div>
 
       {/* Gallery -- full-bleed, no horizontal padding (AI-3885) */}
-      <div id="photos" className="relative bg-white">
+      <div id="photos" className="no-print relative bg-white">
         <div className="w-full py-2">
           {property.isComingSoon ? (
             <div className="relative">
@@ -543,7 +543,7 @@ export default function PropertyDetailClient({
       </div>
 
       {/* Key details bar - sticky */}
-      <div className="sticky top-16 z-40 border-b border-border bg-card/95 backdrop-blur-sm">
+      <div className="no-print sticky top-16 z-40 border-b border-border bg-card/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <span className="font-heading text-2xl font-bold text-gold sm:text-3xl">
@@ -839,7 +839,8 @@ export default function PropertyDetailClient({
             )}
 
             {/* Mortgage Calculator */}
-            <div id="calculator" />
+            <div id="calculator" className="no-print" />
+            <div className="no-print">
             <MortgageCalculator
               homePrice={property.price}
               taxAnnual={property.tax_annual}
@@ -853,18 +854,23 @@ export default function PropertyDetailClient({
                   : undefined
               }
             />
+            </div>
 
             {/* Similar properties carousel */}
             {similar.length > 0 && (
-              <SimilarListingsCarousel similar={similar} neighborhoodName={neighborhoodName} />
+              <div className="no-print">
+                <SimilarListingsCarousel similar={similar} neighborhoodName={neighborhoodName} />
+              </div>
             )}
 
             {/* Property alert signup */}
-            <PropertyAlertSignup neighborhoodName={neighborhoodName} />
+            <div className="no-print">
+              <PropertyAlertSignup neighborhoodName={neighborhoodName} />
+            </div>
           </div>
 
           {/* Right column - Agent card + Schedule form */}
-          <div ref={sidebarRef} className="space-y-6 lg:sticky lg:top-36 lg:self-start">
+          <div ref={sidebarRef} className="no-print space-y-6 lg:sticky lg:top-36 lg:self-start">
             {/* Agent card */}
             <div id="agent" className="rounded-xl border border-border bg-card p-6">
               <div className="flex items-center gap-4">
@@ -987,7 +993,7 @@ export default function PropertyDetailClient({
       {/* Mobile floating CTA - appears when sidebar scrolls out of view */}
       <div
         className={cn(
-          "fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 backdrop-blur-md transition-transform duration-300 lg:hidden",
+          "no-print fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card/95 backdrop-blur-md transition-transform duration-300 lg:hidden",
           showMobileCta ? "translate-y-0" : "translate-y-full"
         )}
       >
