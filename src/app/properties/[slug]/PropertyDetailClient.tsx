@@ -724,6 +724,11 @@ export default function PropertyDetailClient({
               )}
             </div>
 
+            {/* Price History Timeline */}
+            {property.priceHistory && property.priceHistory.length > 0 && (
+              <PriceHistory history={property.priceHistory} />
+            )}
+
             {/* Mortgage Calculator */}
             <MortgageCalculator homePrice={property.price} taxAnnual={property.tax_annual} />
 

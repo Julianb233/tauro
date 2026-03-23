@@ -65,6 +65,7 @@ export interface Property {
   flooring?: string[];
   roofType?: string;
   rooms?: Room[];
+  priceHistory?: { date: string; price: number; event: string }[];
 }
 
 export const properties: Property[] = [
@@ -151,6 +152,11 @@ export const properties: Property[] = [
       { name: "Dining Room", size: "18x14", level: "1st Floor" },
       { name: "Home Office", size: "14x12", level: "2nd Floor" },
     ],
+    priceHistory: [
+      { date: "2025-09-15", price: 3450000, event: "Listed" },
+      { date: "2025-11-01", price: 3350000, event: "Price Reduced" },
+      { date: "2026-01-10", price: 3250000, event: "Price Reduced" },
+    ],
   },
   {
     id: "2",
@@ -229,6 +235,10 @@ export const properties: Property[] = [
       { name: "Library", size: "16x14", level: "2nd Floor" },
       { name: "Kitchen", size: "20x16", level: "1st Floor" },
       { name: "Dining Room", size: "18x16", level: "1st Floor" },
+    ],
+    priceHistory: [
+      { date: "2025-06-01", price: 4950000, event: "Listed" },
+      { date: "2025-08-15", price: 4750000, event: "Price Reduced" },
     ],
   },
   {
@@ -314,6 +324,12 @@ export const properties: Property[] = [
       { name: "Kitchen", size: "24x18", level: "Penthouse" },
       { name: "Media Room", size: "22x18", level: "Penthouse" },
     ],
+    priceHistory: [
+      { date: "2025-03-20", price: 1850000, event: "Listed" },
+      { date: "2025-05-10", price: 1850000, event: "Pending" },
+      { date: "2025-06-01", price: 1850000, event: "Back on Market" },
+      { date: "2025-09-15", price: 1750000, event: "Price Reduced" },
+    ],
   },
   {
     id: "4",
@@ -388,6 +404,9 @@ export const properties: Property[] = [
       { name: "Second Bedroom", size: "13x12", level: "22nd Floor" },
       { name: "Living/Dining", size: "24x18", level: "22nd Floor" },
     ],
+    priceHistory: [
+      { date: "2026-01-05", price: 895000, event: "Listed" },
+    ],
   },
   {
     id: "5",
@@ -460,6 +479,12 @@ export const properties: Property[] = [
       { name: "Living Room", size: "20x16", level: "2nd Floor" },
       { name: "Kitchen", size: "18x12", level: "2nd Floor" },
       { name: "Home Office", size: "12x10", level: "1st Floor" },
+    ],
+    priceHistory: [
+      { date: "2025-10-01", price: 1150000, event: "Listed" },
+      { date: "2025-12-15", price: 1075000, event: "Price Reduced" },
+      { date: "2026-02-01", price: 999000, event: "Price Reduced" },
+      { date: "2026-03-05", price: 999000, event: "Pending" },
     ],
   },
   {
