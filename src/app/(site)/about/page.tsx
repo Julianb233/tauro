@@ -16,6 +16,7 @@ import { AboutCountUp, AboutStaggerReveal, AboutParallax, FadeInView } from "./A
 import { GoogleReviewBadge } from "@/components/GoogleReviewBadge";
 import { AsSeenInStrip } from "@/components/SocialProof";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 export const metadata: Metadata = {
   title: "About Tauro | Philadelphia's Premier Real Estate Brokerage",
@@ -87,6 +88,8 @@ export default function AboutPage() {
             fill
             priority
             className="object-cover brightness-[0.3] scale-110"
+            placeholder="blur"
+            blurDataURL={BLUR_LANDSCAPE}
           />
         </AboutParallax>
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">

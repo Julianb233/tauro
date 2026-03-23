@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 import { useState } from "react";
 import {
   TrendingUp,
@@ -202,6 +203,8 @@ export default function CareersPage() {
             fill
             className="object-cover opacity-15"
             sizes="100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_LANDSCAPE}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/50" />
         </div>
@@ -390,6 +393,8 @@ export default function CareersPage() {
             fill
             className="object-cover opacity-10"
             sizes="100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_LANDSCAPE}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-black/70" />
         </div>

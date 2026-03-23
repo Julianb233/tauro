@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCompare } from "@/hooks/useCompare";
 import { properties } from "@/data/properties";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 export function CompareBar() {
   const { ids, count, remove, clear } = useCompare();
@@ -29,6 +30,8 @@ export function CompareBar() {
                     fill
                     className="object-cover"
                     sizes="80px"
+                    placeholder="blur"
+                    blurDataURL={BLUR_LANDSCAPE}
                   />
                 </div>
                 <button

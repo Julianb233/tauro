@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Camera } from "lucide-react";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 import Lightbox from "yet-another-react-lightbox";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
@@ -51,6 +52,8 @@ export function PhotoGallery({
                 fill
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                placeholder="blur"
+                blurDataURL={BLUR_LANDSCAPE}
               />
               <div className="absolute inset-0 bg-black/0 transition-colors group-hover:bg-black/20" />
               <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">

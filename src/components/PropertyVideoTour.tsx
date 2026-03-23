@@ -4,6 +4,7 @@ import { useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 import { Play, X, Video } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 type VideoProvider = "youtube" | "vimeo";
 
@@ -144,6 +145,8 @@ export default function PropertyVideoTour({
             fill
             className="object-cover opacity-80 transition-all duration-500 hover:scale-105 hover:opacity-60"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 800px"
+            placeholder="blur"
+            blurDataURL={BLUR_LANDSCAPE}
           />
 
           {/* Gradient overlay */}

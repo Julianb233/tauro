@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Home, TrendingUp, Shield, Star, ArrowRight } from "lucide-react";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { SellerInquiryForm } from "@/components/seller-inquiry-form";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 const whySell = [
   {
@@ -63,6 +64,8 @@ export default function SellPage() {
             fill
             className="object-cover opacity-20"
             sizes="100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_LANDSCAPE}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/50" />
         </div>

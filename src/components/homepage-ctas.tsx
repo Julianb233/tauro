@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 export default function HomepageCTAs() {
   return (
@@ -15,6 +16,8 @@ export default function HomepageCTAs() {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
+              placeholder="blur"
+              blurDataURL={BLUR_LANDSCAPE}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
             <div className="relative z-10 p-8 sm:p-10">
@@ -48,6 +51,8 @@ export default function HomepageCTAs() {
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
+              placeholder="blur"
+              blurDataURL={BLUR_LANDSCAPE}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
             <div className="relative z-10 p-8 sm:p-10">

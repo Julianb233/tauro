@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { Neighborhood } from "@/data/neighborhoods";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 export function AreaHero({ neighborhood }: { neighborhood: Neighborhood }) {
   return (
@@ -13,6 +14,8 @@ export function AreaHero({ neighborhood }: { neighborhood: Neighborhood }) {
         className="object-cover"
         priority
         sizes="100vw"
+        placeholder="blur"
+        blurDataURL={BLUR_LANDSCAPE}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/50 to-midnight/20" />
 

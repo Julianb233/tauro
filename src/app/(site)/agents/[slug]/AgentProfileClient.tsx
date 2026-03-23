@@ -13,21 +13,16 @@ import type { Property } from "@/data/properties";
 import { formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import type { LeadPayload } from "@/app/api/leads/route";
-import { useUtm } from "@/hooks/useUtm";
+import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 interface FormData { firstName: string; lastName: string; email: string; phone: string; message: string; }
 const initialForm: FormData = { firstName: "", lastName: "", email: "", phone: "", message: "" };
 
-<<<<<<< HEAD
 /* ------------------------------------------------------------------ */
 /*  Inline Agent Contact Form                                         */
 /* ------------------------------------------------------------------ */
 function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar" | "full" }) {
-=======
-export default function AgentProfileClient({ agent, activeListings }: { agent: Agent; activeListings: Property[] }) {
-  const utm = useUtm();
->>>>>>> origin/main
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -42,7 +37,6 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
     setErrorMsg("");
     const formData = new FormData(e.currentTarget);
     const honeypot = formData.get("website") as string;
-<<<<<<< HEAD
     const payload: LeadPayload = {
       type: "agent-contact",
       firstName: form.firstName,
@@ -53,9 +47,6 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
       agentName: agent.fullName,
       agentSlug: agent.slug,
     };
-=======
-    const payload: LeadPayload = { type: "agent-contact", firstName: form.firstName, lastName: form.lastName, email: form.email, phone: form.phone, message: form.message, agentName: agent.fullName, agentSlug: agent.slug, ...utm };
->>>>>>> origin/main
     try {
       const res = await fetch("/api/leads", {
         method: "POST",
@@ -209,8 +200,8 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
             {/* Photo */}
             <div className="lg:col-span-1">
               <div className="overflow-hidden rounded-2xl border border-gold/20">
-                <div className="relative aspect-[3/4]">
-                  <Image src={agent.photo} alt={agent.fullName} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
+                <div className="relative aspect-square md:aspect-[3/4]">
+                  <Image src={agent.photo} alt={agent.fullName} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" placeholder="blur" blurDataURL={BLUR_PORTRAIT} />
                 </div>
               </div>
             </div>

@@ -5,6 +5,7 @@ import { ArrowRight, Clock } from "lucide-react";
 import { blogPosts, blogCategories } from "@/data/blog-posts";
 import { BlogCategoryFilter } from "./BlogCategoryFilter";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { BLUR_LANDSCAPE, BLUR_SQUARE } from "@/lib/blur-placeholder";
 
 export const metadata: Metadata = {
   title: "Journal | Insights on Philadelphia Real Estate",
@@ -45,6 +46,8 @@ export default function BlogPage({
             className="object-cover opacity-40"
             priority
             sizes="100vw"
+            placeholder="blur"
+            blurDataURL={BLUR_LANDSCAPE}
           />
         )}
         <div className="relative z-10 mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
@@ -72,6 +75,8 @@ export default function BlogPage({
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   sizes="(max-width: 1024px) 100vw, 50vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_LANDSCAPE}
                 />
                 <div className="absolute top-4 left-4">
                   <span className="rounded-full bg-gold/90 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-near-black">
@@ -98,6 +103,8 @@ export default function BlogPage({
                         fill
                         className="object-cover"
                         sizes="32px"
+                        placeholder="blur"
+                        blurDataURL={BLUR_SQUARE}
                       />
                     </div>
                     <span className="text-white/60">{featured.author}</span>
