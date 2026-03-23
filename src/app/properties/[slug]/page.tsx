@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { loadPropertyBySlug, loadProperties } from "@/lib/data";
+import { loadPropertyBySlug, loadProperties, loadNeighborhoods } from "@/lib/data";
 import { formatPriceFull } from "@/data/properties";
 import { RealEstateListingJsonLd } from "@/components/JsonLd";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -43,6 +43,10 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
   if (!property) notFound();
   const allProperties = await loadProperties();
   const similar = allProperties.filter((p) => p.id !== property.id).slice(0, 3);
+  const neighborhoods = await loadNeighborhoods();
+  const matchedNeighborhood = neighborhoods.find(
+    (n) => n.propertyFilter.toLowerCase() === property.neighborhood.toLowerCase()
+  );
   return (
     <>
       <RealEstateListingJsonLd property={property} />
@@ -52,7 +56,12 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
           { label: property.address, href: `/properties/${property.slug}` },
         ]}
       />
-      <PropertyDetailClient property={property} similar={similar} />
+      <PropertyDetailClient
+        property={property}
+        similar={similar}
+        neighborhoodSlug={matchedNeighborhood?.slug}
+        neighborhoodName={matchedNeighborhood?.name}
+      />
     </>
   );
 }

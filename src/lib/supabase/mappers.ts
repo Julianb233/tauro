@@ -60,7 +60,7 @@ function parseOpenHouseText(
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function mapPropertyRow(row: any): Property {
-  const agent = row.agents as { full_name?: string; phone?: string; email?: string; photo?: string } | null | undefined;
+  const agent = row.agents as { full_name?: string; phone?: string; email?: string; photo?: string; slug?: string } | null | undefined;
   return {
     id: row.id,
     slug: row.slug,
@@ -90,8 +90,9 @@ export function mapPropertyRow(row: any): Property {
           phone: (agent.phone as string) ?? "",
           email: (agent.email as string) ?? "",
           photo: (agent.photo as string) ?? "",
+          slug: (agent.slug as string) ?? undefined,
         }
-      : { name: "", phone: "", email: "", photo: "" },
+      : { name: "", phone: "", email: "", photo: "", slug: undefined },
     lat: row.lat ?? 0,
     lng: row.lng ?? 0,
     openHouse: row.open_house ?? undefined,
@@ -106,6 +107,20 @@ export function mapPropertyRow(row: any): Property {
     virtualTourUrl: row.virtual_tour_url ?? undefined,
     tax_annual: row.tax_annual ?? 0,
     tax_year: row.tax_year ?? 2025,
+    hoa_fee: row.hoa_fee ?? undefined,
+    hoa_frequency: row.hoa_frequency ?? undefined,
+    has_hoa: row.has_hoa ?? false,
+    // AI-3891: Comprehensive property details
+    mlsNumber: row.mls_number ?? undefined,
+    heating: row.heating ?? undefined,
+    cooling: row.cooling ?? undefined,
+    garage: row.garage ?? undefined,
+    parkingSpaces: row.parking_spaces ?? undefined,
+    stories: row.stories ?? undefined,
+    construction: row.construction ?? undefined,
+    flooring: row.flooring ?? [],
+    roofType: row.roof_type ?? undefined,
+    rooms: (row.rooms as Property["rooms"]) ?? [],
   };
 }
 

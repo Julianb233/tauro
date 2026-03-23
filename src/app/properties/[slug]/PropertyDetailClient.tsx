@@ -29,6 +29,7 @@ import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PropertyMap from "@/components/PropertyMap";
 import PriceHistory from "@/components/PriceHistory";
 import MortgageCalculator from "@/components/MortgageCalculator";
+import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import { cn } from "@/lib/utils";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { siteUrl } from "@/lib/site-config";
@@ -86,12 +87,26 @@ function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
   );
 }
 
+/** Convert HOA fee to monthly amount for payment calculation */
+function getMonthlyHoa(property: Property): number {
+  if (!property.has_hoa || !property.hoa_fee) return 0;
+  switch (property.hoa_frequency) {
+    case "quarterly": return property.hoa_fee / 3;
+    case "annual": return property.hoa_fee / 12;
+    default: return property.hoa_fee; // monthly
+  }
+}
+
 export default function PropertyDetailClient({
   property,
   similar,
+  neighborhoodSlug,
+  neighborhoodName,
 }: {
   property: Property;
   similar: Property[];
+  neighborhoodSlug?: string;
+  neighborhoodName?: string;
 }) {
   const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
@@ -253,6 +268,9 @@ export default function PropertyDetailClient({
           <span><strong>{property.yearBuilt}</strong> Year Built</span>
           <span><strong>{property.propertyType}</strong></span>
           <span><strong>${property.tax_annual.toLocaleString()}</strong> Taxes ({property.tax_year})</span>
+          {property.has_hoa && property.hoa_fee && (
+            <span><strong>${property.hoa_fee.toLocaleString()}/mo</strong> HOA</span>
+          )}
         </div>
 
         {/* First 4 images in 2x2 grid */}
@@ -502,38 +520,7 @@ export default function PropertyDetailClient({
             <div>
               <h2 className="font-heading text-xl font-bold">About This Property</h2>
               <p className="mt-3 leading-relaxed text-muted-foreground">{property.description}</p>
-              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-5">
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Year Built</p>
-                  <p className="mt-1 font-heading text-lg font-bold">{property.yearBuilt}</p>
-                </div>
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Lot Size</p>
-                  <p className="mt-1 font-heading text-lg font-bold">
-                    {property.lotSqft > 0 ? `${property.lotSqft.toLocaleString()} SF` : "N/A"}
-                  </p>
-                </div>
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Price/SF</p>
-                  <p className="mt-1 font-heading text-lg font-bold">
-                    ${Math.round(property.price / property.sqft).toLocaleString()}
-                  </p>
-                </div>
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Annual Taxes</p>
-                  <p className="mt-1 font-heading text-lg font-bold">
-                    ${property.tax_annual.toLocaleString()}
-                  </p>
-                  <p className="text-[10px] text-muted-foreground">({property.tax_year})</p>
-                </div>
-                <div className="rounded-lg border border-border bg-card p-3 text-center">
-                  <p className="text-xs text-muted-foreground">Est. Payment</p>
-                  <p className="mt-1 font-heading text-lg font-bold">
-                    ${Math.round((property.price * 0.8 * 0.065) / 12 / (1 - Math.pow(1 + 0.065 / 12, -360)) + property.tax_annual / 12).toLocaleString()}/mo
-                  </p>
-                  <p className="text-[10px] text-muted-foreground">incl. taxes</p>
-                </div>
-              </div>
+              <PropertyDetailsTable property={property} />
             </div>
 
             {/* Video Tour (PROP-08) */}
@@ -575,14 +562,17 @@ export default function PropertyDetailClient({
                     <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gold">
                       {cat}
                     </h3>
-                    <ul className="space-y-2">
+                    <div className="flex flex-wrap gap-2">
                       {property.features[cat].map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Check className="h-3.5 w-3.5 flex-shrink-0 text-gold" />
+                        <span
+                          key={f}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/5 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-gold/40 hover:bg-gold/10 hover:text-foreground"
+                        >
+                          <Check className="h-3 w-3 flex-shrink-0 text-gold" />
                           {f}
-                        </li>
+                        </span>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -599,6 +589,15 @@ export default function PropertyDetailClient({
                   zoom={14}
                 />
               </div>
+              {neighborhoodSlug && neighborhoodName && (
+                <Link
+                  href={`/neighborhoods/${neighborhoodSlug}`}
+                  className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-gold"
+                >
+                  <MapPin className="h-4 w-4" />
+                  Explore the {neighborhoodName} Neighborhood Guide
+                </Link>
+              )}
             </div>
 
             {/* Mortgage Calculator */}
@@ -651,6 +650,14 @@ export default function PropertyDetailClient({
                   {property.agent.email}
                 </a>
               </div>
+              {property.agent.slug && (
+                <Link
+                  href={`/agents/${property.agent.slug}`}
+                  className="mt-4 block text-center text-sm font-medium text-gold transition-colors hover:text-gold/80"
+                >
+                  View all listings by {property.agent.name}
+                </Link>
+              )}
             </div>
 
             {/* Schedule form */}

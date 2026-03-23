@@ -16,6 +16,9 @@ export interface FilterState {
   baths: string;
   sqftMin: string;
   sqftMax: string;
+  /** AI-3870: Lot size filter */
+  lotSizeMin: string;
+  lotSizeMax: string;
   area: string;
   propertyType: string;
   status: string;
@@ -31,6 +34,8 @@ export const defaultFilters: FilterState = {
   baths: "",
   sqftMin: "",
   sqftMax: "",
+  lotSizeMin: "",
+  lotSizeMax: "",
   area: "",
   propertyType: "",
   status: "",
@@ -159,6 +164,43 @@ export default function PropertyFilters({
               <option value="5000">5,000 SF</option>
               <option value="7000">7,000 SF</option>
               <option value="10000">10,000 SF</option>
+            </select>
+          </div>
+          {/* AI-3870: Lot size filter */}
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Min Lot
+            </label>
+            <select
+              value={filters.lotSizeMin}
+              onChange={(e) => update("lotSizeMin", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">No Min</option>
+              <option value="2000">2,000 SF</option>
+              <option value="5000">5,000 SF</option>
+              <option value="10000">10,000 SF</option>
+              <option value="20000">20,000 SF</option>
+              <option value="43560">1 Acre</option>
+              <option value="87120">2 Acres</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Max Lot
+            </label>
+            <select
+              value={filters.lotSizeMax}
+              onChange={(e) => update("lotSizeMax", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">No Max</option>
+              <option value="5000">5,000 SF</option>
+              <option value="10000">10,000 SF</option>
+              <option value="20000">20,000 SF</option>
+              <option value="43560">1 Acre</option>
+              <option value="87120">2 Acres</option>
+              <option value="217800">5 Acres</option>
             </select>
           </div>
           <div>
