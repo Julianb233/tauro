@@ -16,7 +16,6 @@ interface Subscriber {
   unsubscribe_token: string;
   interests: string[] | null;
   source: string | null;
-interface NewsletterSubscriber {
   confirmed_at: string | null;
   unsubscribed_at: string | null;
   ghl_synced: boolean;
@@ -35,15 +34,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(`${siteUrl}/newsletter/confirm?status=error`);
   }
 
-const { data: subscriber, error: fetchError } = await supabase
+  const { data: subscriber, error: fetchError } = await supabase
     .from("newsletter_subscribers")
     .select("*")
     .eq("confirm_token", token)
     .maybeSingle<Subscriber>();
-// Find subscriber by confirm token
-  const { data: subscriberData, error: fetchError } = await supabase
-    .maybeSingle();
-  const subscriber = subscriberData as NewsletterSubscriber | null;
 
   if (fetchError || !subscriber) {
     return NextResponse.redirect(`${siteUrl}/newsletter/confirm?status=invalid`);
