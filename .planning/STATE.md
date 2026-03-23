@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-03-18)
 ## Current Position
 
 Phase: 10 of 13 (Database & Supabase)
-Plan: 07 of 07 (gap fixes)
-Status: Phase 10 complete
-Last activity: 2026-03-23 — Completed 10-07: agents/add DB migration + env cleanup
+Plan: 06 of 07 (schema and seed gap fixes)
+Status: In progress
+Last activity: 2026-03-23 — Completed 10-06: migration renumbering, video_intro_id column, storage policies migration, database.ts type sync, seed open-house field mappings
 
 Progress: █████████████████░░░░░ 69% (9/13 phases)
 
@@ -69,6 +69,9 @@ Recent decisions affecting current work:
 - HOMEPAGE-REFACTOR-01: Homepage decomposed into 7 section components with separated data files
 - AGENTS-ADD-AUTH-01: /api/agents/add uses UPLOAD_API_KEY (x-api-key header) for auth — same key as /api/upload
 - AGENTS-ADD-STORAGE-01: Agent photos upload to Supabase Storage (agent-photos bucket) not filesystem
+- MIGRATION-NUMBERING-01: Sequential 001-009 numbering with no gaps or collisions
+- STORAGE-POLICIES-01: storage-policies.sql promoted to 009_storage_policies.sql migration
+- AGENT-VIDEO-ID-01: video_intro_id stored separately from video_intro_url for embed URL construction
 
 ### Roadmap Evolution
 
@@ -92,5 +95,5 @@ Recent decisions affecting current work:
 ## Session Continuity
 
 Last session: 2026-03-23
-Stopped at: Completed 10-07-PLAN — agents/add route Supabase migration + env gaps fixed
+Stopped at: Completed 10-06-PLAN — schema/seed gap fixes (migration renumbering, video_intro_id, storage policies, type sync)
 Resume file: None
