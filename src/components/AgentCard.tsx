@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Agent } from "@/data/agents";
+import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 
 export default function AgentCard({ agent }: { agent: Agent }) {
   return (
@@ -19,6 +20,8 @@ export default function AgentCard({ agent }: { agent: Agent }) {
           fill
           className="object-cover grayscale-[20%] transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          placeholder="blur"
+          blurDataURL={BLUR_PORTRAIT}
         />
 
         {/* Designation badges - top right */}

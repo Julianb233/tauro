@@ -6,6 +6,7 @@ import HeroVideo from "@/components/HeroVideo";
 
 import Image from "next/image";
 import { useRef, useEffect } from "react";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 // Philadelphia skyline — golden hour over Center City
 const HERO_IMAGES = [
   "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1920&q=80",
@@ -45,6 +46,8 @@ export default function Hero() {
           priority
           sizes="100vw"
           className="object-cover"
+          placeholder="blur"
+          blurDataURL={BLUR_LANDSCAPE}
         />
       </div>
 
