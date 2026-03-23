@@ -13,6 +13,48 @@ import type { Testimonial } from "@/data/testimonials";
 import type { FaqItem } from "@/data/faq";
 
 // ---------------------------------------------------------------------------
+// Open house text parser — fallback when structured columns are absent
+// Handles the display format: "Sat, Mar 22 · 1:00 PM - 4:00 PM"
+// Returns undefined if the text cannot be reliably parsed.
+// ---------------------------------------------------------------------------
+
+const MONTH_MAP: Record<string, number> = {
+  Jan: 1, Feb: 2, Mar: 3, Apr: 4, May: 5, Jun: 6,
+  Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12,
+};
+
+function parseTime12h(raw: string): string | undefined {
+  // e.g. "1:00 PM" or "12:30 AM"
+  const m = raw.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+  if (!m) return undefined;
+  let h = parseInt(m[1], 10);
+  const min = m[2];
+  const ampm = m[3].toUpperCase();
+  if (ampm === "PM" && h !== 12) h += 12;
+  if (ampm === "AM" && h === 12) h = 0;
+  return `${h.toString().padStart(2, "0")}:${min}`;
+}
+
+function parseOpenHouseText(
+  text: string | null,
+): { date: string; startTime: string; endTime: string } | undefined {
+  if (!text) return undefined;
+  // Pattern: "Day, Mon DD · H:MM AM - H:MM PM"
+  const m = text.match(/(\w{3}),\s+(\w{3})\s+(\d{1,2})\s+[·•]\s+([\d:]+\s*[AP]M)\s*[-–]\s*([\d:]+\s*[AP]M)/i);
+  if (!m) return undefined;
+  const [, , monthStr, dayStr, startRaw, endRaw] = m;
+  const month = MONTH_MAP[monthStr];
+  if (!month) return undefined;
+  const day = parseInt(dayStr, 10);
+  const year = new Date().getFullYear();
+  const date = `${year}-${month.toString().padStart(2, "0")}-${day.toString().padStart(2, "0")}`;
+  const startTime = parseTime12h(startRaw);
+  const endTime = parseTime12h(endRaw);
+  if (!startTime || !endTime) return undefined;
+  return { date, startTime, endTime };
+}
+
+// ---------------------------------------------------------------------------
 // Properties
 // ---------------------------------------------------------------------------
 
@@ -53,6 +95,13 @@ export function mapPropertyRow(row: any): Property {
     lat: row.lat ?? 0,
     lng: row.lng ?? 0,
     openHouse: row.open_house ?? undefined,
+    openHouseEvent: row.open_house_date
+      ? {
+          date: row.open_house_date as string,
+          startTime: (row.open_house_start as string | null)?.slice(0, 5) ?? "12:00",
+          endTime: (row.open_house_end as string | null)?.slice(0, 5) ?? "15:00",
+        }
+      : parseOpenHouseText(row.open_house ?? null),
     videoUrl: row.video_url ?? undefined,
     virtualTourUrl: row.virtual_tour_url ?? undefined,
     tax_annual: row.tax_annual ?? 0,

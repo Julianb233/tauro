@@ -41,6 +41,8 @@ export default function AgentCard({ agent }: { agent: Agent }) {
 
             {/* Stats row */}
             <div className="mt-3 flex items-center gap-2 text-xs text-gold">
+              <span>{agent.stats.yearsExperience}+ Yrs</span>
+              <span className="text-white/30">|</span>
               <span>{agent.stats.propertiesSold} Sold</span>
               <span className="text-white/30">|</span>
               <span>{agent.stats.totalVolume} Volume</span>

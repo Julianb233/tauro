@@ -27,6 +27,9 @@ export type Database = {
           lat: number | null;
           lng: number | null;
           open_house: string | null;
+          open_house_date: string | null;
+          open_house_start: string | null;
+          open_house_end: string | null;
           video_url: string | null;
           virtual_tour_url: string | null;
           featured: boolean;
@@ -58,6 +61,9 @@ export type Database = {
           lat?: number | null;
           lng?: number | null;
           open_house?: string | null;
+          open_house_date?: string | null;
+          open_house_start?: string | null;
+          open_house_end?: string | null;
           video_url?: string | null;
           virtual_tour_url?: string | null;
           featured?: boolean;
@@ -89,6 +95,9 @@ export type Database = {
           lat?: number | null;
           lng?: number | null;
           open_house?: string | null;
+          open_house_date?: string | null;
+          open_house_start?: string | null;
+          open_house_end?: string | null;
           video_url?: string | null;
           virtual_tour_url?: string | null;
           featured?: boolean;
