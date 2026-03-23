@@ -36,6 +36,7 @@ import ImageGallery from "@/components/ImageGallery";
 import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PropertyMap from "@/components/PropertyMap";
 import PriceHistory from "@/components/PriceHistory";
+import RoomBreakdown from "@/components/RoomBreakdown";
 import MortgageCalculator from "@/components/MortgageCalculator";
 import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import { cn } from "@/lib/utils";
@@ -701,6 +702,11 @@ export default function PropertyDetailClient({
                 ))}
               </div>
             </div>
+
+            {/* Room-by-Room Breakdown */}
+            {property.rooms && property.rooms.length > 0 && (
+              <RoomBreakdown rooms={property.rooms} />
+            )}
 
             {/* Location map */}
             <div>
