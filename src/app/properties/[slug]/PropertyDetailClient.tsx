@@ -25,8 +25,14 @@ import {
   TrainFront,
   Star,
   Bell,
-ChevronLeft,
+  ChevronLeft,
   ChevronRight,
+  Camera,
+  FileText,
+  Sparkles,
+  Map,
+  Calculator,
+  User,
 } from "lucide-react";
 import { Property, formatPriceFull, formatDaysOnMarket } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
@@ -95,6 +101,86 @@ function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
       <rect x="90" y="90" width="8" height="8" fill="white" />
       <rect x="92" y="92" width="4" height="4" fill="black" />
     </svg>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Scroll Spy Navigation
+// ---------------------------------------------------------------------------
+
+const SCROLL_SPY_SECTIONS = [
+  { id: "photos", label: "Photos", icon: Camera },
+  { id: "details", label: "Details", icon: FileText },
+  { id: "features", label: "Features", icon: Sparkles },
+  { id: "location", label: "Location", icon: Map },
+  { id: "calculator", label: "Calculator", icon: Calculator },
+  { id: "agent", label: "Agent", icon: User },
+] as const;
+
+function ScrollSpyNav() {
+  const [activeId, setActiveId] = useState<string>("photos");
+
+  useEffect(() => {
+    const els = SCROLL_SPY_SECTIONS.map((s) => document.getElementById(s.id)).filter(Boolean) as HTMLElement[];
+    if (els.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Find the topmost visible section
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length > 0) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px", threshold: 0 }
+    );
+
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const yOffset = -120; // account for sticky header
+    const y = el.getBoundingClientRect().top + window.scrollY + yOffset;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  };
+
+  return (
+    <nav
+      className="fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 xl:flex"
+      aria-label="Page sections"
+    >
+      <div className="flex flex-col gap-1 rounded-full border border-border/60 bg-card/90 px-2 py-3 shadow-lg backdrop-blur-md">
+        {SCROLL_SPY_SECTIONS.map((section) => {
+          const Icon = section.icon;
+          const isActive = activeId === section.id;
+          return (
+            <button
+              key={section.id}
+              onClick={() => scrollTo(section.id)}
+              className={cn(
+                "group relative flex h-10 w-10 items-center justify-center rounded-full transition-all duration-200",
+                isActive
+                  ? "bg-gold text-near-black shadow-sm"
+                  : "text-muted-foreground hover:bg-gold/10 hover:text-gold"
+              )}
+              aria-label={section.label}
+              aria-current={isActive ? "true" : undefined}
+            >
+              <Icon className="h-4 w-4" />
+              {/* Tooltip */}
+              <span className="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-md bg-near-black px-3 py-1.5 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+                {section.label}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+    </nav>
   );
 }
 
@@ -277,6 +363,9 @@ export default function PropertyDetailClient({
 
   return (
     <div className="min-h-screen pt-16">
+      {/* Scroll spy side navigation */}
+      <ScrollSpyNav />
+
       {/* ─── Print-only layout ─── */}
       <div className="print-only" style={{ padding: "0 1rem" }}>
         {/* Header with logo and contact */}
@@ -371,7 +460,7 @@ export default function PropertyDetailClient({
       </div>
 
       {/* Gallery -- full-bleed, no horizontal padding (AI-3885) */}
-      <div className="relative bg-white">
+      <div id="photos" className="relative bg-white">
         <div className="w-full py-2">
           {property.isComingSoon ? (
             <div className="relative">
@@ -539,7 +628,7 @@ export default function PropertyDetailClient({
           {/* Left column */}
           <div className="space-y-10">
             {/* Address & status */}
-            <div>
+            <div id="details">
               <div className="flex flex-wrap items-center gap-3">
                 <h1 className="font-heading text-2xl font-bold sm:text-3xl">{property.address}</h1>
                 <span
@@ -634,7 +723,7 @@ export default function PropertyDetailClient({
             )}
 
             {/* Features */}
-            <div>
+            <div id="features">
               <h2 className="font-heading text-xl font-bold">Features & Amenities</h2>
               <div className="mt-4 grid gap-6 sm:grid-cols-3">
                 {(["interior", "exterior", "community"] as const).map((cat) => (
@@ -664,7 +753,7 @@ export default function PropertyDetailClient({
             )}
 
             {/* Location map */}
-            <div>
+            <div id="location">
               <h2 className="font-heading text-xl font-bold">Location</h2>
               <div className="mt-4 h-64 overflow-hidden rounded-xl border border-border">
                 <PropertyMap
@@ -750,6 +839,7 @@ export default function PropertyDetailClient({
             )}
 
             {/* Mortgage Calculator */}
+            <div id="calculator" />
             <MortgageCalculator
               homePrice={property.price}
               taxAnnual={property.tax_annual}
@@ -776,7 +866,7 @@ export default function PropertyDetailClient({
           {/* Right column - Agent card + Schedule form */}
           <div ref={sidebarRef} className="space-y-6 lg:sticky lg:top-36 lg:self-start">
             {/* Agent card */}
-            <div className="rounded-xl border border-border bg-card p-6">
+            <div id="agent" className="rounded-xl border border-border bg-card p-6">
               <div className="flex items-center gap-4">
                 <Image
                   src={property.agent.photo}
