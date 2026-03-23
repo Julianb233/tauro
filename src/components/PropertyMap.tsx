@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { MapPin, ExternalLink, ChevronDown } from "lucide-react";
+import { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import Map, { Marker, Popup, NavigationControl } from "react-map-gl/mapbox";
+import { MapPin, Bed, Bath, Maximize, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { Property, formatPrice } from "@/data/properties";
-import { cn } from "@/lib/utils";
+import "mapbox-gl/dist/mapbox-gl.css";
 
 interface PropertyMapProps {
   properties: Property[];
@@ -15,121 +18,123 @@ interface PropertyMapProps {
 
 const GOLD = "#C9A96E";
 const PHILLY_CENTER: [number, number] = [-75.1652, 39.9526];
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || "";
 
-function clampZoom(z: number) {
-  return Math.min(Math.max(Math.round(z), 1), 19);
-}
-
-/* AI-3877: Group properties by neighborhood for cluster-style display */
-interface Cluster {
-  neighborhood: string;
-  properties: Property[];
-  avgLat: number;
-  avgLng: number;
-}
-
-function clusterByNeighborhood(properties: Property[]): Cluster[] {
-  const map = new Map<string, Property[]>();
-  for (const p of properties) {
-    const existing = map.get(p.neighborhood) ?? [];
-    existing.push(p);
-    map.set(p.neighborhood, existing);
-  }
-  return Array.from(map.entries()).map(([neighborhood, props]) => ({
-    neighborhood,
-    properties: props,
-    avgLat: props.reduce((s, p) => s + p.lat, 0) / props.length,
-    avgLng: props.reduce((s, p) => s + p.lng, 0) / props.length,
-  }));
-}
-
-/* AI-3877: Cluster panel with expandable neighborhood groups */
-function ClusterPanel({
-  clusters,
-  onPropertyClick,
+/* ─── Mini property card shown on pin click ─── */
+function PropertyPopup({
+  property,
+  onClose,
 }: {
-  clusters: Cluster[];
-  onPropertyClick?: (slug: string) => void;
+  property: Property;
+  onClose: () => void;
 }) {
-  const [expandedCluster, setExpandedCluster] = useState<string | null>(
-    clusters.length === 1 ? clusters[0].neighborhood : null
-  );
-
   return (
-    <div className="absolute left-3 top-3 max-h-[60%] w-60 overflow-y-auto rounded-lg border border-[#C9A96E]/20 bg-[#111111]/95 shadow-xl backdrop-blur-sm">
-      <div className="p-2.5">
-        <p
-          className="mb-2 text-[10px] font-semibold uppercase tracking-widest"
-          style={{ color: GOLD }}
+    <div className="w-64 overflow-hidden rounded-lg bg-[#111111] text-[#F5F0E8] shadow-2xl">
+      {/* Image */}
+      <div className="relative h-36 w-full">
+        {property.images[0] ? (
+          <Image
+            src={property.images[0]}
+            alt={property.address}
+            fill
+            className="object-cover"
+            sizes="256px"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center bg-[#1a1a1a]">
+            <MapPin className="h-8 w-8 text-[#C9A96E]/30" />
+          </div>
+        )}
+        <button
+          onClick={onClose}
+          className="absolute right-2 top-2 rounded-full bg-black/60 p-1 backdrop-blur-sm transition-colors hover:bg-black/80"
         >
-          {clusters.reduce((s, c) => s + c.properties.length, 0)} Properties in{" "}
-          {clusters.length} Areas
-        </p>
-        <div className="space-y-1">
-          {clusters.map((cluster) => {
-            const isExpanded = expandedCluster === cluster.neighborhood;
-            return (
-              <div key={cluster.neighborhood}>
-                <button
-                  onClick={() =>
-                    setExpandedCluster(isExpanded ? null : cluster.neighborhood)
-                  }
-                  className="flex w-full items-center gap-2 rounded-md p-2 text-left transition-colors hover:bg-[#C9A96E]/10"
-                >
-                  {/* Cluster count badge */}
-                  <span
-                    className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px] font-bold"
-                    style={{
-                      backgroundColor: `${GOLD}30`,
-                      color: GOLD,
-                      border: `1.5px solid ${GOLD}`,
-                    }}
-                  >
-                    {cluster.properties.length}
-                  </span>
-                  <span className="flex-1 truncate text-xs font-medium text-[#F5F0E8]">
-                    {cluster.neighborhood}
-                  </span>
-                  <ChevronDown
-                    className={cn(
-                      "h-3 w-3 text-[#F5F0E8]/30 transition-transform",
-                      isExpanded && "rotate-180"
-                    )}
-                  />
-                </button>
-                {isExpanded && (
-                  <div className="ml-8 space-y-0.5 pb-1">
-                    {cluster.properties.map((property) => (
-                      <button
-                        key={property.id}
-                        onClick={() => onPropertyClick?.(property.slug)}
-                        className="group flex w-full items-start gap-1.5 rounded-md p-1.5 text-left transition-colors hover:bg-[#C9A96E]/10"
-                      >
-                        <MapPin
-                          className="mt-0.5 h-3 w-3 shrink-0"
-                          style={{ color: GOLD }}
-                        />
-                        <div className="min-w-0">
-                          <p className="truncate text-[11px] font-medium text-[#F5F0E8] group-hover:text-[#C9A96E]">
-                            {property.address}
-                          </p>
-                          <p
-                            className="text-[10px] font-semibold"
-                            style={{ color: GOLD }}
-                          >
-                            {formatPrice(property.price)}
-                          </p>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          <X className="h-3 w-3 text-white" />
+        </button>
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#111111] to-transparent p-3 pt-8">
+          <p className="text-lg font-bold" style={{ color: GOLD }}>
+            {formatPrice(property.price)}
+          </p>
         </div>
       </div>
+
+      {/* Details */}
+      <div className="p-3 pt-1">
+        <p className="text-sm font-semibold leading-tight">{property.address}</p>
+        <p className="mb-2 text-xs text-[#F5F0E8]/60">
+          {property.city}, {property.state} {property.zip}
+        </p>
+        <div className="mb-3 flex items-center gap-3 text-xs text-[#F5F0E8]/70">
+          <span className="flex items-center gap-1">
+            <Bed className="h-3.5 w-3.5" style={{ color: GOLD }} />
+            {property.beds} bd
+          </span>
+          <span className="flex items-center gap-1">
+            <Bath className="h-3.5 w-3.5" style={{ color: GOLD }} />
+            {property.baths} ba
+          </span>
+          <span className="flex items-center gap-1">
+            <Maximize className="h-3.5 w-3.5" style={{ color: GOLD }} />
+            {property.sqft.toLocaleString()} sqft
+          </span>
+        </div>
+        <Link
+          href={`/properties/${property.slug}`}
+          className="block rounded-md py-2 text-center text-xs font-semibold transition-colors"
+          style={{
+            backgroundColor: `${GOLD}18`,
+            color: GOLD,
+            border: `1px solid ${GOLD}33`,
+          }}
+        >
+          View Property
+        </Link>
+      </div>
     </div>
+  );
+}
+
+/* ─── Custom pin marker ─── */
+function PinMarker({
+  property,
+  isSelected,
+  onClick,
+}: {
+  property: Property;
+  isSelected: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="group relative flex flex-col items-center transition-transform hover:z-10"
+      style={{ transform: isSelected ? "scale(1.2)" : "scale(1)" }}
+    >
+      {/* Price tag */}
+      <div
+        className="whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-bold shadow-lg transition-all"
+        style={{
+          backgroundColor: isSelected ? GOLD : "#111111",
+          color: isSelected ? "#111111" : GOLD,
+          border: `1.5px solid ${GOLD}`,
+        }}
+      >
+        {formatPrice(property.price)}
+      </div>
+      {/* Pin stem */}
+      <div
+        className="h-2 w-0.5"
+        style={{ backgroundColor: GOLD }}
+      />
+      {/* Pin dot */}
+      <div
+        className="h-2 w-2 rounded-full shadow"
+        style={{
+          backgroundColor: isSelected ? GOLD : "#111111",
+          border: `2px solid ${GOLD}`,
+        }}
+      />
+    </button>
   );
 }
 
@@ -140,108 +145,118 @@ export default function PropertyMap({
   zoom = 12,
   singleMarker = false,
 }: PropertyMapProps) {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const mapRef = useRef<any>(null);
+
   const [cLng, cLat] = center ?? PHILLY_CENTER;
-  const osmZoom = clampZoom(zoom);
 
-  const embedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${cLng - 0.02},${cLat - 0.012},${cLng + 0.02},${cLat + 0.012}&layer=mapnik&marker=${cLat},${cLng}`;
-
-  /* AI-3877: Cluster properties by neighborhood */
-  const clusters = useMemo(
-    () => clusterByNeighborhood(properties),
-    [properties]
+  const selectedProperty = useMemo(
+    () => properties.find((p) => p.id === selectedId) ?? null,
+    [properties, selectedId]
   );
 
-  if (singleMarker && properties.length === 1) {
-    const property = properties[0];
-    const lat = property.lat;
-    const lng = property.lng;
-    const singleUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lng - 0.008},${lat - 0.005},${lng + 0.008},${lat + 0.005}&layer=mapnik&marker=${lat},${lng}`;
-    const osmLink = `https://www.openstreetmap.org/?mlat=${lat}&mlon=${lng}#map=${osmZoom}/${lat}/${lng}`;
+  const handlePinClick = useCallback(
+    (property: Property) => {
+      setSelectedId(property.id);
+      // Smoothly fly to the pin
+      mapRef.current?.flyTo({
+        center: [property.lng, property.lat],
+        zoom: Math.max(zoom, 14),
+        duration: 600,
+      });
+    },
+    [zoom]
+  );
 
+  const handlePopupClose = useCallback(() => {
+    setSelectedId(null);
+  }, []);
+
+  // Compute bounds to fit all properties
+  const bounds = useMemo(() => {
+    if (properties.length === 0) return null;
+    let minLng = Infinity, maxLng = -Infinity, minLat = Infinity, maxLat = -Infinity;
+    for (const p of properties) {
+      if (p.lng < minLng) minLng = p.lng;
+      if (p.lng > maxLng) maxLng = p.lng;
+      if (p.lat < minLat) minLat = p.lat;
+      if (p.lat > maxLat) maxLat = p.lat;
+    }
+    // Add padding
+    const lngPad = Math.max((maxLng - minLng) * 0.1, 0.005);
+    const latPad = Math.max((maxLat - minLat) * 0.1, 0.005);
+    return [
+      [minLng - lngPad, minLat - latPad],
+      [maxLng + lngPad, maxLat + latPad],
+    ] as [[number, number], [number, number]];
+  }, [properties]);
+
+  // Fit bounds on mount when showing multiple properties
+  useEffect(() => {
+    if (bounds && !singleMarker && properties.length > 1) {
+      setTimeout(() => {
+        mapRef.current?.fitBounds(bounds, { padding: 50, duration: 0 });
+      }, 100);
+    }
+  }, [bounds, singleMarker, properties.length]);
+
+  if (!MAPBOX_TOKEN) {
     return (
-      <div className="relative h-full w-full overflow-hidden rounded-xl border border-[#C9A96E]/20 bg-[#111111]">
-        <iframe
-          title={`Map of ${property.address}`}
-          src={singleUrl}
-          className="h-full w-full border-0"
-          style={{
-            minHeight: "300px",
-            filter:
-              "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.1) saturate(0.3) sepia(0.15)",
-          }}
-          loading="lazy"
-          allowFullScreen
-        />
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#111111] via-[#111111]/90 to-transparent px-4 pb-4 pt-10">
-          <div className="flex items-end justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <div
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full"
-                style={{
-                  backgroundColor: `${GOLD}22`,
-                  border: `2px solid ${GOLD}`,
-                }}
-              >
-                <MapPin className="h-4 w-4" style={{ color: GOLD }} />
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-[#F5F0E8]">
-                  {property.address}
-                </p>
-                <p className="text-xs text-[#F5F0E8]/60">
-                  {property.city}, {property.state} {property.zip}
-                </p>
-              </div>
-            </div>
-            <a
-              href={osmLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors"
-              style={{ backgroundColor: `${GOLD}18`, color: GOLD }}
-            >
-              <ExternalLink className="h-3 w-3" />
-              Open Map
-            </a>
-          </div>
-        </div>
+      <div className="flex h-full w-full items-center justify-center rounded-xl border border-[#C9A96E]/20 bg-[#111111] text-sm text-[#F5F0E8]/40">
+        Map unavailable — Mapbox token not configured
       </div>
     );
   }
 
-  const osmLink = `https://www.openstreetmap.org/#map=${osmZoom}/${cLat}/${cLng}`;
-
   return (
-    <div className="relative h-full w-full overflow-hidden rounded-xl border border-[#C9A96E]/20 bg-[#111111]">
-      <iframe
-        title="Property map"
-        src={embedUrl}
-        className="h-full w-full border-0"
-        style={{
-          minHeight: "300px",
-          filter:
-            "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.1) saturate(0.3) sepia(0.15)",
+    <div className="relative h-full w-full overflow-hidden rounded-xl border border-[#C9A96E]/20">
+      <Map
+        ref={mapRef}
+        mapboxAccessToken={MAPBOX_TOKEN}
+        initialViewState={{
+          longitude: cLng,
+          latitude: cLat,
+          zoom: singleMarker ? 15 : zoom,
         }}
-        loading="lazy"
-        allowFullScreen
-      />
-      {properties.length > 0 && (
-        <ClusterPanel clusters={clusters} onPropertyClick={onPropertyClick} />
-      )}
-      <a
-        href={osmLink}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="absolute bottom-3 right-3 flex items-center gap-1 rounded-md px-2.5 py-1.5 text-xs font-medium shadow-lg transition-colors"
-        style={{
-          backgroundColor: "#111111",
-          color: GOLD,
-          border: `1px solid ${GOLD}33`,
-        }}
+        style={{ width: "100%", height: "100%" }}
+        mapStyle="mapbox://styles/mapbox/dark-v11"
+        attributionControl={false}
       >
-        <ExternalLink className="h-3 w-3" />
-        View Larger Map
-      </a>
+        <NavigationControl position="top-right" />
+
+        {properties.map((property) => (
+          <Marker
+            key={property.id}
+            longitude={property.lng}
+            latitude={property.lat}
+            anchor="bottom"
+          >
+            <PinMarker
+              property={property}
+              isSelected={selectedId === property.id}
+              onClick={() => handlePinClick(property)}
+            />
+          </Marker>
+        ))}
+
+        {selectedProperty && (
+          <Popup
+            longitude={selectedProperty.lng}
+            latitude={selectedProperty.lat}
+            anchor="bottom"
+            offset={40}
+            onClose={handlePopupClose}
+            closeButton={false}
+            className="property-map-popup"
+            maxWidth="none"
+          >
+            <PropertyPopup
+              property={selectedProperty}
+              onClose={handlePopupClose}
+            />
+          </Popup>
+        )}
+      </Map>
     </div>
   );
 }

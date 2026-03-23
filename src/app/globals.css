@@ -610,3 +610,15 @@ html.a11y-reduce-motion *::after {
     opacity: 1 !important;
   }
 }
+
+/* Mapbox popup overrides for PropertyMap */
+.property-map-popup .mapboxgl-popup-content {
+  padding: 0;
+  background: transparent;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.5);
+}
+.property-map-popup .mapboxgl-popup-tip {
+  border-top-color: #111111;
+}
