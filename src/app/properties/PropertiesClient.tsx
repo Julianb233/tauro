@@ -9,6 +9,7 @@ import PropertyFilters, { FilterState } from "@/components/PropertyFilters";
 import PropertyMap from "@/components/PropertyMap";
 import { cn } from "@/lib/utils";
 import { useSavedSearches, hasActiveFilters } from "@/hooks/useSavedSearches";
+import RecentlyViewed from "@/components/RecentlyViewed";
 
 type ViewMode = "grid" | "map";
 
@@ -182,6 +183,9 @@ export default function PropertiesClient({
             </div>
           </div>
         )}
+
+        {/* Recently Viewed */}
+        <RecentlyViewed />
 
         {/* MLS Disclaimer */}
         <div className="mt-10 border-t border-border pt-6">
