@@ -127,6 +127,11 @@ export default function PropertiesClient({
       case "price-desc": result.sort((a, b) => b.price - a.price); break;
       case "newest": result.sort((a, b) => b.yearBuilt - a.yearBuilt); break;
       case "sqft": result.sort((a, b) => b.sqft - a.sqft); break;
+      // AI-3884: Sort by beds/baths
+      case "beds-desc": result.sort((a, b) => b.beds - a.beds); break;
+      case "beds-asc": result.sort((a, b) => a.beds - b.beds); break;
+      case "baths-desc": result.sort((a, b) => b.baths - a.baths); break;
+      case "baths-asc": result.sort((a, b) => a.baths - b.baths); break;
     }
     return result;
   }, [filters, properties, searchQuery]);
