@@ -125,7 +125,7 @@ export default async function LocationLandingPage({
       "@type": "RealEstateAgent",
       name: "Tauro Realty",
       url: siteUrl,
-      telephone: "+12155551234",
+      telephone: "+12158394172",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Philadelphia",

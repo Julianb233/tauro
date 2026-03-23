@@ -42,14 +42,20 @@ export function OrganizationJsonLd({
 }) {
   const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
-    "@type": "RealEstateAgent",
+    "@type": ["RealEstateAgent", "LocalBusiness"],
+    "@id": `${siteUrl}/#organization`,
     name: "Tauro | LYL Realty Group",
     url: siteUrl,
-    logo: `${siteUrl}/tauro-logo.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${siteUrl}/tauro-logo.png`,
+      width: 512,
+      height: 512,
+    },
     image: `${siteUrl}/opengraph-image`,
     description:
       "Premium Philadelphia real estate brokerage serving Center City, Rittenhouse, Fishtown, and surrounding neighborhoods.",
-    telephone: "(215) 839-4172",
+    telephone: "+12158394172",
     email: "info@taurorealty.com",
     address: {
       "@type": "PostalAddress",
@@ -59,13 +65,18 @@ export function OrganizationJsonLd({
       postalCode: "19102",
       addressCountry: "US",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 39.9496,
+      longitude: -75.1652,
+    },
     sameAs: [
       "https://www.instagram.com/taurorealty",
       "https://www.linkedin.com/company/taurorealty",
       "https://www.facebook.com/taurorealty",
     ],
     areaServed: PHILADELPHIA_NEIGHBORHOODS.map((name) => ({
-      "@type": "Neighborhood",
+      "@type": "Place",
       name,
       containedInPlace: {
         "@type": "City",
@@ -77,18 +88,20 @@ export function OrganizationJsonLd({
       },
     })),
     priceRange: "$375,000 - $6,800,000",
-    openingHoursSpecification: {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-      ],
-      opens: "09:00",
-      closes: "18:00",
-    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+        ],
+        opens: "09:00",
+        closes: "18:00",
+      },
+    ],
   };
 
   if (testimonials && testimonials.length > 0) {
@@ -99,6 +112,7 @@ export function OrganizationJsonLd({
       bestRating: "5",
       worstRating: "1",
       ratingCount: testimonials.length,
+      reviewCount: testimonials.length,
     };
   }
 
@@ -124,16 +138,17 @@ export function RealEstateListingJsonLd({
     New: "https://schema.org/InStock",
     "Open House": "https://schema.org/InStock",
     Pending: "https://schema.org/LimitedAvailability",
+    "Coming Soon": "https://schema.org/PreOrder",
   };
 
-  const jsonLd = {
+  const jsonLd: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
     name: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
     description: property.description.slice(0, 200),
     url: `${siteUrl}/properties/${property.slug}`,
     image: property.images,
-    datePosted: new Date().toISOString().split("T")[0],
+    datePosted: property.listingDate || new Date().toISOString().split("T")[0],
     offers: {
       "@type": "Offer",
       price: property.price,
@@ -156,7 +171,7 @@ export function RealEstateListingJsonLd({
     floorSize: {
       "@type": "QuantitativeValue",
       value: property.sqft,
-      unitCode: "SQF",
+      unitCode: "FTK",
     },
     numberOfRooms: property.beds,
     numberOfBathroomsTotal: property.baths,
@@ -169,6 +184,28 @@ export function RealEstateListingJsonLd({
       image: property.agent.photo,
     },
   };
+
+  // Add open house event if scheduled
+  if (property.openHouseEvent) {
+    jsonLd.event = {
+      "@type": "Event",
+      name: `Open House: ${property.address}`,
+      startDate: `${property.openHouseEvent.date}T${property.openHouseEvent.startTime}:00`,
+      endDate: `${property.openHouseEvent.date}T${property.openHouseEvent.endTime}:00`,
+      location: {
+        "@type": "Place",
+        name: property.address,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: property.address,
+          addressLocality: property.city,
+          addressRegion: property.state,
+          postalCode: property.zip,
+        },
+      },
+      eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    };
+  }
 
   return (
     <script
@@ -200,11 +237,12 @@ export function RealEstateAgentJsonLd({ agent }: { agent: Agent }) {
     description: agent.bio,
     worksFor: {
       "@type": "RealEstateAgent",
+      "@id": `${siteUrl}/#organization`,
       name: "Tauro | LYL Realty Group",
       url: siteUrl,
     },
     areaServed: agent.neighborhoods.map((name) => ({
-      "@type": "Neighborhood",
+      "@type": "Place",
       name,
       containedInPlace: {
         "@type": "City",
@@ -233,13 +271,21 @@ export function WebSiteJsonLd() {
     "@type": "WebSite",
     name: "Tauro Realty",
     url: siteUrl,
+    publisher: {
+      "@type": "RealEstateAgent",
+      "@id": `${siteUrl}/#organization`,
+    },
     potentialAction: {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
         urlTemplate: `${siteUrl}/properties?q={search_term_string}`,
       },
-      "query-input": "required name=search_term_string",
+      "query-input": {
+        "@type": "PropertyValueSpecification",
+        valueRequired: true,
+        valueName: "search_term_string",
+      },
     },
   };
 
