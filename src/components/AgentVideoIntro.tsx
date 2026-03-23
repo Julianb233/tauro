@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { Play, X } from "lucide-react";
+import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 
 interface AgentVideoIntroProps {
   videoId: string;
@@ -63,6 +64,8 @@ export default function AgentVideoIntro({
                   fill
                   className="object-cover brightness-[0.45] transition-transform duration-700 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 1200px"
+                  placeholder="blur"
+                  blurDataURL={BLUR_PORTRAIT}
                 />
 
                 {/* Gradient overlay for text legibility */}

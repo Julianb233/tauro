@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useCompare } from "@/hooks/useCompare";
 import { properties, formatPriceFull, type Property } from "@/data/properties";
 import { cn } from "@/lib/utils";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 // ---------- helpers ----------
 
@@ -162,6 +163,8 @@ export default function CompareClient() {
                       fill
                       className="object-cover"
                       sizes="260px"
+                      placeholder="blur"
+                      blurDataURL={BLUR_LANDSCAPE}
                     />
                   </div>
                   <p className="mt-2 text-center font-heading text-sm font-semibold text-foreground">

@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Star, Phone, ArrowRight, Award, Home, Clock } from "lucide-react";
 import { agents, type Agent } from "@/data/agents";
+import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 
 function getTopAgentForNeighborhood(neighborhoodName: string): Agent | null {
   const matched = agents.filter((agent) =>
@@ -57,6 +58,8 @@ export function FeaturedAgent({
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 40vw"
+                  placeholder="blur"
+                  blurDataURL={BLUR_PORTRAIT}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-midnight/60 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:via-transparent md:to-transparent" />
 

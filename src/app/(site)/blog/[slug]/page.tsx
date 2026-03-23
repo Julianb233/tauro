@@ -11,6 +11,7 @@ import {
 import { siteUrl } from "@/lib/site-config";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { BLUR_LANDSCAPE, BLUR_SQUARE } from "@/lib/blur-placeholder";
 import {
   Q4PriceTrendChart,
   Q4NeighborhoodPriceChart,
@@ -163,6 +164,8 @@ export default async function BlogPostPage({
           className="object-cover opacity-30"
           priority
           sizes="100vw"
+          placeholder="blur"
+          blurDataURL={BLUR_LANDSCAPE}
         />
         <div className="relative z-10 mx-auto max-w-4xl px-4 pt-12 sm:px-6 lg:px-8">
           <Link
@@ -196,6 +199,8 @@ export default async function BlogPostPage({
                 fill
                 className="object-cover"
                 sizes="48px"
+                placeholder="blur"
+                blurDataURL={BLUR_SQUARE}
               />
             </div>
             <div>
@@ -246,6 +251,8 @@ export default async function BlogPostPage({
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      placeholder="blur"
+                      blurDataURL={BLUR_LANDSCAPE}
                     />
                     <div className="absolute top-3 left-3">
                       <span className="rounded-full bg-white/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-sm">

@@ -4,6 +4,7 @@ import { Mail, Phone, MapPin, Instagram, Facebook, Linkedin, Twitter } from "luc
 import { Logo } from "@/components/logo";
 import { GoldShimmer } from "@/components/ui/gold-shimmer";
 import { GoogleReviewBadge } from "@/components/GoogleReviewBadge";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 const quickLinks = [
   { href: "/properties", label: "Properties" },
@@ -100,6 +101,8 @@ export function Footer() {
                       fill
                       sizes="64px"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      placeholder="blur"
+                      blurDataURL={BLUR_LANDSCAPE}
                     />
                   </div>
                   <span className="text-xs font-medium leading-tight text-white/60 transition-colors group-hover:text-gold">

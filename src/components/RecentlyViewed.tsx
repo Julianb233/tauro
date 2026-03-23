@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock } from "lucide-react";
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
+import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
 function formatPrice(price: number) {
   if (price >= 1_000_000) {
@@ -42,6 +43,8 @@ export default function RecentlyViewed() {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="224px"
+                    placeholder="blur"
+                    blurDataURL={BLUR_LANDSCAPE}
                   />
                 </div>
                 <div className="p-3">
