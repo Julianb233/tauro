@@ -73,7 +73,7 @@ export async function GET(request: NextRequest) {
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
-      timeZone: "America/New_York",
+      timeZone: "America/Los_Angeles",
     }),
   }));
 
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
     year: "numeric",
     month: "long",
     day: "numeric",
-    timeZone: "America/New_York",
+    timeZone: "America/Los_Angeles",
   });
 
   // 7. Send digest
