@@ -1,15 +1,28 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import dynamic from "next/dynamic";
 import { Playfair_Display, DM_Sans, Montserrat } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
-import { CookieConsent } from "@/components/CookieConsent";
-import { ChatWidget } from "@/components/ChatWidget";
-import AccessibilityWidget from "@/components/AccessibilityWidget";
 import { loadTestimonials } from "@/lib/data";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
+
+// Non-critical interactive widgets — lazy-loaded to reduce main bundle size
+const CookieConsent = dynamic(() =>
+  import("@/components/CookieConsent").then((mod) => ({
+    default: mod.CookieConsent,
+  })),
+);
+const ChatWidget = dynamic(() =>
+  import("@/components/ChatWidget").then((mod) => ({
+    default: mod.ChatWidget,
+  })),
+);
+const AccessibilityWidget = dynamic(
+  () => import("@/components/AccessibilityWidget"),
+);
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -29,6 +42,13 @@ const montserrat = Montserrat({
   display: "swap",
   weight: ["500", "600", "700"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#0A0A0A",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -82,8 +102,19 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        {/* Preconnect to critical external origins for faster LCP */}
+        <link rel="preconnect" href="https://images.unsplash.com" />
+        <link rel="dns-prefetch" href="https://images.unsplash.com" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body
-        className={`${playfair.variable} ${dmSans.variable} ${montserrat.variable} min-h-screen bg-background text-foreground antialiased`}
+        className={`${playfair.variable} ${dmSans.variable} ${montserrat.variable} min-h-screen overflow-x-hidden bg-background text-foreground antialiased`}
       >
         <a
           href="#main-content"

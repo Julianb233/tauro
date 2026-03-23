@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 
 const VIDEO_SRC = "/hero-philly.mp4";
 const FALLBACK_IMAGE =
@@ -27,17 +28,21 @@ export default function HeroVideo() {
 
   return (
     <>
-      {/* Fallback image — shown until video loads (or forever on mobile/slow connections) */}
-      <img
+      {/* Fallback image — LCP element, optimized with next/image priority */}
+      <Image
         src={FALLBACK_IMAGE}
         alt=""
-        aria-hidden
-        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+        aria-hidden="true"
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+        className={`object-cover transition-opacity duration-1000 ${
           canPlay ? "opacity-0" : "opacity-100"
         }`}
       />
 
-      {/* Cinematic video background */}
+      {/* Cinematic video background — preload=none to avoid blocking LCP */}
       <video
         ref={videoRef}
         className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
@@ -47,8 +52,7 @@ export default function HeroVideo() {
         muted
         loop
         playsInline
-        preload="auto"
-        poster={FALLBACK_IMAGE}
+        preload="none"
       >
         <source src={VIDEO_SRC} type="video/mp4" />
       </video>
