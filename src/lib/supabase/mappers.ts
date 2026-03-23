@@ -193,6 +193,7 @@ export function mapNeighborhoodRow(row: any): Neighborhood {
       culture: "",
     },
     localSpots: (row.local_spots as Neighborhood["localSpots"]) ?? [],
+    commuteTimes: (row.commute_times as Neighborhood["commuteTimes"]) ?? [],
     image: row.image ?? "",
     cardImage: row.card_image ?? "",
     gallery: (row.gallery as string[]) ?? [],

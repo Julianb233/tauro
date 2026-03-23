@@ -32,6 +32,13 @@ export interface LifestyleInfo {
   culture: string;
 }
 
+export interface CommuteDestination {
+  name: string;
+  drive: string;
+  transit: string;
+  bike?: string;
+}
+
 export interface Neighborhood {
   id: string;
   name: string;
@@ -58,6 +65,7 @@ export interface Neighborhood {
   bikeScore: number;
   lifestyleInfo: LifestyleInfo;
   localSpots: LocalSpot[];
+  commuteTimes: CommuteDestination[];
   image: string;
   cardImage: string;
   gallery: string[];
@@ -121,6 +129,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Vernick Food & Drink", type: "Restaurant", description: "James Beard-winning New American restaurant with inventive tasting menus." },
       { name: "Elixr Coffee", type: "Cafe", description: "Third-wave coffee pioneer with single-origin pour-overs in a minimalist space." },
       { name: "The Ranstead Room", type: "Bar", description: "Hidden cocktail bar behind an unmarked door on Ranstead Street." },
+    ],
+    commuteTimes: [
+      { name: "Center City", drive: "—", transit: "—" },
+      { name: "University City", drive: "8 min", transit: "12 min", bike: "10 min" },
+      { name: "PHL Airport", drive: "20 min", transit: "25 min" },
     ],
     image:
       "https://images.unsplash.com/photo-1569761316261-9a8696fa2ca3?w=1200&q=80",
@@ -209,6 +222,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "a]oc", type: "Restaurant", description: "Acclaimed wine bar and small-plates restaurant from Jose Garces, steps from the square." },
       { name: "The Good King Tavern", type: "Bar", description: "French-inspired cocktail bar with absinthe service and seasonal craft cocktails." },
     ],
+    commuteTimes: [
+      { name: "Center City", drive: "5 min", transit: "5 min", bike: "5 min" },
+      { name: "University City", drive: "8 min", transit: "10 min", bike: "8 min" },
+      { name: "PHL Airport", drive: "20 min", transit: "30 min" },
+    ],
     image:
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
     cardImage:
@@ -294,6 +312,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "La Colombe Fishtown", type: "Cafe", description: "Flagship cafe in a former warehouse with draft lattes and a beautiful industrial space." },
       { name: "Johnny Brenda's", type: "Bar", description: "Legendary live music venue and gastropub at the heart of Fishtown's nightlife." },
       { name: "Frankford Hall", type: "Brewery", description: "Massive outdoor beer garden with German-inspired brews and communal seating." },
+    ],
+    commuteTimes: [
+      { name: "Center City", drive: "12 min", transit: "20 min", bike: "18 min" },
+      { name: "University City", drive: "18 min", transit: "30 min" },
+      { name: "PHL Airport", drive: "25 min", transit: "45 min" },
     ],
     image:
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
@@ -382,6 +405,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "The Piazza at Schmidt's", type: "Market", description: "European-style public square in a former brewery hosting markets, concerts, and community events." },
       { name: "Cafe La Maude", type: "Cafe", description: "Charming French-Lebanese cafe with house-made pastries and specialty coffee." },
     ],
+    commuteTimes: [
+      { name: "Center City", drive: "10 min", transit: "15 min", bike: "12 min" },
+      { name: "University City", drive: "15 min", transit: "25 min" },
+      { name: "PHL Airport", drive: "22 min", transit: "40 min" },
+    ],
     image:
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
     cardImage:
@@ -467,6 +495,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Cherry Street Pier", type: "Market", description: "Converted pier with artisan vendors, rotating food stalls, and waterfront views of the Ben Franklin Bridge." },
       { name: "Art in the Age", type: "Shop", description: "Craft spirits tasting room and boutique featuring locally made spirits and barware." },
       { name: "Race Street Pier", type: "Park", description: "Elevated park on the Delaware waterfront with stunning bridge views and tiered seating." },
+    ],
+    commuteTimes: [
+      { name: "Center City", drive: "5 min", transit: "8 min", bike: "7 min" },
+      { name: "University City", drive: "12 min", transit: "18 min", bike: "15 min" },
+      { name: "PHL Airport", drive: "20 min", transit: "30 min" },
     ],
     image:
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80",
@@ -555,6 +588,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Bing Bing Dim Sum", type: "Restaurant", description: "Creative Asian-fusion dim sum and cocktails on the celebrated East Passyunk corridor." },
       { name: "Garage Passyunk", type: "Bar", description: "Retro-themed bar with craft cocktails, pinball machines, and a speakeasy vibe." },
     ],
+    commuteTimes: [
+      { name: "Center City", drive: "10 min", transit: "12 min", bike: "12 min" },
+      { name: "University City", drive: "15 min", transit: "20 min" },
+      { name: "PHL Airport", drive: "15 min", transit: "25 min" },
+    ],
     image:
       "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=1200&q=80",
     cardImage:
@@ -641,6 +679,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Dock Street Brewery", type: "Brewery", description: "Award-winning brewery and pizzeria in a renovated firehouse with a sprawling outdoor space." },
       { name: "Clark Park Farmers Market", type: "Market", description: "Year-round Saturday market with local produce, baked goods, and handmade crafts." },
       { name: "Green Line Cafe", type: "Cafe", description: "Neighborhood coffee institution with multiple locations, free WiFi, and a steady stream of students and professors." },
+    ],
+    commuteTimes: [
+      { name: "Center City", drive: "8 min", transit: "12 min", bike: "10 min" },
+      { name: "University City", drive: "—", transit: "—" },
+      { name: "PHL Airport", drive: "15 min", transit: "20 min" },
     ],
     image:
       "https://images.unsplash.com/photo-1562774053-701939374585?w=1200&q=80",
@@ -729,6 +772,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Manayunk Brewing Company", type: "Brewery", description: "Craft brewery with river views, seasonal releases, and a popular outdoor deck." },
       { name: "Pretzel Park Farmers Market", type: "Market", description: "Saturday morning market in a charming neighborhood park with local vendors and live music." },
     ],
+    commuteTimes: [
+      { name: "Center City", drive: "20 min", transit: "30 min" },
+      { name: "University City", drive: "15 min", transit: "25 min" },
+      { name: "PHL Airport", drive: "30 min", transit: "50 min" },
+    ],
     image:
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
     cardImage:
@@ -815,6 +863,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Chestnut Hill Farmers Market", type: "Market", description: "Year-round indoor market with local farms, artisan bakers, and specialty food vendors." },
       { name: "Morris Arboretum", type: "Park", description: "92-acre public garden of the University of Pennsylvania with stunning seasonal displays and canopy walks." },
       { name: "Cafette", type: "Restaurant", description: "Charming Italian BYOB with handmade pastas and a garden patio on Germantown Avenue." },
+    ],
+    commuteTimes: [
+      { name: "Center City", drive: "25 min", transit: "35 min" },
+      { name: "University City", drive: "20 min", transit: "30 min" },
+      { name: "PHL Airport", drive: "35 min", transit: "55 min" },
     ],
     image:
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80",
@@ -903,6 +956,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Trolley Car Cafe", type: "Cafe", description: "Cozy neighborhood cafe and diner serving breakfast all day in a welcoming space." },
       { name: "Awbury Arboretum", type: "Park", description: "55-acre estate with gardens, trails, and open meadows — a hidden urban oasis." },
     ],
+    commuteTimes: [
+      { name: "Center City", drive: "20 min", transit: "30 min" },
+      { name: "University City", drive: "18 min", transit: "28 min" },
+      { name: "PHL Airport", drive: "30 min", transit: "50 min" },
+    ],
     image:
       "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
     cardImage:
@@ -989,6 +1047,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Attic Brewing Company", type: "Brewery", description: "Community-focused brewery in a restored industrial space with rotating food trucks and events." },
       { name: "Cliveden", type: "Gallery", description: "Historic estate and museum site of the 1777 Battle of Germantown, hosting cultural events year-round." },
       { name: "Germantown Garden Grill", type: "Restaurant", description: "Farm-to-table cafe with garden seating, locally sourced menus, and a community gathering vibe." },
+    ],
+    commuteTimes: [
+      { name: "Center City", drive: "20 min", transit: "35 min" },
+      { name: "University City", drive: "18 min", transit: "30 min" },
+      { name: "PHL Airport", drive: "30 min", transit: "50 min" },
     ],
     image:
       "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1200&q=80",
@@ -1077,6 +1140,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Clark Park", type: "Park", description: "Community heart of West Philly with farmers market, playground, and year-round neighborhood events." },
       { name: "Booker's", type: "Restaurant", description: "Beloved soul food spot with fried chicken, collard greens, and a counter-service neighborhood feel." },
     ],
+    commuteTimes: [
+      { name: "Center City", drive: "12 min", transit: "15 min", bike: "15 min" },
+      { name: "University City", drive: "5 min", transit: "8 min", bike: "5 min" },
+      { name: "PHL Airport", drive: "15 min", transit: "22 min" },
+    ],
     image:
       "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1200&q=80",
     cardImage:
@@ -1163,6 +1231,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Pizza Brain", type: "Restaurant", description: "World's first pizza museum with creative pies and a collection of pizza memorabilia." },
       { name: "Mural City Cellars", type: "Bar", description: "Natural wine bar in a converted industrial space with rotating pours and charcuterie." },
       { name: "Kensington Quarters", type: "Restaurant", description: "Whole-animal butcher shop and restaurant with seasonal menus and an in-house butchery." },
+    ],
+    commuteTimes: [
+      { name: "Center City", drive: "12 min", transit: "18 min", bike: "15 min" },
+      { name: "University City", drive: "18 min", transit: "30 min" },
+      { name: "PHL Airport", drive: "25 min", transit: "45 min" },
     ],
     image:
       "https://images.unsplash.com/photo-1590725121839-892b458a74fe?w=1200&q=80",
@@ -1251,6 +1324,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Philadelphia Zoo", type: "Park", description: "America's first zoo, home to 1,300+ animals and innovative animal exploration trails." },
       { name: "Boathouse Row", type: "Park", description: "Iconic illuminated boathouses along the Schuylkill, perfect for evening runs and river views." },
     ],
+    commuteTimes: [
+      { name: "Center City", drive: "10 min", transit: "18 min", bike: "12 min" },
+      { name: "University City", drive: "8 min", transit: "15 min", bike: "10 min" },
+      { name: "PHL Airport", drive: "22 min", transit: "40 min" },
+    ],
     image:
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
     cardImage:
@@ -1337,6 +1415,11 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Grays Ferry Crescent", type: "Park", description: "Riverside trail and park connecting Point Breeze to the Schuylkill River Trail with scenic views." },
       { name: "South Philly Barbacoa", type: "Restaurant", description: "Legendary Mexican barbacoa tacos and lamb consomme, drawing food lovers from across the city." },
       { name: "The Tasker", type: "Restaurant", description: "Neighborhood cafe and bottle shop with craft beer, wine, and a small but creative food menu." },
+    ],
+    commuteTimes: [
+      { name: "Center City", drive: "10 min", transit: "15 min", bike: "12 min" },
+      { name: "University City", drive: "10 min", transit: "18 min", bike: "12 min" },
+      { name: "PHL Airport", drive: "18 min", transit: "30 min" },
     ],
     image:
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
