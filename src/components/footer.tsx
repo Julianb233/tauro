@@ -158,6 +158,39 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Partner & Affiliation Logos */}
+        <div className="mt-8 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
+          <p className="text-center font-label text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30">
+            Proud Members &amp; Affiliates
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 sm:gap-x-12">
+            {/* Bright MLS */}
+            <span className="text-white/25 transition-colors hover:text-white/50" aria-label="Bright MLS">
+              <svg className="h-7 w-auto" viewBox="0 0 120 28" fill="none" aria-hidden="true">
+                <text x="0" y="20" fill="currentColor" fontSize="14" fontWeight="bold" fontFamily="system-ui, sans-serif" letterSpacing="2">BRIGHT MLS</text>
+              </svg>
+            </span>
+            {/* National Association of Realtors */}
+            <span className="text-white/25 transition-colors hover:text-white/50" aria-label="National Association of Realtors">
+              <svg className="h-7 w-auto" viewBox="0 0 50 28" fill="none" aria-hidden="true">
+                <text x="0" y="20" fill="currentColor" fontSize="14" fontWeight="bold" fontFamily="system-ui, sans-serif" letterSpacing="2">NAR</text>
+              </svg>
+            </span>
+            {/* Greater Philadelphia Association of Realtors */}
+            <span className="text-white/25 transition-colors hover:text-white/50" aria-label="Greater Philadelphia Association of Realtors">
+              <svg className="h-7 w-auto" viewBox="0 0 60 28" fill="none" aria-hidden="true">
+                <text x="0" y="20" fill="currentColor" fontSize="14" fontWeight="bold" fontFamily="system-ui, sans-serif" letterSpacing="2">GPAR</text>
+              </svg>
+            </span>
+            {/* REALTOR® */}
+            <span className="text-white/25 transition-colors hover:text-white/50" aria-label="REALTOR®">
+              <svg className="h-7 w-auto" viewBox="0 0 130 28" fill="none" aria-hidden="true">
+                <text x="0" y="20" fill="currentColor" fontSize="13" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="3">REALTOR®</text>
+              </svg>
+            </span>
+          </div>
+        </div>
+
         {/* Equal Housing & MLS Attribution */}
         <div className="mt-8 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:gap-6">
