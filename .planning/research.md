@@ -517,7 +517,7 @@ Maps:           Mapbox GL JS (see comparison below)
 CMS:            Sanity or Payload CMS (for blog, pages, agent profiles)
 Database:       PostgreSQL (Supabase or Neon) for listings cache + user data
 Search:         Meilisearch or Typesense (instant property search)
-Auth:           Descope or NextAuth (saved searches, favorites)
+Auth:           NextAuth (saved searches, favorites)
 Email:          Resend + React Email (lead notifications, drip campaigns)
 Analytics:      Vercel Analytics + PostHog (user behavior)
 Forms:          React Hook Form + Zod validation

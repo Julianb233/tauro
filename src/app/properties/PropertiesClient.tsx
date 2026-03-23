@@ -48,6 +48,9 @@ export default function PropertiesClient({
     sort: searchParams.get("sort") || "price-desc",
     openHouse: searchParams.get("openHouse") || "",
     virtualTour: searchParams.get("virtualTour") || "",
+    newConstruction: searchParams.get("newConstruction") || "",
+    yearBuiltMin: searchParams.get("yearBuiltMin") || "",
+    yearBuiltMax: searchParams.get("yearBuiltMax") || "",
   }), [searchParams]);
 
   const updateFilter = useCallback((key: keyof FilterState, value: string) => {
@@ -136,6 +139,13 @@ export default function PropertiesClient({
     if (filters.virtualTour) {
       result = result.filter((p) => !!p.virtualTourUrl);
     }
+    /* AI-3806: New construction filter */
+    if (filters.newConstruction) {
+      result = result.filter((p) => p.isNewConstruction);
+    }
+    /* AI-3807: Year built range filter */
+    if (filters.yearBuiltMin) result = result.filter((p) => p.yearBuilt >= Number(filters.yearBuiltMin));
+    if (filters.yearBuiltMax) result = result.filter((p) => p.yearBuilt <= Number(filters.yearBuiltMax));
     switch (filters.sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
       case "price-desc": result.sort((a, b) => b.price - a.price); break;
@@ -146,6 +156,9 @@ export default function PropertiesClient({
       case "beds-asc": result.sort((a, b) => a.beds - b.beds); break;
       case "baths-desc": result.sort((a, b) => b.baths - a.baths); break;
       case "baths-asc": result.sort((a, b) => a.baths - b.baths); break;
+      // AI-3809: Sort by days on market
+      case "dom-asc": result.sort((a, b) => (b.listingDate ?? "").localeCompare(a.listingDate ?? "")); break;
+      case "dom-desc": result.sort((a, b) => (a.listingDate ?? "").localeCompare(b.listingDate ?? "")); break;
     }
     return result;
   }, [filters, properties, searchQuery]);

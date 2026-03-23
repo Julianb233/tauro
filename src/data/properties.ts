@@ -53,6 +53,8 @@ export interface Property {
   hoa_frequency?: "monthly" | "quarterly" | "annual";
   has_hoa?: boolean;          // Whether property is in an HOA
   isComingSoon?: boolean;
+  /** AI-3806: New construction flag */
+  isNewConstruction?: boolean;
 /** AI-3786: Date the property was listed (YYYY-MM-DD) */
   listingDate?: string;
 isExclusive?: boolean;
@@ -261,6 +263,7 @@ export const properties: Property[] = [
     sqft: 5600,
     lotSqft: 0,
     yearBuilt: 2022,
+    isNewConstruction: true,
     status: "Active",
     propertyType: "Condo",
     images: [
@@ -510,6 +513,7 @@ export const properties: Property[] = [
     sqft: 2200,
     lotSqft: 1100,
     yearBuilt: 2023,
+    isNewConstruction: true,
     status: "Pending",
     propertyType: "Townhouse",
     images: [
@@ -895,6 +899,7 @@ export const properties: Property[] = [
     sqft: 1700,
     lotSqft: 800,
     yearBuilt: 2024,
+    isNewConstruction: true,
     status: "New",
     propertyType: "Townhouse",
     images: [
@@ -975,6 +980,7 @@ export const properties: Property[] = [
     sqft: 1500,
     lotSqft: 700,
     yearBuilt: 2023,
+    isNewConstruction: true,
     status: "Active",
     propertyType: "Townhouse",
     images: [
@@ -1282,6 +1288,7 @@ export const properties: Property[] = [
     sqft: 2000,
     lotSqft: 900,
     yearBuilt: 2024,
+    isNewConstruction: true,
     status: "Open House",
     propertyType: "Single Family",
     images: [

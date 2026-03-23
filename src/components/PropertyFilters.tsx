@@ -27,6 +27,11 @@ export interface FilterState {
   openHouse: string;
   /** AI-3805: Virtual tour filter */
   virtualTour: string;
+  /** AI-3806: New construction filter */
+  newConstruction: string;
+  /** AI-3807: Year built range filter */
+  yearBuiltMin: string;
+  yearBuiltMax: string;
 }
 
 export const defaultFilters: FilterState = {
@@ -44,6 +49,9 @@ export const defaultFilters: FilterState = {
   sort: "price-desc",
   openHouse: "",
   virtualTour: "",
+  newConstruction: "",
+  yearBuiltMin: "",
+  yearBuiltMax: "",
 };
 
 export default function PropertyFilters({
@@ -91,6 +99,8 @@ export default function PropertyFilters({
           <option value="price-desc">Price: High to Low</option>
           <option value="price-asc">Price: Low to High</option>
           <option value="newest">Newest</option>
+          <option value="dom-asc">Newest Listings</option>
+          <option value="dom-desc">Longest on Market</option>
           <option value="sqft">Largest</option>
           <option value="beds-desc">Most Beds</option>
           <option value="beds-asc">Fewest Beds</option>
@@ -215,6 +225,47 @@ export default function PropertyFilters({
               <option value="217800">5 Acres</option>
             </select>
           </div>
+          {/* AI-3807: Year built range filter */}
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Year Min
+            </label>
+            <select
+              value={filters.yearBuiltMin}
+              onChange={(e) => update("yearBuiltMin", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">No Min</option>
+              <option value="2020">2020</option>
+              <option value="2010">2010</option>
+              <option value="2000">2000</option>
+              <option value="1990">1990</option>
+              <option value="1980">1980</option>
+              <option value="1960">1960</option>
+              <option value="1940">1940</option>
+              <option value="1900">1900</option>
+            </select>
+          </div>
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Year Max
+            </label>
+            <select
+              value={filters.yearBuiltMax}
+              onChange={(e) => update("yearBuiltMax", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">No Max</option>
+              <option value="2026">2026</option>
+              <option value="2020">2020</option>
+              <option value="2010">2010</option>
+              <option value="2000">2000</option>
+              <option value="1990">1990</option>
+              <option value="1980">1980</option>
+              <option value="1960">1960</option>
+              <option value="1940">1940</option>
+            </select>
+          </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-muted-foreground">Area</label>
             <select
@@ -291,6 +342,29 @@ export default function PropertyFilters({
               3D Tour
             </button>
           </div>
+          {/* AI-3806: New construction filter */}
+          <div className="flex items-end">
+            <button
+              type="button"
+              onClick={() => update("newConstruction", filters.newConstruction ? "" : "yes")}
+              className={`flex items-center gap-1.5 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
+                filters.newConstruction
+                  ? "border-gold bg-gold/10 text-gold"
+                  : "border-border text-muted-foreground hover:border-gold/50 hover:text-foreground"
+              }`}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M3 21h18" />
+                <path d="M5 21V7l8-4v18" />
+                <path d="M19 21V11l-6-4" />
+                <path d="M9 9v.01" />
+                <path d="M9 12v.01" />
+                <path d="M9 15v.01" />
+                <path d="M9 18v.01" />
+              </svg>
+              New Construction
+            </button>
+          </div>
         </div>
 
         <div className="mt-3 flex items-center gap-3 lg:mt-0 lg:ml-auto">
@@ -311,6 +385,8 @@ export default function PropertyFilters({
               <option value="price-desc">Price: High to Low</option>
               <option value="price-asc">Price: Low to High</option>
               <option value="newest">Newest</option>
+              <option value="dom-asc">Newest Listings</option>
+              <option value="dom-desc">Longest on Market</option>
               <option value="sqft">Largest</option>
               <option value="beds-desc">Most Beds</option>
               <option value="beds-asc">Fewest Beds</option>
