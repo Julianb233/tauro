@@ -15,6 +15,7 @@ import { LocalFavorites } from "@/components/neighborhood/LocalFavorites";
 import { LifestyleSection } from "@/components/neighborhood/LifestyleSection";
 import { NeighborhoodAgents } from "@/components/neighborhood/NeighborhoodAgents";
 import { PhotoGallery } from "@/components/neighborhood/PhotoGallery";
+import { VideoTour } from "@/components/neighborhood/VideoTour";
 
 export const revalidate = 86400;
 
@@ -165,6 +166,14 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
         images={neighborhood.gallery}
         neighborhoodName={neighborhood.name}
       />
+
+      {/* Video Tour */}
+      {neighborhood.videoTourUrl && (
+        <VideoTour
+          videoUrl={neighborhood.videoTourUrl}
+          neighborhoodName={neighborhood.name}
+        />
+      )}
 
       {/* Listings */}
       <AreaListings neighborhoodName={neighborhood.name} propertyFilter={neighborhood.propertyFilter} />
