@@ -93,7 +93,6 @@ export default function ShareButton({
   const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  /* Close on outside click */
   useEffect(() => {
     if (!open) return;
     function handler(e: MouseEvent) {
@@ -103,7 +102,6 @@ export default function ShareButton({
     return () => document.removeEventListener("mousedown", handler);
   }, [open]);
 
-  /* Close on Escape */
   useEffect(() => {
     if (!open) return;
     function handler(e: KeyboardEvent) {
@@ -183,7 +181,6 @@ export default function ShareButton({
 
   return (
     <div className="relative" ref={ref}>
-      {/* Trigger button */}
       <button
         type="button"
         onClick={handleToggle}
@@ -202,7 +199,6 @@ export default function ShareButton({
         {!compact && <span className="hidden sm:inline">Share</span>}
       </button>
 
-      {/* Dropdown popover */}
       {open && (
         <div
           role="menu"
@@ -324,7 +320,11 @@ export default function ShareButton({
                   className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
                 >
                   <Share2 className="h-4 w-4" />
+<<<<<<< HEAD
                   More Options…
+=======
+                  More Options...
+>>>>>>> origin/main
                 </button>
               </>
             )}

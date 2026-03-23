@@ -15,7 +15,7 @@ import {
 
 import { monthlyTrend, neighborhoods, summaryStats } from "@/data/market-data";
 import {
-InteractiveTrendChart,
+  InteractiveTrendChart,
   NeighborhoodPriceChart,
   NeighborhoodDomChart,
   NeighborhoodPricePerSqftChart,
