@@ -121,6 +121,9 @@ export function mapPropertyRow(row: any): Property {
     flooring: row.flooring ?? [],
     roofType: row.roof_type ?? undefined,
     rooms: (row.rooms as Property["rooms"]) ?? [],
+    isNewConstruction: row.is_new_construction ?? undefined,
+    isComingSoon: row.is_coming_soon ?? undefined,
+    isExclusive: row.is_exclusive ?? undefined,
   };
 }
 
