@@ -602,7 +602,7 @@ export default function PropertyDetailClient({
             </div>
 
             {/* Mortgage Calculator */}
-            <MortgageCalculator homePrice={property.price} />
+            <MortgageCalculator homePrice={property.price} taxAnnual={property.tax_annual} />
 
             {/* Similar properties */}
             {similar.length > 0 && (
