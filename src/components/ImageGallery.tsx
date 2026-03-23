@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { GalleryHorizontalEnd, LayoutGrid } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
 import Counter from "yet-another-react-lightbox/plugins/counter";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
@@ -19,9 +19,52 @@ interface ImageGalleryProps {
 }
 
 export default function ImageGallery({ images, address }: ImageGalleryProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
   const [open, setOpen] = useState(false);
-  const [index, setIndex] = useState(0);
-  const [viewMode, setViewMode] = useState<"carousel" | "grid">("carousel");
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const isFirstRender = useRef(true);
+
+  const updateArrows = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setShowLeftArrow(el.scrollLeft > 0);
+    setShowRightArrow(el.scrollLeft + el.clientWidth < el.scrollWidth - 1);
+  }, []);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    updateArrows();
+    el.addEventListener("scroll", updateArrows);
+    window.addEventListener("resize", updateArrows);
+    return () => {
+      el.removeEventListener("scroll", updateArrows);
+      window.removeEventListener("resize", updateArrows);
+    };
+  }, [updateArrows]);
+
+  // Scroll active thumbnail into view when activeIndex changes (skip on initial mount)
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    const thumb = thumbRefs.current[activeIndex];
+    if (thumb) {
+      thumb.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  }, [activeIndex]);
+
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -200, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({ left: 200, behavior: "smooth" });
+  };
 
   if (!images || images.length === 0) {
     return (
@@ -32,117 +75,83 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
   }
 
   const openLightbox = (i: number) => {
-    setIndex(i);
+    setActiveIndex(i);
     setOpen(true);
   };
 
-  const maxThumbnails = 4;
-  const thumbnails = images.slice(1, maxThumbnails + 1);
-  const extraCount = images.length - (maxThumbnails + 1);
-
   return (
     <div>
-      {/* View mode toggle */}
+      {/* Hero image — shows images[activeIndex] */}
+      <button
+        onClick={() => openLightbox(activeIndex)}
+        className="relative aspect-[16/9] max-h-[500px] w-full cursor-pointer overflow-hidden rounded-xl lg:aspect-[21/9]"
+        aria-label={`View gallery for ${address}`}
+      >
+        <Image
+          src={images[activeIndex]}
+          alt={`${address} - Photo ${activeIndex + 1}`}
+          fill
+          className="object-cover"
+          priority
+          sizes="(max-width: 768px) 100vw, 66vw"
+        />
+      </button>
+
+      {/* Thumbnail strip — scrollable, all images */}
       {images.length > 1 && (
-        <div className="mb-2 flex items-center justify-end gap-1">
-          <button
-            onClick={() => setViewMode("carousel")}
-            className={cn(
-              "rounded-lg p-2 transition-colors",
-              viewMode === "carousel"
-                ? "bg-gold/20 text-gold"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-            aria-label="Carousel view"
-          >
-            <GalleryHorizontalEnd className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => setViewMode("grid")}
-            className={cn(
-              "rounded-lg p-2 transition-colors",
-              viewMode === "grid"
-                ? "bg-gold/20 text-gold"
-                : "text-muted-foreground hover:text-foreground"
-            )}
-            aria-label="Grid view"
-          >
-            <LayoutGrid className="h-4 w-4" />
-          </button>
-        </div>
-      )}
-
-      {viewMode === "carousel" ? (
-        <>
-          {/* Hero image */}
-          <button
-            onClick={() => openLightbox(0)}
-            className="relative aspect-[16/9] max-h-[500px] w-full cursor-pointer overflow-hidden rounded-xl lg:aspect-[21/9]"
-            aria-label={`View gallery for ${address}`}
-          >
-            <Image
-              src={images[0]}
-              alt={`${address} - Main photo`}
-              fill
-              className="object-cover"
-              priority
-              sizes="(max-width: 768px) 100vw, 66vw"
-            />
-          </button>
-
-          {/* Thumbnail row */}
-          {thumbnails.length > 0 && (
-            <div className="mt-2 flex gap-2">
-              {thumbnails.map((src, i) => {
-                const thumbIndex = i + 1;
-                const isLast = i === thumbnails.length - 1 && extraCount > 0;
-
-                return (
-                  <button
-                    key={thumbIndex}
-                    onClick={() => openLightbox(thumbIndex)}
-                    className="relative h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 border-transparent opacity-60 transition-all hover:border-gold hover:opacity-100"
-                    aria-label={`View photo ${thumbIndex + 1}`}
-                  >
-                    <Image
-                      src={src}
-                      alt={`${address} - Photo ${thumbIndex + 1}`}
-                      fill
-                      className="object-cover"
-                      sizes="80px"
-                    />
-                    {isLast && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/60">
-                        <span className="text-sm font-bold text-white">
-                          +{extraCount} more
-                        </span>
-                      </div>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          )}
-        </>
-      ) : (
-        /* Grid view */
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-          {images.map((src, i) => (
+        <div className="relative mt-2">
+          {/* Left scroll arrow */}
+          {showLeftArrow && (
             <button
-              key={i}
-              onClick={() => openLightbox(i)}
-              className="relative aspect-[4/3] overflow-hidden rounded-lg"
-              aria-label={`View photo ${i + 1}`}
+              onClick={scrollLeft}
+              className="absolute left-0 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white transition-opacity hover:bg-black/80"
+              aria-label="Scroll thumbnails left"
             >
-              <Image
-                src={src}
-                alt={`${address} - Photo ${i + 1}`}
-                fill
-                className="object-cover transition-transform hover:scale-105"
-                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              />
+              <ChevronLeft className="h-5 w-5" />
             </button>
-          ))}
+          )}
+
+          {/* Scrollable thumbnail container */}
+          <div
+            ref={scrollRef}
+            className="flex gap-2 overflow-x-auto scrollbar-hide"
+          >
+            {images.map((src, i) => (
+              <button
+                key={i}
+                ref={(el) => { thumbRefs.current[i] = el; }}
+                onClick={() => setActiveIndex(i)}
+                className={cn(
+                  "relative h-16 w-24 flex-shrink-0 overflow-hidden rounded-lg border-2 transition-all",
+                  i === activeIndex
+                    ? "border-gold opacity-100"
+                    : "border-transparent opacity-60 hover:border-gold/50 hover:opacity-80"
+                )}
+                aria-label={`View photo ${i + 1}`}
+                aria-current={i === activeIndex ? "true" : undefined}
+              >
+                <Image
+                  src={src}
+                  alt={`${address} - Photo ${i + 1}`}
+                  fill
+                  className="object-cover"
+                  sizes="96px"
+                  loading="lazy"
+                />
+              </button>
+            ))}
+          </div>
+
+          {/* Right scroll arrow */}
+          {showRightArrow && (
+            <button
+              onClick={scrollRight}
+              className="absolute right-0 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white transition-opacity hover:bg-black/80"
+              aria-label="Scroll thumbnails right"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          )}
         </div>
       )}
 
@@ -150,11 +159,12 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
       <Lightbox
         open={open}
         close={() => setOpen(false)}
-        index={index}
+        index={activeIndex}
         slides={images.map((src) => ({ src }))}
         plugins={[Counter, Fullscreen, Thumbnails, Zoom]}
         carousel={{ finite: true }}
         styles={{ container: { backgroundColor: "rgba(0, 0, 0, 0.95)" } }}
+        on={{ view: ({ index }) => setActiveIndex(index) }}
       />
     </div>
   );
