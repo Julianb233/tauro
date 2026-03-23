@@ -21,15 +21,34 @@ export default function AgentCard({ agent }: { agent: Agent }) {
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
 
+        {/* Designation badges - top right */}
+        <div className="absolute right-3 top-3 z-10 flex flex-col items-end gap-1.5">
+          <span className="rounded-full bg-gold/90 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-near-black backdrop-blur-sm">
+            {agent.title}
+          </span>
+          {agent.languages.length > 1 && (
+            <span className="rounded-full bg-white/90 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-foreground backdrop-blur-sm">
+              {agent.languages.join(" / ")}
+            </span>
+          )}
+        </div>
+
         {/* Bottom info bar - always visible */}
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-midnight/90 via-midnight/40 to-transparent px-5 pb-5 pt-16">
           <h3 className="font-heading text-xl font-bold text-white">
             {agent.fullName}
           </h3>
           <div className="my-2 h-px w-12 bg-gold/60" />
-          <p className="font-label text-xs uppercase tracking-[0.2em] text-gold">
-            {agent.title}
-          </p>
+          <div className="flex flex-wrap gap-1.5">
+            {agent.specialties.slice(0, 2).map((s) => (
+              <span
+                key={s}
+                className="rounded-full border border-gold/30 bg-gold/10 px-2 py-0.5 text-[10px] font-medium text-gold backdrop-blur-sm"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Hover overlay - slides up */}
