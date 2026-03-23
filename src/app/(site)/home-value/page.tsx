@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
   Gift,
   Clock,
@@ -124,6 +125,7 @@ export default function HomeValuePage() {
 
   return (
     <>
+      <Breadcrumbs items={[{ label: "Home Value", href: "/home-value" }]} />
       {/* -- Hero ---------------------------------------------------- */}
       <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
         <div className="absolute inset-0">

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Cookie Policy",
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 export default function CookiePolicyPage() {
   return (
     <>
+      <Breadcrumbs items={[{ label: "Cookie Policy", href: "/cookie-policy" }]} />
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />

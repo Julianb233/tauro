@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { loadAgents } from "@/lib/data";
 import AgentsGrid from "@/components/AgentsGrid";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const revalidate = 3600;
 
@@ -19,6 +20,7 @@ export default async function AgentsPage() {
 
   return (
     <>
+      <Breadcrumbs items={[{ label: "Agents", href: "/agents" }]} />
       <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

@@ -15,6 +15,7 @@ import {
 import { AboutCountUp, AboutStaggerReveal, AboutParallax, FadeInView } from "./AboutAnimations";
 import { GoogleReviewBadge } from "@/components/GoogleReviewBadge";
 import { AsSeenInStrip } from "@/components/SocialProof";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "About Tauro | Philadelphia's Premier Real Estate Brokerage",
@@ -76,6 +77,7 @@ const neighborhoods = [
 export default function AboutPage() {
   return (
     <div className="bg-background text-foreground">
+      <Breadcrumbs items={[{ label: "About", href: "/about" }]} />
       {/* Hero with Parallax */}
       <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden">
         <AboutParallax speed={0.25} className="absolute inset-0">

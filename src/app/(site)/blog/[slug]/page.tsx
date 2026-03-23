@@ -10,6 +10,7 @@ import {
 } from "@/data/blog-posts";
 import { siteUrl } from "@/lib/site-config";
 import { ReadingProgress } from "@/components/ReadingProgress";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 /* ------------------------------------------------------------------ */
 /*  Static params for SSG                                              */
@@ -119,6 +120,7 @@ export default async function BlogPostPage({
   return (
     <>
       <ReadingProgress />
+      <Breadcrumbs items={[{ label: "Journal", href: "/blog" }, { label: post.title, href: `/blog/${post.slug}` }]} />
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-foreground pt-24 pb-16 lg:pb-24">

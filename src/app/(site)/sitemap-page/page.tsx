@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 import {
   loadProperties,
   loadNeighborhoods,
@@ -43,6 +44,7 @@ export default async function SitemapPage() {
 
   return (
     <>
+      <Breadcrumbs items={[{ label: "Sitemap", href: "/sitemap-page" }]} />
       {/* Hero */}
       <section className="relative overflow-hidden bg-foreground pb-16 pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />

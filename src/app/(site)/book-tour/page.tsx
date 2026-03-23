@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { loadProperties, loadAgents } from "@/lib/data";
 import BookTourClient from "./BookTourClient";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Book a Property Tour",
@@ -14,8 +15,11 @@ export const revalidate = 3600;
 export default async function BookTourPage() {
   const [properties, agents] = await Promise.all([loadProperties(), loadAgents()]);
   return (
-    <Suspense fallback={null}>
-      <BookTourClient properties={properties} agents={agents} />
-    </Suspense>
+    <>
+      <Breadcrumbs items={[{ label: "Book a Tour", href: "/book-tour" }]} />
+      <Suspense fallback={null}>
+        <BookTourClient properties={properties} agents={agents} />
+      </Suspense>
+    </>
   );
 }
