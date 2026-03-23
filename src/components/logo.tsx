@@ -18,7 +18,7 @@ const sizeMap: Record<SizeVariant, { width: number; height: number }> = {
 
 export function Logo({ size = "sm", variant = "light", className }: LogoProps) {
   const dimensions = sizeMap[size];
-  const src = variant === "light" ? "/tauro-logo-white.png" : "/tauro-logo-dark.png";
+  const src = variant === "light" ? "/tauro-logo-white.svg" : "/tauro-logo-dark.svg";
 
   return (
     <Image

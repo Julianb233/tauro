@@ -221,7 +221,7 @@ export function ChatWidget() {
             <div className="flex items-center gap-3">
               <div className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-gold/30 bg-midnight">
                 <Image
-                  src="/tauro-logo-white.png"
+                  src="/tauro-logo-white.svg"
                   alt="Tauro"
                   fill
                   className="object-contain p-1"
