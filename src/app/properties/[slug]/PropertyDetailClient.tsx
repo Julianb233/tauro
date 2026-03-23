@@ -439,9 +439,9 @@ export default function PropertyDetailClient({
         </div>
       </div>
 
-      {/* Gallery -- blurred with early access overlay for coming soon properties */}
+      {/* Gallery -- full-bleed, no horizontal padding (AI-3885) */}
       <div className="relative bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+        <div className="w-full py-2">
           {property.isComingSoon ? (
             <div className="relative">
               <div className="pointer-events-none select-none blur-lg">
