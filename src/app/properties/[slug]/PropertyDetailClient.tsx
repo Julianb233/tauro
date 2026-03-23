@@ -575,14 +575,17 @@ export default function PropertyDetailClient({
                     <h3 className="mb-3 text-sm font-semibold uppercase tracking-wide text-gold">
                       {cat}
                     </h3>
-                    <ul className="space-y-2">
+                    <div className="flex flex-wrap gap-2">
                       {property.features[cat].map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Check className="h-3.5 w-3.5 flex-shrink-0 text-gold" />
+                        <span
+                          key={f}
+                          className="inline-flex items-center gap-1.5 rounded-full border border-gold/20 bg-gold/5 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:border-gold/40 hover:bg-gold/10 hover:text-foreground"
+                        >
+                          <Check className="h-3 w-3 flex-shrink-0 text-gold" />
                           {f}
-                        </li>
+                        </span>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 ))}
               </div>
