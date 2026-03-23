@@ -25,6 +25,7 @@ interface Agent {
   bio: string | null;
   short_bio: string | null;
   specialties: string[];
+  market_specialties: string[];
   neighborhoods: string[];
   listings_count?: number;
 }
@@ -37,6 +38,7 @@ interface EditForm {
   phone: string;
   bio: string;
   specialties: string;
+  market_specialties: string;
   neighborhoods: string;
 }
 
@@ -64,6 +66,7 @@ export function AgentManager() {
           ...a,
           listings_count: 0,
           specialties: a.specialties ?? [],
+          market_specialties: a.market_specialties ?? [],
           neighborhoods: a.neighborhoods ?? [],
         }),
       );
@@ -91,6 +94,7 @@ export function AgentManager() {
       phone: agent.phone || "",
       bio: agent.bio || "",
       specialties: (agent.specialties ?? []).join(", "),
+      market_specialties: (agent.market_specialties ?? []).join(", "),
       neighborhoods: (agent.neighborhoods ?? []).join(", "),
     });
   }
@@ -113,6 +117,10 @@ export function AgentManager() {
         phone: editForm.phone,
         bio: editForm.bio,
         specialties: editForm.specialties
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean),
+        market_specialties: editForm.market_specialties
           .split(",")
           .map((s) => s.trim())
           .filter(Boolean),
@@ -417,6 +425,24 @@ export function AgentManager() {
                             })
                           }
                           placeholder="Luxury, Residential, Commercial"
+                          className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="mb-1 block text-xs font-medium uppercase tracking-wider text-off-white/40">
+                          Market Specialties (comma-separated)
+                        </label>
+                        <input
+                          type="text"
+                          value={editForm.market_specialties}
+                          onChange={(e) =>
+                            setEditForm({
+                              ...editForm,
+                              market_specialties: e.target.value,
+                            })
+                          }
+                          placeholder="Investment, Luxury, New Development"
                           className="w-full rounded-lg border border-white/10 bg-[#141425] px-3 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:border-gold/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold/30"
                         />
                       </div>

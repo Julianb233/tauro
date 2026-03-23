@@ -42,6 +42,19 @@ export default function AgentCard({ agent }: { agent: Agent }) {
             {agent.fullName}
           </h3>
           <div className="my-2 h-px w-12 bg-gold/60" />
+          {/* Market specialty tags */}
+          {agent.marketSpecialties && agent.marketSpecialties.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mb-1.5">
+              {agent.marketSpecialties.map((ms) => (
+                <span
+                  key={ms}
+                  className="rounded-full bg-gold/90 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-near-black backdrop-blur-sm"
+                >
+                  {ms}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="flex flex-wrap gap-1.5">
             {agent.specialties.slice(0, 2).map((s) => (
               <span

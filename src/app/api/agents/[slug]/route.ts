@@ -95,6 +95,7 @@ export async function PATCH(
       "bio",
       "short_bio",
       "specialties",
+      "market_specialties",
       "neighborhoods",
       "video_intro_url",
       "social",

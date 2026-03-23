@@ -18,6 +18,7 @@ export interface Agent {
   bio: string;
   shortBio: string;
   specialties: string[];
+  marketSpecialties: string[];
   neighborhoods: string[];
   stats: {
     propertiesSold: number;
@@ -72,6 +73,7 @@ export const agents: Agent[] = [
       "Community Development",
       "Wealth Building",
     ],
+    marketSpecialties: ["Investment", "Residential", "First-Time Buyers"],
     neighborhoods: [
       "Cheltenham",
       "North Philadelphia",
@@ -151,6 +153,7 @@ export const agents: Agent[] = [
       "Buyer Representation",
       "Neighborhood Revitalization",
     ],
+    marketSpecialties: ["Residential", "First-Time Buyers", "Revitalization"],
     neighborhoods: [
       "Brewerytown",
       "Strawberry Mansion",
@@ -222,6 +225,7 @@ export const agents: Agent[] = [
       "Estate Sales",
       "Relocation",
     ],
+    marketSpecialties: ["Residential", "Relocation", "Renovation"],
     neighborhoods: [
       "East Falls",
       "Kensington",
@@ -299,6 +303,7 @@ export const agents: Agent[] = [
       "Multi-Family",
       "Northeast Philadelphia",
     ],
+    marketSpecialties: ["Investment", "Rental", "Multi-Family"],
     neighborhoods: [
       "Frankford",
       "Mayfair",
@@ -369,6 +374,7 @@ export const agents: Agent[] = [
       "First-Time Buyers",
       "South Philadelphia",
     ],
+    marketSpecialties: ["Waterfront", "Condos", "First-Time Buyers"],
     neighborhoods: [
       "South Philadelphia",
       "Northern Liberties",

@@ -143,6 +143,7 @@ export function mapAgentRow(row: any): Agent {
     bio: row.bio ?? "",
     shortBio: row.short_bio ?? "",
     specialties: row.specialties ?? [],
+    marketSpecialties: row.market_specialties ?? [],
     neighborhoods: row.neighborhoods ?? [],
     stats: row.stats as Agent["stats"],
     awards: (row.awards as Agent["awards"]) ?? [],

@@ -212,6 +212,19 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
             <div className="lg:col-span-2">
               <h1 className="font-heading text-4xl font-bold text-white">{agent.fullName}</h1>
               <p className="mt-2 text-sm font-label uppercase tracking-wider text-gold">{agent.title}</p>
+              {/* Market specialty tags */}
+              {agent.marketSpecialties && agent.marketSpecialties.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {agent.marketSpecialties.map((ms) => (
+                    <span
+                      key={ms}
+                      className="rounded-full bg-gold px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-near-black"
+                    >
+                      {ms}
+                    </span>
+                  ))}
+                </div>
+              )}
               <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">
                   {agent.stats.yearsExperience}+ Years Experience

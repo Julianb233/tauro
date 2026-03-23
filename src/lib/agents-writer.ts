@@ -13,6 +13,7 @@ export interface NewAgentInput {
   bio: string;
   shortBio: string;
   specialties: string[];
+  marketSpecialties?: string[];
   neighborhoods: string[];
   licenseNumber: string;
   social: {
@@ -81,6 +82,7 @@ export async function addAgentToFile(input: NewAgentInput): Promise<{
     bio: ${JSON.stringify(input.bio)},
     shortBio: ${JSON.stringify(input.shortBio)},
     specialties: ${specialtiesStr},
+    marketSpecialties: ${JSON.stringify(input.marketSpecialties ?? [])},
     neighborhoods: ${neighborhoodsStr},
     stats: {
       propertiesSold: 0,

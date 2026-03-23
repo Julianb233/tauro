@@ -176,6 +176,7 @@ export type Database = {
           bio: string | null;
           short_bio: string | null;
           specialties: string[];
+          market_specialties: string[];
           neighborhoods: string[];
           stats: Record<string, unknown>;
           awards: Record<string, unknown>[];
@@ -199,6 +200,7 @@ export type Database = {
           bio?: string | null;
           short_bio?: string | null;
           specialties?: string[];
+          market_specialties?: string[];
           neighborhoods?: string[];
           stats?: Record<string, unknown>;
           awards?: Record<string, unknown>[];
@@ -222,6 +224,7 @@ export type Database = {
           bio?: string | null;
           short_bio?: string | null;
           specialties?: string[];
+          market_specialties?: string[];
           neighborhoods?: string[];
           stats?: Record<string, unknown>;
           awards?: Record<string, unknown>[];
