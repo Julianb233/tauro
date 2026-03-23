@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { CheckCircle, Coffee, TrainFront, Trees, Sparkles, ArrowRight } from "lucide-react";
 import { loadNeighborhoodBySlug, loadNeighborhoods } from "@/lib/data";
 import { AreaHero } from "@/components/area-hero";
@@ -8,15 +9,25 @@ import NeighborhoodMap from "@/components/NeighborhoodMap";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { siteUrl } from "@/lib/site-config";
 import { MarketDataSection } from "@/components/neighborhood/MarketDataSection";
-import { MarketTrendChart } from "@/components/neighborhood/MarketTrendChart";
 import { ScoreGauges } from "@/components/neighborhood/ScoreGauges";
 import { SchoolsSection } from "@/components/neighborhood/SchoolsSection";
 import { LocalFavorites } from "@/components/neighborhood/LocalFavorites";
 import { LifestyleSection } from "@/components/neighborhood/LifestyleSection";
 import { FeaturedAgent } from "@/components/neighborhood/FeaturedAgent";
 import { NeighborhoodAgents } from "@/components/neighborhood/NeighborhoodAgents";
-import { PhotoGallery } from "@/components/neighborhood/PhotoGallery";
 import { VideoTour } from "@/components/neighborhood/VideoTour";
+
+// Heavy client components — lazy-loaded (recharts ~200KB, lightbox ~50KB)
+const MarketTrendChart = dynamic(() =>
+  import("@/components/neighborhood/MarketTrendChart").then((mod) => ({
+    default: mod.MarketTrendChart,
+  })),
+);
+const PhotoGallery = dynamic(() =>
+  import("@/components/neighborhood/PhotoGallery").then((mod) => ({
+    default: mod.PhotoGallery,
+  })),
+);
 
 export const revalidate = 86400;
 

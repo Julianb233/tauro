@@ -1,13 +1,22 @@
 "use client";
 
 import { useState, useMemo, useCallback } from "react";
+import dynamic from "next/dynamic";
 import { useSearchParams, useRouter } from "next/navigation";
 import { LayoutGrid, Map, Bookmark, Check } from "lucide-react";
 import type { Property } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilters, { FilterState } from "@/components/PropertyFilters";
-import PropertyMap from "@/components/PropertyMap";
 import { cn } from "@/lib/utils";
+
+// Mapbox GL is ~700KB — only load when user switches to map view
+const PropertyMap = dynamic(() => import("@/components/PropertyMap"), {
+  loading: () => (
+    <div className="flex h-full items-center justify-center bg-near-black/50 text-muted-foreground">
+      Loading map…
+    </div>
+  ),
+});
 import { useSavedSearches, hasActiveFilters } from "@/hooks/useSavedSearches";
 import RecentlyViewed from "@/components/RecentlyViewed";
 

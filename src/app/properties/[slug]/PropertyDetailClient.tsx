@@ -28,19 +28,24 @@ import {
 ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { Property, formatPriceFull, formatDaysOnMarket } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import OpenHouseBanner from "@/components/OpenHouseBanner";
-import ImageGallery from "@/components/ImageGallery";
 import PropertyVideoTour from "@/components/PropertyVideoTour";
-import PropertyMap from "@/components/PropertyMap";
 import PriceHistory from "@/components/PriceHistory";
 import RoomBreakdown from "@/components/RoomBreakdown";
-import MortgageCalculator from "@/components/MortgageCalculator";
 import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import ShareButton from "@/components/ShareButton";
 import PropertyAmenities from "@/components/PropertyAmenities";
 import { cn } from "@/lib/utils";
+
+// Heavy components — lazy-loaded to reduce initial bundle
+const ImageGallery = dynamic(() => import("@/components/ImageGallery"));
+const PropertyMap = dynamic(() => import("@/components/PropertyMap"));
+const MortgageCalculator = dynamic(
+  () => import("@/components/MortgageCalculator"),
+);
 import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useUtm } from "@/hooks/useUtm";
 import { siteUrl } from "@/lib/site-config";
