@@ -550,6 +550,12 @@ export default function PropertyDetailClient({
               <span className="flex items-center gap-1">
                 <Home className="h-4 w-4" /> {property.propertyType}
               </span>
+              {property.tax_annual > 0 && (
+                <span className="flex items-center gap-1">
+                  <DollarSign className="h-4 w-4" />
+                  ${Math.round(property.tax_annual / 12).toLocaleString()}/mo tax
+                </span>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -811,7 +817,19 @@ export default function PropertyDetailClient({
             )}
 
             {/* Mortgage Calculator */}
-            <MortgageCalculator homePrice={property.price} taxAnnual={property.tax_annual} />
+            <MortgageCalculator
+              homePrice={property.price}
+              taxAnnual={property.tax_annual}
+              hoaMonthly={
+                property.has_hoa && property.hoa_fee
+                  ? property.hoa_frequency === "quarterly"
+                    ? Math.round(property.hoa_fee / 3)
+                    : property.hoa_frequency === "annual"
+                    ? Math.round(property.hoa_fee / 12)
+                    : property.hoa_fee
+                  : undefined
+              }
+            />
 
             {/* Similar properties carousel */}
             {similar.length > 0 && (
