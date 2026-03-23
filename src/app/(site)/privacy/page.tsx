@@ -28,7 +28,7 @@ export default function PrivacyPage() {
       {/* ── Content ───────────────────────────────────────────── */}
       <section className="bg-cream py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="space-y-12 text-white/70">
+          <div className="space-y-12 text-midnight/70">
             {/* Intro */}
             <p className="text-base leading-relaxed">
               Tauro Realty (&quot;Tauro,&quot; &quot;we,&quot; &quot;us,&quot; or
@@ -41,7 +41,7 @@ export default function PrivacyPage() {
 
             {/* Information We Collect */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Information We Collect
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed">
@@ -51,30 +51,30 @@ export default function PrivacyPage() {
                 </p>
                 <ul className="list-disc space-y-2 pl-6">
                   <li>
-                    <strong className="text-white">Personal Information:</strong>{" "}
+                    <strong className="text-midnight">Personal Information:</strong>{" "}
                     Name, email address, phone number, and mailing address
                     provided when you submit contact forms, request property
                     showings, or sign up for market updates.
                   </li>
                   <li>
-                    <strong className="text-white">Property Inquiry Data:</strong>{" "}
+                    <strong className="text-midnight">Property Inquiry Data:</strong>{" "}
                     Details about properties you inquire about, showing requests,
                     home valuation requests, and your buying or selling
                     preferences.
                   </li>
                   <li>
-                    <strong className="text-white">Financial Information:</strong>{" "}
+                    <strong className="text-midnight">Financial Information:</strong>{" "}
                     Pre-approval status, budget range, and mortgage preferences
                     shared during the buying or selling process.
                   </li>
                   <li>
-                    <strong className="text-white">Usage Data:</strong>{" "}
+                    <strong className="text-midnight">Usage Data:</strong>{" "}
                     Information about how you interact with our website,
                     including pages visited, time spent, browser type, device
                     information, and IP address.
                   </li>
                   <li>
-                    <strong className="text-white">Cookies &amp; Tracking:</strong>{" "}
+                    <strong className="text-midnight">Cookies &amp; Tracking:</strong>{" "}
                     We use cookies, pixels, and similar technologies to improve
                     your experience and analyze website traffic.
                   </li>
@@ -84,7 +84,7 @@ export default function PrivacyPage() {
 
             {/* How We Use Information */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 How We Use Your Information
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed">
@@ -119,7 +119,7 @@ export default function PrivacyPage() {
 
             {/* Information Sharing */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Information Sharing
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed">
@@ -129,23 +129,23 @@ export default function PrivacyPage() {
                 </p>
                 <ul className="list-disc space-y-2 pl-6">
                   <li>
-                    <strong className="text-white">Tauro Agents:</strong> To
+                    <strong className="text-midnight">Tauro Agents:</strong> To
                     facilitate property showings, transactions, and personalized
                     service.
                   </li>
                   <li>
-                    <strong className="text-white">Service Providers:</strong>{" "}
+                    <strong className="text-midnight">Service Providers:</strong>{" "}
                     Third-party vendors who help us operate our website, manage
                     our CRM, process communications, and analyze data (e.g.,
                     hosting providers, email platforms, analytics tools).
                   </li>
                   <li>
-                    <strong className="text-white">Legal Requirements:</strong>{" "}
+                    <strong className="text-midnight">Legal Requirements:</strong>{" "}
                     When required by law, subpoena, or legal process, or to
                     protect the rights and safety of Tauro and its clients.
                   </li>
                   <li>
-                    <strong className="text-white">Business Transfers:</strong>{" "}
+                    <strong className="text-midnight">Business Transfers:</strong>{" "}
                     In connection with a merger, acquisition, or sale of assets,
                     your information may be transferred as part of that
                     transaction.
@@ -156,7 +156,7 @@ export default function PrivacyPage() {
 
             {/* Data Security */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Data Security
               </h2>
               <p className="mt-4 text-sm leading-relaxed">
@@ -171,7 +171,7 @@ export default function PrivacyPage() {
 
             {/* Your Rights */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Your Rights
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed">
@@ -202,7 +202,7 @@ export default function PrivacyPage() {
 
             {/* Contact Us */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Contact Us
               </h2>
               <div className="mt-4 text-sm leading-relaxed">
@@ -212,7 +212,7 @@ export default function PrivacyPage() {
                 </p>
                 <div className="mt-4 space-y-1">
                   <p>
-                    <strong className="text-white">Tauro Realty</strong>
+                    <strong className="text-midnight">Tauro Realty</strong>
                   </p>
                   <p>Philadelphia, PA</p>
                   <p>

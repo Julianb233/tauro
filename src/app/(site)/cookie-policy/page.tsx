@@ -29,7 +29,7 @@ export default function CookiePolicyPage() {
       {/* ── Content ───────────────────────────────────────────── */}
       <section className="bg-cream py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-          <div className="space-y-12 text-white/70">
+          <div className="space-y-12 text-midnight/70">
             {/* Intro */}
             <p className="text-base leading-relaxed">
               This Cookie Policy explains what cookies are, how Tauro Realty
@@ -40,7 +40,7 @@ export default function CookiePolicyPage() {
 
             {/* What Are Cookies */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 What Are Cookies?
               </h2>
               <p className="mt-4 text-sm leading-relaxed">
@@ -53,13 +53,13 @@ export default function CookiePolicyPage() {
 
             {/* Cookies We Use */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Cookies We Use
               </h2>
               <div className="mt-4 space-y-6 text-sm leading-relaxed">
                 {/* Essential */}
                 <div>
-                  <h3 className="text-base font-semibold text-white">
+                  <h3 className="text-base font-semibold text-midnight">
                     Essential Cookies
                   </h3>
                   <p className="mt-2">
@@ -67,23 +67,23 @@ export default function CookiePolicyPage() {
                     function. They enable core features like page navigation,
                     form submissions, and access to secure areas.
                   </p>
-                  <div className="mt-3 overflow-x-auto rounded-lg border border-white/10">
+                  <div className="mt-3 overflow-x-auto rounded-lg border border-midnight/10">
                     <table className="w-full text-left text-xs">
                       <thead>
-                        <tr className="border-b border-white/10 bg-white/5">
-                          <th className="p-3 font-semibold text-white">
+                        <tr className="border-b border-midnight/10 bg-midnight/5">
+                          <th className="p-3 font-semibold text-midnight">
                             Cookie
                           </th>
-                          <th className="p-3 font-semibold text-white">
+                          <th className="p-3 font-semibold text-midnight">
                             Purpose
                           </th>
-                          <th className="p-3 font-semibold text-white">
+                          <th className="p-3 font-semibold text-midnight">
                             Duration
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-midnight/5">
                           <td className="p-3 font-mono">
                             tauro-cookie-consent
                           </td>
@@ -92,7 +92,7 @@ export default function CookiePolicyPage() {
                           </td>
                           <td className="p-3">Persistent</td>
                         </tr>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-midnight/5">
                           <td className="p-3 font-mono">__cf_bm</td>
                           <td className="p-3">
                             Cloudflare bot management (security)
@@ -106,7 +106,7 @@ export default function CookiePolicyPage() {
 
                 {/* Analytics */}
                 <div>
-                  <h3 className="text-base font-semibold text-white">
+                  <h3 className="text-base font-semibold text-midnight">
                     Analytics Cookies
                   </h3>
                   <p className="mt-2">
@@ -115,30 +115,30 @@ export default function CookiePolicyPage() {
                     in an aggregated form to help us improve our site. Analytics
                     cookies are only loaded if you consent to them.
                   </p>
-                  <div className="mt-3 overflow-x-auto rounded-lg border border-white/10">
+                  <div className="mt-3 overflow-x-auto rounded-lg border border-midnight/10">
                     <table className="w-full text-left text-xs">
                       <thead>
-                        <tr className="border-b border-white/10 bg-white/5">
-                          <th className="p-3 font-semibold text-white">
+                        <tr className="border-b border-midnight/10 bg-midnight/5">
+                          <th className="p-3 font-semibold text-midnight">
                             Cookie
                           </th>
-                          <th className="p-3 font-semibold text-white">
+                          <th className="p-3 font-semibold text-midnight">
                             Purpose
                           </th>
-                          <th className="p-3 font-semibold text-white">
+                          <th className="p-3 font-semibold text-midnight">
                             Duration
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-midnight/5">
                           <td className="p-3 font-mono">_ga</td>
                           <td className="p-3">
                             Distinguishes unique users in Google Analytics
                           </td>
                           <td className="p-3">2 years</td>
                         </tr>
-                        <tr className="border-b border-white/5">
+                        <tr className="border-b border-midnight/5">
                           <td className="p-3 font-mono">_ga_*</td>
                           <td className="p-3">
                             Maintains session state for GA4
@@ -152,7 +152,7 @@ export default function CookiePolicyPage() {
 
                 {/* Marketing */}
                 <div>
-                  <h3 className="text-base font-semibold text-white">
+                  <h3 className="text-base font-semibold text-midnight">
                     Marketing Cookies
                   </h3>
                   <p className="mt-2">
@@ -167,7 +167,7 @@ export default function CookiePolicyPage() {
 
             {/* Managing Cookies */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Managing Your Cookie Preferences
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed">
@@ -186,7 +186,7 @@ export default function CookiePolicyPage() {
 
             {/* CCPA */}
             <div id="ccpa">
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 California Privacy Rights (CCPA)
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed">
@@ -227,7 +227,7 @@ export default function CookiePolicyPage() {
 
             {/* GDPR */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 European Privacy Rights (GDPR)
               </h2>
               <div className="mt-4 space-y-4 text-sm leading-relaxed">
@@ -244,7 +244,7 @@ export default function CookiePolicyPage() {
 
             {/* Contact */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Contact Us
               </h2>
               <div className="mt-4 text-sm leading-relaxed">
@@ -254,7 +254,7 @@ export default function CookiePolicyPage() {
                 </p>
                 <div className="mt-4 space-y-1">
                   <p>
-                    <strong className="text-white">Tauro Realty</strong>
+                    <strong className="text-midnight">Tauro Realty</strong>
                   </p>
                   <p>Philadelphia, PA</p>
                   <p>

@@ -69,7 +69,7 @@ export default function TermsPage() {
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Legal
           </p>
-          <h1 className="mt-2 font-heading text-4xl font-bold text-white">
+          <h1 className="mt-2 font-heading text-4xl font-bold text-midnight">
             Terms of Service
           </h1>
           <p className="mt-4 text-muted-foreground">
@@ -84,7 +84,7 @@ export default function TermsPage() {
           <div className="space-y-10">
             {sections.map((section) => (
               <div key={section.title}>
-                <h2 className="font-heading text-xl font-bold text-white">
+                <h2 className="font-heading text-xl font-bold text-midnight">
                   {section.title}
                 </h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

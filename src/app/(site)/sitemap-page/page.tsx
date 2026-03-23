@@ -65,10 +65,10 @@ export default async function SitemapPage() {
           <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
             {/* Properties */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Properties
               </h2>
-              <p className="mt-1 text-sm text-white/50">
+              <p className="mt-1 text-sm text-midnight/50">
                 {properties.length} listings
               </p>
               <ul className="mt-4 space-y-2">
@@ -84,7 +84,7 @@ export default async function SitemapPage() {
                   <li key={p.slug}>
                     <Link
                       href={`/properties/${p.slug}`}
-                      className="text-sm text-white/70 transition-colors hover:text-gold"
+                      className="text-sm text-midnight/70 transition-colors hover:text-gold"
                     >
                       {p.address}
                     </Link>
@@ -95,10 +95,10 @@ export default async function SitemapPage() {
 
             {/* Neighborhoods */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Neighborhoods
               </h2>
-              <p className="mt-1 text-sm text-white/50">
+              <p className="mt-1 text-sm text-midnight/50">
                 {neighborhoods.length} areas
               </p>
               <ul className="mt-4 space-y-2">
@@ -114,7 +114,7 @@ export default async function SitemapPage() {
                   <li key={n.slug}>
                     <Link
                       href={`/neighborhoods/${n.slug}`}
-                      className="text-sm text-white/70 transition-colors hover:text-gold"
+                      className="text-sm text-midnight/70 transition-colors hover:text-gold"
                     >
                       {n.name}
                     </Link>
@@ -125,10 +125,10 @@ export default async function SitemapPage() {
 
             {/* Agents */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Agents
               </h2>
-              <p className="mt-1 text-sm text-white/50">
+              <p className="mt-1 text-sm text-midnight/50">
                 {agents.length} team members
               </p>
               <ul className="mt-4 space-y-2">
@@ -144,7 +144,7 @@ export default async function SitemapPage() {
                   <li key={a.slug}>
                     <Link
                       href={`/agents/${a.slug}`}
-                      className="text-sm text-white/70 transition-colors hover:text-gold"
+                      className="text-sm text-midnight/70 transition-colors hover:text-gold"
                     >
                       {a.fullName}
                     </Link>
@@ -155,7 +155,7 @@ export default async function SitemapPage() {
 
             {/* Resources */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Resources
               </h2>
               <ul className="mt-4 space-y-2">
@@ -163,7 +163,7 @@ export default async function SitemapPage() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/70 transition-colors hover:text-gold"
+                      className="text-sm text-midnight/70 transition-colors hover:text-gold"
                     >
                       {link.label}
                     </Link>
@@ -174,7 +174,7 @@ export default async function SitemapPage() {
 
             {/* Legal */}
             <div>
-              <h2 className="font-heading text-2xl font-bold text-white">
+              <h2 className="font-heading text-2xl font-bold text-midnight">
                 Legal
               </h2>
               <ul className="mt-4 space-y-2">
@@ -182,7 +182,7 @@ export default async function SitemapPage() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/70 transition-colors hover:text-gold"
+                      className="text-sm text-midnight/70 transition-colors hover:text-gold"
                     >
                       {link.label}
                     </Link>
