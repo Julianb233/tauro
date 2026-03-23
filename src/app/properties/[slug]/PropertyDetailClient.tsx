@@ -537,6 +537,11 @@ export default function PropertyDetailClient({
                 Coming Soon
               </span>
             )}
+            {property.isExclusive && (
+              <span className="rounded-full bg-gradient-to-r from-amber-500 to-yellow-300 px-3 py-1 text-xs font-bold uppercase tracking-wide text-near-black">
+                Exclusive
+              </span>
+            )}
             <div className="flex items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1">
                 <Bed className="h-4 w-4" /> {property.beds} BD
@@ -609,7 +614,8 @@ export default function PropertyDetailClient({
                     property.status === "Active" && "bg-emerald-600/20 text-emerald-400",
                     property.status === "New" && "bg-gold/20 text-gold",
                     property.status === "Open House" && "bg-blue-600/20 text-blue-400",
-                    property.status === "Pending" && "bg-orange-500/20 text-orange-400"
+                    property.status === "Pending" && "bg-orange-500/20 text-orange-400",
+                    property.status === "Coming Soon" && "bg-purple-600/20 text-purple-400"
                   )}
                 >
                   {property.status}
@@ -617,6 +623,11 @@ export default function PropertyDetailClient({
                 {property.isComingSoon && (
                   <span className="rounded-md bg-gradient-to-r from-purple-600 to-gold px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
                     Coming Soon
+                  </span>
+                )}
+                {property.isExclusive && (
+                  <span className="rounded-md bg-gradient-to-r from-amber-500 to-yellow-300 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-near-black">
+                    Exclusive
                   </span>
                 )}
               </div>
