@@ -140,7 +140,7 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
       {/* Hero image — shows images[activeIndex] */}
       <button
         onClick={() => openLightbox(activeIndex)}
-        className="relative aspect-[16/9] max-h-[500px] w-full cursor-pointer overflow-hidden rounded-xl lg:aspect-[21/9]"
+        className="relative aspect-[16/9] max-h-[600px] w-full cursor-pointer overflow-hidden lg:aspect-[21/9]"
         aria-label={`View gallery for ${address}`}
       >
         <Image
@@ -155,7 +155,7 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
 
       {/* Thumbnail strip — scrollable, all images */}
       {images.length > 1 && (
-        <div className="relative mt-2">
+        <div className="relative mt-2 px-4 sm:px-6 lg:px-8">
           {/* Left scroll arrow */}
           {showLeftArrow && (
             <button
