@@ -87,6 +87,10 @@ export default function PropertyFilters({
           <option value="price-asc">Price: Low to High</option>
           <option value="newest">Newest</option>
           <option value="sqft">Largest</option>
+          <option value="beds-desc">Most Beds</option>
+          <option value="beds-asc">Fewest Beds</option>
+          <option value="baths-desc">Most Baths</option>
+          <option value="baths-asc">Fewest Baths</option>
         </select>
       </div>
 
