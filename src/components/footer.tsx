@@ -59,7 +59,7 @@ export function Footer() {
             <Link href="/" className="inline-block">
               <Logo size="md" variant="light" />
             </Link>
-            <p className="max-w-xs text-sm leading-relaxed text-white/60">
+            <p className="max-w-xs text-sm leading-relaxed text-white/80">
               Premium real estate brokerage serving Philadelphia&apos;s most
               sought-after neighborhoods.
             </p>
@@ -75,7 +75,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group/link inline-flex min-h-[44px] items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1"
+                    className="group/link inline-flex min-h-[44px] items-center gap-1 text-sm text-white/80 transition-all duration-300 hover:text-gold hover:translate-x-1"
                   >
                     {link.label}
                   </Link>
@@ -107,7 +107,7 @@ export function Footer() {
                       blurDataURL={BLUR_LANDSCAPE}
                     />
                   </div>
-                  <span className="text-xs font-medium leading-tight text-white/60 transition-colors group-hover:text-gold">
+                  <span className="text-xs font-medium leading-tight text-white/80 transition-colors group-hover:text-gold">
                     {area.name}
                   </span>
                 </Link>
@@ -124,7 +124,7 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+12158394172"
-                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/80 transition-colors hover:text-gold"
                 >
                   <Phone className="size-4 shrink-0" />
                   (215) 839-4172
@@ -133,14 +133,14 @@ export function Footer() {
               <li>
                 <a
                   href="mailto:info@taurorealty.com"
-                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/80 transition-colors hover:text-gold"
                 >
                   <Mail className="size-4 shrink-0" />
                   <span className="break-all">info@taurorealty.com</span>
                 </a>
               </li>
               <li>
-                <span className="flex items-start gap-2 text-sm text-white/60">
+                <span className="flex items-start gap-2 text-sm text-white/80">
                   <MapPin className="mt-0.5 size-4 shrink-0" />
                   Philadelphia, PA
                 </span>
@@ -154,7 +154,7 @@ export function Footer() {
               aria-label="View our office location on Google Maps (opens in new tab)"
               className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-white/10 bg-white/5 transition-colors hover:border-gold/40"
             >
-              <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-white/60">
+              <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-white/80">
                 <MapPin className="size-5 text-gold" />
                 <span>Philadelphia, PA</span>
                 <span className="text-gold/70">View on Map</span>
@@ -175,7 +175,7 @@ export function Footer() {
                 </span>
               </div>
               <NewsletterForm source="footer" compact />
-              <p className="text-xs text-white/40">
+              <p className="text-xs text-white/70">
                 Monthly market reports, new listings &amp; neighborhood guides. Unsubscribe anytime.
               </p>
             </div>
@@ -220,30 +220,30 @@ export function Footer() {
 
         {/* Partner & Affiliation Logos */}
         <div className="mt-8 border-t border-white/10 pt-6 sm:mt-10 sm:pt-8">
-          <p className="text-center font-label text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30">
+          <p className="text-center font-label text-[10px] font-semibold uppercase tracking-[0.2em] text-white/60">
             Proud Members &amp; Affiliates
           </p>
           <div className="mt-4 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 sm:gap-x-12">
             {/* Bright MLS */}
-            <span className="text-white/25 transition-colors hover:text-white/50" aria-label="Bright MLS">
+            <span className="text-white/60 transition-colors hover:text-white/80" aria-label="Bright MLS">
               <svg className="h-7 w-auto" viewBox="0 0 120 28" fill="none" aria-hidden="true">
                 <text x="0" y="20" fill="currentColor" fontSize="14" fontWeight="bold" fontFamily="system-ui, sans-serif" letterSpacing="2">BRIGHT MLS</text>
               </svg>
             </span>
             {/* National Association of Realtors */}
-            <span className="text-white/25 transition-colors hover:text-white/50" aria-label="National Association of Realtors">
+            <span className="text-white/60 transition-colors hover:text-white/80" aria-label="National Association of Realtors">
               <svg className="h-7 w-auto" viewBox="0 0 50 28" fill="none" aria-hidden="true">
                 <text x="0" y="20" fill="currentColor" fontSize="14" fontWeight="bold" fontFamily="system-ui, sans-serif" letterSpacing="2">NAR</text>
               </svg>
             </span>
             {/* Greater Philadelphia Association of Realtors */}
-            <span className="text-white/25 transition-colors hover:text-white/50" aria-label="Greater Philadelphia Association of Realtors">
+            <span className="text-white/60 transition-colors hover:text-white/80" aria-label="Greater Philadelphia Association of Realtors">
               <svg className="h-7 w-auto" viewBox="0 0 60 28" fill="none" aria-hidden="true">
                 <text x="0" y="20" fill="currentColor" fontSize="14" fontWeight="bold" fontFamily="system-ui, sans-serif" letterSpacing="2">GPAR</text>
               </svg>
             </span>
             {/* REALTOR® */}
-            <span className="text-white/25 transition-colors hover:text-white/50" aria-label="REALTOR®">
+            <span className="text-white/60 transition-colors hover:text-white/80" aria-label="REALTOR®">
               <svg className="h-7 w-auto" viewBox="0 0 130 28" fill="none" aria-hidden="true">
                 <text x="0" y="20" fill="currentColor" fontSize="13" fontWeight="bold" fontFamily="Georgia, serif" letterSpacing="3">REALTOR®</text>
               </svg>
@@ -287,19 +287,19 @@ export function Footer() {
               </svg>
             </Link>
             <div className="text-center sm:text-left">
-              <p className="text-xs leading-relaxed text-white/60">
-                <span className="font-semibold text-white/80">Equal Housing Opportunity.</span>{" "}
+              <p className="text-xs leading-relaxed text-white/80">
+                <span className="font-semibold text-white/90">Equal Housing Opportunity.</span>{" "}
                 Tauro Realty is committed to compliance with all federal, state, and local fair
                 housing laws. We do not discriminate on the basis of race, color, religion, sex,
                 handicap, familial status, national origin, sexual orientation, gender identity, or
                 any other protected class.
               </p>
-              <p className="mt-2 text-xs leading-relaxed text-white/60">
+              <p className="mt-2 text-xs leading-relaxed text-white/80">
                 Listing information deemed reliable but not guaranteed. All measurements are
                 approximate. Data sourced from Bright MLS. Information is provided exclusively for
                 consumers&apos; personal, non-commercial use.
               </p>
-              <p className="mt-2 text-xs text-white/50">
+              <p className="mt-2 text-xs text-white/70">
                 REALTOR<sup>&reg;</sup> is a federally registered collective membership mark which
                 identifies a real estate professional who is a member of the National Association of
                 REALTORS<sup>&reg;</sup> and subscribes to its strict Code of Ethics.
@@ -312,7 +312,7 @@ export function Footer() {
         <div className="gold-divider mt-8 sm:mt-10" />
         <div className="mt-0 flex flex-col items-center justify-between gap-4 pt-6 sm:pt-8 md:flex-row">
           <div className="flex items-center gap-4">
-            <p className="text-xs text-white/50">
+            <p className="text-xs text-white/80">
               &copy; {new Date().getFullYear()} Tauro. All rights reserved.
             </p>
             <GoogleReviewBadge variant="light" />
@@ -323,7 +323,7 @@ export function Footer() {
                 href="https://instagram.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/80 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="Instagram"
               >
                 <Instagram className="size-5" />
@@ -334,7 +334,7 @@ export function Footer() {
                 href="https://facebook.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/80 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="Facebook"
               >
                 <Facebook className="size-5" />
@@ -345,7 +345,7 @@ export function Footer() {
                 href="https://linkedin.com/company/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/80 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="size-5" />
@@ -356,7 +356,7 @@ export function Footer() {
                 href="https://x.com/taurorealty"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/50 transition-all duration-300 hover:text-gold hover:scale-110"
+                className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-white/80 transition-all duration-300 hover:text-gold hover:scale-110"
                 aria-label="X (Twitter)"
               >
                 <Twitter className="size-5" />
@@ -372,13 +372,13 @@ export function Footer() {
             </Link>
             <Link
               href="/privacy"
-              className="text-xs text-white/50 transition-colors hover:text-gold"
+              className="text-xs text-white/80 transition-colors hover:text-gold"
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="text-xs text-white/50 transition-colors hover:text-gold"
+              className="text-xs text-white/80 transition-colors hover:text-gold"
             >
               Terms of Service
             </Link>
