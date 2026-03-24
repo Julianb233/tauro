@@ -102,7 +102,7 @@ export default function SocialProof() {
                 <h3 className="mt-4 font-heading text-base font-semibold text-foreground">
                   {award.title}
                 </h3>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-xs text-foreground/60">
                   {award.subtitle}
                 </p>
               </div>
@@ -123,7 +123,7 @@ export function AsSeenInStrip() {
     <section className="border-y border-border/30 bg-cream py-10 sm:py-14">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeInView direction="up">
-          <p className="text-center font-label text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <p className="text-center font-label text-xs font-semibold uppercase tracking-[0.2em] text-foreground/60">
             As Featured In
           </p>
         </FadeInView>
@@ -131,7 +131,7 @@ export function AsSeenInStrip() {
           {mediaOutlets.map((outlet) => (
             <div
               key={outlet.name}
-              className="text-foreground/40 grayscale transition-all duration-300 hover:text-gold hover:grayscale-0"
+              className="text-foreground/70 grayscale transition-all duration-300 hover:text-gold hover:grayscale-0"
             >
               <MediaLogo displayName={outlet.displayName} />
             </div>
