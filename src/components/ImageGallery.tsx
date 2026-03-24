@@ -13,6 +13,7 @@ import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/counter.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { cn } from "@/lib/utils";
+import { useSwipe } from "@/hooks/useSwipe";
 
 interface ImageGalleryProps {
   images: string[];
@@ -75,6 +76,16 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
       </div>
     );
   }
+
+  const goNext = useCallback(() => {
+    setActiveIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
+
+  const goPrev = useCallback(() => {
+    setActiveIndex((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
+
+  const swipeHandlers = useSwipe(goNext, goPrev);
 
   const openLightbox = (i: number) => {
     setActiveIndex(i);
@@ -141,10 +152,18 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
       ) : (
       <>
       {/* Hero image — shows images[activeIndex] */}
-      <button
+      <div
+        className="relative aspect-[16/9] max-h-[600px] w-full cursor-pointer overflow-hidden touch-pan-y lg:aspect-[21/9]"
+        {...swipeHandlers}
         onClick={() => openLightbox(activeIndex)}
-        className="relative aspect-[16/9] max-h-[600px] w-full cursor-pointer overflow-hidden lg:aspect-[21/9]"
-        aria-label={`View gallery for ${address}`}
+        role="button"
+        tabIndex={0}
+        aria-label={`View gallery for ${address} — swipe to browse`}
+        onKeyDown={(e) => {
+          if (e.key === "ArrowLeft") { e.preventDefault(); goPrev(); }
+          else if (e.key === "ArrowRight") { e.preventDefault(); goNext(); }
+          else if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openLightbox(activeIndex); }
+        }}
       >
         <Image
           src={images[activeIndex]}
@@ -156,7 +175,7 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
           placeholder="blur"
           blurDataURL={BLUR_LANDSCAPE}
         />
-      </button>
+      </div>
 
       {/* Thumbnail strip — scrollable, all images */}
       {images.length > 1 && (

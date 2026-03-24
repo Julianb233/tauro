@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { Star, ChevronLeft, ChevronRight, Play, X } from "lucide-react";
 import type { Testimonial } from "@/data/testimonials";
+import { useSwipe } from "@/hooks/useSwipe";
 
 const AUTO_ADVANCE_MS = 6000;
 const TRANSITION_MS = 500;
@@ -75,10 +76,12 @@ export default function TestimonialCarousel({
     [prev, next],
   );
 
+  const swipeHandlers = useSwipe(next, prev);
+
   return (
     <>
       <div
-        className="relative outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-xl"
+        className="relative outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 rounded-xl touch-pan-y"
         role="region"
         aria-label="Testimonials carousel"
         aria-roledescription="carousel"
@@ -88,6 +91,7 @@ export default function TestimonialCarousel({
         onMouseLeave={() => setPaused(false)}
         onFocus={() => setPaused(true)}
         onBlur={() => setPaused(false)}
+        {...swipeHandlers}
       >
         {/* Cards */}
         <div
