@@ -60,7 +60,7 @@ export default function GoldDivider({
     <div
       ref={ref}
       className={`gold-divider-animated mx-auto max-w-7xl ${className}`}
-      style={{ scaleX: 0, opacity: 0 }}
+      style={{ transform: "scaleX(0)", opacity: 0 }}
     />
   );
 }
