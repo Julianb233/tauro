@@ -28,6 +28,11 @@ const ScrollToTop = dynamic(() =>
     default: mod.ScrollToTop,
   })),
 );
+const ServiceWorkerRegistration = dynamic(() =>
+  import("@/components/ServiceWorkerRegistration").then((mod) => ({
+    default: mod.ServiceWorkerRegistration,
+  })),
+);
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -145,6 +150,7 @@ export default async function RootLayout({
         <ChatWidget />
         <AccessibilityWidget />
         <CookieConsent />
+        <ServiceWorkerRegistration />
       </body>
     </html>
   );

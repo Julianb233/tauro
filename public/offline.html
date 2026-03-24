@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offline — Tauro Realty</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #1A1A2E;
+      color: #F8F6F1;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    .container { max-width: 480px; }
+    .logo { width: 120px; height: auto; margin-bottom: 2rem; }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: #C9A96E;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: rgba(248, 246, 241, 0.6);
+      margin-bottom: 1.5rem;
+    }
+    .retry-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: #C9A96E;
+      color: #1A1A2E;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .retry-btn:hover { background: #D4C4A0; }
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,169,110,0.5), transparent);
+      margin: 1.5rem auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="/tauro-logo-white.png" alt="Tauro Realty" class="logo" />
+    <h1>You're Offline</h1>
+    <p>
+      It looks like you've lost your internet connection.
+      Please check your connection and try again.
+    </p>
+    <div class="divider"></div>
+    <button class="retry-btn" onclick="window.location.reload()">
+      Try Again
+    </button>
+  </div>
+</body>
+</html>
