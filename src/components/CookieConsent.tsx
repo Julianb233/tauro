@@ -64,7 +64,7 @@ export function CookieConsent() {
       aria-label="Cookie consent"
       className="fixed inset-x-0 bottom-0 z-[9998] p-4 sm:p-6"
     >
-      <div className="mx-auto max-w-4xl rounded-2xl border border-white/10 bg-midnight/80 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+      <div className="mx-auto max-w-4xl rounded-2xl glass-panel-dark p-6 sm:p-8">
         {!showPrefs ? (
           <>
             <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
@@ -120,7 +120,7 @@ export function CookieConsent() {
 
             <div className="mt-5 space-y-4">
               {/* Essential - always on */}
-              <label className="flex items-center justify-between rounded-lg border border-white/10 p-4">
+              <label className="flex items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm">
                 <div>
                   <p className="text-sm font-semibold text-white">
                     Essential Cookies
@@ -138,7 +138,7 @@ export function CookieConsent() {
               </label>
 
               {/* Analytics */}
-              <label className="flex cursor-pointer items-center justify-between rounded-lg border border-white/10 p-4 transition-colors hover:border-white/20">
+              <label className="flex cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-all hover:border-gold/30 hover:bg-white/[0.06]">
                 <div>
                   <p className="text-sm font-semibold text-white">
                     Analytics Cookies
@@ -157,7 +157,7 @@ export function CookieConsent() {
               </label>
 
               {/* Marketing */}
-              <label className="flex cursor-pointer items-center justify-between rounded-lg border border-white/10 p-4 transition-colors hover:border-white/20">
+              <label className="flex cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-white/[0.03] p-4 backdrop-blur-sm transition-all hover:border-gold/30 hover:bg-white/[0.06]">
                 <div>
                   <p className="text-sm font-semibold text-white">
                     Marketing Cookies

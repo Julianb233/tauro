@@ -102,7 +102,7 @@ export default function TestimonialCarousel({
             return (
               <div
                 key={`${idx}-${pos}`}
-                className={`rounded-xl border border-border/50 bg-white p-5 shadow-sm sm:p-6 ${
+                className={`glass-panel rounded-xl p-5 sm:p-6 ${
                   pos === 0 ? "" : "hidden md:block"
                 }`}
               >
@@ -141,7 +141,7 @@ export default function TestimonialCarousel({
           type="button"
           onClick={prev}
           aria-label="Previous testimonial"
-          className="absolute -left-2 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2.5 shadow-md transition-colors hover:bg-muted sm:-left-5 sm:p-2"
+          className="absolute -left-2 top-1/2 -translate-y-1/2 rounded-full glass-panel p-2.5 sm:-left-5 sm:p-2"
         >
           <ChevronLeft className="size-5 text-foreground" />
         </button>
@@ -149,7 +149,7 @@ export default function TestimonialCarousel({
           type="button"
           onClick={next}
           aria-label="Next testimonial"
-          className="absolute -right-2 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2.5 shadow-md transition-colors hover:bg-muted sm:-right-5 sm:p-2"
+          className="absolute -right-2 top-1/2 -translate-y-1/2 rounded-full glass-panel p-2.5 sm:-right-5 sm:p-2"
         >
           <ChevronRight className="size-5 text-foreground" />
         </button>
@@ -182,7 +182,7 @@ export default function TestimonialCarousel({
       {/* Video modal */}
       {activeVideo && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
           onClick={() => setActiveVideo(null)}
           role="dialog"
           aria-modal="true"
@@ -196,7 +196,7 @@ export default function TestimonialCarousel({
               type="button"
               onClick={() => setActiveVideo(null)}
               aria-label="Close video"
-              className="absolute -top-10 right-0 rounded-full bg-white/10 p-1.5 text-white transition-colors hover:bg-white/20"
+              className="absolute -top-10 right-0 rounded-full glass-badge bg-white/10 p-1.5 text-white transition-colors hover:bg-white/20"
             >
               <X className="size-5" />
             </button>

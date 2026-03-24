@@ -349,6 +349,97 @@ blockquote.pull-quote {
   box-shadow: 0 8px 24px rgba(201, 169, 110, 0.1);
 }
 
+/* ─── 3D Glassmorphism Enhancements (AI-3637) ─── */
+
+/* Glass panel for light backgrounds — frosted white with 3D depth */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.03) inset;
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+  transform: translateY(-2px);
+}
+
+/* Glass panel dark variant — for overlays on dark backgrounds */
+.glass-panel-dark {
+  background: rgba(26, 26, 46, 0.75);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    0 1px 0 rgba(255, 255, 255, 0.05) inset;
+  transition: all 0.3s ease;
+}
+
+.glass-panel-dark:hover {
+  border-color: rgba(201, 169, 110, 0.2);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.4),
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+}
+
+/* Glass modal — elevated frosted surface for dialogs */
+.glass-modal {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(32px) saturate(1.5);
+  -webkit-backdrop-filter: blur(32px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.15),
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 1px 0 rgba(255, 255, 255, 1) inset;
+}
+
+/* Glass input — subtle frost for form fields */
+.glass-input {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) inset;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(201, 169, 110, 0.5);
+  box-shadow:
+    0 0 0 3px rgba(201, 169, 110, 0.1),
+    0 1px 3px rgba(0, 0, 0, 0.04) inset;
+}
+
+/* Glass badge — small frosted tags/labels */
+.glass-badge {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Glass accordion — frosted hover state for expandable items */
+.glass-accordion {
+  transition: all 0.3s ease;
+}
+
+.glass-accordion:hover {
+  background: rgba(201, 169, 110, 0.03);
+  border-color: rgba(201, 169, 110, 0.3);
+}
+
 /* Gold accent divider */
 .gold-divider {
   height: 1px;
@@ -366,7 +457,12 @@ blockquote.pull-quote {
   .glass-dark,
   .glass-gold,
   .glass-card,
-  .glass-stat {
+  .glass-stat,
+  .glass-panel,
+  .glass-panel-dark,
+  .glass-modal,
+  .glass-input,
+  .glass-badge {
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
@@ -374,6 +470,10 @@ blockquote.pull-quote {
 
 @media (prefers-reduced-transparency: reduce) {
   .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-panel-dark { background: rgba(26, 26, 46, 0.95); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-modal { background: rgba(255, 255, 255, 0.98); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-input { background: rgba(255, 255, 255, 0.95); backdrop-filter: none; -webkit-backdrop-filter: none; }
   .glass-dark { background: rgba(26, 26, 46, 0.9); backdrop-filter: none; -webkit-backdrop-filter: none; }
   .glass-gold { background: rgba(201, 169, 110, 0.15); backdrop-filter: none; -webkit-backdrop-filter: none; }
   .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: none; -webkit-backdrop-filter: none; }

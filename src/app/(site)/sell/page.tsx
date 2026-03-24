@@ -105,10 +105,10 @@ export default function SellPage() {
             {whySell.map((item) => (
               <div
                 key={item.title}
-                className="rounded-xl border border-border/40 bg-card p-6"
+                className="group glass-panel rounded-xl p-6"
               >
-                <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
-                  <item.icon className="size-6 text-gold" />
+                <div className="flex size-12 items-center justify-center rounded-lg border border-gold/20 bg-gold/5 transition-all duration-300 group-hover:border-gold/40 group-hover:bg-gold/10">
+                  <item.icon className="size-6 text-gold" strokeWidth={1.5} />
                 </div>
                 <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
                   {item.title}
@@ -125,7 +125,7 @@ export default function SellPage() {
       {/* ── Valuation Form ────────────────────────────────────── */}
       <section id="valuation-form" className="bg-cream py-20">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-xl border border-border/40 bg-card p-8">
+          <div className="glass-panel rounded-xl p-8">
             <div className="mb-8 text-center">
               <h2 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">
                 Request Your Free Home Valuation
@@ -159,7 +159,7 @@ export default function SellPage() {
                 {i < steps.length - 1 && (
                   <div className="absolute left-1/2 top-7 hidden h-px w-full bg-gradient-to-r from-gold/40 to-gold/10 lg:block" />
                 )}
-                <div className="relative z-10 flex size-14 items-center justify-center rounded-full bg-gold text-lg font-bold text-near-black">
+                <div className="relative z-10 flex size-14 items-center justify-center rounded-full bg-gold text-lg font-bold text-near-black shadow-lg shadow-gold/25">
                   {step.number}
                 </div>
                 <h3 className="mt-5 font-heading text-lg font-bold text-foreground">

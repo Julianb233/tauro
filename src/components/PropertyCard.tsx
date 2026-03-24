@@ -149,18 +149,18 @@ function ImageCarousel({
 
       <div className="absolute right-3 bottom-3 z-10 flex items-center gap-1.5">
         {virtualTourUrl && (
-          <span className="flex items-center gap-1 rounded-md bg-blue-600/90 px-2 py-1 text-xs font-semibold text-white backdrop-blur-sm">
+          <span className="glass-badge flex items-center gap-1 rounded-md bg-blue-600/80 px-2 py-1 text-xs font-semibold text-white">
             <Glasses className="h-3 w-3" />
             Virtual Tour
           </span>
         )}
         {videoTourUrl && (
-          <span className="flex items-center gap-1 rounded-md bg-gold/90 px-2 py-1 text-xs font-semibold text-near-black backdrop-blur-sm">
+          <span className="glass-badge flex items-center gap-1 rounded-md bg-gold/80 px-2 py-1 text-xs font-semibold text-near-black">
             <Video className="h-3 w-3" aria-hidden="true" />
             Video Tour
           </span>
         )}
-        <span className="rounded-md bg-black/60 px-2 py-1 text-xs text-white backdrop-blur-sm" aria-label={`${total} photos`}>
+        <span className="glass-badge rounded-md bg-black/50 px-2 py-1 text-xs text-white" aria-label={`${total} photos`}>
           {total} photos
         </span>
       </div>
@@ -229,7 +229,7 @@ export default function PropertyCard({ property }: { property: Property }) {
     return (
       <Link
         href={`/properties/${property.slug}`}
-        className="group depth-hover block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all hover:border-gold/40 hover:shadow-lg"
+        className="group depth-hover block overflow-hidden rounded-xl glass-panel transition-all hover:border-gold/30"
       >
         <div className="relative aspect-[4/3] overflow-hidden bg-muted">
           <Image
@@ -247,7 +247,7 @@ export default function PropertyCard({ property }: { property: Property }) {
             </span>
           </div>
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+            <div className="glass-badge flex h-12 w-12 items-center justify-center rounded-full bg-white/10">
               <Lock className="h-5 w-5 text-white" />
             </div>
             <span className="mt-3 rounded-lg bg-gradient-to-r from-purple-600 to-gold px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform group-hover:scale-105">

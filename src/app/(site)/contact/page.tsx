@@ -58,14 +58,14 @@ export default function ContactPage() {
           <div className="grid gap-12 lg:grid-cols-5">
             {/* Left column — Form (3/5) */}
             <div className="lg:col-span-3">
-              <div className="rounded-2xl border border-border/40 bg-white p-8 shadow-xl">
+              <div className="glass-panel rounded-2xl p-8">
                 <ContactForm />
               </div>
             </div>
 
             {/* Right column — Contact info (2/5) */}
             <div className="space-y-6 lg:col-span-2">
-              <div className="rounded-xl border border-border/40 bg-card p-6">
+              <div className="glass-panel rounded-xl p-6">
                 <h2 className="font-heading text-lg font-bold text-foreground">
                   Contact Information
                 </h2>
@@ -98,7 +98,7 @@ export default function ContactPage() {
               </div>
 
               {/* Quick links */}
-              <div className="rounded-xl border border-border/40 bg-card p-6">
+              <div className="glass-panel rounded-xl p-6">
                 <h3 className="font-heading text-lg font-bold text-foreground">
                   Other Ways We Can Help
                 </h3>

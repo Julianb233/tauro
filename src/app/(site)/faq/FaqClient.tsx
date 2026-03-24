@@ -13,7 +13,7 @@ function FaqSection({ title, faqs, prefix, openItems, onToggle }: { title: strin
           const key = `${prefix}-${i}`;
           const isOpen = openItems.has(key);
           return (
-            <div key={key} className="border-b border-border/30 transition-colors hover:border-gold/40">
+            <div key={key} className="glass-accordion border-b border-border/30">
               <button type="button" onClick={() => onToggle(key)} className="flex w-full items-center justify-between py-5 text-left">
                 <span className="font-medium text-foreground pr-4">{faq.question}</span>
                 <ChevronDown className={`size-5 shrink-0 text-gold transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
