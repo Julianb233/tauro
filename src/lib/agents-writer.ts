@@ -88,6 +88,7 @@ export async function addAgentToFile(input: NewAgentInput): Promise<{
       avgDaysOnMarket: 0,
       yearsExperience: 0,
     },
+    certifications: [],
     awards: [],
     videoIntroUrl: null,
     videoIntroId: null,

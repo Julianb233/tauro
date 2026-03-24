@@ -6,7 +6,7 @@ import Link from "next/link";
 import {
   Phone, Mail, Award, Play, Home, TrendingUp, Clock, CheckCircle,
   AlertCircle, ArrowLeft, Instagram, Linkedin, Star, Quote, DollarSign,
-  MapPin, Calendar, Send,
+  MapPin, Calendar, Send, ShieldCheck,
 } from "lucide-react";
 import type { Agent } from "@/data/agents";
 import type { Property } from "@/data/properties";
@@ -214,6 +214,20 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
             <div className="lg:col-span-2">
               <h1 className="font-heading text-4xl font-bold text-white">{agent.fullName}</h1>
               <p className="mt-2 text-sm font-label uppercase tracking-wider text-gold">{agent.title}</p>
+              {agent.certifications.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {agent.certifications.map((cert) => (
+                    <span
+                      key={cert.code}
+                      title={cert.fullName}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold text-gold"
+                    >
+                      <ShieldCheck className="size-3.5" />
+                      {cert.code}
+                    </span>
+                  ))}
+                </div>
+              )}
               <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
                 <span className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">
                   {agent.stats.yearsExperience}+ Years Experience
@@ -298,6 +312,29 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                 </div>
               </div>
             </div>
+
+            {/* Certifications & Designations */}
+            {agent.certifications.length > 0 && (
+              <div>
+                <div className="flex items-center gap-3">
+                  <ShieldCheck className="size-5 text-gold" />
+                  <h2 className="font-heading text-2xl font-bold text-foreground">Certifications & Designations</h2>
+                </div>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {agent.certifications.map((cert) => (
+                    <div key={cert.code} className="flex items-center gap-4 rounded-xl border border-gold/20 bg-cream p-5">
+                      <div className="flex size-12 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold/10">
+                        <span className="text-sm font-bold text-gold">{cert.code}</span>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-foreground">{cert.code}</p>
+                        <p className="text-xs text-muted-foreground">{cert.fullName}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Awards */}
             {agent.awards.length > 0 && (

@@ -41,6 +41,18 @@ export default function AgentCard({ agent }: { agent: Agent }) {
           <h3 className="font-heading text-xl font-bold text-white">
             {agent.fullName}
           </h3>
+          {agent.certifications.length > 0 && (
+            <div className="mt-1 flex flex-wrap gap-1">
+              {agent.certifications.map((cert) => (
+                <span
+                  key={cert.code}
+                  className="rounded border border-gold/40 bg-gold/20 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-gold backdrop-blur-sm"
+                >
+                  {cert.code}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="my-2 h-px w-12 bg-gold/60" />
           <div className="flex flex-wrap gap-1.5">
             {agent.specialties.slice(0, 2).map((s) => (
