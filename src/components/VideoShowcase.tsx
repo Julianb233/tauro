@@ -36,7 +36,7 @@ export default function VideoShowcase() {
           <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
             Explore Philadelphia Homes
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-white/60">
+          <p className="mx-auto mt-4 max-w-2xl text-white/80">
             Step inside some of Philadelphia&apos;s finest properties with our
             exclusive video tours. See the craftsmanship, the neighborhoods, and
             the lifestyle before you visit in person.
@@ -56,7 +56,7 @@ export default function VideoShowcase() {
                   loading="lazy"
                 />
               </div>
-              <p className="mt-3 text-sm font-medium text-white/70 transition-colors group-hover:text-gold">
+              <p className="mt-3 text-sm font-medium text-white/90 transition-colors group-hover:text-gold">
                 {video.title}
               </p>
             </div>

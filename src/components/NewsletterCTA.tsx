@@ -26,7 +26,7 @@ export function NewsletterCTA({ variant = "homepage", source }: NewsletterCTAPro
             <h3 className="mb-1 font-heading text-lg font-semibold text-off-white">
               Get Philadelphia Real Estate Insights
             </h3>
-            <p className="text-sm text-white/60">
+            <p className="text-sm text-white/80">
               New listings, market reports, and neighborhood guides. Delivered monthly.
             </p>
           </div>
@@ -51,7 +51,7 @@ export function NewsletterCTA({ variant = "homepage", source }: NewsletterCTAPro
             <h3 className="font-heading text-lg font-semibold text-off-white">
               Never miss a listing
             </h3>
-            <p className="text-sm text-white/60">
+            <p className="text-sm text-white/80">
               Subscribe for monthly Philadelphia real estate updates.
             </p>
           </div>
@@ -80,7 +80,7 @@ export function NewsletterCTA({ variant = "homepage", source }: NewsletterCTAPro
         <h2 className="mb-3 font-heading text-2xl font-bold text-off-white sm:text-3xl">
           Stay in the Know
         </h2>
-        <p className="mb-8 text-white/60 sm:text-lg">
+        <p className="mb-8 text-white/80 sm:text-lg">
           Get curated Philadelphia real estate insights delivered to your inbox. New listings, market reports, and neighborhood guides -- once a month, no spam.
         </p>
 
@@ -92,7 +92,7 @@ export function NewsletterCTA({ variant = "homepage", source }: NewsletterCTAPro
           />
         </div>
 
-        <p className="mt-4 text-xs text-white/40">
+        <p className="mt-4 text-xs text-white/60">
           Unsubscribe anytime. We respect your privacy.
         </p>
       </div>

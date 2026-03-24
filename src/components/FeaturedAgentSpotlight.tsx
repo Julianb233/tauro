@@ -53,7 +53,7 @@ export default function FeaturedAgentSpotlight() {
             <p className="mt-1 text-sm font-medium text-muted-foreground">
               {featured.title}
             </p>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-base leading-relaxed text-foreground/80">
               {featured.shortBio}
             </p>
 
