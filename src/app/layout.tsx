@@ -138,9 +138,7 @@ export default async function RootLayout({
         <SpeedInsights />
         <OrganizationJsonLd testimonials={testimonials} />
         <WebSiteJsonLd />
-<main id="main-content">
-          {children}
-        </main>
+        {children}
         <ScrollToTop />
         <ChatWidget />
         <AccessibilityWidget />
