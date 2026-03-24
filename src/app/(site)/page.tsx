@@ -10,6 +10,7 @@ import VideoShowcase from "@/components/VideoShowcase";
 import Testimonials from "@/components/testimonials";
 import FeaturedAgentSpotlight from "@/components/FeaturedAgentSpotlight";
 import HomepageCTAs from "@/components/homepage-ctas";
+import SocialFeed from "@/components/SocialFeed";
 
 // Client components — lazy-loaded to reduce initial JS bundle and improve INP
 const RecentlyViewed = dynamic(() => import("@/components/RecentlyViewed"));
@@ -44,6 +45,7 @@ export default function HomePage() {
       <div className="gold-divider mx-auto max-w-7xl" />
       <Testimonials />
       <SocialProof />
+      <SocialFeed />
       <div className="gold-divider mx-auto max-w-7xl" />
       <HomepageCTAs />
       <NewsletterCTA variant="homepage" />
