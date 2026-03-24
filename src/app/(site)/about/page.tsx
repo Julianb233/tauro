@@ -15,6 +15,7 @@ import {
 import { AboutCountUp, AboutStaggerReveal, AboutParallax, FadeInView } from "./AboutAnimations";
 import { GoogleReviewBadge } from "@/components/GoogleReviewBadge";
 import { AsSeenInStrip } from "@/components/SocialProof";
+import IndustryAwardBadges from "@/components/IndustryAwardBadges";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
 
@@ -180,6 +181,9 @@ export default function AboutPage() {
 
       {/* As Seen In */}
       <AsSeenInStrip />
+
+      {/* Industry Award Badges */}
+      <IndustryAwardBadges />
 
       {/* Philadelphia Commitment */}
       <section className="border-t border-border/40 bg-gradient-to-b from-card/50 to-background">
