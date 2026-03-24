@@ -40,6 +40,10 @@ export interface Agent {
     linkedin?: string;
     facebook?: string;
   };
+  certifications: {
+    code: string;
+    fullName: string;
+  }[];
   languages: string[];
   licenseNumber: string;
   testimonials?: {
@@ -111,6 +115,11 @@ export const agents: Agent[] = [
       linkedin: "https://linkedin.com/in/tony-goodman-625682b",
       facebook: "https://facebook.com/tony.goodman1",
     },
+    certifications: [
+      { code: "CRS", fullName: "Certified Residential Specialist" },
+      { code: "GRI", fullName: "Graduate, REALTOR Institute" },
+      { code: "ABR", fullName: "Accredited Buyer's Representative" },
+    ],
     languages: ["English"],
     licenseNumber: "RM420582",
     testimonials: [
@@ -173,6 +182,9 @@ export const agents: Agent[] = [
       instagram: "https://instagram.com/shaquondagarrett",
       linkedin: "https://linkedin.com/in/shaquonda-garrett",
     },
+    certifications: [
+      { code: "ABR", fullName: "Accredited Buyer's Representative" },
+    ],
     languages: ["English"],
     licenseNumber: "RS-612847",
     testimonials: [
@@ -239,6 +251,10 @@ export const agents: Agent[] = [
     social: {
       linkedin: "https://linkedin.com/in/morris-brown-philly",
     },
+    certifications: [
+      { code: "CRS", fullName: "Certified Residential Specialist" },
+      { code: "SRS", fullName: "Seller Representative Specialist" },
+    ],
     languages: ["English"],
     licenseNumber: "RS-445821",
     testimonials: [
@@ -300,6 +316,7 @@ export const agents: Agent[] = [
     social: {
       linkedin: "https://linkedin.com/in/stephen-stevens-realty",
     },
+    certifications: [],
     languages: ["English", "Spanish"],
     licenseNumber: "RS-678432",
     testimonials: [
@@ -361,6 +378,9 @@ export const agents: Agent[] = [
     social: {
       linkedin: "https://linkedin.com/in/chris-lane-philly-re",
     },
+    certifications: [
+      { code: "PSA", fullName: "Pricing Strategy Advisor" },
+    ],
     languages: ["English"],
     licenseNumber: "RS-521976",
     testimonials: [

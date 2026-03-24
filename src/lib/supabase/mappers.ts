@@ -148,6 +148,7 @@ export function mapAgentRow(row: any): Agent {
     specialties: row.specialties ?? [],
     neighborhoods: row.neighborhoods ?? [],
     stats: row.stats as Agent["stats"],
+    certifications: (row.certifications as Agent["certifications"]) ?? [],
     awards: (row.awards as Agent["awards"]) ?? [],
     videoIntroUrl: row.video_intro_url ?? null,
     videoIntroId: row.video_intro_id ?? null,
