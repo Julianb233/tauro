@@ -1,0 +1,111 @@
+{
+  "Metadata": {
+    "title": "Premium Philadelphia Real Estate",
+    "description": "Discover luxury homes in Philadelphia with Tauro. Browse premium properties, explore neighborhoods, and connect with top agents across Center City, Rittenhouse, Fishtown, and more."
+  },
+  "Navbar": {
+    "properties": "Properties",
+    "agents": "Agents",
+    "sell": "Sell",
+    "about": "About",
+    "contact": "Contact",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "callUs": "Call Us"
+  },
+  "Hero": {
+    "tagline": "Premium Philadelphia Real Estate",
+    "title": "Find Your Place",
+    "titleHighlight": "in Philadelphia",
+    "subtitle": "Discover luxury homes and condos across Philadelphia's most coveted neighborhoods with Tauro's expert agents.",
+    "searchProperties": "Search All Properties",
+    "getHomeValue": "Get Your Home Value"
+  },
+  "StatsBar": {
+    "propertiesSold": "Properties Sold",
+    "activeListings": "Active Listings",
+    "happyClients": "Happy Clients",
+    "neighborhoods": "Neighborhoods"
+  },
+  "FeaturedProperties": {
+    "sectionLabel": "Featured Listings",
+    "title": "Premium Properties",
+    "subtitle": "Handpicked luxury homes across Philadelphia's most sought-after neighborhoods.",
+    "viewAll": "View All Properties",
+    "beds": "beds",
+    "baths": "baths",
+    "sqft": "sq ft",
+    "viewDetails": "View Details"
+  },
+  "WhyTauro": {
+    "sectionLabel": "Why Choose Us",
+    "title": "The Tauro Difference",
+    "subtitle": "We combine local expertise, premium service, and cutting-edge technology to deliver an unmatched real estate experience.",
+    "localExpertise": "Local Expertise",
+    "localExpertiseDesc": "Deep knowledge of every Philadelphia neighborhood, from Rittenhouse to Fishtown.",
+    "premiumService": "Premium Service",
+    "premiumServiceDesc": "White-glove experience from first showing to closing day.",
+    "techDriven": "Tech-Driven",
+    "techDrivenDesc": "Advanced analytics, virtual tours, and instant property alerts."
+  },
+  "Testimonials": {
+    "sectionLabel": "Client Stories",
+    "title": "What Our Clients Say",
+    "subtitle": "Real experiences from real Philadelphia homeowners."
+  },
+  "Contact": {
+    "title": "Get In Touch",
+    "subtitle": "Ready to find your dream home? Our team is here to help.",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your real estate goals...",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "successTitle": "Message Sent!",
+    "successMessage": "Thank you for reaching out. A Tauro agent will contact you shortly.",
+    "errorMessage": "Something went wrong. Please try again.",
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address"
+  },
+  "Footer": {
+    "quickLinks": "Quick Links",
+    "neighborhoods": "Neighborhoods",
+    "newsletter": "Newsletter",
+    "newsletterSubtitle": "Get market updates and new listings delivered to your inbox.",
+    "subscribe": "Subscribe",
+    "emailPlaceholder": "Enter your email",
+    "copyright": "© {year} Tauro Realty. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "fairHousing": "Fair Housing",
+    "cookiePolicy": "Cookie Policy",
+    "equalHousing": "Equal Housing Opportunity"
+  },
+  "PropertySearch": {
+    "searchPlaceholder": "Search by address, neighborhood, or ZIP code...",
+    "filters": "Filters",
+    "priceRange": "Price Range",
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "propertyType": "Property Type",
+    "sortBy": "Sort By",
+    "noResults": "No properties found matching your criteria.",
+    "clearFilters": "Clear Filters",
+    "results": "{count, plural, one {# result} other {# results}}"
+  },
+  "Common": {
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "backToHome": "Back to Home",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "close": "Close",
+    "language": "Language",
+    "english": "English",
+    "spanish": "Spanish"
+  }
+}

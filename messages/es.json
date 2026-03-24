@@ -1,0 +1,111 @@
+{
+  "Metadata": {
+    "title": "Bienes Raíces Premium en Filadelfia",
+    "description": "Descubra hogares de lujo en Filadelfia con Tauro. Explore propiedades premium, vecindarios y conéctese con los mejores agentes en Center City, Rittenhouse, Fishtown y más."
+  },
+  "Navbar": {
+    "properties": "Propiedades",
+    "agents": "Agentes",
+    "sell": "Vender",
+    "about": "Nosotros",
+    "contact": "Contacto",
+    "signIn": "Iniciar Sesión",
+    "signOut": "Cerrar Sesión",
+    "callUs": "Llámenos"
+  },
+  "Hero": {
+    "tagline": "Bienes Raíces Premium en Filadelfia",
+    "title": "Encuentre Su Lugar",
+    "titleHighlight": "en Filadelfia",
+    "subtitle": "Descubra hogares de lujo y condominios en los vecindarios más codiciados de Filadelfia con los agentes expertos de Tauro.",
+    "searchProperties": "Buscar Todas las Propiedades",
+    "getHomeValue": "Obtenga el Valor de Su Hogar"
+  },
+  "StatsBar": {
+    "propertiesSold": "Propiedades Vendidas",
+    "activeListings": "Listados Activos",
+    "happyClients": "Clientes Satisfechos",
+    "neighborhoods": "Vecindarios"
+  },
+  "FeaturedProperties": {
+    "sectionLabel": "Listados Destacados",
+    "title": "Propiedades Premium",
+    "subtitle": "Hogares de lujo seleccionados en los vecindarios más buscados de Filadelfia.",
+    "viewAll": "Ver Todas las Propiedades",
+    "beds": "hab.",
+    "baths": "baños",
+    "sqft": "pies²",
+    "viewDetails": "Ver Detalles"
+  },
+  "WhyTauro": {
+    "sectionLabel": "Por Qué Elegirnos",
+    "title": "La Diferencia Tauro",
+    "subtitle": "Combinamos experiencia local, servicio premium y tecnología de vanguardia para ofrecer una experiencia inmobiliaria inigualable.",
+    "localExpertise": "Experiencia Local",
+    "localExpertiseDesc": "Conocimiento profundo de cada vecindario de Filadelfia, desde Rittenhouse hasta Fishtown.",
+    "premiumService": "Servicio Premium",
+    "premiumServiceDesc": "Experiencia de primera clase desde la primera visita hasta el día del cierre.",
+    "techDriven": "Impulsado por Tecnología",
+    "techDrivenDesc": "Analítica avanzada, tours virtuales y alertas instantáneas de propiedades."
+  },
+  "Testimonials": {
+    "sectionLabel": "Historias de Clientes",
+    "title": "Lo Que Dicen Nuestros Clientes",
+    "subtitle": "Experiencias reales de propietarios de Filadelfia."
+  },
+  "Contact": {
+    "title": "Contáctenos",
+    "subtitle": "¿Listo para encontrar la casa de sus sueños? Nuestro equipo está aquí para ayudarle.",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono",
+    "message": "Mensaje",
+    "messagePlaceholder": "Cuéntenos sobre sus metas inmobiliarias...",
+    "submit": "Enviar Mensaje",
+    "submitting": "Enviando...",
+    "successTitle": "¡Mensaje Enviado!",
+    "successMessage": "Gracias por comunicarse. Un agente de Tauro se pondrá en contacto con usted pronto.",
+    "errorMessage": "Algo salió mal. Por favor intente de nuevo.",
+    "required": "Este campo es obligatorio",
+    "invalidEmail": "Por favor ingrese un correo electrónico válido"
+  },
+  "Footer": {
+    "quickLinks": "Enlaces Rápidos",
+    "neighborhoods": "Vecindarios",
+    "newsletter": "Boletín Informativo",
+    "newsletterSubtitle": "Reciba actualizaciones del mercado y nuevos listados en su bandeja de entrada.",
+    "subscribe": "Suscribirse",
+    "emailPlaceholder": "Ingrese su correo",
+    "copyright": "© {year} Tauro Realty. Todos los derechos reservados.",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "fairHousing": "Vivienda Justa",
+    "cookiePolicy": "Política de Cookies",
+    "equalHousing": "Igualdad de Oportunidades de Vivienda"
+  },
+  "PropertySearch": {
+    "searchPlaceholder": "Buscar por dirección, vecindario o código postal...",
+    "filters": "Filtros",
+    "priceRange": "Rango de Precio",
+    "bedrooms": "Habitaciones",
+    "bathrooms": "Baños",
+    "propertyType": "Tipo de Propiedad",
+    "sortBy": "Ordenar Por",
+    "noResults": "No se encontraron propiedades con sus criterios.",
+    "clearFilters": "Limpiar Filtros",
+    "results": "{count, plural, one {# resultado} other {# resultados}}"
+  },
+  "Common": {
+    "learnMore": "Más Información",
+    "viewAll": "Ver Todo",
+    "backToHome": "Volver al Inicio",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "retry": "Intentar de Nuevo",
+    "close": "Cerrar",
+    "language": "Idioma",
+    "english": "Inglés",
+    "spanish": "Español"
+  }
+}
