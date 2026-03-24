@@ -32,6 +32,14 @@ export interface LifestyleInfo {
   culture: string;
 }
 
+export interface DemographicData {
+  population: number;
+  medianHouseholdIncome: string;
+  ownerOccupied: number; // percentage
+  renterOccupied: number; // percentage
+  medianAge: number;
+}
+
 export interface Neighborhood {
   id: string;
   name: string;
@@ -63,6 +71,7 @@ export interface Neighborhood {
   gallery: string[];
   monthlyTrend: MonthlyTrendPoint[];
   mapCenter: { lat: number; lng: number };
+  demographics: DemographicData;
   videoTourUrl?: string;
   propertyFilter: string;
   featured: boolean;
@@ -152,6 +161,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 397030 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=oc2vMx0x1XI",
+    demographics: { population: 78500, medianHouseholdIncome: "$72,400", ownerOccupied: 32, renterOccupied: 68, medianAge: 34 },
     propertyFilter: "Center City",
     featured: true,
   },
@@ -239,6 +249,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 529581 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=x2VHL0QYxBo",
+    demographics: { population: 18200, medianHouseholdIncome: "$98,500", ownerOccupied: 38, renterOccupied: 62, medianAge: 36 },
     propertyFilter: "Rittenhouse",
     featured: true,
   },
@@ -325,6 +336,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 386576 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=KJ5IbyFBfXs",
+    demographics: { population: 22400, medianHouseholdIncome: "$68,200", ownerOccupied: 45, renterOccupied: 55, medianAge: 31 },
     propertyFilter: "Fishtown",
     featured: true,
   },
@@ -412,6 +424,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 396798 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=4sW0dMFltlQ",
+    demographics: { population: 12800, medianHouseholdIncome: "$82,100", ownerOccupied: 41, renterOccupied: 59, medianAge: 33 },
     propertyFilter: "Northern Liberties",
     featured: true,
   },
@@ -498,6 +511,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 450179 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=tWfEVmp4eCM",
+    demographics: { population: 8900, medianHouseholdIncome: "$76,300", ownerOccupied: 35, renterOccupied: 65, medianAge: 37 },
     propertyFilter: "Old City",
     featured: true,
   },
@@ -585,6 +599,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 292596 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=uVKJxWB_Xjk",
+    demographics: { population: 65200, medianHouseholdIncome: "$52,800", ownerOccupied: 58, renterOccupied: 42, medianAge: 38 },
     propertyFilter: "South Philly",
     featured: false,
   },
@@ -672,6 +687,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 366777 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=D2F-70xsCk8",
+    demographics: { population: 52100, medianHouseholdIncome: "$41,600", ownerOccupied: 22, renterOccupied: 78, medianAge: 26 },
     propertyFilter: "University City",
     featured: false,
   },
@@ -759,6 +775,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 319593 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=gWEyGo5VzLk",
+    demographics: { population: 15600, medianHouseholdIncome: "$61,400", ownerOccupied: 44, renterOccupied: 56, medianAge: 29 },
     propertyFilter: "Manayunk",
     featured: false,
   },
@@ -846,6 +863,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 497412 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=JLZhW-8TXbE",
+    demographics: { population: 9800, medianHouseholdIncome: "$112,500", ownerOccupied: 67, renterOccupied: 33, medianAge: 45 },
     propertyFilter: "Chestnut Hill",
     featured: true,
   },
@@ -933,6 +951,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 320808 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=YGYyXPqhL5U",
+    demographics: { population: 28400, medianHouseholdIncome: "$74,800", ownerOccupied: 62, renterOccupied: 38, medianAge: 42 },
     propertyFilter: "Mt. Airy",
     featured: false,
   },
@@ -1020,6 +1039,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 204869 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=hfMQ8C9oR_0",
+    demographics: { population: 45600, medianHouseholdIncome: "$38,200", ownerOccupied: 48, renterOccupied: 52, medianAge: 36 },
     propertyFilter: "Germantown",
     featured: false,
   },
@@ -1107,6 +1127,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 276017 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=3lJVwczOmKM",
+    demographics: { population: 68300, medianHouseholdIncome: "$44,900", ownerOccupied: 37, renterOccupied: 63, medianAge: 30 },
     propertyFilter: "West Philly",
     featured: false,
   },
@@ -1194,6 +1215,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 291045 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=2PxgkZ3EYEI",
+    demographics: { population: 54200, medianHouseholdIncome: "$32,500", ownerOccupied: 39, renterOccupied: 61, medianAge: 32 },
     propertyFilter: "Kensington",
     featured: false,
   },
@@ -1281,6 +1303,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 332430 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=dJ94wJlqHRs",
+    demographics: { population: 11200, medianHouseholdIncome: "$45,600", ownerOccupied: 36, renterOccupied: 64, medianAge: 31 },
     propertyFilter: "Brewerytown",
     featured: false,
   },
@@ -1368,6 +1391,7 @@ export const neighborhoods: Neighborhood[] = [
       { month: "Mar 2026", medianPrice: 305849 },
     ],
     videoTourUrl: "https://www.youtube.com/watch?v=aT_1lDJU-m4",
+    demographics: { population: 19800, medianHouseholdIncome: "$42,300", ownerOccupied: 43, renterOccupied: 57, medianAge: 33 },
     propertyFilter: "Point Breeze",
     featured: false,
   },
