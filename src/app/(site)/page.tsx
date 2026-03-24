@@ -9,6 +9,7 @@ import Testimonials from "@/components/testimonials";
 import HomepageCTAs from "@/components/homepage-ctas";
 
 // Client components — lazy-loaded to reduce initial JS bundle and improve INP
+const SeasonalBanner = dynamic(() => import("@/components/SeasonalBanner"));
 const RecentlyViewed = dynamic(() => import("@/components/RecentlyViewed"));
 const SocialProof = dynamic(() => import("@/components/SocialProof"));
 const NewsletterCTA = dynamic(
@@ -29,6 +30,7 @@ export default function HomePage() {
     <>
       <Hero />
       <StatsBar />
+      <SeasonalBanner />
       <FeaturedProperties />
       <RecentlyViewed />
       <div className="gold-divider mx-auto max-w-7xl" />
