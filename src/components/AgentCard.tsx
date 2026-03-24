@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Agent } from "@/data/agents";
 import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
+import { ArchedFrame } from "@/components/ui/arched-frame";
 
 export default function AgentCard({ agent }: { agent: Agent }) {
   return (
@@ -12,8 +13,8 @@ export default function AgentCard({ agent }: { agent: Agent }) {
       href={`/agents/${agent.slug}`}
       className="group relative block overflow-hidden rounded-xl bg-white shadow-sm border border-border/50 transition-all duration-500 hover:border-gold/40 hover:shadow-md hover:scale-[1.02]"
     >
-      {/* Portrait photo with gradient overlay */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-muted">
+      {/* Portrait photo with arched frame */}
+      <ArchedFrame aspect="aspect-[3/4]" className="rounded-b-none bg-muted">
         <Image
           src={agent.photo}
           alt={agent.fullName}
@@ -113,7 +114,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
             </div>
           </div>
         </div>
-      </div>
+      </ArchedFrame>
     </Link>
   );
 }

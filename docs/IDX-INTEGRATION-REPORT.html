@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MLS/IDX Integration Report — LYL Realty Group</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+
+    :root {
+      --midnight: #1A1A2E;
+      --gold: #C9A84C;
+      --gold-light: #D4B96A;
+      --off-white: #F5F0EB;
+      --light-gray: #E8E3DE;
+      --text-dark: #2C2C3A;
+      --text-muted: #6B6B7B;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @page {
+      size: letter;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-dark);
+      background: white;
+      line-height: 1.65;
+      font-size: 10.5pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ── Cover Page ── */
+    .cover-page {
+      height: 11in;
+      background: var(--midnight);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2.5in 1.5in;
+      page-break-after: always;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 30% 20%, rgba(201, 168, 76, 0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse at 70% 80%, rgba(201, 168, 76, 0.05) 0%, transparent 50%);
+    }
+
+    .cover-page * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-gold-line {
+      width: 80px;
+      height: 2px;
+      background: var(--gold);
+      margin: 0 auto 40px;
+    }
+
+    .cover-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36pt;
+      color: white;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .cover-subtitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 18pt;
+      color: var(--gold);
+      font-weight: 400;
+      margin-bottom: 60px;
+    }
+
+    .cover-meta {
+      font-size: 10pt;
+      color: rgba(255, 255, 255, 0.6);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .cover-meta strong {
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    .cover-date {
+      margin-top: 8px;
+      font-size: 9.5pt;
+      color: rgba(255, 255, 255, 0.4);
+      letter-spacing: 1px;
+    }
+
+    .cover-footer {
+      position: absolute;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      text-align: center;
+    }
+
+    .cover-footer-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 16px;
+      opacity: 0.5;
+    }
+
+    .cover-footer-text {
+      font-size: 8pt;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* ── Content Pages ── */
+    .page {
+      padding: 0.6in 0.9in 0.8in;
+      page-break-after: always;
+      position: relative;
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--light-gray);
+      margin-bottom: 24px;
+    }
+
+    .page-header-brand {
+      font-size: 7.5pt;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .page-header-title {
+      font-size: 7.5pt;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── Typography ── */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22pt;
+      color: var(--midnight);
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
+    }
+
+    .section-number {
+      font-family: 'Inter', sans-serif;
+      font-size: 8pt;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .section-divider {
+      width: 50px;
+      height: 2px;
+      background: var(--gold);
+      margin: 12px 0 20px;
+    }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 14pt;
+      color: var(--midnight);
+      font-weight: 600;
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 10.5pt;
+      color: var(--midnight);
+      font-weight: 600;
+      margin-top: 16px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+
+    .lead {
+      font-size: 11pt;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+
+    /* ── Highlight Box ── */
+    .highlight-box {
+      background: var(--off-white);
+      border-left: 3px solid var(--gold);
+      padding: 16px 20px;
+      border-radius: 0 6px 6px 0;
+      margin: 16px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 4px;
+      font-size: 10pt;
+    }
+
+    .highlight-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-box strong {
+      color: var(--midnight);
+    }
+
+    /* ── Lists ── */
+    ul, ol {
+      margin-bottom: 12px;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 6px;
+      line-height: 1.5;
+    }
+
+    /* ── Feature Cards ── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 16px 0;
+    }
+
+    .feature-card {
+      background: var(--off-white);
+      border-radius: 6px;
+      padding: 14px 16px;
+      position: relative;
+    }
+
+    .feature-card h3 {
+      margin-top: 0;
+      font-size: 10pt;
+      color: var(--midnight);
+      margin-bottom: 4px;
+    }
+
+    .feature-card h3::before {
+      content: attr(data-icon);
+      margin-right: 6px;
+    }
+
+    .feature-card p {
+      font-size: 9pt;
+      color: var(--text-muted);
+      margin-bottom: 0;
+      line-height: 1.45;
+    }
+
+    /* ── Flow Diagram ── */
+    .flow-diagram {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 24px 0;
+      flex-wrap: nowrap;
+    }
+
+    .flow-step {
+      text-align: center;
+      flex: 0 0 auto;
+    }
+
+    .flow-box {
+      background: var(--midnight);
+      color: white;
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 9.5pt;
+      font-weight: 500;
+      min-width: 110px;
+      position: relative;
+    }
+
+    .flow-box.gold {
+      background: var(--gold);
+      color: var(--midnight);
+    }
+
+    .flow-box.outline {
+      background: white;
+      color: var(--midnight);
+      border: 2px solid var(--gold);
+    }
+
+    .flow-label {
+      font-size: 7pt;
+      color: var(--text-muted);
+      margin-top: 5px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .flow-arrow {
+      color: var(--gold);
+      font-size: 18pt;
+      padding: 0 8px;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    /* ── Comparison Table ── */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 9pt;
+    }
+
+    .comparison-table th {
+      background: var(--midnight);
+      color: white;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 500;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .comparison-table th:first-child {
+      border-radius: 6px 0 0 0;
+    }
+
+    .comparison-table th:last-child {
+      border-radius: 0 6px 0 0;
+    }
+
+    .comparison-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--light-gray);
+      vertical-align: top;
+    }
+
+    .comparison-table tr:nth-child(even) td {
+      background: var(--off-white);
+    }
+
+    .comparison-table .rec td {
+      background: rgba(201, 168, 76, 0.1) !important;
+      font-weight: 500;
+    }
+
+    .check {
+      color: #3A8F5C;
+      font-weight: 700;
+    }
+
+    .x-mark {
+      color: #C0392B;
+      font-weight: 700;
+    }
+
+    /* ── Timeline ── */
+    .timeline {
+      margin: 20px 0;
+      position: relative;
+      padding-left: 36px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 13px;
+      top: 6px;
+      bottom: 6px;
+      width: 2px;
+      background: var(--gold);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-dot {
+      position: absolute;
+      left: -30px;
+      top: 3px;
+      width: 16px;
+      height: 16px;
+      background: var(--gold);
+      border-radius: 50%;
+      border: 2px solid white;
+      box-shadow: 0 0 0 2px var(--gold);
+    }
+
+    .timeline-phase {
+      font-size: 8pt;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .timeline-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 11.5pt;
+      color: var(--midnight);
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .timeline-desc {
+      color: var(--text-muted);
+      font-size: 9pt;
+      line-height: 1.45;
+    }
+
+    /* ── Checklist ── */
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+      margin: 16px 0;
+    }
+
+    .checklist li {
+      padding: 7px 14px 7px 36px;
+      background: var(--off-white);
+      border-radius: 6px;
+      margin-bottom: 5px;
+      position: relative;
+      font-size: 9.5pt;
+    }
+
+    .checklist li::before {
+      content: '';
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 13px;
+      height: 13px;
+      border: 2px solid var(--gold);
+      border-radius: 3px;
+    }
+
+    /* ── Investment Box ── */
+    .investment-box {
+      background: var(--midnight);
+      color: white;
+      border-radius: 10px;
+      padding: 28px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .investment-box .price {
+      font-family: 'Playfair Display', serif;
+      font-size: 38pt;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .investment-box .price-label {
+      font-size: 10pt;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 16px;
+    }
+
+    .investment-box .price-detail {
+      font-size: 9.5pt;
+      color: rgba(255, 255, 255, 0.5);
+      line-height: 1.6;
+    }
+
+    .investment-box .price-detail strong {
+      color: var(--gold-light);
+    }
+
+    /* ── CTA Box ── */
+    .cta-box {
+      background: linear-gradient(135deg, var(--midnight) 0%, #2A2A4E 100%);
+      color: white;
+      border-radius: 10px;
+      padding: 22px 28px;
+      margin: 16px 0;
+      text-align: center;
+    }
+
+    .cta-box h2 {
+      color: white;
+      margin-top: 0;
+      font-size: 16pt;
+      margin-bottom: 6px;
+    }
+
+    .cta-box p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 9.5pt;
+      max-width: 460px;
+      margin: 0 auto 12px;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--midnight);
+      padding: 10px 28px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 10pt;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── Compliance Grid ── */
+    .compliance-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 16px 0;
+    }
+
+    .compliance-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 12px;
+      background: var(--off-white);
+      border-radius: 6px;
+    }
+
+    .compliance-icon {
+      flex: 0 0 auto;
+      width: 24px;
+      height: 24px;
+      background: var(--midnight);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 11pt;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .compliance-text {
+      font-size: 9pt;
+      color: var(--text-dark);
+      line-height: 1.45;
+    }
+
+    .compliance-text strong {
+      display: block;
+      margin-bottom: 1px;
+      color: var(--midnight);
+      font-size: 9.5pt;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      position: absolute;
+      bottom: 0.45in;
+      left: 0.9in;
+      right: 0.9in;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--light-gray);
+      font-size: 7pt;
+      color: var(--text-muted);
+    }
+
+    /* ── Print Adjustments ── */
+    @media print {
+      body {
+        font-size: 10pt;
+      }
+      .page {
+        padding: 0.5in 0.75in 0.7in;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ COVER PAGE ═══════════════ -->
+  <div class="cover-page">
+    <div class="cover-gold-line"></div>
+    <div class="cover-title">MLS Property Search</div>
+    <div class="cover-subtitle">Integration Report</div>
+
+    <div class="cover-meta">
+      Prepared for <strong>LYL Realty Group</strong>
+    </div>
+    <div class="cover-date">March 2026</div>
+
+    <div class="cover-footer">
+      <div class="cover-footer-line"></div>
+      <div class="cover-footer-text">Prepared by AI Acrobatics</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ EXECUTIVE SUMMARY ═══════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <span class="page-header-brand">AI Acrobatics &mdash; LYL Realty Group</span>
+      <span class="page-header-title">MLS Integration Report</span>
+    </div>
+
+    <span class="section-number">Section 01</span>
+    <h1>Executive Summary</h1>
+    <div class="section-divider"></div>
+
+    <p class="lead">Right now, when someone visits taurorealty.com, they can learn about your team and services &mdash; but they can't search for homes. That means they leave your site and go to Zillow, Redfin, or a competitor's website instead.</p>
+
+    <p><strong>MLS integration changes that.</strong> It connects your website directly to Bright MLS &mdash; the same database you use every day to list and find properties. Once connected, visitors can search every active listing in Philadelphia right on your site.</p>
+
+    <div class="highlight-box">
+      <p><strong>What this means for your business:</strong></p>
+      <p><strong>More leads.</strong> Every visitor who searches for a home on your site is a potential client. Instead of losing them to Zillow, they stay on your website and reach out to you.</p>
+      <p><strong>Better Google rankings.</strong> Hundreds of new property pages with Philadelphia neighborhood keywords help your site show up in more searches.</p>
+      <p><strong>A more professional look.</strong> Home buyers expect to search listings on a brokerage website. This puts you on the same level as the big players.</p>
+    </div>
+
+    <p>This report explains how the integration works, what it costs, and what we need from you to get started. The bottom line: <strong>for $49 per month, we can add live property search to your website within 4 weeks.</strong></p>
+
+    <div class="page-footer">
+      <span>Confidential &mdash; Prepared for LYL Realty Group</span>
+      <span>Page 2</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <span class="page-header-brand">AI Acrobatics &mdash; LYL Realty Group</span>
+      <span class="page-header-title">MLS Integration Report</span>
+    </div>
+
+    <span class="section-number">Section 02</span>
+    <h1>How It Works</h1>
+    <div class="section-divider"></div>
+
+    <p>Think of it like a pipeline. Listing data flows from Bright MLS to your website automatically, updating every 15 minutes. Your visitors always see the latest properties without you lifting a finger.</p>
+
+    <div class="flow-diagram">
+      <div class="flow-step">
+        <div class="flow-box">Bright MLS</div>
+        <div class="flow-label">Data Source</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-box gold">SimplyRETS</div>
+        <div class="flow-label">Data Connector</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-box outline">Tauro Website</div>
+        <div class="flow-label">Your Website</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step">
+        <div class="flow-box">Home Buyer</div>
+        <div class="flow-label">Your Customer</div>
+      </div>
+    </div>
+
+    <h2>The Three Pieces</h2>
+
+    <p><strong>Bright MLS</strong> is the listing database you already use. It holds every active property listing in the Philadelphia region &mdash; over 100,000 subscribers share their listings through this system.</p>
+
+    <p><strong>SimplyRETS</strong> is the connector. It pulls data from Bright MLS and translates it into a format your website can use. Think of it like a translator between the MLS and your website. It keeps the data fresh with automatic updates every 15 minutes.</p>
+
+    <p><strong>Your website (taurorealty.com)</strong> displays the data in a beautiful, custom design that matches your brand. Visitors can search, filter, view photos, see details, and contact you to schedule a showing &mdash; all without leaving your site.</p>
+
+    <div class="highlight-box">
+      <p><strong>The key benefit:</strong> Unlike plug-in tools that look generic and out of place, this approach gives you a fully custom property search that feels like a natural part of your website. Same colors, same fonts, same premium feel.</p>
+    </div>
+
+    <div class="page-footer">
+      <span>Confidential &mdash; Prepared for LYL Realty Group</span>
+      <span>Page 3</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ WHAT YOU'LL GET ═══════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <span class="page-header-brand">AI Acrobatics &mdash; LYL Realty Group</span>
+      <span class="page-header-title">MLS Integration Report</span>
+    </div>
+
+    <span class="section-number">Section 03</span>
+    <h1>What You'll Get</h1>
+    <div class="section-divider"></div>
+
+    <p>Here is everything that comes with the MLS integration, built directly into your Tauro website.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3 data-icon="&#x1F50D;">Live Property Search</h3>
+        <p>Visitors can search all active listings in Philadelphia and surrounding areas. Results update automatically every 15 minutes.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 data-icon="&#x1F5FA;">Interactive Map</h3>
+        <p>A full map view where buyers can zoom into neighborhoods, see listing pins, and click to view details.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 data-icon="&#x1F3E0;">Neighborhood Filters</h3>
+        <p>Search by neighborhood, zip code, price range, bedrooms, bathrooms, property type, and more.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 data-icon="&#x1F4F1;">Mobile-Friendly Listings</h3>
+        <p>Every listing page looks great on phones, tablets, and desktops. Over 60% of home searches happen on mobile.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 data-icon="&#x1F4C5;">Schedule a Showing</h3>
+        <p>Every listing has a "Schedule a Showing" button that connects directly to your booking system. Turns browsers into leads.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3 data-icon="&#x26A1;">Auto-Updating Data</h3>
+        <p>New listings appear within 15 minutes. Sold and pending properties are removed automatically. No manual work needed.</p>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Bonus: SEO power.</strong> Every property listing becomes its own page on your website. That means hundreds of new pages with location keywords like "3-bedroom home in Fishtown" or "townhouse in Rittenhouse Square" &mdash; all helping you rank higher on Google.</p>
+    </div>
+
+    <div class="page-footer">
+      <span>Confidential &mdash; Prepared for LYL Realty Group</span>
+      <span>Page 4</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ OUR RECOMMENDATION ═══════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <span class="page-header-brand">AI Acrobatics &mdash; LYL Realty Group</span>
+      <span class="page-header-title">MLS Integration Report</span>
+    </div>
+
+    <span class="section-number">Section 04</span>
+    <h1>Our Recommendation</h1>
+    <div class="section-divider"></div>
+
+    <p>We recommend using <strong>SimplyRETS</strong> as the data connector between Bright MLS and your website. Here's why.</p>
+
+    <h2>Why SimplyRETS?</h2>
+
+    <p>SimplyRETS is built for developers creating custom real estate websites. It gives us complete control over how listings look and feel on your site, while keeping costs low and setup simple.</p>
+
+    <p>There are three ways to add MLS listings to a website. Here's how they compare:</p>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Approach</th>
+          <th>Cost</th>
+          <th>Custom Design</th>
+          <th>SEO Value</th>
+          <th>Setup Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Plug-in Widget</strong><br><span style="font-size:8pt;color:var(--text-muted)">IDX Broker, iframes</span></td>
+          <td>$60&ndash;99/mo</td>
+          <td class="x-mark">None</td>
+          <td class="x-mark">None</td>
+          <td>1&ndash;2 days</td>
+        </tr>
+        <tr class="rec">
+          <td><strong>API Connector</strong><br><span style="font-size:8pt;color:var(--gold)">SimplyRETS &mdash; Recommended</span></td>
+          <td style="color:var(--gold);font-weight:600">$49/mo</td>
+          <td class="check">Full</td>
+          <td class="check">Full</td>
+          <td>2&ndash;4 weeks</td>
+        </tr>
+        <tr>
+          <td><strong>Direct MLS Feed</strong><br><span style="font-size:8pt;color:var(--text-muted)">Build everything from scratch</span></td>
+          <td>$625/mo</td>
+          <td class="check">Full</td>
+          <td class="check">Full</td>
+          <td>6&ndash;8 weeks</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Why Not the Other Options?</h2>
+
+    <p><strong>Plug-in widgets</strong> drop a generic search box onto your website that looks completely different from your brand. It can't be styled to match your midnight-and-gold design. Visitors notice the difference &mdash; it feels cheap. Plus, Google can't index the listings, so you get zero SEO benefit.</p>
+
+    <p><strong>A direct MLS feed</strong> gives you maximum control, but it costs over $7,500 per year in MLS fees alone, plus weeks of extra development. That level of investment makes sense for a company like Zillow &mdash; but for a single brokerage, it's overkill.</p>
+
+    <div class="highlight-box">
+      <p><strong>SimplyRETS is the sweet spot.</strong> Full design control, full SEO benefit, lowest cost, and your development is already covered under your current retainer.</p>
+    </div>
+
+    <div class="page-footer">
+      <span>Confidential &mdash; Prepared for LYL Realty Group</span>
+      <span>Page 5</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ COMPLIANCE & LEGAL ═══════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <span class="page-header-brand">AI Acrobatics &mdash; LYL Realty Group</span>
+      <span class="page-header-title">MLS Integration Report</span>
+    </div>
+
+    <span class="section-number">Section 05</span>
+    <h1>Compliance &amp; Legal</h1>
+    <div class="section-divider"></div>
+
+    <p>Displaying MLS listings on a website comes with rules from both Bright MLS and the National Association of Realtors. <strong>We handle all of this for you.</strong></p>
+
+    <p>Here's what needs to appear on every listing page, and how we'll make sure it's done right:</p>
+
+    <div class="compliance-grid">
+      <div class="compliance-item">
+        <div class="compliance-icon">&check;</div>
+        <div class="compliance-text">
+          <strong>Listing Agent &amp; Firm Credits</strong>
+          Every listing shows the name of the listing agent and their brokerage, as required by MLS rules.
+        </div>
+      </div>
+
+      <div class="compliance-item">
+        <div class="compliance-icon">&check;</div>
+        <div class="compliance-text">
+          <strong>Bright MLS Attribution</strong>
+          The Bright MLS logo and copyright notice appear on all listing pages, meeting their branding requirements.
+        </div>
+      </div>
+
+      <div class="compliance-item">
+        <div class="compliance-icon">&check;</div>
+        <div class="compliance-text">
+          <strong>Data Accuracy Disclaimers</strong>
+          Standard disclaimers let visitors know the data comes from the MLS and should be verified independently.
+        </div>
+      </div>
+
+      <div class="compliance-item">
+        <div class="compliance-icon">&check;</div>
+        <div class="compliance-text">
+          <strong>"Last Updated" Timestamps</strong>
+          Every listing shows when the data was last refreshed, so visitors know they're seeing current information.
+        </div>
+      </div>
+
+      <div class="compliance-item">
+        <div class="compliance-icon">&check;</div>
+        <div class="compliance-text">
+          <strong>Your Branding Comes First</strong>
+          NAR rules require your company branding to be larger than any third-party logos. Your brand always leads.
+        </div>
+      </div>
+
+      <div class="compliance-item">
+        <div class="compliance-icon">&check;</div>
+        <div class="compliance-text">
+          <strong>Opt-Out Compliance</strong>
+          Some sellers choose not to have their listing shown on IDX sites. Our system automatically respects those preferences.
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>You don't need to worry about any of this.</strong> We build all required disclaimers, credits, and notices directly into the website templates. They show up automatically on every listing page. If Bright MLS updates their rules, we update the templates.</p>
+    </div>
+
+    <div class="page-footer">
+      <span>Confidential &mdash; Prepared for LYL Realty Group</span>
+      <span>Page 6</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ TIMELINE + INVESTMENT ═══════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <span class="page-header-brand">AI Acrobatics &mdash; LYL Realty Group</span>
+      <span class="page-header-title">MLS Integration Report</span>
+    </div>
+
+    <span class="section-number">Section 06</span>
+    <h1>Timeline</h1>
+    <div class="section-divider"></div>
+
+    <p>From start to finish, we can have live property search on your website in about 4 weeks.</p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 1 &mdash; Week 1</div>
+        <div class="timeline-title">Setup &amp; Connection</div>
+        <div class="timeline-desc">
+          We collect your Bright MLS credentials, set up the SimplyRETS account, and connect the data feed. While waiting for the connection to go live, we start building the search and listing page designs using sample data.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 2 &mdash; Weeks 2&ndash;3</div>
+        <div class="timeline-title">Build &amp; Design</div>
+        <div class="timeline-desc">
+          We build the property search page, individual listing pages, interactive map, filters, and "Schedule a Showing" buttons. Everything is styled to match your Tauro brand perfectly. We also add all required compliance elements.
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Phase 3 &mdash; Week 4</div>
+        <div class="timeline-title">Launch &amp; Quality Check</div>
+        <div class="timeline-desc">
+          We test everything: data accuracy, search filters, mobile experience, page speed, and compliance. We verify that new listings appear within 15 minutes. Once everything checks out, we go live.
+        </div>
+      </div>
+    </div>
+
+    <span class="section-number" style="margin-top:28px">Section 07</span>
+    <h1>Investment</h1>
+    <div class="section-divider"></div>
+
+    <div class="investment-box">
+      <div class="price">$49<span style="font-size:18pt;color:rgba(201,168,76,0.7)">/mo</span></div>
+      <div class="price-label">SimplyRETS Data Feed</div>
+      <div class="price-detail">
+        <strong>One-time setup fee: $99</strong> (paid to SimplyRETS for the Bright MLS connection)<br>
+        Development, design, and ongoing maintenance are <strong>included in your current retainer</strong>.
+      </div>
+    </div>
+
+    <p style="font-size:9.5pt;color:var(--text-muted)">At $49 per month, SimplyRETS is the most affordable option &mdash; and the only one that gives you full design control and SEO benefits. It's <strong style="color:var(--midnight)">92% cheaper</strong> than going directly to the MLS ($7,500/year).</p>
+
+    <div class="page-footer">
+      <span>Confidential &mdash; Prepared for LYL Realty Group</span>
+      <span>Page 7</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════ WHAT WE NEED + NEXT STEPS ═══════════════ -->
+  <div class="page">
+    <div class="page-header">
+      <span class="page-header-brand">AI Acrobatics &mdash; LYL Realty Group</span>
+      <span class="page-header-title">MLS Integration Report</span>
+    </div>
+
+    <span class="section-number">Section 08</span>
+    <h1>What We Need From You</h1>
+    <div class="section-divider" style="margin:8px 0 14px"></div>
+
+    <p style="margin-bottom:8px">To get started, we need a few items from you. Most of these you already have as a Bright MLS subscriber.</p>
+
+    <ul class="checklist">
+      <li><strong>Bright MLS Subscriber ID</strong> &mdash; Your unique ID in the Bright MLS system.</li>
+      <li><strong>NRDS Number</strong> &mdash; Your NAR member ID, found on your REALTOR membership card.</li>
+      <li><strong>Brokerage Office Code</strong> &mdash; LYL Realty Group's office code in Bright MLS.</li>
+      <li><strong>IDX Authorization</strong> &mdash; Authorize your website to display IDX data. We'll walk you through it.</li>
+      <li><strong>Neighborhood Preferences</strong> &mdash; Which Philadelphia neighborhoods and zip codes to focus on.</li>
+    </ul>
+
+    <div class="highlight-box" style="margin:10px 0 12px;padding:12px 18px">
+      <p><strong>Don't have all of this ready?</strong> No problem. We can help you track down each item. Most brokers get everything within a day or two.</p>
+    </div>
+
+    <span class="section-number" style="margin-top:18px">Section 09</span>
+    <h1>Next Steps</h1>
+    <div class="section-divider" style="margin:8px 0 14px"></div>
+
+    <div class="timeline" style="margin:10px 0">
+      <div class="timeline-item" style="margin-bottom:10px">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Step 1</div>
+        <div class="timeline-title">Give Us the Green Light</div>
+        <div class="timeline-desc">Let us know you'd like to move forward. We'll send a checklist for your MLS credentials.</div>
+      </div>
+      <div class="timeline-item" style="margin-bottom:10px">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Step 2</div>
+        <div class="timeline-title">Send Us Your MLS Info</div>
+        <div class="timeline-desc">Share your Bright MLS subscriber ID, NRDS number, and office code. We handle the rest.</div>
+      </div>
+      <div class="timeline-item" style="margin-bottom:10px">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Step 3</div>
+        <div class="timeline-title">We Build It</div>
+        <div class="timeline-desc">Over 3&ndash;4 weeks, we design and build your property search. You'll see progress along the way.</div>
+      </div>
+      <div class="timeline-item" style="margin-bottom:0">
+        <div class="timeline-dot"></div>
+        <div class="timeline-phase">Step 4</div>
+        <div class="timeline-title">Go Live</div>
+        <div class="timeline-desc">Once you approve, we launch. Your site starts showing live MLS listings to every visitor.</div>
+      </div>
+    </div>
+
+    <div class="cta-box" style="padding:16px 24px;margin:10px 0 8px">
+      <h2 style="font-size:14pt;margin-bottom:4px">Let's Get Started</h2>
+      <p style="margin-bottom:8px">Reply to this report or reach out to your AI Acrobatics team.</p>
+      <div class="cta-button" style="padding:8px 24px;font-size:9.5pt">julian@ai-acrobatics.com</div>
+    </div>
+
+    <div style="text-align:center;margin-top:6px;">
+      <p style="font-size:7pt;color:var(--text-muted);letter-spacing:1px;margin-bottom:0;">Prepared by AI Acrobatics for LYL Realty Group &bull; March 2026 &bull; Confidential</p>
+    </div>
+
+    <div class="page-footer">
+      <span>Confidential &mdash; Prepared for LYL Realty Group</span>
+      <span>Page 8</span>
+    </div>
+  </div>
+
+</body>
+</html>
