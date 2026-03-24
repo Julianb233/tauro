@@ -23,6 +23,11 @@ const ChatWidget = dynamic(() =>
 const AccessibilityWidget = dynamic(
   () => import("@/components/AccessibilityWidget"),
 );
+const ScrollToTop = dynamic(() =>
+  import("@/components/ScrollToTop").then((mod) => ({
+    default: mod.ScrollToTop,
+  })),
+);
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -130,6 +135,7 @@ export default async function RootLayout({
 <main id="main-content">
           {children}
         </main>
+        <ScrollToTop />
         <ChatWidget />
         <AccessibilityWidget />
         <CookieConsent />
