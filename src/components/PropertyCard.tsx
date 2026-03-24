@@ -109,8 +109,9 @@ function ImageCarousel({
             alt={`${alt} — photo ${i + 1}`}
             fill
             className={cn(
-              "object-cover transition-opacity duration-300",
+              "object-cover transition-all duration-500",
               isActive ? "opacity-100" : "opacity-0",
+              "group-hover:scale-105",
             )}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             loading={i === 0 ? "eager" : "lazy"}
