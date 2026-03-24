@@ -1,7 +1,7 @@
 import { createHmac } from "crypto";
 
 export interface LeadPayload {
-  type: "contact" | "showing" | "seller" | "agent-application" | "agent-contact" | "open_house_rsvp";
+  type: "contact" | "showing" | "seller" | "agent-application" | "agent-contact" | "open_house_rsvp" | "callback";
   firstName: string;
   lastName: string;
   email: string;
@@ -34,6 +34,7 @@ export const GHL_TAG_MAP: Record<LeadPayload["type"], string[]> = {
   "agent-application": ["agent-application", "recruitment"],
   "agent-contact": ["agent-contact", "tauro-lead"],
   open_house_rsvp: ["open-house-rsvp", "tauro-lead"],
+  callback: ["callback-request", "tauro-lead"],
 };
 
 export const GHL_FIELD_MAP: Record<string, string> = {

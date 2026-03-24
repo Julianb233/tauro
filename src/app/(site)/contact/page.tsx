@@ -2,6 +2,7 @@
 
 import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
+import { CallbackRequestForm } from "@/components/CallbackRequestForm";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 const contactInfo = [
@@ -96,6 +97,9 @@ export default function ContactPage() {
                   ))}
                 </div>
               </div>
+
+              {/* Callback request */}
+              <CallbackRequestForm />
 
               {/* Quick links */}
               <div className="rounded-xl border border-border/40 bg-card p-6">
