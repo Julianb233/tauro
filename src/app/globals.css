@@ -241,6 +241,29 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), system-ui, sans-serif;
 }
 
+/* ─── Editorial italic accent typography ─── */
+.accent-italic {
+  font-style: italic;
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* Reset em inside headings to use the accent style without default underline/bold */
+h1 em, h2 em, h3 em,
+h1 .accent-italic, h2 .accent-italic, h3 .accent-italic {
+  font-style: italic;
+  font-weight: inherit;
+}
+
+/* Pull-quote / blockquote editorial styling */
+blockquote.pull-quote {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  border-left: 3px solid var(--color-gold);
+  padding-left: 1.25rem;
+}
+
 /* Dropdown fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-4px); }

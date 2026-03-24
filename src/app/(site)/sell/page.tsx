@@ -74,7 +74,7 @@ export default function SellPage() {
             Sell with Confidence
           </p>
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl">
-            List Your Home with Tauro
+            List Your Home <em>with Tauro</em>
           </h1>
           <p className="mt-4 max-w-xl text-lg text-white/60">
             Get the most from your Philadelphia property with Tauro&apos;s premium

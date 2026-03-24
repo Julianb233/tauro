@@ -11,7 +11,7 @@ export default async function NeighborhoodShowcase() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <p className="font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold sm:text-sm">Explore Philadelphia</p>
-          <h2 className="mt-2 font-heading text-2xl font-bold text-foreground sm:text-3xl md:text-4xl">Premier Neighborhoods</h2>
+          <h2 className="mt-2 font-heading text-2xl font-bold text-foreground sm:text-3xl md:text-4xl"><em>Premier</em> Neighborhoods</h2>
           <p className="mx-auto mt-3 max-w-xl text-sm text-muted-foreground sm:mt-4 sm:text-base">From the brownstones of Rittenhouse to the lofts of Fishtown — discover what makes each Philadelphia neighborhood unique.</p>
         </div>
         <div className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
