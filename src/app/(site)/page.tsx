@@ -4,7 +4,9 @@ import Hero from "@/components/hero";
 import StatsBar from "@/components/stats-bar";
 import FeaturedProperties from "@/components/featured-properties";
 import NeighborhoodShowcase from "@/components/neighborhood-showcase";
+import AreasWeServe from "@/components/areas-we-serve";
 import WhyTauro from "@/components/why-tauro";
+import VideoShowcase from "@/components/VideoShowcase";
 import Testimonials from "@/components/testimonials";
 import HomepageCTAs from "@/components/homepage-ctas";
 
@@ -33,7 +35,9 @@ export default function HomePage() {
       <RecentlyViewed />
       <div className="gold-divider mx-auto max-w-7xl" />
       <NeighborhoodShowcase />
+      <AreasWeServe />
       <WhyTauro />
+      <VideoShowcase />
       <div className="gold-divider mx-auto max-w-7xl" />
       <Testimonials />
       <SocialProof />

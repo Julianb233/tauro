@@ -1,19 +1,27 @@
 const videos = [
   {
-    id: "K4TOrB7at0Y",
-    title: "Luxury Philadelphia Home Tour — Rittenhouse Square",
+    id: "K9TZZrtwvkA",
+    title: "Touring a $2.5M Estate in Philadelphia",
   },
   {
-    id: "Tt_tKhBEWsE",
-    title: "Modern Townhouse Walkthrough — Fishtown, Philadelphia",
+    id: "WRL27u6B5p4",
+    title: "Inside a Massive $7M Luxury Home — Philadelphia",
   },
   {
-    id: "oqNM_Lviurk",
-    title: "Historic Brownstone Showcase — Society Hill, Philadelphia",
+    id: "S3WzfJnoRcU",
+    title: "Inside a $15M Luxury Condo — The Dilworth, Center City",
   },
   {
-    id: "dQw4w9WgXcQ",
-    title: "Stunning Renovation Tour — Graduate Hospital, Philadelphia",
+    id: "8CwaFvzklbE",
+    title: "Luxury Home Tour — Fishtown, Philadelphia",
+  },
+  {
+    id: "ev7nhD-EE6M",
+    title: "New Construction Showcase — Germantown, Philadelphia",
+  },
+  {
+    id: "qLcBAyVOElw",
+    title: "Former Bank Revamped Into Stunning Paris-Inspired Apartment",
   },
 ];
 
@@ -35,7 +43,7 @@ export default function VideoShowcase() {
           </p>
         </div>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {videos.map((video) => (
             <div key={video.id} className="group">
               <div className="relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-black shadow-lg transition-all duration-300 group-hover:border-gold/30 group-hover:shadow-gold/10">
