@@ -8,6 +8,7 @@ export interface AgentFilterState {
   neighborhood: string;
   search: string;
   specialty: string;
+  language: string;
 }
 
 export const defaultAgentFilters: AgentFilterState = {
@@ -15,6 +16,7 @@ export const defaultAgentFilters: AgentFilterState = {
   neighborhood: "",
   search: "",
   specialty: "",
+  language: "",
 };
 
 export default function AgentFilters({
@@ -23,12 +25,14 @@ export default function AgentFilters({
   onClear,
   neighborhoods,
   specialties,
+  languages,
 }: {
   filters: AgentFilterState;
   onChange: (key: keyof AgentFilterState, value: string) => void;
   onClear: () => void;
   neighborhoods: string[];
   specialties: string[];
+  languages: string[];
 }) {
   const [open, setOpen] = useState(false);
 
@@ -118,6 +122,24 @@ export default function AgentFilters({
               {specialties.map((s) => (
                 <option key={s} value={s}>
                   {s}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/* AI-3905: Language spoken filter */}
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">
+              Language
+            </label>
+            <select
+              value={filters.language}
+              onChange={(e) => onChange("language", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">All Languages</option>
+              {languages.map((l) => (
+                <option key={l} value={l}>
+                  {l}
                 </option>
               ))}
             </select>
