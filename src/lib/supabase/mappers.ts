@@ -157,6 +157,8 @@ export function mapAgentRow(row: any): Agent {
     social: (row.social as Agent["social"]) ?? {},
     languages: row.languages ?? [],
     licenseNumber: row.license_number ?? "",
+    education: (row.education as Agent["education"]) ?? [],
+    certifications: (row.certifications as Agent["certifications"]) ?? [],
   };
 }
 

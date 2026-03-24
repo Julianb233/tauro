@@ -6,7 +6,7 @@ import Link from "next/link";
 import {
   Phone, Mail, Award, Play, Home, TrendingUp, Clock, CheckCircle,
   AlertCircle, ArrowLeft, Instagram, Linkedin, Star, Quote, DollarSign,
-  MapPin, Calendar, Send,
+  MapPin, Calendar, Send, GraduationCap, ShieldCheck,
 } from "lucide-react";
 import type { Agent } from "@/data/agents";
 import type { Property } from "@/data/properties";
@@ -306,6 +306,52 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                       <p className="mt-1 text-sm text-muted-foreground">{award.issuer} &middot; {award.year}</p>
                     </div>
                   ))}
+                </div>
+              </div>
+            )}
+
+            {/* Credentials — Education & Certifications */}
+            {(agent.education.length > 0 || agent.certifications.length > 0) && (
+              <div>
+                <div className="mb-8 flex items-center gap-3">
+                  <ShieldCheck className="size-5 text-gold" />
+                  <h2 className="font-heading text-2xl font-bold text-foreground">Credentials</h2>
+                </div>
+                <div className="grid gap-8 lg:grid-cols-2">
+                  {agent.education.length > 0 && (
+                    <div>
+                      <h3 className="mb-4 flex items-center gap-2 text-sm font-label uppercase tracking-wider text-muted-foreground">
+                        <GraduationCap className="size-4 text-gold/60" />Education
+                      </h3>
+                      <div className="space-y-3">
+                        {agent.education.map((edu) => (
+                          <div key={`${edu.degree}-${edu.institution}`} className="rounded-xl border border-border/40 bg-cream p-5">
+                            <p className="font-semibold text-foreground">{edu.degree}</p>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                              {edu.institution}{edu.year ? ` · ${edu.year}` : ""}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {agent.certifications.length > 0 && (
+                    <div>
+                      <h3 className="mb-4 flex items-center gap-2 text-sm font-label uppercase tracking-wider text-muted-foreground">
+                        <ShieldCheck className="size-4 text-gold/60" />Certifications
+                      </h3>
+                      <div className="space-y-3">
+                        {agent.certifications.map((cert) => (
+                          <div key={`${cert.name}-${cert.year}`} className="rounded-xl border border-border/40 bg-cream p-5">
+                            <p className="font-semibold text-foreground">{cert.name}</p>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                              {cert.issuer} &middot; {cert.year}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

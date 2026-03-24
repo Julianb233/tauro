@@ -42,6 +42,16 @@ export interface Agent {
   };
   languages: string[];
   licenseNumber: string;
+  education: {
+    degree: string;
+    institution: string;
+    year?: number;
+  }[];
+  certifications: {
+    name: string;
+    issuer: string;
+    year: number;
+  }[];
   testimonials?: {
     quote: string;
     clientName: string;
@@ -113,6 +123,14 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RM420582",
+    education: [
+      { degree: "B.S. Finance", institution: "Hampton University", year: 2002 },
+    ],
+    certifications: [
+      { name: "Licensed Real Estate Broker", issuer: "Pennsylvania Real Estate Commission", year: 2008 },
+      { name: "Certified Residential Specialist (CRS)", issuer: "Residential Real Estate Council", year: 2015 },
+      { name: "EXIT Realty Certified Trainer", issuer: "EXIT Realty International", year: 2018 },
+    ],
     testimonials: [
       { quote: "Tony made our first home purchase stress-free. He knew every block in North Philly and found us a gem we never would have seen on our own.", clientName: "Marcus & Tina D.", rating: 5, date: "2025-09" },
       { quote: "Sold our investment property in two weeks for above asking. Tony's market knowledge is unmatched.", clientName: "David R.", rating: 5, date: "2025-07" },
@@ -175,6 +193,13 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RS-612847",
+    education: [
+      { degree: "B.A. Communications", institution: "Temple University", year: 2016 },
+    ],
+    certifications: [
+      { name: "Licensed Real Estate Salesperson", issuer: "Pennsylvania Real Estate Commission", year: 2017 },
+      { name: "Accredited Buyer's Representative (ABR)", issuer: "National Association of Realtors", year: 2020 },
+    ],
     testimonials: [
       { quote: "Shaquonda found us the perfect Fishtown loft. She understood exactly what we were looking for before we even fully knew ourselves.", clientName: "Nicole T.", rating: 5, date: "2025-11" },
       { quote: "Incredible negotiator. She got us $40K below asking on a competitive listing in Society Hill. We still can't believe it.", clientName: "Brian & Megan L.", rating: 5, date: "2025-08" },
@@ -241,6 +266,14 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RS-445821",
+    education: [
+      { degree: "B.S. Business Administration", institution: "Cheyney University", year: 2011 },
+    ],
+    certifications: [
+      { name: "Licensed Real Estate Salesperson", issuer: "Pennsylvania Real Estate Commission", year: 2013 },
+      { name: "Seller Representative Specialist (SRS)", issuer: "National Association of Realtors", year: 2019 },
+      { name: "Pricing Strategy Advisor (PSA)", issuer: "National Association of Realtors", year: 2021 },
+    ],
     testimonials: [
       { quote: "Morris is the definition of a luxury agent. He handled every detail of our Rittenhouse Square purchase with precision and class.", clientName: "Dr. Patricia W.", rating: 5, date: "2025-10" },
       { quote: "We relocated from New York and Morris made the transition seamless. His knowledge of Philadelphia's luxury market is outstanding.", clientName: "Jonathan & Sarah K.", rating: 5, date: "2025-06" },
@@ -302,6 +335,13 @@ export const agents: Agent[] = [
     },
     languages: ["English", "Spanish"],
     licenseNumber: "RS-678432",
+    education: [
+      { degree: "B.S. Information Technology", institution: "Drexel University", year: 2019 },
+    ],
+    certifications: [
+      { name: "Licensed Real Estate Salesperson", issuer: "Pennsylvania Real Estate Commission", year: 2021 },
+      { name: "e-PRO Certification", issuer: "National Association of Realtors", year: 2022 },
+    ],
     testimonials: [
       { quote: "Stephen helped us find a beautiful townhouse in Northern Liberties. His bilingual skills were a huge plus for my parents who primarily speak Spanish.", clientName: "Maria & Jorge F.", rating: 5, date: "2025-12" },
       { quote: "Patient, knowledgeable, and always available. Stephen showed us at least 20 properties before we found the one. Never once rushed us.", clientName: "Tyler B.", rating: 5, date: "2025-09" },
@@ -363,6 +403,14 @@ export const agents: Agent[] = [
     },
     languages: ["English"],
     licenseNumber: "RS-521976",
+    education: [
+      { degree: "B.A. Marketing", institution: "La Salle University", year: 2017 },
+    ],
+    certifications: [
+      { name: "Licensed Real Estate Salesperson", issuer: "Pennsylvania Real Estate Commission", year: 2018 },
+      { name: "Short Sales & Foreclosure Resource (SFR)", issuer: "National Association of Realtors", year: 2021 },
+      { name: "At Home With Diversity (AHWD)", issuer: "National Association of Realtors", year: 2023 },
+    ],
     testimonials: [
       { quote: "Chris is the condo expert in Center City. He knew the HOA fees, building history, and upcoming assessments for every building we visited.", clientName: "Jennifer A.", rating: 5, date: "2025-11" },
       { quote: "Bought and sold with Chris within the same month. His coordination between both transactions was flawless.", clientName: "Mike & Dana S.", rating: 5, date: "2025-08" },
