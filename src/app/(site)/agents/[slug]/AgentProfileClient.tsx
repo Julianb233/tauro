@@ -12,6 +12,7 @@ import type { Agent } from "@/data/agents";
 import type { Property } from "@/data/properties";
 import { formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import AgentQrCode from "@/components/AgentQrCode";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 
@@ -203,6 +204,9 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                 <div className="relative aspect-square md:aspect-[3/4]">
                   <Image src={agent.photo} alt={agent.fullName} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" placeholder="blur" blurDataURL={BLUR_PORTRAIT} />
                 </div>
+              </div>
+              <div className="hidden lg:block">
+                <AgentQrCode slug={agent.slug} agentName={agent.fullName} />
               </div>
             </div>
 
