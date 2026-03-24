@@ -144,6 +144,14 @@ export async function loadAgentBySlug(
       return { agent, listings };
     }
     const agent = mappers.mapAgentRow(row);
+    // Merge static education/certifications until Supabase columns exist
+    if (agent.education.length === 0 || agent.certifications.length === 0) {
+      const staticAgent = staticGetAgentBySlug(slug);
+      if (staticAgent) {
+        if (agent.education.length === 0) agent.education = staticAgent.education;
+        if (agent.certifications.length === 0) agent.certifications = staticAgent.certifications;
+      }
+    }
     const rawProperties = (row as Record<string, unknown>).properties;
     const listings = Array.isArray(rawProperties)
       ? rawProperties.map(mappers.mapPropertyRow)
