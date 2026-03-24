@@ -86,7 +86,7 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
           </p>
         </div>
       ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:gap-8">
           {filtered.map((agent) => (
             <AgentCard key={agent.id} agent={agent} />
           ))}

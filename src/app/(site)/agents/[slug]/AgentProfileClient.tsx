@@ -15,7 +15,6 @@ import PropertyCard from "@/components/PropertyCard";
 import AgentQrCode from "@/components/AgentQrCode";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
-import { ArchedFrame } from "@/components/ui/arched-frame";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 interface FormData { firstName: string; lastName: string; email: string; phone: string; message: string; }
@@ -201,9 +200,9 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
           <div className="grid gap-10 lg:grid-cols-3">
             {/* Photo */}
             <div className="lg:col-span-1">
-              <ArchedFrame bordered aspect="aspect-square md:aspect-[3/4]">
-                <Image src={agent.photo} alt={agent.fullName} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" placeholder="blur" blurDataURL={BLUR_PORTRAIT} />
-              </ArchedFrame>
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl md:aspect-[3/4]">
+                <Image src={agent.photo} alt={agent.fullName} fill className="object-cover object-center" sizes="(max-width: 768px) 100vw, 33vw" placeholder="blur" blurDataURL={BLUR_PORTRAIT} />
+              </div>
               <div className="hidden lg:block">
                 <AgentQrCode slug={agent.slug} agentName={agent.fullName} />
               </div>
