@@ -16,6 +16,7 @@ import { LifestyleSection } from "@/components/neighborhood/LifestyleSection";
 import { FeaturedAgent } from "@/components/neighborhood/FeaturedAgent";
 import { NeighborhoodAgents } from "@/components/neighborhood/NeighborhoodAgents";
 import { VideoTour } from "@/components/neighborhood/VideoTour";
+import { DemographicsCard } from "@/components/neighborhood/DemographicsCard";
 
 // Heavy client components — lazy-loaded (recharts ~200KB, lightbox ~50KB)
 const MarketTrendChart = dynamic(() =>
@@ -150,6 +151,12 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
         walkScore={neighborhood.walkScore}
         transitScore={neighborhood.transitScore}
         bikeScore={neighborhood.bikeScore}
+      />
+
+      {/* Neighborhood Demographics */}
+      <DemographicsCard
+        demographics={neighborhood.demographics}
+        neighborhoodName={neighborhood.name}
       />
 
       {/* Schools */}

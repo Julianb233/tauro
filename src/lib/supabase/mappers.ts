@@ -198,6 +198,13 @@ export function mapNeighborhoodRow(row: any): Neighborhood {
     gallery: (row.gallery as string[]) ?? [],
     monthlyTrend: (row.monthly_trend as Neighborhood["monthlyTrend"]) ?? [],
     mapCenter: (row.map_center as { lat: number; lng: number }) ?? { lat: 0, lng: 0 },
+    demographics: (row.demographics as Neighborhood["demographics"]) ?? {
+      population: 0,
+      medianHouseholdIncome: "$0",
+      ownerOccupied: 0,
+      renterOccupied: 0,
+      medianAge: 0,
+    },
     propertyFilter: row.property_filter ?? "",
     featured: row.featured ?? false,
   };
