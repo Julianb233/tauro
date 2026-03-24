@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
 import { AuthModal, getStoredUser, clearStoredUser, type StoredUser } from "@/components/AuthModal";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 // Reactive auth state via useSyncExternalStore
 const authListeners = new Set<() => void>();
@@ -108,6 +109,8 @@ export function Navbar() {
               <Phone className="size-4" />
               <span>(215) 839-4172</span>
             </a>
+
+            <ThemeToggle className={scrolled ? "text-white/70" : "text-white/70"} />
 
             {user ? (
               <div className="flex items-center gap-2">
