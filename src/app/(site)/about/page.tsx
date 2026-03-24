@@ -312,38 +312,70 @@ export default function AboutPage() {
         </FadeInView>
       </section>
 
-      {/* Contact CTA */}
-      <FadeInView direction="up" className="mx-auto max-w-4xl px-6 py-20 text-center">
-        <h2 className="font-heading text-3xl font-bold md:text-4xl">
-          Get in Touch
-        </h2>
-        <p className="mt-4 text-muted-foreground">
-          Whether you&apos;re buying, selling, or exploring your options — we&apos;re
-          here to help.
-        </p>
-        <div className="mt-8 flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
-          <a
-            href="tel:+12155551234"
-            className="flex items-center gap-2 text-gold hover:text-gold-light"
-          >
-            <Phone className="h-5 w-5" />
-            (215) 839-4172
-          </a>
-          <a
-            href="mailto:info@taurorealty.com"
-            className="flex items-center gap-2 text-gold hover:text-gold-light"
-          >
-            <Mail className="h-5 w-5" />
-            info@taurorealty.com
-          </a>
+      {/* Philadelphia Office */}
+      <section className="mx-auto max-w-6xl px-6 py-20">
+        <FadeInView direction="up">
+          <div className="flex items-center gap-3">
+            <MapPin className="h-6 w-6 text-gold" />
+            <h2 className="font-heading text-3xl font-bold md:text-4xl">
+              Our Philadelphia Office
+            </h2>
+          </div>
+        </FadeInView>
+        <div className="mt-10 grid gap-8 md:grid-cols-2">
+          <div className="space-y-6">
+            <div className="rounded-xl border border-border/40 bg-card/50 p-6">
+              <p className="font-heading text-lg font-semibold text-gold">
+                Tauro Realty
+              </p>
+              <p className="mt-2 text-muted-foreground">
+                1500 Walnut Street, Suite 500<br />
+                Philadelphia, PA 19102
+              </p>
+              <div className="mt-4 space-y-2">
+                <a
+                  href="tel:+12158394172"
+                  className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-gold"
+                >
+                  <Phone className="h-4 w-4" />
+                  (215) 839-4172
+                </a>
+                <a
+                  href="mailto:info@taurorealty.com"
+                  className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-gold"
+                >
+                  <Mail className="h-4 w-4" />
+                  info@taurorealty.com
+                </a>
+              </div>
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Located in the heart of Center City on historic Walnut Street, our
+              office is steps from Rittenhouse Square — one of Philadelphia&apos;s
+              most coveted neighborhoods. Stop by for a consultation or schedule
+              a virtual meeting with one of our agents.
+            </p>
+            <Link
+              href="/contact"
+              className="shimmer-gold inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-colors hover:bg-gold-light"
+            >
+              Contact Us <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+          <div className="overflow-hidden rounded-xl border border-border/40">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.6!2d-75.168!3d39.949!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c6c63c30a0e2b5%3A0x5c6be7d4e2a8a4f0!2s1500%20Walnut%20St%2C%20Philadelphia%2C%20PA%2019102!5e0!3m2!1sen!2sus!4v1"
+              width="100%"
+              height="100%"
+              style={{ border: 0, minHeight: 300 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Tauro Realty office location — 1500 Walnut St, Philadelphia"
+            />
+          </div>
         </div>
-        <Link
-          href="/contact"
-          className="shimmer-gold mt-8 inline-flex items-center gap-2 rounded-lg bg-gold px-8 py-3 font-label text-sm font-semibold uppercase tracking-wider text-near-black transition-colors hover:bg-gold-light"
-        >
-          Contact Us <ArrowRight className="h-4 w-4" />
-        </Link>
-      </FadeInView>
+      </section>
     </div>
   );
 }
