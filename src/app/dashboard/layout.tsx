@@ -22,8 +22,8 @@ export default async function DashboardLayout({
         avatarUrl: profile.avatar_url,
       }
     : {
-        fullName: "Saraha Founder",
-        email: "founder@saraha.com",
+        fullName: "Tauro Admin",
+        email: "admin@taurorealty.com",
         role: "admin" as const,
         avatarUrl: null,
       };

@@ -59,7 +59,7 @@ export default async function DashboardPage() {
     getDashboardStats(),
   ]);
 
-  const firstName = profile?.full_name.split(" ")[0] ?? "Saraha";
+  const firstName = profile?.full_name.split(" ")[0] ?? "Admin";
 
   return (
     <div className="space-y-8">

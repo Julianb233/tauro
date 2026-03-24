@@ -50,6 +50,7 @@ import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useUtm } from "@/hooks/useUtm";
 import { siteUrl } from "@/lib/site-config";
 import { Logo } from "@/components/logo";
+import { MlsDisclaimer } from "@/components/MlsDisclaimer";
 
 /** Minimal QR code SVG component using a simple matrix encoding approach */
 function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
@@ -935,6 +936,15 @@ export default function PropertyDetailClient({
             </a>
           </div>
         </div>
+      </div>
+
+      {/* MLS/IDX Attribution & Disclaimer */}
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <MlsDisclaimer
+          agentName={property.agent.name}
+          mlsNumber={property.mlsNumber}
+          listingDate={property.listingDate}
+        />
       </div>
     </div>
   );

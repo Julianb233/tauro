@@ -1,10 +1,11 @@
 import { MetadataRoute } from "next";
 import { loadProperties, loadNeighborhoods, loadAgents } from "@/lib/data";
+import { siteUrl } from "@/lib/site-config";
 
 export const revalidate = 3600;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://tauro.realty";
+  const baseUrl = siteUrl;
   const [properties, neighborhoods, agents] = await Promise.all([loadProperties(), loadNeighborhoods(), loadAgents()]);
 
   const staticPages = [
