@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 156" width="480" height="312">
+  <!-- Tauro Realty — Zorro-inspired masked bull logo -->
+  <g>
+    <!-- Left horn -->
+    <path d="M72 52 C60 28, 44 16, 32 14 C36 20, 42 32, 50 44 C56 52, 66 58, 80 58" fill="#1A1A2E"/>
+    <path d="M32 14 C26 10, 18 12, 16 20" stroke="#1A1A2E" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Right horn -->
+    <path d="M168 52 C180 28, 196 16, 208 14 C204 20, 198 32, 190 44 C184 52, 174 58, 160 58" fill="#1A1A2E"/>
+    <path d="M208 14 C214 10, 222 12, 224 20" stroke="#1A1A2E" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Face -->
+    <path d="M80 50 C80 40, 96 30, 120 30 C144 30, 160 40, 160 50 L160 68 C160 82, 144 92, 120 92 C96 92, 80 82, 80 68 Z" stroke="#1A1A2E" stroke-width="3.5" fill="none"/>
+    <!-- Ears -->
+    <path d="M76 44 C68 38, 62 42, 64 50" stroke="#1A1A2E" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M164 44 C172 38, 178 42, 176 50" stroke="#1A1A2E" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- Zorro mask band -->
+    <path d="M82 50 C82 50, 90 44, 100 46 L108 48 C114 48.5, 120 48.5, 120 48.5 C120 48.5, 126 48.5, 132 48 L140 46 C150 44, 158 50, 158 50 L162 56 C162 56, 154 62, 140 60 L132 58 C126 57.5, 120 57.5, 120 57.5 C120 57.5, 114 57.5, 108 58 L100 60 C86 62, 78 56, 78 56 Z" fill="#1A1A2E" opacity="0.15"/>
+    <path d="M78 53 L68 48 M162 53 L172 48" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Eyes -->
+    <ellipse cx="104" cy="53" rx="5" ry="3.5" fill="#1A1A2E"/>
+    <ellipse cx="136" cy="53" rx="5" ry="3.5" fill="#1A1A2E"/>
+    <!-- Eye glints -->
+    <circle cx="106" cy="52" r="1" fill="#FFFFFF" opacity="0.6"/>
+    <circle cx="138" cy="52" r="1" fill="#FFFFFF" opacity="0.6"/>
+    <!-- Nose bridge -->
+    <path d="M116 60 L116 72 M124 60 L124 72" stroke="#1A1A2E" stroke-width="2" fill="none"/>
+    <!-- Nostrils -->
+    <ellipse cx="112" cy="76" rx="5" ry="3.5" stroke="#1A1A2E" stroke-width="2.5" fill="none"/>
+    <ellipse cx="128" cy="76" rx="5" ry="3.5" stroke="#1A1A2E" stroke-width="2.5" fill="none"/>
+    <!-- Chin -->
+    <path d="M104 86 C110 90, 130 90, 136 86" stroke="#1A1A2E" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Zorro Z accent -->
+    <path d="M170 28 L182 28 L170 42 L182 42" stroke="#C9A96E" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+  </g>
+  <!-- TAURO text -->
+  <text x="120" y="116" text-anchor="middle" fill="#1A1A2E" font-family="'Playfair Display', Georgia, serif" font-weight="700" font-size="28" letter-spacing="5">TAURO</text>
+  <!-- Decorative line -->
+  <line x1="88" y1="120" x2="152" y2="120" stroke="#C9A96E" stroke-width="1" opacity="0.5"/>
+  <!-- REALTY subtitle -->
+  <text x="120" y="134" text-anchor="middle" fill="#C9A96E" font-family="'Montserrat', 'DM Sans', sans-serif" font-weight="600" font-size="11" letter-spacing="6">REALTY</text>
+</svg>
