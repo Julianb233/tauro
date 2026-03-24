@@ -12,6 +12,7 @@ import type { Agent } from "@/data/agents";
 import type { Property } from "@/data/properties";
 import { formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
+import AgentQrCode from "@/components/AgentQrCode";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 
@@ -204,6 +205,9 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                   <Image src={agent.photo} alt={agent.fullName} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" placeholder="blur" blurDataURL={BLUR_PORTRAIT} />
                 </div>
               </div>
+              <div className="hidden lg:block">
+                <AgentQrCode slug={agent.slug} agentName={agent.fullName} />
+              </div>
             </div>
 
             {/* Bio + Contact info */}
@@ -218,7 +222,8 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
               <p className="mt-1 text-xs text-muted-foreground">License #{agent.licenseNumber}</p>
               <p className="mt-6 whitespace-pre-line leading-relaxed text-muted-foreground">{agent.bio}</p>
               {agent.languages.length > 0 && (
-                <div className="mt-4 flex flex-wrap gap-2">
+                <div className="mt-4 flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-label uppercase tracking-wider text-gold/80">Languages:</span>
                   {agent.languages.map((lang) => (
                     <span key={lang} className="rounded-full border border-border/40 bg-white/10 px-3 py-1 text-xs text-white/80">{lang}</span>
                   ))}
