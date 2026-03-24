@@ -28,7 +28,7 @@ export default function HeroSearchBar() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search neighborhood, address, ZIP..."
-            className="w-full min-w-0 bg-transparent py-3 text-sm text-white placeholder:text-white/50 focus-visible:outline-none"
+            className="w-full min-w-0 bg-transparent py-3 text-sm text-white placeholder:text-white/70 focus-visible:outline-none"
             aria-label="Search by neighborhood, address, or ZIP code"
           />
         </div>

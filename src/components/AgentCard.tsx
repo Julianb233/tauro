@@ -69,22 +69,22 @@ export default function AgentCard({ agent }: { agent: Agent }) {
         {/* Hover overlay - slides up, responsive padding */}
         <div className="absolute inset-0 flex translate-y-full flex-col justify-end bg-black/80 transition-transform duration-300 ease-out group-hover:translate-y-0 group-active:translate-y-0">
           <div className="p-4 sm:p-5">
-            <p className="text-xs leading-relaxed text-white/90 line-clamp-3 sm:text-sm sm:text-white/80">
+            <p className="text-xs leading-relaxed text-white line-clamp-3 sm:text-sm">
               {agent.shortBio}
             </p>
 
             {/* Stats row */}
             <div className="mt-2 flex flex-wrap items-center gap-1.5 text-[11px] text-gold sm:mt-3 sm:gap-2 sm:text-xs">
               <span>{agent.stats.yearsExperience}+ Yrs</span>
-              <span className="text-white/40">|</span>
+              <span className="text-white/60">|</span>
               <span>{agent.stats.propertiesSold} Sold</span>
-              <span className="text-white/40">|</span>
+              <span className="text-white/60">|</span>
               <span>{agent.stats.totalVolume} Volume</span>
             </div>
 
             {/* Contact info */}
             <div className="mt-2 flex flex-col gap-0.5 sm:mt-3 sm:gap-1">
-              <span className="text-xs text-white/80 sm:text-sm sm:text-white/70">{agent.phone}</span>
+              <span className="text-xs text-white/95 sm:text-sm">{agent.phone}</span>
               <span
                 role="button"
                 tabIndex={0}
