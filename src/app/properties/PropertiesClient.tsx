@@ -51,6 +51,7 @@ export default function PropertiesClient({
     newConstruction: searchParams.get("newConstruction") || "",
     yearBuiltMin: searchParams.get("yearBuiltMin") || "",
     yearBuiltMax: searchParams.get("yearBuiltMax") || "",
+    daysOnMarket: searchParams.get("daysOnMarket") || "",
   }), [searchParams]);
 
   const updateFilter = useCallback((key: keyof FilterState, value: string) => {
@@ -146,6 +147,17 @@ export default function PropertiesClient({
     /* AI-3807: Year built range filter */
     if (filters.yearBuiltMin) result = result.filter((p) => p.yearBuilt >= Number(filters.yearBuiltMin));
     if (filters.yearBuiltMax) result = result.filter((p) => p.yearBuilt <= Number(filters.yearBuiltMax));
+    /* AI-3871: Days on market filter */
+    if (filters.daysOnMarket) {
+      const maxDays = Number(filters.daysOnMarket);
+      const now = Date.now();
+      result = result.filter((p) => {
+        if (!p.listingDate) return false;
+        const listed = new Date(p.listingDate + "T00:00:00").getTime();
+        const dom = Math.floor((now - listed) / 86400000);
+        return dom <= maxDays;
+      });
+    }
     switch (filters.sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
       case "price-desc": result.sort((a, b) => b.price - a.price); break;

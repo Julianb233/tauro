@@ -32,6 +32,8 @@ export interface FilterState {
   /** AI-3807: Year built range filter */
   yearBuiltMin: string;
   yearBuiltMax: string;
+  /** AI-3871: Days on market filter */
+  daysOnMarket: string;
 }
 
 export const defaultFilters: FilterState = {
@@ -52,6 +54,7 @@ export const defaultFilters: FilterState = {
   newConstruction: "",
   yearBuiltMin: "",
   yearBuiltMax: "",
+  daysOnMarket: "",
 };
 
 export default function PropertyFilters({
@@ -322,6 +325,24 @@ export default function PropertyFilters({
               <option value="this-weekend">This Weekend</option>
               <option value="next-week">Next Week</option>
               <option value="next-30">Next 30 Days</option>
+            </select>
+          </div>
+          {/* AI-3871: Days on market filter */}
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">Days on Market</label>
+            <select
+              value={filters.daysOnMarket}
+              onChange={(e) => update("daysOnMarket", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">Any</option>
+              <option value="1">1 Day</option>
+              <option value="7">7 Days</option>
+              <option value="14">14 Days</option>
+              <option value="30">30 Days</option>
+              <option value="60">60 Days</option>
+              <option value="90">90 Days</option>
+              <option value="180">180 Days</option>
             </select>
           </div>
           {/* AI-3805: Virtual tour filter */}

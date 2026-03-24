@@ -20,6 +20,12 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
     return Array.from(set).sort((a, b) => a.localeCompare(b));
   }, [agents]);
 
+  const allLanguages = useMemo(() => {
+    const set = new Set<string>();
+    agents.forEach((a) => a.languages.forEach((l) => set.add(l)));
+    return Array.from(set).sort((a, b) => a.localeCompare(b));
+  }, [agents]);
+
   const filtered = useMemo(() => {
     let result = [...agents];
 
@@ -39,6 +45,10 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
 
     if (filters.specialty) {
       result = result.filter((a) => a.specialties.includes(filters.specialty));
+    }
+
+    if (filters.language) {
+      result = result.filter((a) => a.languages.includes(filters.language));
     }
 
     if (filters.sort === "az") {
@@ -66,6 +76,7 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
         onClear={handleClear}
         neighborhoods={allNeighborhoods}
         specialties={allSpecialties}
+        languages={allLanguages}
       />
 
       {filtered.length === 0 ? (
