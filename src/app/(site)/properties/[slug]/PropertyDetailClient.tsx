@@ -281,7 +281,7 @@ export default function PropertyDetailClient({
   const listingUrl = `${siteUrl}/properties/${property.slug}`;
 
   return (
-    <div className="min-h-screen pt-16">
+    <div className="min-h-screen">
       {/* ─── Print-only layout ─── */}
       <div className="print-only" style={{ padding: "0 1rem" }}>
         {/* Header with logo and contact */}
