@@ -9,6 +9,13 @@ import { loadTestimonials } from "@/lib/data";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
 
+// Toast provider for copy-to-clipboard and other notifications
+const ToastProvider = dynamic(() =>
+  import("@/components/ui/toast").then((mod) => ({
+    default: mod.ToastProvider,
+  })),
+);
+
 // Non-critical interactive widgets — lazy-loaded to reduce main bundle size
 const CookieConsent = dynamic(() =>
   import("@/components/CookieConsent").then((mod) => ({
@@ -138,9 +145,11 @@ export default async function RootLayout({
         <SpeedInsights />
         <OrganizationJsonLd testimonials={testimonials} />
         <WebSiteJsonLd />
-<main id="main-content">
+<ToastProvider>
+        <main id="main-content">
           {children}
         </main>
+        </ToastProvider>
         <ScrollToTop />
         <ChatWidget />
         <AccessibilityWidget />

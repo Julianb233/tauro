@@ -6,12 +6,12 @@ import {
   Link2,
   Mail,
   MessageSquare,
-  Check,
   Facebook,
   Twitter,
   Linkedin,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/components/ui/toast";
 
 /* ------------------------------------------------------------------ */
 /*  Analytics                                                           */
@@ -90,8 +90,8 @@ export default function ShareButton({
   className,
 }: ShareButtonProps) {
   const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     if (!open) return;
@@ -139,11 +139,11 @@ export default function ShareButton({
         document.execCommand("copy");
         document.body.removeChild(input);
       }
-      setCopied(true);
+      toast("Link copied!");
       trackShare("copy_link", title);
-      setTimeout(() => setCopied(false), 2000);
+      setOpen(false);
     },
-    [url, title],
+    [url, title, toast],
   );
 
   const handleToggle = useCallback(
@@ -216,12 +216,8 @@ export default function ShareButton({
               onClick={handleCopyLink}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
             >
-              {copied ? (
-                <Check className="h-4 w-4 text-emerald-500" aria-hidden="true" />
-              ) : (
-                <Link2 className="h-4 w-4" aria-hidden="true" />
-              )}
-              {copied ? "Copied!" : "Copy Link"}
+              <Link2 className="h-4 w-4" aria-hidden="true" />
+              Copy Link
             </button>
 
             <div className="mx-3 my-1 border-t border-border/40" />
