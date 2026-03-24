@@ -8,6 +8,7 @@ import AreasWeServe from "@/components/areas-we-serve";
 import WhyTauro from "@/components/why-tauro";
 import VideoShowcase from "@/components/VideoShowcase";
 import Testimonials from "@/components/testimonials";
+import FeaturedAgentSpotlight from "@/components/FeaturedAgentSpotlight";
 import HomepageCTAs from "@/components/homepage-ctas";
 
 // Client components — lazy-loaded to reduce initial JS bundle and improve INP
@@ -38,6 +39,8 @@ export default function HomePage() {
       <AreasWeServe />
       <WhyTauro />
       <VideoShowcase />
+      <div className="gold-divider mx-auto max-w-7xl" />
+      <FeaturedAgentSpotlight />
       <div className="gold-divider mx-auto max-w-7xl" />
       <Testimonials />
       <SocialProof />

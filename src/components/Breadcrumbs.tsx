@@ -41,13 +41,13 @@ export function Breadcrumbs({ items }: { items: BreadcrumbItem[] }) {
                   </span>
                 )}
                 {isLast ? (
-                  <span className="font-medium text-gold truncate max-w-[200px] sm:max-w-none">
+                  <span className="font-medium text-gold truncate max-w-[150px] sm:max-w-[200px] md:max-w-none">
                     {item.label}
                   </span>
                 ) : (
                   <Link
                     href={item.href}
-                    className="text-muted-foreground transition-colors hover:text-gold truncate max-w-[120px] sm:max-w-none"
+                    className="text-muted-foreground transition-colors hover:text-gold truncate max-w-[100px] sm:max-w-[150px] md:max-w-none"
                   >
                     {item.label}
                   </Link>

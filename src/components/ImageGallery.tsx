@@ -165,7 +165,7 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
           {showLeftArrow && (
             <button
               onClick={scrollLeft}
-              className="absolute left-0 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white transition-opacity hover:bg-black/80"
+              className="absolute left-0 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white transition-opacity hover:bg-black/80 sm:h-8 sm:w-8"
               aria-label="Scroll thumbnails left"
             >
               <ChevronLeft className="h-5 w-5" />
@@ -207,7 +207,7 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
           {showRightArrow && (
             <button
               onClick={scrollRight}
-              className="absolute right-0 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white transition-opacity hover:bg-black/80"
+              className="absolute right-0 top-1/2 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white transition-opacity hover:bg-black/80 sm:h-8 sm:w-8"
               aria-label="Scroll thumbnails right"
             >
               <ChevronRight className="h-5 w-5" />

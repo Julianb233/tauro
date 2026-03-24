@@ -141,7 +141,7 @@ export default function TestimonialCarousel({
           type="button"
           onClick={prev}
           aria-label="Previous testimonial"
-          className="absolute -left-3 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2 shadow-md transition-colors hover:bg-muted sm:-left-5"
+          className="absolute -left-2 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2.5 shadow-md transition-colors hover:bg-muted sm:-left-5 sm:p-2"
         >
           <ChevronLeft className="size-5 text-foreground" />
         </button>
@@ -149,7 +149,7 @@ export default function TestimonialCarousel({
           type="button"
           onClick={next}
           aria-label="Next testimonial"
-          className="absolute -right-3 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2 shadow-md transition-colors hover:bg-muted sm:-right-5"
+          className="absolute -right-2 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2.5 shadow-md transition-colors hover:bg-muted sm:-right-5 sm:p-2"
         >
           <ChevronRight className="size-5 text-foreground" />
         </button>
