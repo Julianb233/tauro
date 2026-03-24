@@ -10,6 +10,9 @@ import {
   Facebook,
   Twitter,
   Linkedin,
+  X,
+  Send,
+  UserPlus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -69,6 +72,201 @@ function PinterestIcon({ className }: { className?: string }) {
 }
 
 /* ------------------------------------------------------------------ */
+/*  Email to a Friend modal                                             */
+/* ------------------------------------------------------------------ */
+
+function EmailToFriendModal({
+  url,
+  title,
+  image,
+  onClose,
+}: {
+  url: string;
+  title: string;
+  image?: string;
+  onClose: () => void;
+}) {
+  const [form, setForm] = useState({
+    senderName: "",
+    recipientEmail: "",
+    recipientName: "",
+    personalMessage: "",
+  });
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setState("sending");
+
+    try {
+      const res = await fetch("/api/share-property", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          senderName: form.senderName,
+          recipientEmail: form.recipientEmail,
+          recipientName: form.recipientName || undefined,
+          personalMessage: form.personalMessage || undefined,
+          propertyTitle: title,
+          propertyUrl: url,
+          propertyImage: image || undefined,
+        }),
+      });
+
+      if (res.ok) {
+        trackShare("email_to_friend", title);
+        setState("sent");
+      } else {
+        setState("error");
+      }
+    } catch {
+      setState("error");
+    }
+  };
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Email property to a friend"
+        className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl"
+      >
+        <button
+          onClick={onClose}
+          className="absolute right-3 top-3 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          aria-label="Close"
+        >
+          <X className="h-5 w-5" />
+        </button>
+
+        {state === "sent" ? (
+          <div className="py-4 text-center">
+            <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-600/20">
+              <Check className="h-7 w-7 text-emerald-400" />
+            </div>
+            <h3 className="font-heading text-xl font-bold text-foreground">Email sent!</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Your friend will receive the property details shortly.
+            </p>
+            <button
+              onClick={onClose}
+              className="mt-5 rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light"
+            >
+              Done
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold/20">
+                <UserPlus className="h-5 w-5 text-gold" />
+              </div>
+              <div>
+                <h3 className="font-heading text-lg font-bold text-foreground">Email to a Friend</h3>
+                <p className="text-xs text-muted-foreground">{title}</p>
+              </div>
+            </div>
+
+            <form className="mt-5 space-y-3" onSubmit={handleSubmit}>
+              <div>
+                <label htmlFor="share-sender" className="mb-1 block text-xs font-medium text-muted-foreground">
+                  Your Name <span className="text-gold">*</span>
+                </label>
+                <input
+                  ref={inputRef}
+                  id="share-sender"
+                  type="text"
+                  required
+                  disabled={state === "sending"}
+                  value={form.senderName}
+                  onChange={(e) => setForm({ ...form, senderName: e.target.value })}
+                  placeholder="Jane Smith"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
+                />
+              </div>
+              <div>
+                <label htmlFor="share-email" className="mb-1 block text-xs font-medium text-muted-foreground">
+                  Friend&apos;s Email <span className="text-gold">*</span>
+                </label>
+                <input
+                  id="share-email"
+                  type="email"
+                  required
+                  disabled={state === "sending"}
+                  value={form.recipientEmail}
+                  onChange={(e) => setForm({ ...form, recipientEmail: e.target.value })}
+                  placeholder="friend@example.com"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
+                />
+              </div>
+              <div>
+                <label htmlFor="share-name" className="mb-1 block text-xs font-medium text-muted-foreground">
+                  Friend&apos;s Name <span className="text-xs text-muted-foreground">(optional)</span>
+                </label>
+                <input
+                  id="share-name"
+                  type="text"
+                  disabled={state === "sending"}
+                  value={form.recipientName}
+                  onChange={(e) => setForm({ ...form, recipientName: e.target.value })}
+                  placeholder="John Doe"
+                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
+                />
+              </div>
+              <div>
+                <label htmlFor="share-message" className="mb-1 block text-xs font-medium text-muted-foreground">
+                  Personal Message <span className="text-xs text-muted-foreground">(optional)</span>
+                </label>
+                <textarea
+                  id="share-message"
+                  rows={3}
+                  disabled={state === "sending"}
+                  value={form.personalMessage}
+                  onChange={(e) => setForm({ ...form, personalMessage: e.target.value })}
+                  placeholder="Check out this amazing property!"
+                  maxLength={500}
+                  className="w-full resize-none rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
+                />
+              </div>
+              <button
+                type="submit"
+                disabled={state === "sending"}
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-gold py-3 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <Send className="h-4 w-4" />
+                {state === "sending" ? "Sending..." : "Send Email"}
+              </button>
+              {state === "error" && (
+                <p role="alert" className="text-center text-sm text-red-400">
+                  Something went wrong. Please try again.
+                </p>
+              )}
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  ShareButton                                                         */
 /* ------------------------------------------------------------------ */
 
@@ -91,6 +289,7 @@ export default function ShareButton({
 }: ShareButtonProps) {
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -226,7 +425,23 @@ export default function ShareButton({
 
             <div className="mx-3 my-1 border-t border-border/40" />
 
-            {/* Email */}
+            {/* Email to a Friend */}
+            <button
+              type="button"
+              role="menuitem"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setOpen(false);
+                setShowEmailModal(true);
+              }}
+              className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-gold/10 hover:text-gold"
+            >
+              <UserPlus className="h-4 w-4" aria-hidden="true" />
+              Email to a Friend
+            </button>
+
+            {/* Email (self) */}
             <button
               type="button"
               role="menuitem"
@@ -326,6 +541,15 @@ export default function ShareButton({
             )}
           </div>
         </div>
+      )}
+
+      {showEmailModal && (
+        <EmailToFriendModal
+          url={url}
+          title={title}
+          image={image}
+          onClose={() => setShowEmailModal(false)}
+        />
       )}
     </div>
   );

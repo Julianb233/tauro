@@ -27,6 +27,10 @@ import {
   renderMonthlyNewsletter,
   type MonthlyNewsletterProps,
 } from "@/emails/monthly-newsletter";
+import {
+  renderShareProperty,
+  type SharePropertyProps,
+} from "@/emails/share-property";
 
 // ---------------------------------------------------------------------------
 // Resend client — lazily initialized, gracefully degrades if no API key
@@ -236,6 +240,33 @@ export async function sendMonthlyNewsletter(
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[email] sendMonthlyNewsletter failed:", message);
+    return { success: false, error: message };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// sendShareProperty — email a property listing to a friend
+// ---------------------------------------------------------------------------
+
+export async function sendShareProperty(
+  to: string,
+  data: SharePropertyProps,
+): Promise<EmailResult> {
+  const client = getResend();
+  if (!client) return { success: false, error: "Email client not configured" };
+
+  try {
+    const html = renderShareProperty(data);
+    await client.emails.send({
+      from: EMAIL_FROM,
+      to,
+      subject: `${data.senderName} shared a property with you — ${data.propertyTitle}`,
+      html,
+    });
+    return { success: true };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    console.error("[email] sendShareProperty failed:", message);
     return { success: false, error: message };
   }
 }
