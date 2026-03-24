@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import HeroSearchBar from "@/components/HeroSearchBar";
-import HeroVideo from "@/components/HeroVideo";
+import HeroSlideshow from "@/components/HeroSlideshow";
 
 export default function Hero() {
   return (
     <section aria-label="Hero" className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
-      {/* Cinematic video background with image fallback */}
-      <HeroVideo />
+      {/* Auto-rotating slideshow background */}
+      <HeroSlideshow />
 
       {/* Gradient overlay */}
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
