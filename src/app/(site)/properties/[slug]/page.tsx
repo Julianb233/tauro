@@ -78,7 +78,7 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
     (n) => n.propertyFilter.toLowerCase() === property.neighborhood.toLowerCase()
   );
   return (
-    <>
+    <div className="pt-16">
       <RealEstateListingJsonLd property={property} />
       <Breadcrumbs
         items={[
@@ -102,6 +102,6 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
             : undefined
         }
       />
-    </>
+    </div>
   );
 }

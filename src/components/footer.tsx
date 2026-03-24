@@ -43,7 +43,7 @@ const neighborhoods = [
     image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=160&h=96&fit=crop&q=80",
   },
   {
-    name: "South Philadelphia",
+    name: "South Philly",
     slug: "south-philly",
     image: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=160&h=96&fit=crop&q=80",
   },
