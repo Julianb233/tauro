@@ -94,6 +94,7 @@ export default function PropertyFilters({
         <select
           value={filters.sort}
           onChange={(e) => update("sort", e.target.value)}
+          aria-label="Sort properties"
           className={selectClasses + " w-auto"}
         >
           <option value="price-desc">Price: High to Low</option>
@@ -329,6 +330,8 @@ export default function PropertyFilters({
             <button
               type="button"
               onClick={() => update("virtualTour", filters.virtualTour ? "" : "yes")}
+              aria-pressed={!!filters.virtualTour}
+              aria-label="Filter by 3D virtual tour availability"
               className={`flex items-center gap-1.5 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
                 filters.virtualTour
                   ? "border-gold bg-gold/10 text-gold"
@@ -347,6 +350,8 @@ export default function PropertyFilters({
             <button
               type="button"
               onClick={() => update("newConstruction", filters.newConstruction ? "" : "yes")}
+              aria-pressed={!!filters.newConstruction}
+              aria-label="Filter by new construction"
               className={`flex items-center gap-1.5 rounded-lg border px-3 py-2.5 text-sm font-medium transition-colors ${
                 filters.newConstruction
                   ? "border-gold bg-gold/10 text-gold"

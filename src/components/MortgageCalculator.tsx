@@ -229,6 +229,9 @@ export default function MortgageCalculator({
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
         className="flex w-full items-center justify-between p-6 sm:p-8"
+        aria-expanded={isExpanded}
+        aria-controls="mortgage-calculator-body"
+        aria-label={isExpanded ? "Collapse mortgage calculator" : "Expand mortgage calculator"}
       >
         <div className="flex items-center gap-2.5">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gold/15">
@@ -255,6 +258,7 @@ export default function MortgageCalculator({
 
       {/* Expandable content */}
       <div
+        id="mortgage-calculator-body"
         className={`overflow-hidden transition-all duration-500 ease-in-out ${
           isExpanded ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"
         }`}
@@ -394,6 +398,7 @@ export default function MortgageCalculator({
                   key={term}
                   type="button"
                   onClick={() => setLoanTerm(term)}
+                  aria-pressed={loanTerm === term}
                   className={`rounded-lg border px-4 py-2.5 text-sm font-semibold transition-colors ${
                     loanTerm === term
                       ? "border-gold bg-gold/15 text-gold"
