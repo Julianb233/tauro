@@ -8,6 +8,7 @@ import {
   getBlogPostBySlug,
   getRelatedPosts,
 } from "@/data/blog-posts";
+import { getBlogAuthorByName } from "@/data/blog-authors";
 import { siteUrl } from "@/lib/site-config";
 import { ReadingProgress } from "@/components/ReadingProgress";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
@@ -148,6 +149,7 @@ export default async function BlogPostPage({
 
   const related = getRelatedPosts(slug, 3);
   const contentHtml = renderMarkdown(post.content);
+  const author = getBlogAuthorByName(post.author);
 
   return (
     <>
@@ -204,7 +206,16 @@ export default async function BlogPostPage({
               />
             </div>
             <div>
-              <p className="text-sm font-semibold text-white">{post.author}</p>
+              {author ? (
+                <Link
+                  href={`/blog/authors/${author.slug}`}
+                  className="text-sm font-semibold text-white transition-colors hover:text-gold"
+                >
+                  {post.author}
+                </Link>
+              ) : (
+                <p className="text-sm font-semibold text-white">{post.author}</p>
+              )}
               <div className="flex items-center gap-3 text-xs text-white/40">
                 <span>{formatDate(post.publishedAt)}</span>
                 <span className="flex items-center gap-1">
