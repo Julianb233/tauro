@@ -120,7 +120,7 @@ export default function JoinPage() {
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
             Join the Tauro Team
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-white/60">
+          <p className="mt-4 max-w-xl text-lg text-white/80">
             We&apos;re building Philadelphia&apos;s most elite real estate team. If
             you&apos;re driven, client-focused, and ready to elevate your career, we
             want to hear from you.

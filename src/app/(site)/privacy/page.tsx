@@ -21,7 +21,7 @@ export default function PrivacyPage() {
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
             Privacy Policy
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-white/60">
+          <p className="mt-4 max-w-xl text-lg text-white/80">
             Last updated: March 18, 2026
           </p>
         </div>

@@ -175,7 +175,7 @@ export default async function HomesForSaleNeighborhoodPage({
         <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/50 to-midnight/20" />
 
         <div className="relative z-10 mx-auto flex min-h-[55vh] max-w-7xl flex-col justify-end px-4 pb-14 sm:px-6 lg:px-8">
-          <nav className="mb-6 flex items-center gap-2 text-sm text-white/60">
+          <nav className="mb-6 flex items-center gap-2 text-sm text-white/80">
             <Link href="/" className="transition-colors hover:text-gold">
               Home
             </Link>

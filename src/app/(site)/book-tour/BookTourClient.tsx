@@ -29,7 +29,7 @@ export default function BookTourClient({ properties, agents }: { properties: Pro
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">Schedule a Visit</p>
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl">Book a Tour</h1>
-          <p className="mt-4 max-w-xl text-lg text-white/60">Schedule a private showing of any Philadelphia property with a Tauro Real Estate agent. Pick your property, choose a date and time, and we&apos;ll handle the rest.</p>
+          <p className="mt-4 max-w-xl text-lg text-white/80">Schedule a private showing of any Philadelphia property with a Tauro Real Estate agent. Pick your property, choose a date and time, and we&apos;ll handle the rest.</p>
         </div>
       </section>
       <section className="bg-cream pb-8"><div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8"><div className="rounded-xl border border-border/40 bg-card p-6"><div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">{infoBanner.map((item) => (<div key={item.label} className="flex items-start gap-3"><div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-gold/10"><item.icon className="size-5 text-gold" /></div><div><p className="text-sm font-semibold text-foreground">{item.label}</p><p className="mt-0.5 text-xs text-muted-foreground">{item.desc}</p></div></div>))}</div></div></div></section>

@@ -87,7 +87,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           <h3 className={`mt-4 font-heading text-lg font-bold ${isSidebar ? "text-white" : "text-foreground"}`}>
             Message Sent!
           </h3>
-          <p className={`mt-2 text-sm ${isSidebar ? "text-white/60" : "text-muted-foreground"}`}>
+          <p className={`mt-2 text-sm ${isSidebar ? "text-white/80" : "text-muted-foreground"}`}>
             {agent.firstName} will be in touch within one business day.
           </p>
           <button
@@ -110,7 +110,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           Contact {agent.firstName}
         </h3>
       </div>
-      <p className={`mb-4 text-xs ${isSidebar ? "text-white/50" : "text-muted-foreground"}`}>
+      <p className={`mb-4 text-xs ${isSidebar ? "text-white/70" : "text-muted-foreground"}`}>
         Send a direct message to {agent.firstName}. We typically respond within one business day.
       </p>
 
@@ -175,7 +175,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           {state === "submitting" ? "Sending..." : `Send Message`}
         </button>
 
-        <p className={`text-center text-[10px] ${isSidebar ? "text-white/30" : "text-muted-foreground"}`}>
+        <p className={`text-center text-[10px] ${isSidebar ? "text-white/70" : "text-muted-foreground"}`}>
           By submitting, you agree to our{" "}
           <a href="/privacy" className="text-gold hover:underline">Privacy Policy</a>.
         </p>

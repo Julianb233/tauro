@@ -129,7 +129,7 @@ export default function MarketInsightsPage() {
           <h1 className="mt-3 max-w-3xl font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
             Philadelphia Market Insights
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-white/60">
+          <p className="mt-4 max-w-xl text-lg text-white/80">
             Data-driven insights to help you make smarter real estate decisions.
           </p>
           <p className="mt-3 text-xs text-muted-foreground">

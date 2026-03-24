@@ -57,7 +57,7 @@ export default function BlogPage({
           <h1 className="mt-3 max-w-4xl font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
             Insights on Philadelphia Real Estate
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-white/60">
+          <p className="mt-4 max-w-xl text-lg text-white/80">
             Market analysis, neighborhood guides, and expert perspectives from
             our team.
           </p>
@@ -91,10 +91,10 @@ export default function BlogPage({
                 <h2 className="mt-2 font-heading text-2xl font-bold text-white transition-colors group-hover:text-gold sm:text-3xl">
                   {featured.title}
                 </h2>
-                <p className="mt-3 text-sm leading-relaxed text-white/60">
+                <p className="mt-3 text-sm leading-relaxed text-white/80">
                   {featured.excerpt}
                 </p>
-                <div className="mt-6 flex items-center gap-4 text-xs text-white/40">
+                <div className="mt-6 flex items-center gap-4 text-xs text-white/60">
                   <div className="flex items-center gap-2">
                     <div className="relative size-8 overflow-hidden rounded-full">
                       <Image
@@ -107,7 +107,7 @@ export default function BlogPage({
                         blurDataURL={BLUR_SQUARE}
                       />
                     </div>
-                    <span className="text-white/60">{featured.author}</span>
+                    <span className="text-white/80">{featured.author}</span>
                   </div>
                   <span>{formatDate(featured.publishedAt)}</span>
                   <span className="flex items-center gap-1">
@@ -140,7 +140,7 @@ export default function BlogPage({
           <h2 className="mt-3 font-heading text-3xl font-bold text-white sm:text-4xl">
             Get Market Insights Delivered
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-white/60">
+          <p className="mx-auto mt-4 max-w-xl text-white/80">
             Join our mailing list for exclusive market reports, neighborhood
             spotlights, and expert analysis from the Tauro team.
           </p>

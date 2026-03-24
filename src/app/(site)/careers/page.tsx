@@ -216,7 +216,7 @@ export default function CareersPage() {
             Build Your Future{" "}
             <span className="text-gold">with&nbsp;Tauro</span>
           </h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/60">
+          <p className="mt-5 max-w-2xl text-lg text-white/80">
             We&apos;re building Philadelphia&apos;s most elite real estate team.
             If you&apos;re driven, client-focused, and ready to elevate your
             career, Tauro is where you belong.
@@ -408,13 +408,13 @@ export default function CareersPage() {
                 More Than a Brokerage —{" "}
                 <span className="text-gold">A Family</span>
               </h2>
-              <p className="mt-4 text-white/60">
+              <p className="mt-4 text-white/80">
                 At Tauro, we believe the best work happens when people feel
                 valued, supported, and inspired. Our culture blends ambitious
                 goals with genuine care — creating an environment where everyone
                 can thrive.
               </p>
-              <p className="mt-3 text-white/60">
+              <p className="mt-3 text-white/80">
                 From team retreats and mentorship circles to Friday happy hours
                 and community service days, life at Tauro is about more than
                 closing deals. It&apos;s about building something meaningful
@@ -432,7 +432,7 @@ export default function CareersPage() {
                   <h3 className="mt-3 font-heading text-sm font-bold text-white">
                     {value.title}
                   </h3>
-                  <p className="mt-1.5 text-xs leading-relaxed text-white/50">
+                  <p className="mt-1.5 text-xs leading-relaxed text-white/70">
                     {value.description}
                   </p>
                 </div>

@@ -65,7 +65,7 @@ export function NewsletterSlideIn() {
         {/* Close button */}
         <button
           onClick={handleDismiss}
-          className="absolute right-3 top-4 rounded-md p-1 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
+          className="absolute right-3 top-4 rounded-md p-1 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
           aria-label="Close newsletter popup"
         >
           <X className="size-4" />
@@ -81,7 +81,7 @@ export function NewsletterSlideIn() {
           <h3 className="mb-1 font-heading text-lg font-semibold text-off-white">
             Stay in the know about Philadelphia real estate
           </h3>
-          <p className="mb-4 text-sm text-white/60">
+          <p className="mb-4 text-sm text-white/80">
             New listings, market trends, and neighborhood guides delivered monthly.
           </p>
 

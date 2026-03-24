@@ -139,7 +139,7 @@ export default function SellersGuidePage() {
           <h1 className="mt-3 max-w-3xl font-heading text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
             The Smart Seller&apos;s Guide to Maximizing Your Home&apos;s Value
           </h1>
-          <p className="mt-5 max-w-xl text-lg text-white/60">
+          <p className="mt-5 max-w-xl text-lg text-white/80">
             From pricing strategy to closing day, Tauro helps Philadelphia
             sellers get top dollar with expert guidance and premium marketing at
             every step.

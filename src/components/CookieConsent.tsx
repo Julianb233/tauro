@@ -72,7 +72,7 @@ export function CookieConsent() {
                 <h2 className="font-heading text-lg font-bold text-white">
                   We value your privacy
                 </h2>
-                <p className="mt-2 text-sm leading-relaxed text-white/60">
+                <p className="mt-2 text-sm leading-relaxed text-white/80">
                   We use cookies to enhance your browsing experience, analyze
                   site traffic, and personalize content. You can choose to accept
                   all cookies, reject non-essential ones, or manage your
@@ -102,7 +102,7 @@ export function CookieConsent() {
               </button>
               <button
                 onClick={() => setShowPrefs(true)}
-                className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white/60 underline underline-offset-2 transition-colors hover:text-white focus-visible:outline-none"
+                className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white/80 underline underline-offset-2 transition-colors hover:text-white focus-visible:outline-none"
               >
                 Manage Preferences
               </button>
@@ -113,7 +113,7 @@ export function CookieConsent() {
             <h2 className="font-heading text-lg font-bold text-white">
               Cookie Preferences
             </h2>
-            <p className="mt-2 text-sm text-white/60">
+            <p className="mt-2 text-sm text-white/80">
               Choose which cookies you allow. Essential cookies cannot be
               disabled as they are required for the site to function.
             </p>
@@ -125,7 +125,7 @@ export function CookieConsent() {
                   <p className="text-sm font-semibold text-white">
                     Essential Cookies
                   </p>
-                  <p className="mt-0.5 text-xs text-white/50">
+                  <p className="mt-0.5 text-xs text-white/70">
                     Required for the website to function. Cannot be disabled.
                   </p>
                 </div>
@@ -143,7 +143,7 @@ export function CookieConsent() {
                   <p className="text-sm font-semibold text-white">
                     Analytics Cookies
                   </p>
-                  <p className="mt-0.5 text-xs text-white/50">
+                  <p className="mt-0.5 text-xs text-white/70">
                     Help us understand how visitors use our site (Google
                     Analytics).
                   </p>
@@ -162,7 +162,7 @@ export function CookieConsent() {
                   <p className="text-sm font-semibold text-white">
                     Marketing Cookies
                   </p>
-                  <p className="mt-0.5 text-xs text-white/50">
+                  <p className="mt-0.5 text-xs text-white/70">
                     Used for personalized ads and retargeting across platforms.
                   </p>
                 </div>
@@ -184,7 +184,7 @@ export function CookieConsent() {
               </button>
               <button
                 onClick={() => setShowPrefs(false)}
-                className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white/60 underline underline-offset-2 transition-colors hover:text-white focus-visible:outline-none"
+                className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white/80 underline underline-offset-2 transition-colors hover:text-white focus-visible:outline-none"
               >
                 Back
               </button>

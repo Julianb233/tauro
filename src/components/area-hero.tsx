@@ -21,7 +21,7 @@ export function AreaHero({ neighborhood }: { neighborhood: Neighborhood }) {
 
       <div className="relative z-10 mx-auto flex min-h-[50vh] max-w-7xl flex-col justify-end px-4 pb-12 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <nav className="mb-6 flex items-center gap-2 text-sm text-white/60">
+        <nav className="mb-6 flex items-center gap-2 text-sm text-white/80">
           <Link href="/" className="transition-colors hover:text-gold">
             Home
           </Link>
