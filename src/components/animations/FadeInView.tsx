@@ -30,14 +30,22 @@ export default function FadeInView({
   start = "top 85%",
 }: FadeInViewProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [animated, setAnimated] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+    const timeout = setTimeout(() => {
+      if (!cancelled && !animated) setAnimated(true);
+    }, 2000);
+
     try {
       const loadGSAP = async () => {
         const { gsap } = await import("gsap");
         const { ScrollTrigger } = await import("gsap/ScrollTrigger");
         gsap.registerPlugin(ScrollTrigger);
+
+        if (cancelled) return;
+        setAnimated(true);
 
         const offset = directionOffset[direction];
         gsap.fromTo(
@@ -60,12 +68,14 @@ export default function FadeInView({
       };
       loadGSAP();
     } catch {
-      setVisible(true);
+      setAnimated(true);
     }
-  }, [direction, delay, duration, start]);
+
+    return () => { cancelled = true; clearTimeout(timeout); };
+  }, [direction, delay, duration, start, animated]);
 
   return (
-    <div ref={ref} className={className} style={visible ? undefined : { opacity: 0 }}>
+    <div ref={ref} className={className} style={animated ? undefined : { opacity: 0 }}>
       {children}
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, type ReactNode } from "react";
+import { useRef, useEffect, useState, type ReactNode } from "react";
 
 interface StaggerRevealProps {
   children: ReactNode;
@@ -18,13 +18,21 @@ export default function StaggerReveal({
   className,
 }: StaggerRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [fallback, setFallback] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
+    const timeout = setTimeout(() => {
+      if (!cancelled) setFallback(true);
+    }, 2000);
+
     try {
       const loadGSAP = async () => {
         const { gsap } = await import("gsap");
         const { ScrollTrigger } = await import("gsap/ScrollTrigger");
         gsap.registerPlugin(ScrollTrigger);
+
+        if (cancelled) return;
 
         const items = ref.current?.querySelectorAll(selector);
         if (!items?.length) return;
@@ -45,12 +53,14 @@ export default function StaggerReveal({
       };
       loadGSAP();
     } catch {
-      // Fallback: just show children
+      setFallback(true);
     }
+
+    return () => { cancelled = true; clearTimeout(timeout); };
   }, [selector, stagger, duration]);
 
   return (
-    <div ref={ref} className={className}>
+    <div ref={ref} className={className} style={fallback ? { opacity: 1 } : undefined}>
       {children}
     </div>
   );
