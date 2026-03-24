@@ -215,7 +215,7 @@ export default async function HomesForSaleNeighborhoodPage({
       {/* Property listings */}
       <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-midnight">
             Available Listings
           </p>
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
@@ -229,11 +229,11 @@ export default async function HomesForSaleNeighborhoodPage({
             </div>
           ) : (
             <div className="mt-8 rounded-xl border border-border/40 bg-card p-10 text-center">
-              <MapPin className="mx-auto size-10 text-gold/40" />
+              <MapPin className="mx-auto size-10 text-midnight/40" />
               <p className="mt-4 font-heading text-lg font-bold text-foreground">
                 New listings in {neighborhood.name} coming soon.
               </p>
-              <p className="mt-2 text-sm text-muted-foreground">
+              <p className="mt-2 text-sm text-foreground/80">
                 Contact us to be the first to know when luxury properties become
                 available in this neighborhood.
               </p>
@@ -253,13 +253,13 @@ export default async function HomesForSaleNeighborhoodPage({
       <section className="border-t border-border/40 bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-midnight">
               About the Neighborhood
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
               Living in {neighborhood.name}
             </h2>
-            <div className="mt-6 space-y-4 leading-relaxed text-muted-foreground">
+            <div className="mt-6 space-y-4 leading-relaxed text-foreground/80">
               {neighborhood.description.split("\n\n").map((para, i) => (
                 <p key={i}>{para}</p>
               ))}
@@ -271,7 +271,7 @@ export default async function HomesForSaleNeighborhoodPage({
       {/* Selling points */}
       <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-midnight">
             Why {neighborhood.name}
           </p>
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
@@ -280,8 +280,8 @@ export default async function HomesForSaleNeighborhoodPage({
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {neighborhood.sellingPoints.map((point) => (
               <div key={point} className="flex items-start gap-3">
-                <CheckCircle className="mt-0.5 size-5 shrink-0 text-gold" />
-                <p className="text-muted-foreground">{point}</p>
+                <CheckCircle className="mt-0.5 size-5 shrink-0 text-midnight" />
+                <p className="text-foreground/80">{point}</p>
               </div>
             ))}
           </div>
@@ -291,7 +291,7 @@ export default async function HomesForSaleNeighborhoodPage({
       {/* Lifestyle & culture */}
       <section className="border-t border-border/40 bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-midnight">
             Local Life
           </p>
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
@@ -312,13 +312,13 @@ export default async function HomesForSaleNeighborhoodPage({
                 >
                   <div className="flex items-center gap-3">
                     <div className="flex size-10 items-center justify-center rounded-lg bg-gold/10">
-                      <Icon className="size-5 text-gold" />
+                      <Icon className="size-5 text-midnight" />
                     </div>
                     <h3 className="font-heading text-lg font-bold text-foreground">
                       {lifestyleLabels[key]}
                     </h3>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-3 text-sm leading-relaxed text-foreground/80">
                     {value}
                   </p>
                 </div>
@@ -337,13 +337,13 @@ export default async function HomesForSaleNeighborhoodPage({
       {/* CTA section */}
       <section className="bg-white py-20">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-midnight">
             Ready to Find Your Home?
           </p>
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
             Explore Luxury Living in {neighborhood.name}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-xl text-foreground/80">
             Connect with a Tauro Realty agent who specializes in{" "}
             {neighborhood.name} to find your perfect luxury home in
             Philadelphia.
@@ -358,7 +358,7 @@ export default async function HomesForSaleNeighborhoodPage({
             </Link>
             <Link
               href="/properties"
-              className="inline-flex items-center gap-2 rounded-lg border-2 border-gold px-8 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
+              className="inline-flex items-center gap-2 rounded-lg border-2 border-midnight px-8 py-3 text-sm font-semibold text-midnight transition-all hover:bg-midnight hover:text-white"
             >
               Browse All Properties
               <ArrowRight className="size-4" />

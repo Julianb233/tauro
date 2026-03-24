@@ -145,13 +145,13 @@ export default function HomeValuePage() {
           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-black/50" />
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-white/90">
             Free Home Valuation
           </p>
           <h1 className="mt-3 font-heading text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
             What&apos;s My Home Worth?
             <br />
-            <span className="text-gold">Find Out in 24 Hours.</span>
+            <span className="text-gold-light">Find Out in 24 Hours.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-2xl text-lg text-white/95">
             Get a no-obligation market analysis from a Tauro agent who knows your
@@ -170,13 +170,13 @@ export default function HomeValuePage() {
                 className="flex items-start gap-4 rounded-xl border border-border/40 bg-white p-5"
               >
                 <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-gold/10">
-                  <item.icon className="size-5 text-gold" />
+                  <item.icon className="size-5 text-midnight" />
                 </div>
                 <div>
                   <h3 className="font-heading text-sm font-bold text-midnight">
                     {item.title}
                   </h3>
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                  <p className="mt-1 text-xs leading-relaxed text-foreground/80">
                     {item.description}
                   </p>
                 </div>
@@ -190,13 +190,13 @@ export default function HomeValuePage() {
       <section className="bg-white py-20">
         <div className="mx-auto max-w-2xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-midnight">
               Get Your Free Report
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-midnight sm:text-4xl">
               Request Your Valuation
             </h2>
-            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+            <p className="mx-auto mt-4 max-w-xl text-foreground/80">
               Tell us about your property and a Tauro agent will deliver a
               personalized market analysis within 24 hours.
             </p>
@@ -205,12 +205,12 @@ export default function HomeValuePage() {
           {state === "success" ? (
             <div className="flex flex-col items-center rounded-2xl border border-border/40 bg-cream p-12 text-center shadow-xl">
               <div className="flex size-20 items-center justify-center rounded-full bg-gold/10">
-                <CheckCircle className="size-10 text-gold" />
+                <CheckCircle className="size-10 text-midnight" />
               </div>
               <h3 className="mt-6 font-heading text-2xl font-bold text-midnight">
                 Valuation Request Received!
               </h3>
-              <p className="mt-3 max-w-sm text-muted-foreground">
+              <p className="mt-3 max-w-sm text-foreground/80">
                 A Tauro agent will analyze your property and deliver a
                 comprehensive market report within 24 hours.
               </p>
@@ -249,10 +249,10 @@ export default function HomeValuePage() {
                   htmlFor="homeAddress"
                   className="mb-1.5 block text-sm font-medium text-midnight"
                 >
-                  Property Address <span className="text-gold">*</span>
+                  Property Address <span className="text-midnight">*</span>
                 </label>
                 <div className="relative">
-                  <Home className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-gold/60" />
+                  <Home className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-midnight/60" />
                   <input
                     id="homeAddress"
                     name="homeAddress"
@@ -262,7 +262,7 @@ export default function HomeValuePage() {
                     value={form.homeAddress}
                     onChange={handleChange}
                     placeholder="123 Walnut St, Philadelphia, PA 19103"
-                    className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 text-base text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white py-3 pl-10 pr-4 text-base text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                   />
                 </div>
               </div>
@@ -274,7 +274,7 @@ export default function HomeValuePage() {
                     htmlFor="firstName"
                     className="mb-1.5 block text-sm font-medium text-midnight"
                   >
-                    First Name <span className="text-gold">*</span>
+                    First Name <span className="text-midnight">*</span>
                   </label>
                   <input
                     id="firstName"
@@ -285,7 +285,7 @@ export default function HomeValuePage() {
                     value={form.firstName}
                     onChange={handleChange}
                     placeholder="Jane"
-                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                   />
                 </div>
                 <div>
@@ -293,7 +293,7 @@ export default function HomeValuePage() {
                     htmlFor="lastName"
                     className="mb-1.5 block text-sm font-medium text-midnight"
                   >
-                    Last Name <span className="text-gold">*</span>
+                    Last Name <span className="text-midnight">*</span>
                   </label>
                   <input
                     id="lastName"
@@ -304,7 +304,7 @@ export default function HomeValuePage() {
                     value={form.lastName}
                     onChange={handleChange}
                     placeholder="Smith"
-                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                   />
                 </div>
               </div>
@@ -315,7 +315,7 @@ export default function HomeValuePage() {
                   htmlFor="email"
                   className="mb-1.5 block text-sm font-medium text-midnight"
                 >
-                  Email Address <span className="text-gold">*</span>
+                  Email Address <span className="text-midnight">*</span>
                 </label>
                 <input
                   id="email"
@@ -326,7 +326,7 @@ export default function HomeValuePage() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="jane@example.com"
-                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                 />
               </div>
 
@@ -336,7 +336,7 @@ export default function HomeValuePage() {
                   htmlFor="phone"
                   className="mb-1.5 block text-sm font-medium text-midnight"
                 >
-                  Phone Number <span className="text-gold">*</span>
+                  Phone Number <span className="text-midnight">*</span>
                 </label>
                 <input
                   id="phone"
@@ -347,7 +347,7 @@ export default function HomeValuePage() {
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="(215) 839-4172"
-                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                 />
               </div>
 
@@ -366,7 +366,7 @@ export default function HomeValuePage() {
                   value={form.message}
                   onChange={handleChange}
                   placeholder="Recent renovations, timeline to sell, special circumstances..."
-                    className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                    className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                 />
               </div>
 
@@ -380,9 +380,9 @@ export default function HomeValuePage() {
                   : "Get My Free Valuation"}
               </button>
 
-              <p className="text-center text-xs text-muted-foreground">
+              <p className="text-center text-xs text-foreground/70">
                 Free. No obligation. By submitting, you agree to our{" "}
-                <a href="/privacy" className="text-gold hover:underline">
+                <a href="/privacy" className="text-midnight font-medium hover:underline">
                   Privacy Policy
                 </a>
                 .
@@ -396,7 +396,7 @@ export default function HomeValuePage() {
       <section className="bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-midnight">
               Simple Process
             </p>
             <h2 className="mt-2 font-heading text-3xl font-bold text-midnight sm:text-4xl">
@@ -407,15 +407,15 @@ export default function HomeValuePage() {
             {steps.map((step) => (
               <div key={step.number} className="text-center">
                 <div className="mx-auto flex size-14 items-center justify-center rounded-xl bg-gold/10">
-                  <step.icon className="size-6 text-gold" />
+                  <step.icon className="size-6 text-midnight" />
                 </div>
-                <p className="mt-4 font-heading text-2xl font-bold text-gold">
+                <p className="mt-4 font-heading text-2xl font-bold text-midnight">
                   {step.number}
                 </p>
                 <h3 className="mt-1 font-heading text-lg font-bold text-midnight">
                   {step.title}
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-sm leading-relaxed text-foreground/80">
                   {step.description}
                 </p>
               </div>

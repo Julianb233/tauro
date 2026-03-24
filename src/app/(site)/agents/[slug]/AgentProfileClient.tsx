@@ -75,7 +75,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
     : "mb-1.5 block text-sm font-medium text-foreground";
   const inputCls = isSidebar
     ? "w-full rounded-lg border border-border/30 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
-    : "w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20";
+    : "w-full rounded-lg border border-border/40 bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus:border-midnight focus:outline-none focus:ring-2 focus:ring-midnight/20";
 
   if (state === "success") {
     return (
@@ -87,7 +87,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           <h3 className={`mt-4 font-heading text-lg font-bold ${isSidebar ? "text-white" : "text-foreground"}`}>
             Message Sent!
           </h3>
-          <p className={`mt-2 text-sm ${isSidebar ? "text-white/60" : "text-muted-foreground"}`}>
+          <p className={`mt-2 text-sm ${isSidebar ? "text-white/60" : "text-foreground/80"}`}>
             {agent.firstName} will be in touch within one business day.
           </p>
           <button
@@ -110,7 +110,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           Contact {agent.firstName}
         </h3>
       </div>
-      <p className={`mb-4 text-xs ${isSidebar ? "text-white/50" : "text-muted-foreground"}`}>
+      <p className={`mb-4 text-xs ${isSidebar ? "text-white/50" : "text-foreground/80"}`}>
         Send a direct message to {agent.firstName}. We typically respond within one business day.
       </p>
 
@@ -128,29 +128,29 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
         </div>
 
         {/* Pre-filled agent indicator */}
-        <div className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs ${isSidebar ? "bg-gold/10 text-gold" : "bg-gold/5 text-gold"}`}>
+        <div className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs ${isSidebar ? "bg-gold/10 text-gold" : "bg-midnight/5 text-midnight"}`}>
           <Mail className="size-3.5" />
           <span>Message for <strong>{agent.fullName}</strong></span>
         </div>
 
         <div className={isSidebar ? "grid gap-3 grid-cols-2" : "grid gap-4 sm:grid-cols-2"}>
           <div>
-            <label htmlFor="cf-firstName" className={labelCls}>First Name <span className="text-gold">*</span></label>
+            <label htmlFor="cf-firstName" className={labelCls}>First Name <span className={isSidebar ? "text-gold" : "text-midnight"}>*</span></label>
             <input id="cf-firstName" name="firstName" type="text" required autoComplete="given-name" value={form.firstName} onChange={handleChange} placeholder="Jane" className={inputCls} />
           </div>
           <div>
-            <label htmlFor="cf-lastName" className={labelCls}>Last Name <span className="text-gold">*</span></label>
+            <label htmlFor="cf-lastName" className={labelCls}>Last Name <span className={isSidebar ? "text-gold" : "text-midnight"}>*</span></label>
             <input id="cf-lastName" name="lastName" type="text" required autoComplete="family-name" value={form.lastName} onChange={handleChange} placeholder="Smith" className={inputCls} />
           </div>
         </div>
 
         <div>
-          <label htmlFor="cf-email" className={labelCls}>Email <span className="text-gold">*</span></label>
+          <label htmlFor="cf-email" className={labelCls}>Email <span className={isSidebar ? "text-gold" : "text-midnight"}>*</span></label>
           <input id="cf-email" name="email" type="email" required autoComplete="email" value={form.email} onChange={handleChange} placeholder="jane@example.com" className={inputCls} />
         </div>
 
         <div>
-          <label htmlFor="cf-phone" className={labelCls}>Phone <span className="text-gold">*</span></label>
+          <label htmlFor="cf-phone" className={labelCls}>Phone <span className={isSidebar ? "text-gold" : "text-midnight"}>*</span></label>
           <input id="cf-phone" name="phone" type="tel" required autoComplete="tel" value={form.phone} onChange={handleChange} placeholder="(215) 839-4172" className={inputCls} />
         </div>
 
@@ -175,9 +175,9 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           {state === "submitting" ? "Sending..." : `Send Message`}
         </button>
 
-        <p className={`text-center text-[10px] ${isSidebar ? "text-white/30" : "text-muted-foreground"}`}>
+        <p className={`text-center text-[10px] ${isSidebar ? "text-white/30" : "text-foreground/70"}`}>
           By submitting, you agree to our{" "}
-          <a href="/privacy" className="text-gold hover:underline">Privacy Policy</a>.
+          <a href="/privacy" className={isSidebar ? "text-gold hover:underline" : "text-midnight font-medium hover:underline"}>Privacy Policy</a>.
         </p>
       </form>
     </div>
@@ -193,7 +193,7 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
       {/* Hero + Sidebar layout */}
       <section className="bg-foreground pb-16 pt-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <Link href="/agents" className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-gold">
+          <Link href="/agents" className="mb-8 inline-flex items-center gap-2 text-sm text-white/80 transition-colors hover:text-gold-light">
             <ArrowLeft className="size-4" />Back to Team
           </Link>
 
@@ -226,13 +226,13 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                   ))}
                 </div>
               )}
-              <p className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
+              <p className="mt-2 flex items-center gap-2 text-sm text-white/80">
                 <span className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">
                   {agent.stats.yearsExperience}+ Years Experience
                 </span>
               </p>
-              <p className="mt-1 text-xs text-muted-foreground">License #{agent.licenseNumber}</p>
-              <p className="mt-6 whitespace-pre-line leading-relaxed text-muted-foreground">{agent.bio}</p>
+              <p className="mt-1 text-xs text-white/70">License #{agent.licenseNumber}</p>
+              <p className="mt-6 whitespace-pre-line leading-relaxed text-white/90">{agent.bio}</p>
               {agent.languages.length > 0 && (
                 <div className="mt-4 flex flex-wrap items-center gap-2">
                   <span className="text-xs font-label uppercase tracking-wider text-gold/80">Languages:</span>
@@ -243,12 +243,12 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
               )}
               <div className="mt-4 flex gap-3">
                 {agent.social.instagram && (
-                  <a href={agent.social.instagram} target="_blank" rel="noopener noreferrer" className="flex size-10 items-center justify-center rounded-lg border border-border/40 text-muted-foreground transition-colors hover:border-gold/40 hover:text-gold">
+                  <a href={agent.social.instagram} target="_blank" rel="noopener noreferrer" className="flex size-10 items-center justify-center rounded-lg border border-border/40 text-white/80 transition-colors hover:border-gold/40 hover:text-gold">
                     <Instagram className="size-5" />
                   </a>
                 )}
                 {agent.social.linkedin && (
-                  <a href={agent.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex size-10 items-center justify-center rounded-lg border border-border/40 text-muted-foreground transition-colors hover:border-gold/40 hover:text-gold">
+                  <a href={agent.social.linkedin} target="_blank" rel="noopener noreferrer" className="flex size-10 items-center justify-center rounded-lg border border-border/40 text-white/80 transition-colors hover:border-gold/40 hover:text-gold">
                     <Linkedin className="size-5" />
                   </a>
                 )}
@@ -279,7 +279,7 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
               <div key={stat.label} className="text-center">
                 <stat.icon className="mx-auto mb-2 size-5 text-gold/60" />
                 <p className="font-heading text-3xl font-bold text-gold">{stat.value}</p>
-                <p className="mt-1 text-xs font-label uppercase tracking-wider text-muted-foreground">{stat.label}</p>
+                <p className="mt-1 text-xs font-label uppercase tracking-wider text-white/70">{stat.label}</p>
               </div>
             ))}
           </div>
@@ -297,7 +297,7 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                 <h2 className="font-heading text-2xl font-bold text-foreground">Specialties</h2>
                 <div className="mt-4 flex flex-wrap gap-2">
                   {agent.specialties.map((s) => (
-                    <span key={s} className="rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 text-sm text-gold">{s}</span>
+                    <span key={s} className="rounded-full border border-midnight/30 bg-midnight/5 px-4 py-1.5 text-sm text-midnight">{s}</span>
                   ))}
                 </div>
               </div>
@@ -315,18 +315,18 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
             {agent.certifications.length > 0 && (
               <div>
                 <div className="flex items-center gap-3">
-                  <ShieldCheck className="size-5 text-gold" />
+                  <ShieldCheck className="size-5 text-midnight" />
                   <h2 className="font-heading text-2xl font-bold text-foreground">Certifications & Designations</h2>
                 </div>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {agent.certifications.map((cert) => (
-                    <div key={cert.code} className="flex items-center gap-4 rounded-xl border border-gold/20 bg-cream p-5">
-                      <div className="flex size-12 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-gold/10">
-                        <span className="text-sm font-bold text-gold">{cert.code}</span>
+                    <div key={cert.code} className="flex items-center gap-4 rounded-xl border border-midnight/20 bg-cream p-5">
+                      <div className="flex size-12 shrink-0 items-center justify-center rounded-full border border-midnight/30 bg-midnight/10">
+                        <span className="text-sm font-bold text-midnight">{cert.code}</span>
                       </div>
                       <div>
                         <p className="text-sm font-semibold text-foreground">{cert.code}</p>
-                        <p className="text-xs text-muted-foreground">{cert.fullName}</p>
+                        <p className="text-xs text-foreground/80">{cert.fullName}</p>
                       </div>
                     </div>
                   ))}
@@ -341,9 +341,9 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                 <div className="mt-8 grid gap-6 sm:grid-cols-2">
                   {agent.awards.map((award) => (
                     <div key={`${award.title}-${award.year}`} className="rounded-xl border border-border/40 bg-cream p-6">
-                      <Award className="size-6 text-gold" />
+                      <Award className="size-6 text-midnight" />
                       <h3 className="mt-3 font-semibold text-foreground">{award.title}</h3>
-                      <p className="mt-1 text-sm text-muted-foreground">{award.issuer} &middot; {award.year}</p>
+                      <p className="mt-1 text-sm text-foreground/80">{award.issuer} &middot; {award.year}</p>
                     </div>
                   ))}
                 </div>
@@ -354,13 +354,13 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
             {agent.testimonials && agent.testimonials.length > 0 && (
               <div>
                 <div className="mb-10 flex items-center gap-3">
-                  <Quote className="size-5 text-gold" />
+                  <Quote className="size-5 text-midnight" />
                   <h2 className="font-heading text-2xl font-bold text-foreground">What Clients Say</h2>
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2">
                   {agent.testimonials.map((t) => (
                     <div key={t.clientName} className="relative rounded-2xl border border-border/40 bg-cream p-8 shadow-sm">
-                      <Quote className="absolute right-6 top-6 size-8 text-gold/15" />
+                      <Quote className="absolute right-6 top-6 size-8 text-midnight/15" />
                       <div className="mb-4 flex gap-0.5">
                         {Array.from({ length: 5 }).map((_, i) => (
                           <Star key={i} className={`size-4 ${i < t.rating ? "fill-amber-400 text-amber-400" : "fill-gray-200 text-gray-200"}`} />
@@ -385,7 +385,7 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
             {agent.videoIntroUrl && (
               <div>
                 <div className="mb-8 flex items-center gap-3">
-                  <Play className="size-5 text-gold" />
+                  <Play className="size-5 text-midnight" />
                   <h2 className="font-heading text-2xl font-bold text-foreground">Video Introduction</h2>
                 </div>
                 <div className="aspect-video overflow-hidden rounded-xl border border-border/40">
@@ -410,7 +410,7 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-8 flex items-center gap-3">
               <h2 className="font-heading text-2xl font-bold text-foreground">{agent.firstName}&apos;s Active Listings</h2>
-              <span className="rounded-full bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">{activeListings.length}</span>
+              <span className="rounded-full bg-midnight/10 px-3 py-1 text-xs font-semibold text-midnight">{activeListings.length}</span>
             </div>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {activeListings.map((p) => (<PropertyCard key={p.id} property={p} />))}
@@ -425,10 +425,10 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-3 flex items-center gap-3">
               <h2 className="font-heading text-2xl font-bold text-foreground">{agent.firstName}&apos;s Recent Sales</h2>
-              <span className="rounded-full bg-gold/10 px-3 py-1 text-xs font-semibold text-gold">{agent.soldListings.length} Sold</span>
+              <span className="rounded-full bg-midnight/10 px-3 py-1 text-xs font-semibold text-midnight">{agent.soldListings.length} Sold</span>
             </div>
-            <p className="mb-8 text-sm text-muted-foreground">
-              Total volume: <span className="font-semibold text-gold">{agent.stats.totalVolume}</span>
+            <p className="mb-8 text-sm text-foreground/80">
+              Total volume: <span className="font-semibold text-midnight">{agent.stats.totalVolume}</span>
             </p>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {agent.soldListings.map((listing) => (
@@ -437,10 +437,10 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                     <span className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-red-600">Sold</span>
                   </div>
                   <div className="mb-3 flex items-center gap-2">
-                    <DollarSign className="size-5 text-gold" />
+                    <DollarSign className="size-5 text-midnight" />
                     <p className="font-heading text-xl font-bold text-foreground">{formatPrice(listing.price)}</p>
                   </div>
-                  <div className="space-y-1.5 text-sm text-muted-foreground">
+                  <div className="space-y-1.5 text-sm text-foreground/80">
                     <p className="flex items-center gap-2"><MapPin className="size-3.5 shrink-0" />{listing.address}</p>
                     <p className="flex items-center gap-2"><Home className="size-3.5 shrink-0" />{listing.neighborhood}</p>
                     <p className="flex items-center gap-2"><Calendar className="size-3.5 shrink-0" />{new Date(listing.soldDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}</p>

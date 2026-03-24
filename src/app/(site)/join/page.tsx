@@ -114,7 +114,7 @@ export default function JoinPage() {
       <section className="relative overflow-hidden bg-foreground pb-20 pt-32">
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/40" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-white/90">
             Apply Now
           </p>
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
@@ -127,7 +127,7 @@ export default function JoinPage() {
           </p>
           <Link
             href="/why-join"
-            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
+            className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-gold-light transition-colors hover:text-white"
           >
             Learn why agents choose Tauro
             <ArrowRight className="size-4" />
@@ -145,7 +145,7 @@ export default function JoinPage() {
                 <h2 className="font-heading text-3xl font-bold text-foreground sm:text-4xl">
                   Ready to Make a Move?
                 </h2>
-                <p className="mt-4 text-muted-foreground">
+                <p className="mt-4 text-foreground/80">
                   At Tauro, we look for agents who are passionate about delivering
                   exceptional client experiences. Whether you&apos;re a seasoned
                   top-producer or a newly licensed agent hungry to grow, we provide the
@@ -160,8 +160,8 @@ export default function JoinPage() {
                 <ul className="mt-4 space-y-3">
                   {requirements.map((req) => (
                     <li key={req} className="flex items-start gap-3">
-                      <CheckCircle className="mt-0.5 size-5 shrink-0 text-gold" />
-                      <span className="text-sm text-muted-foreground">{req}</span>
+                      <CheckCircle className="mt-0.5 size-5 shrink-0 text-midnight" />
+                      <span className="text-sm text-foreground/80">{req}</span>
                     </li>
                   ))}
                 </ul>
@@ -171,13 +171,13 @@ export default function JoinPage() {
                 <p className="text-sm font-semibold text-foreground">
                   Want to learn more before applying?
                 </p>
-                <p className="mt-2 text-sm text-muted-foreground">
+                <p className="mt-2 text-sm text-foreground/80">
                   Explore our commission structure, technology platform, training programs,
                   and agent-first culture.
                 </p>
                 <Link
                   href="/why-join"
-                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-gold transition-colors hover:text-gold-light"
+                  className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-midnight transition-colors hover:text-foreground"
                 >
                   Why Join Tauro
                   <ArrowRight className="size-4" />
@@ -190,12 +190,12 @@ export default function JoinPage() {
               {state === "success" ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
                   <div className="flex size-16 items-center justify-center rounded-full bg-gold/10">
-                    <CheckCircle className="size-8 text-gold" />
+                    <CheckCircle className="size-8 text-midnight" />
                   </div>
                   <h3 className="mt-5 font-heading text-2xl font-bold text-foreground">
                     Application Submitted!
                   </h3>
-                  <p className="mt-3 max-w-sm text-muted-foreground">
+                  <p className="mt-3 max-w-sm text-foreground/80">
                     Thank you for your interest in joining Tauro. Our team lead will
                     review your application and reach out within 2-3 business days.
                   </p>
@@ -213,7 +213,7 @@ export default function JoinPage() {
                     <h2 className="font-heading text-2xl font-bold text-foreground">
                       Apply Now
                     </h2>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="mt-1 text-sm text-foreground/80">
                       Fill out the form below and we&apos;ll be in touch.
                     </p>
                   </div>
@@ -229,7 +229,7 @@ export default function JoinPage() {
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
                       <label htmlFor="firstName" className="mb-1.5 block text-sm font-medium text-foreground">
-                        First Name <span className="text-gold">*</span>
+                        First Name <span className="text-midnight">*</span>
                       </label>
                       <input
                         id="firstName"
@@ -240,12 +240,12 @@ export default function JoinPage() {
                         value={form.firstName}
                         onChange={handleChange}
                         placeholder="Jane"
-                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                       />
                     </div>
                     <div>
                       <label htmlFor="lastName" className="mb-1.5 block text-sm font-medium text-foreground">
-                        Last Name <span className="text-gold">*</span>
+                        Last Name <span className="text-midnight">*</span>
                       </label>
                       <input
                         id="lastName"
@@ -256,7 +256,7 @@ export default function JoinPage() {
                         value={form.lastName}
                         onChange={handleChange}
                         placeholder="Smith"
-                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                        className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                       />
                     </div>
                   </div>
@@ -264,7 +264,7 @@ export default function JoinPage() {
                   {/* Email */}
                   <div>
                     <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-foreground">
-                      Email Address <span className="text-gold">*</span>
+                      Email Address <span className="text-midnight">*</span>
                     </label>
                     <input
                       id="email"
@@ -275,14 +275,14 @@ export default function JoinPage() {
                       value={form.email}
                       onChange={handleChange}
                       placeholder="jane@example.com"
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
                   {/* Phone */}
                   <div>
                     <label htmlFor="phone" className="mb-1.5 block text-sm font-medium text-foreground">
-                      Phone Number <span className="text-gold">*</span>
+                      Phone Number <span className="text-midnight">*</span>
                     </label>
                     <input
                       id="phone"
@@ -293,14 +293,14 @@ export default function JoinPage() {
                       value={form.phone}
                       onChange={handleChange}
                       placeholder="(215) 839-4172"
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
                   {/* License Number */}
                   <div>
                     <label htmlFor="licenseNumber" className="mb-1.5 block text-sm font-medium text-foreground">
-                      PA License Number <span className="text-gold">*</span>
+                      PA License Number <span className="text-midnight">*</span>
                     </label>
                     <input
                       id="licenseNumber"
@@ -310,14 +310,14 @@ export default function JoinPage() {
                       value={form.licenseNumber}
                       onChange={handleChange}
                       placeholder="RS-XXXXXX"
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
                   {/* Years of Experience */}
                   <div>
                     <label htmlFor="yearsExperience" className="mb-1.5 block text-sm font-medium text-foreground">
-                      Years of Experience <span className="text-gold">*</span>
+                      Years of Experience <span className="text-midnight">*</span>
                     </label>
                     <select
                       id="yearsExperience"
@@ -348,7 +348,7 @@ export default function JoinPage() {
                       value={form.currentBrokerage}
                       onChange={handleChange}
                       placeholder="e.g., Keller Williams"
-                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                      className="w-full rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
@@ -364,7 +364,7 @@ export default function JoinPage() {
                       value={form.whyJoin}
                       onChange={handleChange}
                       placeholder="Tell us about your goals and what excites you about Tauro..."
-                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
@@ -380,7 +380,7 @@ export default function JoinPage() {
                       value={form.message}
                       onChange={handleChange}
                       placeholder="Link to your resume, portfolio, or anything else you'd like to share..."
-                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
+                      className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-foreground/50 focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                     />
                   </div>
 
@@ -394,9 +394,9 @@ export default function JoinPage() {
                     {state === "submitting" ? "Submitting..." : "Submit Application"}
                   </button>
 
-                  <p className="text-center text-xs text-muted-foreground">
+                  <p className="text-center text-xs text-foreground/70">
                     By submitting, you agree to our{" "}
-                    <a href="/privacy" className="text-gold hover:underline">
+                    <a href="/privacy" className="text-midnight font-medium hover:underline">
                       Privacy Policy
                     </a>
                     .

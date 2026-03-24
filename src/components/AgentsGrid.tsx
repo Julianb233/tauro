@@ -81,7 +81,7 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
 
       {filtered.length === 0 ? (
         <div className="py-16 text-center">
-          <p className="text-muted-foreground">
+          <p className="text-foreground/80">
             No agents match your search. Try adjusting your filters.
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
         </div>
       )}
 
-      <p className="mt-4 text-center text-sm text-muted-foreground">
+      <p className="mt-4 text-center text-sm text-foreground/80">
         Showing {filtered.length} of {agents.length} agents
       </p>
     </>

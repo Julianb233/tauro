@@ -35,7 +35,7 @@ export default function FavoritesClient() {
         <div className="mb-8">
           <Link
             href="/properties"
-            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-gold"
+            className="inline-flex items-center gap-1.5 text-sm text-foreground/80 transition-colors hover:text-gold"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Properties
@@ -43,7 +43,7 @@ export default function FavoritesClient() {
           <h1 className="mt-4 font-heading text-3xl font-bold sm:text-4xl">
             Saved Items
           </h1>
-          <p className="mt-2 text-muted-foreground">
+          <p className="mt-2 text-foreground/80">
             Your saved properties and searches, stored locally on this device.
           </p>
         </div>
@@ -56,7 +56,7 @@ export default function FavoritesClient() {
               "flex flex-1 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors",
               activeTab === "properties"
                 ? "bg-gold text-near-black"
-                : "text-muted-foreground hover:text-foreground",
+                : "text-foreground/80 hover:text-foreground",
             )}
           >
             <Heart className="h-4 w-4" />
@@ -68,7 +68,7 @@ export default function FavoritesClient() {
               "flex flex-1 items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors",
               activeTab === "searches"
                 ? "bg-gold text-near-black"
-                : "text-muted-foreground hover:text-foreground",
+                : "text-foreground/80 hover:text-foreground",
             )}
           >
             <Bookmark className="h-4 w-4" />
@@ -93,7 +93,7 @@ export default function FavoritesClient() {
                 <h2 className="mt-6 font-heading text-xl font-bold">
                   No Saved Properties Yet
                 </h2>
-                <p className="mt-2 max-w-md text-sm text-muted-foreground">
+                <p className="mt-2 max-w-md text-sm text-foreground/80">
                   Tap the heart icon on any property to save it here for later.
                   Your favorites are stored locally on this device.
                 </p>
@@ -136,10 +136,10 @@ export default function FavoritesClient() {
                               </span>
                             )}
                           </div>
-                          <p className="mt-1 truncate text-sm text-muted-foreground">
+                          <p className="mt-1 truncate text-sm text-foreground/80">
                             {buildFilterSummary(search.filters)}
                           </p>
-                          <p className="mt-0.5 text-xs text-muted-foreground/60">
+                          <p className="mt-0.5 text-xs text-foreground/80/60">
                             Saved {new Date(search.createdAt).toLocaleDateString()}
                             {search.alertEmail && (
                               <> &middot; Alerts to {search.alertEmail}</>
@@ -156,7 +156,7 @@ export default function FavoritesClient() {
                               "rounded-lg border p-2 transition-colors",
                               hasAlert
                                 ? "border-gold/40 text-gold hover:border-gold"
-                                : "border-border text-muted-foreground hover:border-gold/30 hover:text-gold",
+                                : "border-border text-foreground/80 hover:border-gold/30 hover:text-gold",
                             )}
                             aria-label="Set alert frequency"
                           >
@@ -171,7 +171,7 @@ export default function FavoritesClient() {
                           </Link>
                           <button
                             onClick={() => removeSearch(search.id)}
-                            className="rounded-lg border border-border p-2 text-muted-foreground transition-colors hover:border-red-300 hover:text-red-500"
+                            className="rounded-lg border border-border p-2 text-foreground/80 transition-colors hover:border-red-300 hover:text-red-500"
                             aria-label="Remove saved search"
                           >
                             <Trash2 className="h-4 w-4" />
@@ -198,7 +198,7 @@ export default function FavoritesClient() {
                                     "rounded-lg border px-4 py-2 text-sm font-medium capitalize transition-colors",
                                     (search.alertFrequency || "none") === freq
                                       ? "border-gold bg-gold text-near-black"
-                                      : "border-border text-muted-foreground hover:border-gold/40 hover:text-foreground",
+                                      : "border-border text-foreground/80 hover:border-gold/40 hover:text-foreground",
                                   )}
                                 >
                                   {freq === "none" ? "Off" : freq}
@@ -210,18 +210,18 @@ export default function FavoritesClient() {
                           {(search.alertFrequency === "daily" ||
                             search.alertFrequency === "weekly") && (
                             <div className="mt-3">
-                              <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
+                              <label className="mb-1.5 block text-xs font-medium text-foreground/80">
                                 Send alerts to
                               </label>
                               <div className="flex gap-2">
                                 <div className="relative flex-1">
-                                  <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                                  <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground/80" />
                                   <input
                                     type="email"
                                     value={alertEmail}
                                     onChange={(e) => setAlertEmail(e.target.value)}
                                     placeholder="you@example.com"
-                                    className="w-full rounded-lg border border-border bg-white py-2 pl-9 pr-3 text-sm text-foreground placeholder:text-muted-foreground/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
+                                    className="w-full rounded-lg border border-border bg-white py-2 pl-9 pr-3 text-sm text-foreground placeholder:text-foreground/80/50 focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
                                   />
                                 </div>
                                 <button
@@ -253,7 +253,7 @@ export default function FavoritesClient() {
                 <h2 className="mt-6 font-heading text-xl font-bold">
                   No Saved Searches Yet
                 </h2>
-                <p className="mt-2 max-w-md text-sm text-muted-foreground">
+                <p className="mt-2 max-w-md text-sm text-foreground/80">
                   Apply filters on the properties page and tap &ldquo;Save This Search&rdquo;
                   to quickly revisit your favorite filter combinations.
                 </p>
