@@ -1,8 +1,16 @@
+/** Dynamically compute years since founding */
+function getYearsInBusiness(): string {
+  const founded = 2015;
+  const years = new Date().getFullYear() - founded;
+  return `${years}+`;
+}
+
 export default function StatsBar() {
   return (
     <section className="border-y border-white/10 bg-foreground">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-14 md:grid-cols-4 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-14 md:grid-cols-5 lg:px-8">
         {[
+          { value: getYearsInBusiness(), label: "Years in Business" },
           { value: "500+", label: "Properties Sold" },
           { value: "15", label: "Neighborhoods" },
           { value: "$2.1B", label: "Total Volume" },
