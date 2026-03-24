@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Clock } from "lucide-react";
+import { Clock, Mail, ArrowRight } from "lucide-react";
 import type { BlogPost, BlogCategory } from "@/data/blog-posts";
 
 function formatDate(dateStr: string): string {
@@ -69,6 +69,32 @@ function PostCard({ post }: { post: BlogPost }) {
   );
 }
 
+const CTA_POSITION = 2; // Insert after 2nd post (0-indexed)
+
+function NewsletterCta() {
+  return (
+    <div className="flex flex-col items-center justify-center rounded-xl border border-gold/30 bg-gradient-to-br from-foreground to-foreground/90 p-8 text-center">
+      <div className="flex size-12 items-center justify-center rounded-full bg-gold/20">
+        <Mail className="size-5 text-gold" />
+      </div>
+      <h3 className="mt-4 font-heading text-lg font-bold text-white">
+        Get Market Insights Delivered
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-white/60">
+        Expert analysis, neighborhood guides, and exclusive reports from the
+        Tauro team — straight to your inbox.
+      </p>
+      <Link
+        href="/contact"
+        className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
+      >
+        Subscribe
+        <ArrowRight className="size-3.5" />
+      </Link>
+    </div>
+  );
+}
+
 export function BlogCategoryFilter({
   categories,
   posts,
@@ -113,9 +139,13 @@ export function BlogCategoryFilter({
       {/* Posts grid */}
       {filtered.length > 0 ? (
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((post) => (
-            <PostCard key={post.id} post={post} />
+          {filtered.map((post, i) => (
+            <Fragment key={post.id}>
+              {i === CTA_POSITION && <NewsletterCta />}
+              <PostCard post={post} />
+            </Fragment>
           ))}
+          {filtered.length <= CTA_POSITION && <NewsletterCta />}
         </div>
       ) : (
         <div className="py-16 text-center">
