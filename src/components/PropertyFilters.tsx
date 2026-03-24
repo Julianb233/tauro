@@ -119,7 +119,7 @@ export default function PropertyFilters({
         aria-label="Property filters"
         className={`${open ? "block" : "hidden"} px-4 pb-4 lg:flex lg:items-end lg:gap-3 lg:px-6 lg:py-4`}
       >
-        <div className="grid grid-cols-2 gap-3 lg:flex lg:flex-wrap lg:items-end lg:gap-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-end lg:gap-3">
           <PriceRangeSlider
             minValue={filters.priceMin}
             maxValue={filters.priceMax}

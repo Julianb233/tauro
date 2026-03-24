@@ -125,7 +125,7 @@ export function Navbar() {
                 <button
                   onClick={handleSignOut}
                   className={cn(
-                    "rounded-md p-1.5 transition-all duration-300 hover:text-gold",
+                    "rounded-md p-2 min-h-[44px] min-w-[44px] flex items-center justify-center transition-all duration-300 hover:text-gold",
                     scrolled ? "text-white/70" : "text-white/70",
                   )}
                   aria-label="Sign out"

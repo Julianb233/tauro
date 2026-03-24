@@ -75,7 +75,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group/link inline-flex min-h-[44px] items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1 sm:min-h-0"
+                    className="group/link inline-flex min-h-[44px] items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1"
                   >
                     {link.label}
                   </Link>
