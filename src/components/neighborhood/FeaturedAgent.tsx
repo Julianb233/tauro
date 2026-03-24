@@ -57,7 +57,7 @@ export function FeaturedAgent({
                   alt={agent.fullName}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 40vw"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 40vw, 512px"
                   placeholder="blur"
                   blurDataURL={BLUR_PORTRAIT}
                 />

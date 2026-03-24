@@ -88,6 +88,7 @@ export default function AboutPage() {
             fill
             priority
             className="object-cover brightness-[0.3] scale-110"
+            sizes="100vw"
             placeholder="blur"
             blurDataURL={BLUR_LANDSCAPE}
           />

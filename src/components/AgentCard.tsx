@@ -19,7 +19,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
           alt={agent.fullName}
           fill
           className="object-cover grayscale-[20%] transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           placeholder="blur"
           blurDataURL={BLUR_PORTRAIT}
         />

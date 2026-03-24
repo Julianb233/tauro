@@ -27,6 +27,7 @@ export function Logo({ size = "sm", variant = "light", className }: LogoProps) {
       width={dimensions.width}
       height={dimensions.height}
       className={cn("shrink-0 object-contain", className)}
+      sizes={`${dimensions.width}px`}
       priority
       quality={100}
     />
