@@ -22,6 +22,7 @@ import { siteUrl } from "@/lib/site-config";
 import PropertyCard from "@/components/PropertyCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MarketStats } from "@/components/market-stats";
+import { MlsDisclaimer } from "@/components/MlsDisclaimer";
 
 export const revalidate = 86400;
 
@@ -333,6 +334,11 @@ export default async function HomesForSaleNeighborhoodPage({
         stats={neighborhood.stats}
         neighborhoodName={neighborhood.name}
       />
+
+      {/* MLS/IDX Disclaimer */}
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <MlsDisclaimer compact />
+      </div>
 
       {/* CTA section */}
       <section className="bg-white py-20">

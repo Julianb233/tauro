@@ -8,6 +8,7 @@ import type { Property } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilters, { FilterState } from "@/components/PropertyFilters";
 import { cn } from "@/lib/utils";
+import { MlsDisclaimer } from "@/components/MlsDisclaimer";
 
 // Mapbox GL is ~700KB — only load when user switches to map view
 const PropertyMap = dynamic(() => import("@/components/PropertyMap"), {
@@ -237,16 +238,9 @@ export default function PropertiesClient({
         {/* Recently Viewed */}
         <RecentlyViewed />
 
-        {/* MLS Disclaimer */}
-        <div className="mt-10 border-t border-border pt-6">
-          <p className="text-xs leading-relaxed text-muted-foreground">
-            Listing information deemed reliable but not guaranteed. All
-            measurements are approximate. Data sourced from Bright MLS.
-            Information is provided exclusively for consumers&apos; personal,
-            non-commercial use and may not be used for any purpose other than to
-            identify prospective properties consumers may be interested in
-            purchasing.
-          </p>
+        {/* MLS/IDX Attribution & Disclaimer */}
+        <div className="mt-10">
+          <MlsDisclaimer />
         </div>
       </div>
     </div>

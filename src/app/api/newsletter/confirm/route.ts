@@ -75,7 +75,7 @@ export async function GET(request: NextRequest) {
 
   // Sync to GoHighLevel
   try {
-    const apiKey = process.env.GHL_API_KEY;
+    const apiKey = process.env.GHL_API_KEY || process.env.GHL_API_TOKEN;
     const locationId = process.env.GHL_LOCATION_ID;
     if (apiKey) {
       const contact = {

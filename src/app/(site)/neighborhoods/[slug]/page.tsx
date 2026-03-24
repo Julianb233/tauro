@@ -17,6 +17,7 @@ import { FeaturedAgent } from "@/components/neighborhood/FeaturedAgent";
 import { NeighborhoodAgents } from "@/components/neighborhood/NeighborhoodAgents";
 import { VideoTour } from "@/components/neighborhood/VideoTour";
 import { DemographicsCard } from "@/components/neighborhood/DemographicsCard";
+import { MlsDisclaimer } from "@/components/MlsDisclaimer";
 
 // Heavy client components — lazy-loaded (recharts ~200KB, lightbox ~50KB)
 const MarketTrendChart = dynamic(() =>
@@ -199,6 +200,11 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
 
       {/* Listings */}
       <AreaListings neighborhoodName={neighborhood.name} propertyFilter={neighborhood.propertyFilter} />
+
+      {/* MLS/IDX Disclaimer */}
+      <div className="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+        <MlsDisclaimer compact />
+      </div>
 
       {/* Map */}
       <section className="border-t border-border/40 bg-cream py-16">

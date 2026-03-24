@@ -92,7 +92,7 @@ export async function createGhlContact(
 ): Promise<{ success: boolean; error?: string }> {
   const contact = mapLeadToGhlContact(data);
   let succeeded = false;
-  const apiKey = process.env.GHL_API_KEY;
+  const apiKey = process.env.GHL_API_KEY || process.env.GHL_API_TOKEN;
   const locationId = process.env.GHL_LOCATION_ID;
 
   if (apiKey) {
