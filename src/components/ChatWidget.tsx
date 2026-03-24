@@ -13,6 +13,8 @@ import {
   RotateCcw,
 } from "lucide-react";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { useAnimatedMount } from "@/hooks/useAnimatedMount";
 
 interface Message {
   role: "user" | "assistant";
@@ -96,6 +98,7 @@ function renderContent(text: string) {
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false);
+  const { mounted: chatMounted, visible: chatVisible } = useAnimatedMount(open);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -203,19 +206,27 @@ export function ChatWidget() {
   return (
     <>
       {/* Floating chat trigger — subtle icon */}
-      {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          className="fixed bottom-6 right-6 z-[9997] flex h-12 w-12 items-center justify-center rounded-full bg-midnight text-gold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-          aria-label="Chat with Tauro AI"
-        >
-          <MessageCircle className="size-5" strokeWidth={2} />
-        </button>
-      )}
+      <button
+        onClick={() => setOpen(true)}
+        className={cn(
+          "fixed bottom-6 right-6 z-[9997] flex h-12 w-12 items-center justify-center rounded-full bg-midnight text-gold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl",
+          open ? "scale-0 opacity-0 pointer-events-none" : "scale-100 opacity-100",
+        )}
+        aria-label="Chat with Tauro AI"
+      >
+        <MessageCircle className="size-5" strokeWidth={2} />
+      </button>
 
       {/* Chat window */}
-      {open && (
-        <div className="fixed bottom-4 right-4 z-[9997] flex h-[min(640px,88vh)] w-[min(420px,93vw)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-white shadow-2xl shadow-black/25">
+      {chatMounted && (
+        <div
+          className={cn(
+            "fixed bottom-4 right-4 z-[9997] flex h-[min(640px,88vh)] w-[min(420px,93vw)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-white shadow-2xl shadow-black/25 transition-all duration-300 origin-bottom-right",
+            chatVisible
+              ? "opacity-100 scale-100 translate-y-0"
+              : "opacity-0 scale-95 translate-y-4",
+          )}
+        >
           {/* Header */}
           <div className="relative flex items-center justify-between bg-gradient-to-r from-midnight to-[#252545] px-4 py-4">
             <div className="flex items-center gap-3">

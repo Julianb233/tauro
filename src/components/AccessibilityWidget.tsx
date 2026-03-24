@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { cn } from "@/lib/utils";
+import { useAnimatedMount } from "@/hooks/useAnimatedMount";
 
 const STORAGE_KEY = "tauro-a11y-prefs";
 
@@ -57,6 +59,7 @@ function applyPrefs(prefs: A11yPrefs) {
 
 export default function AccessibilityWidget() {
   const [open, setOpen] = useState(false);
+  const { mounted: panelMounted, visible: panelVisible } = useAnimatedMount(open, 200);
   const [prefs, setPrefs] = useState<A11yPrefs>(defaultPrefs);
   const [mounted, setMounted] = useState(false);
 
@@ -138,11 +141,16 @@ export default function AccessibilityWidget() {
       </button>
 
       {/* Settings panel */}
-      {open && (
+      {panelMounted && (
         <div
           role="dialog"
           aria-label="Accessibility settings"
-          className="absolute bottom-16 left-0 w-72 rounded-xl border border-border bg-background p-5 shadow-2xl animate-scale-in"
+          className={cn(
+            "absolute bottom-16 left-0 w-72 rounded-xl border border-border bg-background p-5 shadow-2xl transition-all duration-200 origin-bottom-left",
+            panelVisible
+              ? "opacity-100 scale-100 translate-y-0"
+              : "opacity-0 scale-95 translate-y-2",
+          )}
         >
           <h2 className="mb-4 text-base font-semibold font-label tracking-wide text-foreground">
             Accessibility

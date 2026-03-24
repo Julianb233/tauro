@@ -3,6 +3,7 @@
 import { useState, useEffect, type FormEvent } from "react";
 import { X, Mail, Loader2, User, Lock, Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAnimatedMount } from "@/hooks/useAnimatedMount";
 
 type AuthMode = "login" | "register";
 
@@ -68,6 +69,8 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
     return () => document.removeEventListener("keydown", handler);
   }, [open, onClose]);
 
+  const { mounted, visible } = useAnimatedMount(open);
+
   // Prevent body scroll
   useEffect(() => {
     if (open) {
@@ -78,7 +81,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
     };
   }, [open]);
 
-  if (!open) return null;
+  if (!mounted) return null;
 
   function validate(): boolean {
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -135,12 +138,22 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className={cn(
+          "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300",
+          visible ? "opacity-100" : "opacity-0",
+        )}
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md rounded-2xl border border-border bg-white p-8 shadow-2xl">
+      <div
+        className={cn(
+          "relative w-full max-w-md rounded-2xl border border-border bg-white p-8 shadow-2xl transition-all duration-300",
+          visible
+            ? "opacity-100 translate-y-0 scale-100"
+            : "opacity-0 translate-y-4 scale-95",
+        )}
+      >
         {/* Close */}
         <button
           onClick={onClose}

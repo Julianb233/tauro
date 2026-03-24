@@ -6,6 +6,8 @@ import { Property } from "@/data/properties";
 import { siteUrl } from "@/lib/site-config";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useUtm } from "@/hooks/useUtm";
+import { useAnimatedMount } from "@/hooks/useAnimatedMount";
+import { cn } from "@/lib/utils";
 
 /* ------------------------------------------------------------------ */
 /*  .ics file generator                                                */
@@ -114,18 +116,21 @@ function useCountdown(targetDate: Date) {
 
 function RsvpModal({
   property,
+  open,
   onClose,
 }: {
   property: Property;
+  open: boolean;
   onClose: () => void;
 }) {
+  const { mounted, visible } = useAnimatedMount(open);
   const utm = useUtm();
   const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const nameInputRef = useRef<HTMLInputElement>(null);
-  const focusTrapRef = useFocusTrap(true, {
+  const focusTrapRef = useFocusTrap(open, {
     onEscape: onClose,
     initialFocusRef: nameInputRef,
   });
@@ -165,14 +170,29 @@ function RsvpModal({
     }
   };
 
+  if (!mounted) return null;
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div
+        className={cn(
+          "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300",
+          visible ? "opacity-100" : "opacity-0",
+        )}
+        onClick={onClose}
+      />
       <div
         ref={focusTrapRef}
         role="dialog"
         aria-modal="true"
         aria-label="RSVP for Open House"
-        className="relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl"
+        className={cn(
+          "relative mx-4 w-full max-w-md rounded-2xl border border-gold/30 bg-card p-6 shadow-2xl transition-all duration-300",
+          visible
+            ? "opacity-100 translate-y-0 scale-100"
+            : "opacity-0 translate-y-4 scale-95",
+        )}
       >
         <button
           onClick={onClose}
@@ -331,7 +351,7 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
               {showCalMenu && (
                 <div
                   role="menu"
-                  className="absolute right-0 z-20 mt-1 min-w-[180px] rounded-lg border border-border bg-card py-1 shadow-xl"
+                  className="absolute right-0 z-20 mt-1 min-w-[180px] rounded-lg border border-border bg-card py-1 shadow-xl animate-in fade-in zoom-in-95 duration-200"
                 >
                   <button
                     role="menuitem"
@@ -372,9 +392,7 @@ export default function OpenHouseBanner({ property }: { property: Property }) {
         {showCountdown && <CountdownDisplay targetDate={startDate} />}
       </div>
 
-      {showRsvp && (
-        <RsvpModal property={property} onClose={() => setShowRsvp(false)} />
-      )}
+      <RsvpModal property={property} open={showRsvp} onClose={() => setShowRsvp(false)} />
     </>
   );
 }

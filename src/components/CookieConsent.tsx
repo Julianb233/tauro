@@ -10,6 +10,8 @@ import {
   type CookiePreferences,
 } from "@/lib/cookie-consent";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
+import { useAnimatedMount } from "@/hooks/useAnimatedMount";
+import { cn } from "@/lib/utils";
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
@@ -26,6 +28,8 @@ export function CookieConsent() {
     }
   }, []);
 
+  const { mounted, visible: animVisible } = useAnimatedMount(visible);
+
   const focusTrapRef = useFocusTrap(visible, {
     onEscape: () => {
       rejectNonEssential();
@@ -33,7 +37,7 @@ export function CookieConsent() {
     },
   });
 
-  if (!visible) return null;
+  if (!mounted) return null;
 
   function handleAcceptAll() {
     acceptAll();
@@ -62,7 +66,12 @@ export function CookieConsent() {
       role="dialog"
       aria-modal="true"
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-[9998] p-4 sm:p-6"
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-[9998] p-4 sm:p-6 transition-all duration-300",
+        animVisible
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 translate-y-6",
+      )}
     >
       <div className="mx-auto max-w-4xl rounded-2xl border border-white/10 bg-midnight/80 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
         {!showPrefs ? (

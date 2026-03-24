@@ -204,7 +204,7 @@ export default function ShareButton({
           role="menu"
           aria-label="Share options"
           className={cn(
-            "absolute z-50 w-56 overflow-hidden rounded-xl border border-border/60 bg-white/95 shadow-lg backdrop-blur-xl",
+            "absolute z-50 w-56 overflow-hidden rounded-xl border border-border/60 bg-white/95 shadow-lg backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200",
             compact ? "right-0 bottom-full mb-2" : "right-0 top-full mt-2",
           )}
         >
