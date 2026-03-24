@@ -87,7 +87,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
+                    "nav-link-underline rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
                     scrolled ? "text-white/80" : "text-white/80"
                   )}
                 >
