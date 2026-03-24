@@ -20,8 +20,13 @@ export default async function FeaturedProperties() {
             <Link href="/properties" className="group flex items-center gap-2 font-label text-sm font-semibold uppercase tracking-wider text-gold transition-all duration-300 hover:text-gold-dark hover:gap-3">View All Properties<ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={1.5} /></Link>
           </div>
         </FadeInView>
-        <StaggerReveal className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3" stagger={0.15}>
-          {featuredProperties.map((property) => (<TiltCard key={property.id}><PropertyCard property={property} /></TiltCard>))}
+        {/* Asymmetric editorial grid: hero card spans 2 cols + 2 rows on desktop */}
+        <StaggerReveal className="mt-8 grid gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 lg:grid-rows-[auto_auto]" stagger={0.15}>
+          {featuredProperties.map((property, i) => (
+            <TiltCard key={property.id} className={i === 0 ? "sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2" : ""}>
+              <PropertyCard property={property} />
+            </TiltCard>
+          ))}
         </StaggerReveal>
       </div>
     </section>
