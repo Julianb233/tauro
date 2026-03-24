@@ -93,6 +93,11 @@ export default function AboutPage() {
           />
         </AboutParallax>
         <div className="relative z-10 mx-auto max-w-4xl px-6 text-center">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 backdrop-blur-sm">
+            <span className="text-xs font-semibold tracking-wider text-gold">Est. 2014</span>
+            <span className="text-gold/40">|</span>
+            <span className="text-xs font-semibold tracking-wider text-gold">12+ Years</span>
+          </div>
           <p className="font-label mb-3 text-sm uppercase tracking-widest text-gold">
             Serving Philadelphia
           </p>
