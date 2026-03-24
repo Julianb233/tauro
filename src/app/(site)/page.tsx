@@ -11,6 +11,9 @@ import HomepageCTAs from "@/components/homepage-ctas";
 // Client components — lazy-loaded to reduce initial JS bundle and improve INP
 const RecentlyViewed = dynamic(() => import("@/components/RecentlyViewed"));
 const SocialProof = dynamic(() => import("@/components/SocialProof"));
+const GoldDivider = dynamic(
+  () => import("@/components/animations/GoldDivider"),
+);
 const NewsletterCTA = dynamic(
   () =>
     import("@/components/NewsletterCTA").then((mod) => ({
@@ -31,13 +34,13 @@ export default function HomePage() {
       <StatsBar />
       <FeaturedProperties />
       <RecentlyViewed />
-      <div className="gold-divider mx-auto max-w-7xl" />
+      <GoldDivider />
       <NeighborhoodShowcase />
       <WhyTauro />
-      <div className="gold-divider mx-auto max-w-7xl" />
+      <GoldDivider delay={0.1} />
       <Testimonials />
       <SocialProof />
-      <div className="gold-divider mx-auto max-w-7xl" />
+      <GoldDivider delay={0.2} />
       <HomepageCTAs />
       <NewsletterCTA variant="homepage" />
     </>

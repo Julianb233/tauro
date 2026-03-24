@@ -326,7 +326,7 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 8px 24px rgba(201, 169, 110, 0.1);
 }
 
-/* Gold accent divider */
+/* Gold accent divider — static fallback */
 .gold-divider {
   height: 1px;
   background: linear-gradient(
@@ -335,6 +335,54 @@ h1, h2, h3, h4, h5, h6 {
     rgba(201, 169, 110, 0.5),
     transparent
   );
+}
+
+/* Gold accent divider — animated draw-on-scroll */
+.gold-divider-animated {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 169, 110, 0.3) 15%,
+    rgba(201, 169, 110, 0.7) 50%,
+    rgba(201, 169, 110, 0.3) 85%,
+    transparent 100%
+  );
+  transform-origin: center;
+  position: relative;
+}
+
+.gold-divider-animated::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 169, 110, 0.9) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: gold-shimmer 3s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+@keyframes gold-shimmer {
+  0% { background-position: -200% 0; opacity: 0; }
+  10% { opacity: 1; }
+  50% { background-position: 200% 0; opacity: 1; }
+  60% { opacity: 0; }
+  100% { background-position: 200% 0; opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gold-divider-animated {
+    transform: scaleX(1) !important;
+    opacity: 1 !important;
+  }
+  .gold-divider-animated::after {
+    animation: none;
+  }
 }
 
 /* Reduce backdrop-blur on low-power devices */
