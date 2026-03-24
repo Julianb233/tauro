@@ -8,6 +8,7 @@ import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
 import { AuthModal, getStoredUser, clearStoredUser, type StoredUser } from "@/components/AuthModal";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 // Reactive auth state via useSyncExternalStore
 const authListeners = new Set<() => void>();
@@ -46,15 +47,9 @@ export function Navbar() {
     window.dispatchEvent(new Event("tauro-auth-change"));
   }, []);
 
-  // Escape key closes overlay
-  useEffect(() => {
-    if (!mobileOpen) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMobileOpen(false);
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [mobileOpen]);
+  const mobileMenuRef = useFocusTrap(mobileOpen, {
+    onEscape: () => setMobileOpen(false),
+  });
 
   // Body scroll lock
   useEffect(() => {
@@ -181,6 +176,7 @@ export function Navbar() {
       {/* Full-screen mobile overlay — kept dark for dramatic contrast */}
       {mobileOpen && (
         <div
+          ref={mobileMenuRef}
           className="fixed inset-0 z-[60] flex flex-col bg-midnight/95 backdrop-blur-xl lg:hidden"
           role="dialog"
           aria-modal="true"

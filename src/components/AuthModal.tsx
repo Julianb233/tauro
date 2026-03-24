@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, type FormEvent } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import { X, Mail, Loader2, User, Lock, Eye, EyeOff } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 type AuthMode = "login" | "register";
 
@@ -46,6 +47,11 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const focusTrapRef = useFocusTrap(open, {
+    onEscape: onClose,
+    initialFocusRef: emailRef,
+  });
 
   // Reset on open/close
   useEffect(() => {
@@ -57,16 +63,6 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
       setShowPassword(false);
     }
   }, [open]);
-
-  // Escape key closes
-  useEffect(() => {
-    if (!open) return;
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
-  }, [open, onClose]);
 
   // Prevent body scroll
   useEffect(() => {
@@ -140,7 +136,13 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md rounded-2xl border border-border bg-white p-8 shadow-2xl">
+      <div
+        ref={focusTrapRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label={mode === "login" ? "Sign in" : "Create account"}
+        className="relative w-full max-w-md rounded-2xl border border-border bg-white p-8 shadow-2xl"
+      >
         {/* Close */}
         <button
           onClick={onClose}
@@ -223,6 +225,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
+                ref={emailRef}
                 type="email"
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); setError(null); }}

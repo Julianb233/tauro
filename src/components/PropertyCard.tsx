@@ -55,6 +55,22 @@ function ImageCarousel({
     [total],
   );
 
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (total <= 1) return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        e.stopPropagation();
+        go(-1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        e.stopPropagation();
+        go(1);
+      }
+    },
+    [total, go],
+  );
+
   const onTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchDeltaX.current = 0;
@@ -88,6 +104,8 @@ function ImageCarousel({
       role="region"
       aria-label={`${alt} photo gallery`}
       aria-roledescription="carousel"
+      tabIndex={total > 1 ? 0 : undefined}
+      onKeyDown={handleKeyDown}
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}

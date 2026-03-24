@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useId } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, GalleryHorizontalEnd, LayoutGrid } from "lucide-react";
 import Lightbox from "yet-another-react-lightbox";
@@ -28,6 +28,28 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const isFirstRender = useRef(true);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  // Keyboard navigation for carousel
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (viewMode !== "carousel" || images.length <= 1) return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setActiveIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1));
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setActiveIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0));
+      } else if (e.key === "Home") {
+        e.preventDefault();
+        setActiveIndex(0);
+      } else if (e.key === "End") {
+        e.preventDefault();
+        setActiveIndex(images.length - 1);
+      }
+    },
+    [viewMode, images.length],
+  );
 
   const updateArrows = useCallback(() => {
     const el = scrollRef.current;
@@ -82,7 +104,14 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
   };
 
   return (
-    <div>
+    <div
+      ref={galleryRef}
+      role="region"
+      aria-label={`${address} photo gallery`}
+      aria-roledescription="carousel"
+      tabIndex={viewMode === "carousel" && images.length > 1 ? 0 : undefined}
+      onKeyDown={handleKeyDown}
+    >
       {/* View mode toggle */}
       {images.length > 1 && (
         <div className="mb-2 flex items-center justify-end gap-1">

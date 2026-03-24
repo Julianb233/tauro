@@ -13,6 +13,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import Image from "next/image";
+import { useFocusTrap } from "@/hooks/useFocusTrap";
 
 interface Message {
   role: "user" | "assistant";
@@ -102,26 +103,16 @@ export function ChatWidget() {
   const [mounted, setMounted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  const chatRef = useFocusTrap(open, {
+    onEscape: () => setOpen(false),
+    initialFocusRef: inputRef,
+  });
 
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
-
-  useEffect(() => {
-    if (open && inputRef.current) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && open) setOpen(false);
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [open]);
 
   const sendMessage = useCallback(
     async (content: string) => {
@@ -215,7 +206,13 @@ export function ChatWidget() {
 
       {/* Chat window */}
       {open && (
-        <div className="fixed bottom-4 right-4 z-[9997] flex h-[min(640px,88vh)] w-[min(420px,93vw)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-white shadow-2xl shadow-black/25">
+        <div
+          ref={chatRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Chat with Tauro AI"
+          className="fixed bottom-4 right-4 z-[9997] flex h-[min(640px,88vh)] w-[min(420px,93vw)] flex-col overflow-hidden rounded-2xl border border-white/10 bg-white shadow-2xl shadow-black/25"
+        >
           {/* Header */}
           <div className="relative flex items-center justify-between bg-gradient-to-r from-midnight to-[#252545] px-4 py-4">
             <div className="flex items-center gap-3">

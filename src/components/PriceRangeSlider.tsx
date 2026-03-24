@@ -125,6 +125,31 @@ export default function PriceRangeSlider({
     []
   );
 
+  const onThumbKeyDown = useCallback(
+    (thumb: "min" | "max") => (e: React.KeyboardEvent) => {
+      let step = 1;
+      if (e.key === "Home" || e.key === "End") {
+        e.preventDefault();
+        if (thumb === "min") commitMin(e.key === "Home" ? MIN_IDX : maxIdx);
+        else commitMax(e.key === "Home" ? minIdx : MAX_IDX);
+        return;
+      }
+      if (e.key === "PageUp" || e.key === "PageDown") {
+        step = 3;
+      } else if (e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "ArrowUp" && e.key !== "ArrowDown") {
+        return;
+      }
+      e.preventDefault();
+      const dir = (e.key === "ArrowRight" || e.key === "ArrowUp" || e.key === "PageUp") ? 1 : -1;
+      if (thumb === "min") {
+        commitMin(Math.max(MIN_IDX, Math.min(maxIdx, minIdx + dir * step)));
+      } else {
+        commitMax(Math.max(minIdx, Math.min(MAX_IDX, maxIdx + dir * step)));
+      }
+    },
+    [minIdx, maxIdx, commitMin, commitMax],
+  );
+
   const onPointerMove = useCallback(
     (e: ReactPointerEvent) => {
       if (!dragging.current) return;
@@ -261,34 +286,54 @@ export default function PriceRangeSlider({
 
             {/* Min thumb */}
             <div
-              className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+              role="slider"
+              tabIndex={0}
+              aria-label="Minimum price"
+              aria-valuenow={STEPS[minIdx]}
+              aria-valuemin={STEPS[MIN_IDX]}
+              aria-valuemax={STEPS[maxIdx]}
+              aria-valuetext={minIdx === MIN_IDX ? "No minimum" : formatPrice(STEPS[minIdx])}
+              className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 outline-none"
               style={{ left: `${leftPct}%` }}
               onPointerDown={onPointerDown("min")}
+              onKeyDown={onThumbKeyDown("min")}
+              onFocus={() => setActiveDrag("min")}
+              onBlur={() => setActiveDrag(null)}
             >
-              {/* AI-3869: Tooltip on drag */}
+              {/* AI-3869: Tooltip on drag/focus */}
               {activeDrag === "min" && (
                 <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-near-black px-2 py-0.5 text-[10px] font-semibold text-gold shadow-lg">
                   {minIdx === MIN_IDX ? "No Min" : formatPrice(STEPS[minIdx])}
                 </div>
               )}
-              <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-gold bg-white shadow-md transition-transform hover:scale-110 active:scale-95">
+              <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-gold bg-white shadow-md transition-transform hover:scale-110 active:scale-95 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-1">
                 <div className="h-1.5 w-1.5 rounded-full bg-gold" />
               </div>
             </div>
 
             {/* Max thumb */}
             <div
-              className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
+              role="slider"
+              tabIndex={0}
+              aria-label="Maximum price"
+              aria-valuenow={STEPS[maxIdx]}
+              aria-valuemin={STEPS[minIdx]}
+              aria-valuemax={STEPS[MAX_IDX]}
+              aria-valuetext={maxIdx === MAX_IDX ? "No maximum" : formatPrice(STEPS[maxIdx])}
+              className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2 outline-none"
               style={{ left: `${rightPct}%` }}
               onPointerDown={onPointerDown("max")}
+              onKeyDown={onThumbKeyDown("max")}
+              onFocus={() => setActiveDrag("max")}
+              onBlur={() => setActiveDrag(null)}
             >
-              {/* AI-3869: Tooltip on drag */}
+              {/* AI-3869: Tooltip on drag/focus */}
               {activeDrag === "max" && (
                 <div className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-near-black px-2 py-0.5 text-[10px] font-semibold text-gold shadow-lg">
                   {maxIdx === MAX_IDX ? "No Max" : formatPrice(STEPS[maxIdx])}
                 </div>
               )}
-              <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-gold bg-white shadow-md transition-transform hover:scale-110 active:scale-95">
+              <div className="flex h-5 w-5 items-center justify-center rounded-full border-2 border-gold bg-white shadow-md transition-transform hover:scale-110 active:scale-95 focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-1">
                 <div className="h-1.5 w-1.5 rounded-full bg-gold" />
               </div>
             </div>

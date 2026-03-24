@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import PriceRangeSlider from "@/components/PriceRangeSlider";
 interface NeighborhoodOption {
@@ -66,6 +66,16 @@ export default function PropertyFilters({
   neighborhoods?: NeighborhoodOption[];
 }) {
   const [open, setOpen] = useState(false);
+
+  // Escape key closes filter panel on mobile
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [open]);
 
   const update = (key: keyof FilterState, value: string) => onChange(key, value);
 

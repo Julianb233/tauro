@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, SlidersHorizontal, X } from "lucide-react";
 
 export interface AgentFilterState {
@@ -32,6 +32,16 @@ export default function AgentFilters({
 }) {
   const [open, setOpen] = useState(false);
 
+  // Escape key closes filter panel on mobile
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", handler);
+    return () => document.removeEventListener("keydown", handler);
+  }, [open]);
+
   const activeCount = Object.entries(filters).filter(
     ([k, v]) => v !== "" && k !== "sort"
   ).length;
@@ -55,6 +65,7 @@ export default function AgentFilters({
           {filters.search && (
             <button
               onClick={() => onChange("search", "")}
+              aria-label="Clear search"
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
             >
               <X className="h-4 w-4" />
@@ -67,6 +78,8 @@ export default function AgentFilters({
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <button
           onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-controls="agent-filter-panel"
           className="flex min-h-[44px] items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-foreground"
         >
           <SlidersHorizontal className="h-4 w-4" />
@@ -85,6 +98,9 @@ export default function AgentFilters({
 
       {/* Filter bar */}
       <div
+        id="agent-filter-panel"
+        role="region"
+        aria-label="Agent filters"
         className={`${open ? "block" : "hidden"} px-4 pb-4 lg:flex lg:items-end lg:gap-3 lg:px-6 lg:py-4`}
       >
         <div className="grid grid-cols-2 gap-3 lg:flex lg:flex-wrap lg:items-end lg:gap-3">
