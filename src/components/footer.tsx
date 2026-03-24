@@ -89,7 +89,7 @@ export function Footer() {
             <h3 className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.2em] text-gold">
               Neighborhoods
             </h3>
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-1 gap-2.5 min-[400px]:grid-cols-2">
               {neighborhoods.map((area) => (
                 <Link
                   key={area.slug}

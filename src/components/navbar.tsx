@@ -181,7 +181,7 @@ export function Navbar() {
       {/* Full-screen mobile overlay — kept dark for dramatic contrast */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 z-[60] flex flex-col bg-midnight/95 backdrop-blur-xl lg:hidden"
+          className="fixed inset-0 z-[60] flex flex-col bg-midnight/95 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden"
           role="dialog"
           aria-modal="true"
           aria-label="Navigation menu"

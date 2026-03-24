@@ -16,10 +16,10 @@ export function CompareBar() {
     .filter(Boolean);
 
   return (
-    <div role="region" aria-label={`Property comparison: ${count} properties selected`} className="fixed inset-x-0 bottom-0 z-50 border-t border-gold/30 bg-near-black/95 backdrop-blur-md shadow-[0_-4px_24px_rgba(0,0,0,.35)]">
+    <div role="region" aria-label={`Property comparison: ${count} properties selected`} className="fixed inset-x-0 bottom-0 z-50 border-t border-gold/30 bg-near-black/95 pb-[env(safe-area-inset-bottom)] backdrop-blur-md shadow-[0_-4px_24px_rgba(0,0,0,.35)]">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
         {/* Thumbnails */}
-        <div className="flex items-center gap-3 overflow-x-auto">
+        <div className="flex items-center gap-3 overflow-x-auto pb-1">
           {selected.map((p) =>
             p ? (
               <div key={p.id} className="relative flex-shrink-0">
