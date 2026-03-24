@@ -143,7 +143,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Story */}
-      <section className="mx-auto max-w-4xl px-6 py-20">
+      <section className="cv-auto mx-auto max-w-4xl px-6 py-20">
         <FadeInView direction="up">
           <h2 className="font-heading text-3xl font-bold md:text-4xl">
             The Tauro Difference
@@ -182,7 +182,7 @@ export default function AboutPage() {
       <AsSeenInStrip />
 
       {/* Philadelphia Commitment */}
-      <section className="border-t border-border/40 bg-gradient-to-b from-card/50 to-background">
+      <section className="cv-auto border-t border-border/40 bg-gradient-to-b from-card/50 to-background">
         <div className="mx-auto max-w-4xl px-6 py-20">
           <FadeInView direction="up">
             <div className="flex items-center gap-3">
@@ -212,7 +212,7 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="border-y border-border/40 bg-card/30 py-20">
+      <section className="cv-auto border-y border-border/40 bg-card/30 py-20">
         <div className="mx-auto max-w-6xl px-6">
           <FadeInView direction="up">
             <h2 className="font-heading text-center text-3xl font-bold md:text-4xl">
@@ -241,7 +241,7 @@ export default function AboutPage() {
       </section>
 
       {/* Philadelphia Neighborhoods */}
-      <section className="mx-auto max-w-6xl px-6 py-20">
+      <section className="cv-auto mx-auto max-w-6xl px-6 py-20">
         <FadeInView direction="up">
           <div className="flex items-center gap-3">
             <MapPin className="h-6 w-6 text-gold" />
@@ -285,7 +285,7 @@ export default function AboutPage() {
       </section>
 
       {/* Meet the Team CTA */}
-      <section className="border-y border-border/40 bg-card/30 py-20">
+      <section className="cv-auto border-y border-border/40 bg-card/30 py-20">
         <FadeInView direction="up" className="mx-auto max-w-4xl px-6 text-center">
           <Users className="mx-auto h-10 w-10 text-gold" />
           <h2 className="font-heading mt-4 text-3xl font-bold md:text-4xl">

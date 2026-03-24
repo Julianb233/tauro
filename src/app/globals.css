@@ -527,6 +527,19 @@ h1, h2, h3, h4, h5, h6 {
   display: none;
 }
 
+/* ─── Content-visibility optimization for off-screen sections ─── */
+/* Apply to individual components via .cv-auto class */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
+/* Tall sections (like testimonials, CTAs) get a larger intrinsic size */
+.cv-auto-lg {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 800px;
+}
+
 /* Hide scrollbar for thumbnail strip */
 .scrollbar-hide {
   -ms-overflow-style: none;

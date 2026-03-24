@@ -29,17 +29,29 @@ export default function HomePage() {
     <>
       <Hero />
       <StatsBar />
-      <FeaturedProperties />
+      <div className="cv-auto">
+        <FeaturedProperties />
+      </div>
       <RecentlyViewed />
       <div className="gold-divider mx-auto max-w-7xl" />
-      <NeighborhoodShowcase />
-      <WhyTauro />
+      <div className="cv-auto">
+        <NeighborhoodShowcase />
+      </div>
+      <div className="cv-auto">
+        <WhyTauro />
+      </div>
       <div className="gold-divider mx-auto max-w-7xl" />
-      <Testimonials />
+      <div className="cv-auto">
+        <Testimonials />
+      </div>
       <SocialProof />
       <div className="gold-divider mx-auto max-w-7xl" />
-      <HomepageCTAs />
-      <NewsletterCTA variant="homepage" />
+      <div className="cv-auto">
+        <HomepageCTAs />
+      </div>
+      <div className="cv-auto">
+        <NewsletterCTA variant="homepage" />
+      </div>
     </>
   );
 }

@@ -53,7 +53,7 @@ export default function ContactPage() {
       </section>
 
       {/* Form + Contact Info */}
-      <section className="bg-cream py-20">
+      <section className="cv-auto bg-cream py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-5">
             {/* Left column — Form (3/5) */}
