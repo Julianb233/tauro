@@ -40,7 +40,7 @@ export default function WhyTauro() {
               The Tauro Difference
             </p>
             <h2 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl md:text-4xl">
-              Why Philadelphia Trusts Tauro
+              Why Philadelphia <em>Trusts</em> Tauro
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm text-white/60 sm:mt-4 sm:text-base">
               We&apos;re not the biggest brokerage in Philadelphia. We&apos;re the most intentional.

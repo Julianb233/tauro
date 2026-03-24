@@ -26,7 +26,7 @@ export default async function AgentsPage() {
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-4 h-px w-16 bg-gold/60" />
           <p className="text-sm font-semibold uppercase tracking-[0.25em] text-gold">Our Team</p>
-          <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">Philadelphia&apos;s Finest Real Estate Professionals</h1>
+          <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">Philadelphia&apos;s <em>Finest</em> Real Estate Professionals</h1>
           <p className="mt-4 max-w-xl text-lg text-white/60">Each Tauro agent is hand-selected for their market expertise, negotiation skill, and unwavering commitment to client success.</p>
           <div className="mt-8 flex gap-8">
             <div><p className="font-heading text-2xl font-bold text-gold">{totalSold}+</p><p className="mt-1 text-xs uppercase tracking-wider text-white/50">Properties Sold</p></div>

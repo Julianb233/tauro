@@ -124,7 +124,7 @@ export default function TestimonialCarousel({
                     </button>
                   )}
                 </div>
-                <blockquote className="mt-3 text-sm leading-relaxed text-foreground/80 sm:mt-4">
+                <blockquote className="mt-3 font-heading text-sm italic leading-relaxed text-foreground/80 sm:mt-4">
                   &ldquo;{t.quote}&rdquo;
                 </blockquote>
                 <div className="mt-3 border-t border-border/50 pt-3 sm:mt-4 sm:pt-4">

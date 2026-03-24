@@ -241,6 +241,29 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), system-ui, sans-serif;
 }
 
+/* ─── Editorial italic accent typography ─── */
+.accent-italic {
+  font-style: italic;
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+/* Reset em inside headings to use the accent style without default underline/bold */
+h1 em, h2 em, h3 em,
+h1 .accent-italic, h2 .accent-italic, h3 .accent-italic {
+  font-style: italic;
+  font-weight: inherit;
+}
+
+/* Pull-quote / blockquote editorial styling */
+blockquote.pull-quote {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-style: italic;
+  font-size: 1.125rem;
+  line-height: 1.75;
+  border-left: 3px solid var(--color-gold);
+  padding-left: 1.25rem;
+}
+
 /* Dropdown fade-in animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-4px); }
@@ -355,6 +378,28 @@ h1, h2, h3, h4, h5, h6 {
   .glass-gold { background: rgba(201, 169, 110, 0.15); backdrop-filter: none; -webkit-backdrop-filter: none; }
   .glass-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: none; -webkit-backdrop-filter: none; }
   .glass-stat { background: rgba(255, 255, 255, 0.85); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* ─── Nav link underline hover animation ─── */
+.nav-link-underline {
+  position: relative;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1.5px;
+  background: var(--color-gold);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-link-underline:hover::after,
+.nav-link-underline:focus-visible::after {
+  width: 100%;
+  left: 0;
 }
 
 /* ─── Typewriter cursor blink ─── */
