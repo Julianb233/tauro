@@ -94,10 +94,10 @@ export default function SocialProof() {
             {awards.map((award) => (
               <div
                 key={award.title}
-                className="group rounded-xl border border-border/50 bg-white p-6 text-center shadow-sm transition-colors hover:border-gold/40"
+                className="group rounded-xl border border-border/50 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:border-gold/40 hover:shadow-md"
               >
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-gold/10 text-gold transition-colors group-hover:bg-gold/20">
-                  <award.icon className="h-6 w-6" />
+                <div className="icon-ring mx-auto size-14 rounded-full">
+                  <award.icon className="size-6 text-gold icon-hover-gold" strokeWidth={1.5} />
                 </div>
                 <h3 className="mt-4 font-heading text-base font-semibold text-foreground">
                   {award.title}

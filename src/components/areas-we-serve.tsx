@@ -51,20 +51,22 @@ export default async function AreasWeServe() {
 
               {/* Content overlay */}
               <div className="absolute inset-x-0 bottom-0 p-3 sm:p-4">
-                <div className="flex items-center gap-1.5">
-                  <MapPin className="size-3.5 shrink-0 text-gold" />
+                <div className="flex items-center gap-2">
+                  <span className="flex size-6 items-center justify-center rounded-md border border-gold/30 bg-gold/10 transition-all duration-300 group-hover:border-gold/60 group-hover:bg-gold/20">
+                    <MapPin className="size-3 shrink-0 text-gold" />
+                  </span>
                   <h3 className="font-heading text-sm font-bold text-white sm:text-base">
                     {hood.name}
                   </h3>
                 </div>
-                <p className="mt-0.5 line-clamp-1 text-xs text-white/80 sm:text-sm">
+                <p className="mt-1 line-clamp-1 text-xs text-white/80 sm:text-sm">
                   {hood.tagline}
                 </p>
 
                 {/* Hover reveal arrow */}
-                <div className="mt-2 flex items-center gap-1 text-xs font-semibold text-gold opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                <div className="mt-2 flex items-center gap-1.5 text-xs font-semibold text-gold opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1">
                   Explore
-                  <ArrowRight className="size-3" />
+                  <ArrowRight className="size-3 arrow-slide-right" />
                 </div>
               </div>
             </Link>
@@ -75,10 +77,10 @@ export default async function AreasWeServe() {
         <div className="mt-10 text-center">
           <Link
             href="/neighborhoods"
-            className="inline-flex items-center gap-2 rounded-lg border-2 border-gold px-8 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
+            className="group shimmer-gold inline-flex items-center gap-2 rounded-lg border-2 border-gold px-8 py-3 text-sm font-semibold text-gold shadow-md shadow-gold/10 transition-all duration-300 hover:bg-gold hover:text-near-black hover:shadow-lg hover:shadow-gold/20"
           >
             View All Neighborhoods
-            <ArrowRight className="size-4" />
+            <ArrowRight className="size-4 arrow-slide-right" />
           </Link>
         </div>
       </div>

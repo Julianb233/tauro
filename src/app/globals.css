@@ -687,6 +687,17 @@ html.a11y-reduce-motion *::after {
     animation: none !important;
     opacity: 1 !important;
   }
+
+  .badge-premium {
+    animation: none !important;
+  }
+
+  .icon-ring,
+  .icon-hover-gold,
+  .arrow-slide-right {
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* Mapbox popup overrides for PropertyMap */
@@ -699,6 +710,115 @@ html.a11y-reduce-motion *::after {
 }
 .property-map-popup .mapboxgl-popup-tip {
   border-top-color: #111111;
+}
+
+/* ─── Premium Icon Animations (AI-3638) ─── */
+
+/* Icon hover: scale + gold color transition */
+.icon-hover-gold {
+  transition: color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+}
+
+.icon-hover-gold:hover,
+.group:hover .icon-hover-gold,
+.group\/link:hover .icon-hover-gold {
+  color: var(--color-gold);
+  transform: scale(1.1);
+}
+
+/* Icon container with gold ring accent */
+.icon-ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  border: 1.5px solid rgba(201, 169, 110, 0.2);
+  background: rgba(201, 169, 110, 0.06);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.icon-ring:hover,
+.group:hover .icon-ring {
+  border-color: rgba(201, 169, 110, 0.5);
+  background: rgba(201, 169, 110, 0.12);
+  box-shadow: 0 0 20px rgba(201, 169, 110, 0.15), inset 0 0 12px rgba(201, 169, 110, 0.06);
+  transform: scale(1.08);
+}
+
+/* Subtle gold glow pulse for premium badges */
+@keyframes gold-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 169, 110, 0.3); }
+  50% { box-shadow: 0 0 12px 2px rgba(201, 169, 110, 0.2); }
+}
+
+.badge-premium {
+  position: relative;
+  animation: gold-pulse 3s ease-in-out infinite;
+}
+
+/* Premium status badge with shimmer */
+.badge-status {
+  position: relative;
+  overflow: hidden;
+}
+
+.badge-status::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  pointer-events: none;
+}
+
+.badge-status:hover::after {
+  background-position: -200% 0;
+  transition: background-position 0.8s ease;
+}
+
+/* Gold gradient text effect */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #C9A96E, #D4C4A0, #B08D4C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium divider with diamond accent */
+.divider-diamond {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.divider-diamond::before,
+.divider-diamond::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 169, 110, 0.4), transparent);
+}
+
+/* Floating gold particle effect for hero */
+@keyframes float-up {
+  0% { transform: translateY(0) scale(1); opacity: 0.6; }
+  100% { transform: translateY(-60px) scale(0.5); opacity: 0; }
+}
+
+/* Arrow slide-right animation for CTAs */
+.arrow-slide-right {
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.group:hover .arrow-slide-right,
+.group\/link:hover .arrow-slide-right {
+  transform: translateX(4px);
 }
 
 /* ─── Custom cursor effects on interactive elements (AI-3828) ─── */

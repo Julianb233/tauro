@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import Link from "next/link";
-import { Menu, X, Phone, UserCircle, LogOut } from "lucide-react";
+import { Menu, X, Phone, UserCircle, LogOut, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
@@ -102,11 +102,13 @@ export function Navbar() {
             <a
               href="tel:+12158394172"
               className={cn(
-                "flex items-center gap-1.5 rounded-md text-sm transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
+                "group flex items-center gap-2 rounded-md text-sm transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
                 scrolled ? "text-white/70" : "text-white/70"
               )}
             >
-              <Phone className="size-4" />
+              <span className="flex size-7 items-center justify-center rounded-md border border-gold/20 bg-gold/5 transition-all duration-300 group-hover:border-gold/40 group-hover:bg-gold/10">
+                <Phone className="size-3.5 icon-hover-gold" />
+              </span>
               <span>(215) 839-4172</span>
             </a>
 
@@ -125,23 +127,23 @@ export function Navbar() {
                 <button
                   onClick={handleSignOut}
                   className={cn(
-                    "rounded-md p-2 min-h-[44px] min-w-[44px] flex items-center justify-center transition-all duration-300 hover:text-gold",
+                    "group rounded-md p-2 min-h-[44px] min-w-[44px] flex items-center justify-center transition-all duration-300 hover:text-gold",
                     scrolled ? "text-white/70" : "text-white/70",
                   )}
                   aria-label="Sign out"
                 >
-                  <LogOut className="size-4" />
+                  <LogOut className="size-4 icon-hover-gold" />
                 </button>
               </div>
             ) : (
               <button
                 onClick={() => setAuthOpen(true)}
                 className={cn(
-                  "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-gold",
+                  "group flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-gold",
                   scrolled ? "text-white/80" : "text-white/80",
                 )}
               >
-                <UserCircle className="size-4" />
+                <UserCircle className="size-4 icon-hover-gold" />
                 Sign In
               </button>
             )}
@@ -149,13 +151,14 @@ export function Navbar() {
             <Link
               href="/contact"
               className={cn(
-                "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
+                "group shimmer-gold inline-flex items-center gap-1.5 justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide shadow-md shadow-gold/20 transition-all duration-300 hover:shadow-lg hover:shadow-gold/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
                 scrolled
-                  ? "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"
-                  : "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"
+                  ? "bg-gold text-near-black hover:bg-gold-light"
+                  : "bg-gold text-near-black hover:bg-gold-light"
               )}
             >
               Schedule a Showing
+              <ArrowRight className="size-3.5 arrow-slide-right" strokeWidth={2} />
             </Link>
           </div>
 

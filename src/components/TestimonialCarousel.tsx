@@ -107,9 +107,9 @@ export default function TestimonialCarousel({
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex gap-1" role="img" aria-label={`Rating: ${t.rating} out of 5 stars`}>
+                  <div className="flex gap-0.5" role="img" aria-label={`Rating: ${t.rating} out of 5 stars`}>
                     {Array.from({ length: t.rating }).map((_, i) => (
-                      <Star key={i} className="size-4 fill-gold text-gold" aria-hidden="true" />
+                      <Star key={i} className="size-4 fill-gold text-gold drop-shadow-[0_0_3px_rgba(201,169,110,0.3)]" aria-hidden="true" />
                     ))}
                   </div>
                   {t.videoUrl && (
@@ -117,9 +117,9 @@ export default function TestimonialCarousel({
                       type="button"
                       onClick={() => setActiveVideo(t.videoUrl!)}
                       aria-label={`Watch ${t.name}'s video testimonial`}
-                      className="flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-3 py-1 text-xs font-medium text-gold transition-colors hover:bg-gold/10"
+                      className="group/play flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/5 px-3 py-1.5 text-xs font-semibold text-gold transition-all duration-300 hover:bg-gold/15 hover:border-gold/50 hover:shadow-sm hover:shadow-gold/10"
                     >
-                      <Play className="size-3 fill-gold" />
+                      <Play className="size-3 fill-gold transition-transform duration-300 group-hover/play:scale-110" />
                       Watch
                     </button>
                   )}
@@ -141,17 +141,17 @@ export default function TestimonialCarousel({
           type="button"
           onClick={prev}
           aria-label="Previous testimonial"
-          className="absolute -left-2 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2.5 shadow-md transition-colors hover:bg-muted sm:-left-5 sm:p-2"
+          className="absolute -left-2 top-1/2 -translate-y-1/2 rounded-full border border-gold/20 bg-white p-2.5 shadow-md transition-all duration-300 hover:border-gold/40 hover:bg-gold/5 hover:shadow-lg sm:-left-5 sm:p-2"
         >
-          <ChevronLeft className="size-5 text-foreground" />
+          <ChevronLeft className="size-5 text-foreground transition-colors duration-300 hover:text-gold" />
         </button>
         <button
           type="button"
           onClick={next}
           aria-label="Next testimonial"
-          className="absolute -right-2 top-1/2 -translate-y-1/2 rounded-full border border-border/50 bg-white p-2.5 shadow-md transition-colors hover:bg-muted sm:-right-5 sm:p-2"
+          className="absolute -right-2 top-1/2 -translate-y-1/2 rounded-full border border-gold/20 bg-white p-2.5 shadow-md transition-all duration-300 hover:border-gold/40 hover:bg-gold/5 hover:shadow-lg sm:-right-5 sm:p-2"
         >
-          <ChevronRight className="size-5 text-foreground" />
+          <ChevronRight className="size-5 text-foreground transition-colors duration-300 hover:text-gold" />
         </button>
 
         {/* Live region for screen readers */}

@@ -75,8 +75,9 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="group/link inline-flex min-h-[44px] items-center gap-1 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1"
+                    className="group/link inline-flex min-h-[44px] items-center gap-1.5 text-sm text-white/60 transition-all duration-300 hover:text-gold hover:translate-x-1"
                   >
+                    <ArrowRight className="size-3 text-gold/0 transition-all duration-300 group-hover/link:text-gold/70 arrow-slide-right" />
                     {link.label}
                   </Link>
                 </li>
@@ -124,24 +125,30 @@ export function Footer() {
               <li>
                 <a
                   href="tel:+12158394172"
-                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="group flex min-h-[44px] items-center gap-3 text-sm text-white/60 transition-colors hover:text-gold"
                 >
-                  <Phone className="size-4 shrink-0" />
+                  <span className="flex size-8 items-center justify-center rounded-lg border border-gold/20 bg-gold/5 transition-all duration-300 group-hover:border-gold/40 group-hover:bg-gold/10">
+                    <Phone className="size-3.5 text-gold/70 icon-hover-gold" />
+                  </span>
                   (215) 839-4172
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:info@taurorealty.com"
-                  className="flex min-h-[44px] items-center gap-2 text-sm text-white/60 transition-colors hover:text-gold"
+                  className="group flex min-h-[44px] items-center gap-3 text-sm text-white/60 transition-colors hover:text-gold"
                 >
-                  <Mail className="size-4 shrink-0" />
+                  <span className="flex size-8 items-center justify-center rounded-lg border border-gold/20 bg-gold/5 transition-all duration-300 group-hover:border-gold/40 group-hover:bg-gold/10">
+                    <Mail className="size-3.5 text-gold/70 icon-hover-gold" />
+                  </span>
                   <span className="break-all">info@taurorealty.com</span>
                 </a>
               </li>
               <li>
-                <span className="flex items-start gap-2 text-sm text-white/60">
-                  <MapPin className="mt-0.5 size-4 shrink-0" />
+                <span className="flex items-center gap-3 text-sm text-white/60">
+                  <span className="flex size-8 items-center justify-center rounded-lg border border-gold/20 bg-gold/5">
+                    <MapPin className="size-3.5 text-gold/70" />
+                  </span>
                   Philadelphia, PA
                 </span>
               </li>
@@ -155,9 +162,11 @@ export function Footer() {
               className="mt-4 block h-32 w-full overflow-hidden rounded-md border border-white/10 bg-white/5 transition-colors hover:border-gold/40"
             >
               <div className="flex h-full flex-col items-center justify-center gap-2 text-xs text-white/60">
-                <MapPin className="size-5 text-gold" />
+                <span className="flex size-10 items-center justify-center rounded-full border border-gold/30 bg-gold/5 badge-premium">
+                  <MapPin className="size-5 text-gold" />
+                </span>
                 <span>Philadelphia, PA</span>
-                <span className="text-gold/70">View on Map</span>
+                <span className="font-medium text-gold/70">View on Map &rarr;</span>
               </div>
             </a>
           </div>

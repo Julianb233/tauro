@@ -20,9 +20,11 @@ export default function HeroSearchBar() {
 
   return (
     <form onSubmit={handleSubmit} role="search" aria-label="Property search" className="mx-auto mt-10 max-w-2xl">
-      <div className="glass-gold flex items-center rounded-xl p-1.5 shadow-2xl">
-        <div className="flex flex-1 items-center gap-2 px-3 sm:px-4">
-          <Search className="size-5 shrink-0 text-gold" aria-hidden="true" />
+      <div className="glass-gold flex items-center rounded-xl p-1.5 shadow-2xl shadow-gold/10">
+        <div className="flex flex-1 items-center gap-3 px-3 sm:px-4">
+          <span className="flex size-8 items-center justify-center rounded-lg border border-gold/20 bg-gold/10">
+            <Search className="size-4 shrink-0 text-gold" aria-hidden="true" />
+          </span>
           <input
             type="text"
             value={query}
@@ -34,7 +36,7 @@ export default function HeroSearchBar() {
         </div>
         <button
           type="submit"
-          className="shimmer-gold shrink-0 rounded-lg bg-gold px-4 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg sm:px-6"
+          className="shimmer-gold shrink-0 rounded-lg bg-gold px-5 py-3 text-sm font-bold uppercase tracking-wide text-near-black shadow-md shadow-gold/20 transition-all hover:bg-gold-light hover:shadow-lg hover:shadow-gold/30 sm:px-7"
         >
           Search
         </button>

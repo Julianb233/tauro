@@ -124,24 +124,24 @@ function ImageCarousel({
       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1.5">
         <span
           className={cn(
-            "rounded-md px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white",
+            "badge-status rounded-md px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm",
             statusStyles[status] ?? "bg-muted-foreground",
           )}
         >
           {status}
         </span>
         {isComingSoon && status !== "Coming Soon" && (
-          <span className="rounded-md bg-gradient-to-r from-purple-600 to-gold px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+          <span className="badge-status rounded-md bg-gradient-to-r from-purple-600 to-gold px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm">
             Coming Soon
           </span>
         )}
         {isExclusive && (
-          <span className="rounded-md bg-gradient-to-r from-amber-500 to-yellow-300 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-near-black">
+          <span className="badge-status badge-premium rounded-md bg-gradient-to-r from-amber-500 to-yellow-300 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-near-black shadow-sm">
             Exclusive
           </span>
         )}
         {isNewConstruction && (
-          <span className="rounded-md bg-emerald-500 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+          <span className="badge-status rounded-md bg-emerald-500 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-white shadow-sm">
             New Construction
           </span>
         )}
@@ -333,17 +333,17 @@ export default function PropertyCard({ property }: { property: Property }) {
               {getPropertyTags(property).map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center gap-0.5 rounded-full border border-gold/20 bg-gold/5 px-2 py-0.5 text-[10px] font-medium text-gold-dark"
+                  className="inline-flex items-center gap-1 rounded-full border border-gold/25 bg-gold/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gold-dark"
                 >
-                  <Tag className="h-2.5 w-2.5" />
+                  <Tag className="h-2.5 w-2.5 text-gold" />
                   {tag}
                 </span>
               ))}
             </div>
           )}
           {property.openHouseEvent && (
-            <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-gold/30 bg-gold/10 px-2 py-1">
-              <Calendar className="h-3 w-3 text-gold" />
+            <div className="mt-2 inline-flex items-center gap-1.5 rounded-md border border-gold/30 bg-gold/10 px-2.5 py-1.5 badge-premium">
+              <Calendar className="h-3.5 w-3.5 text-gold" />
               <span className="text-xs font-semibold text-gold-dark">
                 Open House: {property.openHouse}
               </span>

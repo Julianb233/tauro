@@ -37,13 +37,15 @@ export function MarketStats({
           {statConfig.map(({ key, label, icon: Icon }) => (
             <div
               key={key}
-              className="glass-stat rounded-xl p-6 text-center"
+              className="group glass-stat rounded-xl p-6 text-center"
             >
-              <Icon className="mx-auto size-6 text-gold/70" strokeWidth={1.5} />
-              <p className="mt-3 font-heading text-2xl font-bold text-gold">
+              <div className="icon-ring mx-auto size-12 rounded-xl">
+                <Icon className="size-5 text-gold icon-hover-gold" strokeWidth={1.5} />
+              </div>
+              <p className="mt-4 font-heading text-2xl font-bold text-gold-gradient">
                 {stats[key]}
               </p>
-              <p className="mt-1 text-sm text-white/70">{label}</p>
+              <p className="mt-1 text-sm font-medium text-white/70">{label}</p>
             </div>
           ))}
         </div>

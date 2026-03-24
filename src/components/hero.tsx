@@ -15,13 +15,16 @@ export default function Hero() {
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-24 text-center sm:px-6 sm:py-32 lg:px-8">
-        <p className="mb-4 font-label text-xs font-semibold uppercase tracking-[0.25em] text-gold sm:text-sm">
-          Premium Philadelphia Real Estate
-        </p>
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/5 px-4 py-1.5 backdrop-blur-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+          <p className="font-label text-xs font-semibold uppercase tracking-[0.25em] text-gold sm:text-sm">
+            Premium Philadelphia Real Estate
+          </p>
+        </div>
         <h1 className="font-heading text-3xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
           Find Your Place
           <br />
-          <em className="text-gold">in Philadelphia</em>
+          <em className="text-gold-gradient">in Philadelphia</em>
         </h1>
         <p className="mx-auto mt-4 max-w-2xl text-base text-white/80 sm:mt-6 sm:text-lg">
           Discover luxury homes and condos across Philadelphia&apos;s most
@@ -32,16 +35,17 @@ export default function Hero() {
         <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
           <Link
             href="/properties"
-            className="inline-flex items-center gap-2 rounded-full bg-gold px-10 py-4 font-label text-base font-bold uppercase tracking-wider text-near-black shadow-lg shadow-gold/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-gold/40 active:scale-[0.98]"
+            className="group shimmer-gold inline-flex items-center gap-2 rounded-full bg-gold px-10 py-4 font-label text-base font-bold uppercase tracking-wider text-near-black shadow-lg shadow-gold/30 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-gold/40 active:scale-[0.98]"
           >
             Search All Properties
-            <ArrowRight className="size-5" strokeWidth={2} />
+            <ArrowRight className="size-5 arrow-slide-right" strokeWidth={2} />
           </Link>
           <Link
             href="/home-value"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-4 font-label text-sm font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-gold/50 hover:text-gold"
+            className="group inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-4 font-label text-sm font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-gold/50 hover:text-gold"
           >
             Get Your Home Value
+            <ArrowRight className="size-4 opacity-0 -ml-4 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" strokeWidth={1.5} />
           </Link>
         </div>
 
