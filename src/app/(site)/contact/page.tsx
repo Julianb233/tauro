@@ -1,7 +1,9 @@
 "use client";
 
-import { Mail, Phone, MapPin, Clock, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { Mail, Phone, MapPin, Clock, ArrowRight, MessageSquare } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
+import CallbackRequestForm from "@/components/CallbackRequestForm";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 const contactInfo = [
@@ -32,6 +34,8 @@ const contactInfo = [
 ];
 
 export default function ContactPage() {
+  const [formMode, setFormMode] = useState<"message" | "callback">("message");
+
   return (
     <>
       <Breadcrumbs items={[{ label: "Contact", href: "/contact" }]} />
@@ -59,7 +63,37 @@ export default function ContactPage() {
             {/* Left column — Form (3/5) */}
             <div className="lg:col-span-3">
               <div className="rounded-2xl border border-border/40 bg-white p-8 shadow-xl">
-                <ContactForm />
+                {/* Tab toggle */}
+                <div className="mb-6 flex gap-2 rounded-xl border border-border bg-muted/30 p-1">
+                  <button
+                    onClick={() => setFormMode("message")}
+                    className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
+                      formMode === "message"
+                        ? "bg-white text-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <MessageSquare className="size-4" strokeWidth={1.5} />
+                    Send a Message
+                  </button>
+                  <button
+                    onClick={() => setFormMode("callback")}
+                    className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
+                      formMode === "callback"
+                        ? "bg-white text-foreground shadow-sm"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    <Phone className="size-4" strokeWidth={1.5} />
+                    Request a Callback
+                  </button>
+                </div>
+
+                {formMode === "message" ? (
+                  <ContactForm />
+                ) : (
+                  <CallbackRequestForm source="contact-page" />
+                )}
               </div>
             </div>
 

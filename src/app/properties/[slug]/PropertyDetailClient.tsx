@@ -1053,6 +1053,8 @@ function SimilarListingsCarousel({
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const pausedRef = useRef(false);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const checkScroll = useCallback(() => {
     const el = scrollRef.current;
@@ -1071,6 +1073,24 @@ function SimilarListingsCarousel({
     const cardWidth = el.querySelector("div")?.offsetWidth || 320;
     el.scrollBy({ left: direction === "left" ? -cardWidth : cardWidth, behavior: "smooth" });
   };
+
+  // Auto-advance every 4 seconds; pause on hover/interaction
+  useEffect(() => {
+    if (similar.length <= 1) return;
+    timerRef.current = setInterval(() => {
+      if (pausedRef.current) return;
+      const el = scrollRef.current;
+      if (!el) return;
+      // If at the end, scroll back to start
+      if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 8) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        const cardWidth = el.querySelector("div")?.offsetWidth || 320;
+        el.scrollBy({ left: cardWidth, behavior: "smooth" });
+      }
+    }, 4000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [similar.length]);
 
   return (
     <div>
@@ -1107,6 +1127,10 @@ function SimilarListingsCarousel({
       <div
         ref={scrollRef}
         onScroll={checkScroll}
+        onMouseEnter={() => { pausedRef.current = true; }}
+        onMouseLeave={() => { pausedRef.current = false; }}
+        onTouchStart={() => { pausedRef.current = true; }}
+        onTouchEnd={() => { setTimeout(() => { pausedRef.current = false; }, 2000); }}
         className="mt-4 flex gap-5 overflow-x-auto scroll-smooth pb-4 scrollbar-hide"
         style={{ scrollSnapType: "x mandatory" }}
       >
