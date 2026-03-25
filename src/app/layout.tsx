@@ -109,10 +109,10 @@ export default async function RootLayout({
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>
-        {/* Prevent flash of wrong theme */}
+        {/* Force dark mode — light mode not production-ready */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('tauro-theme');if(t==='light')document.documentElement.classList.remove('dark');else document.documentElement.classList.add('dark')}catch(e){}})()`,
+            __html: `(function(){document.documentElement.classList.add('dark');try{localStorage.setItem('tauro-theme','dark')}catch(e){}})()`,
           }}
         />
         {/* Preconnect to critical external origins for faster LCP */}

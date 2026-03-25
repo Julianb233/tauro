@@ -7,10 +7,8 @@ import { cn } from "@/lib/utils";
 const STORAGE_KEY = "tauro-theme";
 
 function getInitialTheme(): "light" | "dark" {
-  if (typeof window === "undefined") return "dark";
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "light" || stored === "dark") return stored;
-  return "dark"; // default to dark for a luxury real estate brand
+  // Force dark mode — light mode is not production-ready yet
+  return "dark";
 }
 
 export function ThemeToggle({ className }: { className?: string }) {
@@ -35,24 +33,6 @@ export function ThemeToggle({ className }: { className?: string }) {
 
   const toggle = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 
-  // Prevent hydration mismatch — render nothing until mounted
-  if (!mounted) return <div className="size-9" />;
-
-  return (
-    <button
-      type="button"
-      onClick={toggle}
-      aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-      className={cn(
-        "rounded-md p-2 transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-        className
-      )}
-    >
-      {theme === "dark" ? (
-        <Sun className="size-4" />
-      ) : (
-        <Moon className="size-4" />
-      )}
-    </button>
-  );
+  // Light mode not ready — hide toggle entirely
+  return null;
 }
