@@ -34,6 +34,9 @@ import PropertyCard from "@/components/PropertyCard";
 import OpenHouseBanner from "@/components/OpenHouseBanner";
 import PropertyVideoTour from "@/components/PropertyVideoTour";
 import PriceHistory from "@/components/PriceHistory";
+import StatusTimeline from "@/components/StatusTimeline";
+import FinancialSummaryCard from "@/components/FinancialSummaryCard";
+import AgentOtherListings from "@/components/AgentOtherListings";
 import RoomBreakdown from "@/components/RoomBreakdown";
 import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import ShareButton from "@/components/ShareButton";
@@ -749,10 +752,27 @@ export default function PropertyDetailClient({
               )}
             </div>
 
+            {/* Status Timeline */}
+            <StatusTimeline
+              status={property.status}
+              listingDate={property.listingDate}
+              priceHistory={property.priceHistory}
+            />
+
             {/* Price History Timeline */}
             {property.priceHistory && property.priceHistory.length > 0 && (
               <PriceHistory history={property.priceHistory} />
             )}
+
+            {/* Financial Summary Card */}
+            <FinancialSummaryCard
+              price={property.price}
+              taxAnnual={property.tax_annual}
+              taxYear={property.tax_year}
+              hoaFee={property.hoa_fee}
+              hoaFrequency={property.hoa_frequency}
+              hasHoa={property.has_hoa}
+            />
 
             {/* Mortgage Calculator */}
             <MortgageCalculator
@@ -821,6 +841,13 @@ export default function PropertyDetailClient({
                 </Link>
               )}
             </div>
+
+            {/* Agent Other Listings */}
+            <AgentOtherListings
+              agentName={property.agent.name}
+              agentSlug={property.agent.slug}
+              currentSlug={property.slug}
+            />
 
             {/* Schedule form */}
             <div id="schedule" className="rounded-xl border border-border bg-card p-6">
