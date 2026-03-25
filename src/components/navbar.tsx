@@ -86,10 +86,7 @@ export function Navbar() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={cn(
-                    "nav-link-underline rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-                    scrolled ? "text-white/90" : "text-white/90"
-                  )}
+                  className="nav-link-underline rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide text-white transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
                 >
                   {link.label}
                 </Link>
@@ -101,33 +98,22 @@ export function Navbar() {
           <div className="hidden items-center gap-3 lg:flex">
             <a
               href="tel:+12158394172"
-              className={cn(
-                "flex items-center gap-1.5 rounded-md text-sm transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-                scrolled ? "text-white/90" : "text-white/90"
-              )}
+              className="flex items-center gap-1.5 rounded-md text-sm text-white transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
             >
               <Phone className="size-4" />
               <span>(215) 839-4172</span>
             </a>
 
-            <ThemeToggle className={scrolled ? "text-white/90" : "text-white/90"} />
+            <ThemeToggle className="text-white" />
 
             {user ? (
               <div className="flex items-center gap-2">
-                <span
-                  className={cn(
-                    "text-sm font-medium transition-all duration-300",
-                    scrolled ? "text-white/90" : "text-white/90",
-                  )}
-                >
+                <span className="text-sm font-medium text-white transition-all duration-300">
                   {user.name}
                 </span>
                 <button
                   onClick={handleSignOut}
-                  className={cn(
-                    "rounded-md p-2 min-h-[44px] min-w-[44px] flex items-center justify-center transition-all duration-300 hover:text-gold",
-                    scrolled ? "text-white/90" : "text-white/90",
-                  )}
+                  className="rounded-md p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-white transition-all duration-300 hover:text-gold"
                   aria-label="Sign out"
                 >
                   <LogOut className="size-4" />
@@ -136,10 +122,7 @@ export function Navbar() {
             ) : (
               <button
                 onClick={() => setAuthOpen(true)}
-                className={cn(
-                  "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-gold",
-                  scrolled ? "text-white/90" : "text-white/90",
-                )}
+                className="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium text-white transition-all duration-300 hover:text-gold"
               >
                 <UserCircle className="size-4" />
                 Sign In
@@ -148,12 +131,7 @@ export function Navbar() {
 
             <Link
               href="/contact"
-              className={cn(
-                "shimmer-gold inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-label uppercase tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-                scrolled
-                  ? "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"
-                  : "bg-gold px-4 py-2 text-near-black hover:bg-gold-light"
-              )}
+              className="shimmer-gold inline-flex items-center justify-center rounded-lg bg-gold px-4 py-2 text-sm font-label uppercase tracking-wide text-near-black transition-all duration-300 hover:bg-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
             >
               Schedule a Showing
             </Link>
@@ -193,7 +171,7 @@ export function Navbar() {
               type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
-              className="rounded-md p-2 text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
+              className="rounded-md p-2 text-white hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
             >
               <X className="size-6" />
             </button>
@@ -217,12 +195,12 @@ export function Navbar() {
           <div className="flex flex-col items-center gap-4 border-t border-white/10 px-4 py-8">
             {user ? (
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-white/90">
+                <span className="text-sm font-medium text-white">
                   {user.name}
                 </span>
                 <button
                   onClick={() => { handleSignOut(); setMobileOpen(false); }}
-                  className="text-sm text-white/80 hover:text-gold"
+                  className="text-sm text-white hover:text-gold"
                 >
                   Sign Out
                 </button>
@@ -230,7 +208,7 @@ export function Navbar() {
             ) : (
               <button
                 onClick={() => { setAuthOpen(true); setMobileOpen(false); }}
-                className="flex items-center gap-2 text-sm font-medium text-white/90 hover:text-gold"
+                className="flex items-center gap-2 text-sm font-medium text-white hover:text-gold"
               >
                 <UserCircle className="size-5" />
                 Sign In / Register
@@ -245,7 +223,7 @@ export function Navbar() {
             </Link>
             <a
               href="tel:+12158394172"
-              className="flex items-center gap-2 text-sm text-white/80 hover:text-gold"
+              className="flex items-center gap-2 text-sm text-white hover:text-gold"
             >
               <Phone className="size-4" />
               (215) 839-4172
