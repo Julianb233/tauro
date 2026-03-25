@@ -438,17 +438,45 @@ export function getBlogPostsByCategory(category: BlogCategory): BlogPost[] {
   return blogPosts.filter((post) => post.category === category);
 }
 
+const STOP_WORDS = new Set([
+  "a","an","the","and","or","but","in","on","at","to","for","of","with",
+  "by","from","is","are","was","were","be","been","being","have","has",
+  "had","do","does","did","will","would","could","should","may","might",
+  "this","that","these","those","it","its","how","what","when","where","why",
+  "your","our","their","you","i","we","they","he","she","who","which",
+]);
+
+function extractKeywords(text: string): Set<string> {
+  return new Set(
+    text
+      .toLowerCase()
+      .replace(/[^a-z0-9\s]/g, "")
+      .split(/\s+/)
+      .filter((w) => w.length > 3 && !STOP_WORDS.has(w))
+  );
+}
+
 export function getRelatedPosts(currentSlug: string, limit = 3): BlogPost[] {
   const current = getBlogPostBySlug(currentSlug);
   if (!current) return blogPosts.slice(0, limit);
 
-  // Prefer same category, then most recent
-  const sameCategory = blogPosts.filter(
-    (p) => p.slug !== currentSlug && p.category === current.category,
-  );
-  const others = blogPosts.filter(
-    (p) => p.slug !== currentSlug && p.category !== current.category,
-  );
+  const currentKeywords = extractKeywords(current.title + " " + current.excerpt);
 
-  return [...sameCategory, ...others].slice(0, limit);
+  const candidates = blogPosts.filter((p) => p.slug !== currentSlug);
+
+  // Score: 3 pts for same category, 1 pt per shared keyword in title/excerpt
+  const scored = candidates.map((p) => {
+    let score = 0;
+    if (p.category === current.category) score += 3;
+    const pKeywords = extractKeywords(p.title + " " + p.excerpt);
+    for (const kw of currentKeywords) {
+      if (pKeywords.has(kw)) score += 1;
+    }
+    return { post: p, score };
+  });
+
+  return scored
+    .sort((a, b) => b.score - a.score || b.post.publishedAt.localeCompare(a.post.publishedAt))
+    .slice(0, limit)
+    .map((s) => s.post);
 }
