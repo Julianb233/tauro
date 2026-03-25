@@ -45,7 +45,7 @@ export default function ContactPage() {
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl">
             Contact Tauro
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-white/80">
+          <p className="mt-4 max-w-xl text-lg text-white/90">
             Whether you&apos;re buying, selling, or just exploring, we&apos;re here to
             help.
           </p>

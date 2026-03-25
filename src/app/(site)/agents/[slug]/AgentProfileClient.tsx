@@ -71,7 +71,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
     ? "rounded-2xl border border-gold/20 bg-foreground p-6 shadow-lg"
     : "rounded-2xl border border-border/50 bg-white p-8 shadow-sm";
   const labelCls = isSidebar
-    ? "mb-1 block text-xs font-medium text-white/70"
+    ? "mb-1 block text-xs font-medium text-white/90"
     : "mb-1.5 block text-sm font-medium text-foreground";
   const inputCls = isSidebar
     ? "w-full rounded-lg border border-border/30 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/30 focus:border-gold/60 focus:outline-none focus:ring-2 focus:ring-gold/20"
@@ -87,7 +87,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           <h3 className={`mt-4 font-heading text-lg font-bold ${isSidebar ? "text-white" : "text-foreground"}`}>
             Message Sent!
           </h3>
-          <p className={`mt-2 text-sm ${isSidebar ? "text-white/80" : "text-muted-foreground"}`}>
+          <p className={`mt-2 text-sm ${isSidebar ? "text-white/90" : "text-muted-foreground"}`}>
             {agent.firstName} will be in touch within one business day.
           </p>
           <button
@@ -110,7 +110,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           Contact {agent.firstName}
         </h3>
       </div>
-      <p className={`mb-4 text-xs ${isSidebar ? "text-white/70" : "text-muted-foreground"}`}>
+      <p className={`mb-4 text-xs ${isSidebar ? "text-white/90" : "text-muted-foreground"}`}>
         Send a direct message to {agent.firstName}. We typically respond within one business day.
       </p>
 
@@ -175,7 +175,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
           {state === "submitting" ? "Sending..." : `Send Message`}
         </button>
 
-        <p className={`text-center text-[10px] ${isSidebar ? "text-white/70" : "text-muted-foreground"}`}>
+        <p className={`text-center text-[10px] ${isSidebar ? "text-white/90" : "text-muted-foreground"}`}>
           By submitting, you agree to our{" "}
           <a href="/privacy" className="text-gold hover:underline">Privacy Policy</a>.
         </p>
@@ -237,7 +237,7 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                 <div className="mt-4 flex flex-wrap items-center gap-2">
                   <span className="text-xs font-label uppercase tracking-wider text-gold/80">Languages:</span>
                   {agent.languages.map((lang) => (
-                    <span key={lang} className="rounded-full border border-border/40 bg-white/10 px-3 py-1 text-xs text-white/80">{lang}</span>
+                    <span key={lang} className="rounded-full border border-border/40 bg-white/10 px-3 py-1 text-xs text-white/90">{lang}</span>
                   ))}
                 </div>
               )}

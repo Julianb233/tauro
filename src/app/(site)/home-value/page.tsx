@@ -153,7 +153,7 @@ export default function HomeValuePage() {
             <br />
             <span className="text-gold">Find Out in 24 Hours.</span>
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/80">
+          <p className="mx-auto mt-5 max-w-2xl text-lg text-white/90">
             Get a no-obligation market analysis from a Tauro agent who knows your
             neighborhood.
           </p>

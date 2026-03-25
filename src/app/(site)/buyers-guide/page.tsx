@@ -104,7 +104,7 @@ export default function BuyersGuidePage() {
           <h1 className="mt-3 max-w-3xl font-heading text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
             Your Complete Guide to Buying a Home in Philadelphia
           </h1>
-          <p className="mt-5 max-w-xl text-lg text-white/80">
+          <p className="mt-5 max-w-xl text-lg text-white/90">
             From pre-approval to closing day, navigate every step of the home
             buying process with confidence. Tauro agents are with you the entire
             way.

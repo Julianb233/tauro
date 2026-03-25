@@ -132,7 +132,7 @@ export function BrochureClient({
                   <p className="text-2xl font-bold text-[#C9A96E] print:text-xl" style={{ fontFamily: "var(--font-playfair, 'Playfair Display', Georgia, serif)" }}>
                     {stat.value}
                   </p>
-                  <p className="mt-0.5 text-xs font-medium uppercase tracking-wider text-white/80">
+                  <p className="mt-0.5 text-xs font-medium uppercase tracking-wider text-white/90">
                     {stat.label}
                   </p>
                 </div>
@@ -240,10 +240,10 @@ export function BrochureClient({
 
             {/* Footer bar */}
             <div className="flex items-center justify-between bg-[#1A1A2E] px-10 py-3 print:px-8">
-              <p className="text-xs text-white/70">
+              <p className="text-xs text-white/90">
                 {property.address}, {property.city}, {property.state} {property.zip}
               </p>
-              <p className="text-xs text-white/70">
+              <p className="text-xs text-white/90">
                 taurorealty.com
               </p>
             </div>

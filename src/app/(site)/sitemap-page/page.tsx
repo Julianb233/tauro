@@ -55,7 +55,7 @@ export default async function SitemapPage() {
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
             Sitemap
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-white/80">
+          <p className="mt-4 max-w-xl text-lg text-white/90">
             A complete directory of every page on Tauro Realty.
           </p>
         </div>

@@ -61,8 +61,8 @@ export function LeadTable({ leads, agents, onRowClick, selectedLeadId }: LeadTab
                 className={cn("cursor-pointer border-b border-white/5 last:border-0 transition-colors", selectedLeadId === lead.id ? "bg-gold/10" : "hover:bg-white/[0.03]")}>
                 <td className="px-4 py-3 font-medium text-off-white">{lead.first_name} {lead.last_name}</td>
                 <td className="px-4 py-3 text-off-white/60 hidden sm:table-cell">{lead.email}</td>
-                <td className="px-4 py-3"><span className={cn("inline-block rounded-full px-2 py-0.5 text-xs font-medium", typeColors[lead.type] ?? "bg-white/10 text-white/60")}>{lead.type}</span></td>
-                <td className="px-4 py-3"><span className={cn("inline-block rounded-full px-2 py-0.5 text-xs font-medium", statusColors[lead.status] ?? "bg-white/10 text-white/60")}>{lead.status}</span></td>
+                <td className="px-4 py-3"><span className={cn("inline-block rounded-full px-2 py-0.5 text-xs font-medium", typeColors[lead.type] ?? "bg-white/10 text-white/80")}>{lead.type}</span></td>
+                <td className="px-4 py-3"><span className={cn("inline-block rounded-full px-2 py-0.5 text-xs font-medium", statusColors[lead.status] ?? "bg-white/10 text-white/80")}>{lead.status}</span></td>
                 <td className="px-4 py-3 hidden md:table-cell">{lead.agent_id ? <span className="text-off-white/80">{agentMap.get(lead.agent_id) ?? "Unknown"}</span> : <span className="text-off-white/30">Unassigned</span>}</td>
                 <td className="px-4 py-3 text-off-white/50 hidden lg:table-cell whitespace-nowrap">{formatRelativeTime(lead.created_at)}</td>
               </tr>

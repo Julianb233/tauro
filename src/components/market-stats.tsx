@@ -43,7 +43,7 @@ export function MarketStats({
               <p className="mt-3 font-heading text-2xl font-bold text-gold">
                 {stats[key]}
               </p>
-              <p className="mt-1 text-sm text-white/70">{label}</p>
+              <p className="mt-1 text-sm text-white/90">{label}</p>
             </div>
           ))}
         </div>

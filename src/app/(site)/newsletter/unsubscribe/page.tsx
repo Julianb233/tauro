@@ -20,7 +20,7 @@ function UnsubscribeContent() {
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <div className="mx-auto mb-4 size-12 animate-spin rounded-full border-2 border-gold border-t-transparent" />
-          <p className="text-white/70">Processing your request...</p>
+          <p className="text-white/90">Processing your request...</p>
         </div>
       </div>
     );

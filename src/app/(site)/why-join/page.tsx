@@ -134,7 +134,7 @@ export default function WhyJoinPage() {
           <h1 className="mt-3 max-w-3xl font-heading text-4xl font-bold leading-tight text-white sm:text-5xl lg:text-6xl">
             Build Your Career With Philadelphia&apos;s Fastest-Growing Brokerage
           </h1>
-          <p className="mt-5 max-w-xl text-lg text-white/80">
+          <p className="mt-5 max-w-xl text-lg text-white/90">
             At Tauro, we believe agents deserve more — better splits, better
             tools, and a culture that puts your growth first. Join a team where
             your ambition is matched by real support.

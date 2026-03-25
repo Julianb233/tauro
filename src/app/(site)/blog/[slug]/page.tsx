@@ -170,7 +170,7 @@ export default async function BlogPostPage({
         <div className="relative z-10 mx-auto max-w-4xl px-4 pt-12 sm:px-6 lg:px-8">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-gold"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-white/90 transition-colors hover:text-gold"
           >
             <ArrowLeft className="size-3.5" />
             Back to Journal
@@ -186,7 +186,7 @@ export default async function BlogPostPage({
             {post.title}
           </h1>
 
-          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/70">
+          <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/90">
             {post.excerpt}
           </p>
 
@@ -205,7 +205,7 @@ export default async function BlogPostPage({
             </div>
             <div>
               <p className="text-sm font-semibold text-white">{post.author}</p>
-              <div className="flex items-center gap-3 text-xs text-white/60">
+              <div className="flex items-center gap-3 text-xs text-white/80">
                 <span>{formatDate(post.publishedAt)}</span>
                 <span className="flex items-center gap-1">
                   <Clock className="size-3" />

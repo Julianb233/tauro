@@ -62,7 +62,7 @@ export function MarketDataSection({
                     }`}
                   />
                 </div>
-                <p className="mt-1 text-sm text-white/70">{label}</p>
+                <p className="mt-1 text-sm text-white/90">{label}</p>
               </div>
             );
           })}

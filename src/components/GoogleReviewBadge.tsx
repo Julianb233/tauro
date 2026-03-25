@@ -63,7 +63,7 @@ export function GoogleReviewBadge({
       {/* Text */}
       <span
         className={`text-xs font-medium ${
-          isLight ? "text-white/70" : "text-muted-foreground"
+          isLight ? "text-white/90" : "text-muted-foreground"
         }`}
       >
         4.9 stars

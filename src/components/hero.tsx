@@ -23,7 +23,7 @@ export default function Hero() {
           <br />
           <em className="text-gold">in Philadelphia</em>
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-base text-white/80 sm:mt-6 sm:text-lg">
+        <p className="mx-auto mt-4 max-w-2xl text-base text-white/90 sm:mt-6 sm:text-lg">
           Discover luxury homes and condos across Philadelphia&apos;s most
           coveted neighborhoods with Tauro&apos;s expert agents.
         </p>
@@ -39,7 +39,7 @@ export default function Hero() {
           </Link>
           <Link
             href="/home-value"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-4 font-label text-sm font-medium uppercase tracking-wider text-white/80 backdrop-blur-sm transition-all duration-300 hover:border-gold/50 hover:text-gold"
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-4 font-label text-sm font-medium uppercase tracking-wider text-white/90 backdrop-blur-sm transition-all duration-300 hover:border-gold/50 hover:text-gold"
           >
             Get Your Home Value
           </Link>

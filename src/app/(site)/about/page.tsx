@@ -99,7 +99,7 @@ export default function AboutPage() {
           <h1 className="font-heading text-4xl font-bold text-white md:text-5xl lg:text-6xl">
             Philadelphia&apos;s <em>Premier</em><br className="hidden sm:block" /> Real Estate Brokerage
           </h1>
-          <p className="mt-4 text-lg text-white/80 md:text-xl">
+          <p className="mt-4 text-lg text-white/90 md:text-xl">
             Born and built in Philadelphia. We know every block, every
             neighborhood, every opportunity in the city we call home.
           </p>

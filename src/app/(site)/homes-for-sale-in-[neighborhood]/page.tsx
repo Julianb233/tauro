@@ -173,7 +173,7 @@ export default async function LocationLandingPage({
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl">
             Homes for Sale in {neighborhood.name}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg text-white/80">
+          <p className="mt-4 max-w-2xl text-lg text-white/90">
             {neighborhood.tagline}. Discover premium listings and market insights
             from Philadelphia&apos;s trusted luxury real estate brokerage.
           </p>
@@ -184,12 +184,12 @@ export default async function LocationLandingPage({
               {listings.length}{" "}
               {listings.length === 1 ? "Active Listing" : "Active Listings"}
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm font-medium text-white/80 backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm font-medium text-white/90 backdrop-blur-sm">
               <TrendingUp className="size-4" />
               Median: {neighborhood.stats.medianPrice}
             </span>
             {avgPrice > 0 && (
-              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm font-medium text-white/80 backdrop-blur-sm">
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm font-medium text-white/90 backdrop-blur-sm">
                 <Star className="size-4" />
                 Avg: ${Math.round(avgPrice / 1000)}K
               </span>
@@ -359,7 +359,7 @@ export default async function LocationLandingPage({
           <h2 className="mt-3 font-heading text-3xl font-bold text-white sm:text-4xl">
             Find Your Dream Home in {neighborhood.name}
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-white/70">
+          <p className="mx-auto mt-4 max-w-xl text-white/90">
             Whether you&apos;re seeking a historic townhome, a modern condo, or a
             luxury single-family residence, Tauro Realty has the {neighborhood.name}{" "}
             expertise to make it happen.

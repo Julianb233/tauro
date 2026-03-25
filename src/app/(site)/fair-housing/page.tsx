@@ -21,7 +21,7 @@ export default function FairHousingPage() {
           <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl lg:text-6xl">
             Fair Housing Statement
           </h1>
-          <p className="mt-4 max-w-xl text-lg text-white/80">
+          <p className="mt-4 max-w-xl text-lg text-white/90">
             Equal Housing Opportunity
           </p>
         </div>

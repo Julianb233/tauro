@@ -21,7 +21,7 @@ export default async function AreasWeServe() {
           <h2 className="mt-2 font-heading text-3xl font-bold text-white sm:text-4xl">
             Areas We Serve
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-white/85">
+          <p className="mx-auto mt-4 max-w-2xl text-white/95">
             From Center City high-rises to charming Chestnut Hill estates, Tauro
             brings local expertise to every Philadelphia neighborhood.
           </p>

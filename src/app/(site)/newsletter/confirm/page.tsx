@@ -19,7 +19,7 @@ function ConfirmContent() {
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="text-center">
           <div className="mx-auto mb-4 size-12 animate-spin rounded-full border-2 border-gold border-t-transparent" />
-          <p className="text-white/70">Confirming your subscription...</p>
+          <p className="text-white/90">Confirming your subscription...</p>
         </div>
       </div>
     );

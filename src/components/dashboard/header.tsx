@@ -20,7 +20,7 @@ interface DashboardHeaderProps {
 const roleBadgeColors: Record<UserRole, string> = {
   admin: "bg-gold/20 text-gold",
   agent: "bg-blue-500/20 text-blue-400",
-  viewer: "bg-white/10 text-white/60",
+  viewer: "bg-white/10 text-white/80",
 };
 
 export function DashboardHeader({ user, onMenuToggle }: DashboardHeaderProps) {

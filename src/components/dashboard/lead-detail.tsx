@@ -59,7 +59,7 @@ export function LeadDetail({ leadId, onClose, agents, onUpdate }: LeadDetailProp
         ) : lead ? (
           <div className="flex-1 overflow-y-auto">
             <div className="flex items-start justify-between border-b border-white/5 p-5">
-              <div><h2 className="text-lg font-bold text-off-white">{lead.first_name} {lead.last_name}</h2><span className={cn("mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium", typeColors[lead.type] ?? "bg-white/10 text-white/60")}>{lead.type}</span></div>
+              <div><h2 className="text-lg font-bold text-off-white">{lead.first_name} {lead.last_name}</h2><span className={cn("mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-medium", typeColors[lead.type] ?? "bg-white/10 text-white/80")}>{lead.type}</span></div>
               <button onClick={onClose} className="rounded p-1 text-off-white/40 hover:text-off-white"><X className="h-5 w-5" /></button>
             </div>
             <div className="space-y-3 border-b border-white/5 p-5">

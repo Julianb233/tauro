@@ -69,7 +69,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
         {/* Hover overlay - slides up */}
         <div className="absolute inset-0 flex translate-y-full flex-col justify-end bg-black/70 backdrop-blur-sm transition-transform duration-500 ease-out group-hover:translate-y-0">
           <div className="p-5">
-            <p className="text-sm leading-relaxed text-white/80 line-clamp-3">
+            <p className="text-sm leading-relaxed text-white/90 line-clamp-3">
               {agent.shortBio}
             </p>
 
@@ -84,7 +84,7 @@ export default function AgentCard({ agent }: { agent: Agent }) {
 
             {/* Contact info */}
             <div className="mt-3 flex flex-col gap-1">
-              <span className="text-sm text-white/70">{agent.phone}</span>
+              <span className="text-sm text-white/90">{agent.phone}</span>
               <span
                 role="button"
                 tabIndex={0}

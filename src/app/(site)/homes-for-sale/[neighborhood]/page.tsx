@@ -175,7 +175,7 @@ export default async function HomesForSaleNeighborhoodPage({
         <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/50 to-midnight/20" />
 
         <div className="relative z-10 mx-auto flex min-h-[55vh] max-w-7xl flex-col justify-end px-4 pb-14 sm:px-6 lg:px-8">
-          <nav className="mb-6 flex items-center gap-2 text-sm text-white/80">
+          <nav className="mb-6 flex items-center gap-2 text-sm text-white/90">
             <Link href="/" className="transition-colors hover:text-gold">
               Home
             </Link>
@@ -193,7 +193,7 @@ export default async function HomesForSaleNeighborhoodPage({
           <h1 className="font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl">
             Luxury Homes for Sale in {neighborhood.name}
           </h1>
-          <p className="mt-3 max-w-2xl text-lg text-white/80">
+          <p className="mt-3 max-w-2xl text-lg text-white/90">
             {neighborhood.tagline}. Discover available listings, neighborhood
             highlights, and market data curated by Tauro Realty.
           </p>
@@ -204,7 +204,7 @@ export default async function HomesForSaleNeighborhoodPage({
               {listings.length}{" "}
               {listings.length === 1 ? "Listing" : "Listings"} Available
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/80 backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm">
               <MapPin className="size-4" />
               Median: {neighborhood.stats.medianPrice}
             </span>

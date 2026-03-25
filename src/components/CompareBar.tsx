@@ -42,7 +42,7 @@ export function CompareBar() {
                 >
                   X
                 </button>
-                <p className="mt-0.5 max-w-[80px] truncate text-[10px] text-white/70">
+                <p className="mt-0.5 max-w-[80px] truncate text-[10px] text-white/90">
                   {p.address}
                 </p>
               </div>
@@ -55,7 +55,7 @@ export function CompareBar() {
           <button
             type="button"
             onClick={clear}
-            className="text-xs text-white/60 underline underline-offset-2 transition hover:text-white"
+            className="text-xs text-white/80 underline underline-offset-2 transition hover:text-white"
           >
             Clear All
           </button>

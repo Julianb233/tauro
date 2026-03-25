@@ -431,7 +431,7 @@ export default function PropertyMap({
           href={osmLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="absolute bottom-2 right-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-1 text-xs text-white/80 backdrop-blur-sm hover:text-white"
+          className="absolute bottom-2 right-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-1 text-xs text-white/90 backdrop-blur-sm hover:text-white"
         >
           <ExternalLink className="h-3 w-3" />
           Open in Maps
@@ -482,7 +482,7 @@ export default function PropertyMap({
         href={osmLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute bottom-2 right-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-1 text-xs text-white/80 backdrop-blur-sm hover:text-white"
+        className="absolute bottom-2 right-2 flex items-center gap-1 rounded-md bg-black/60 px-2 py-1 text-xs text-white/90 backdrop-blur-sm hover:text-white"
       >
         <ExternalLink className="h-3 w-3" />
         Open in Maps

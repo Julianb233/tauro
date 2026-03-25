@@ -88,7 +88,7 @@ export function Navbar() {
                   href={link.href}
                   className={cn(
                     "nav-link-underline rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-                    scrolled ? "text-white/80" : "text-white/80"
+                    scrolled ? "text-white/90" : "text-white/90"
                   )}
                 >
                   {link.label}
@@ -103,14 +103,14 @@ export function Navbar() {
               href="tel:+12158394172"
               className={cn(
                 "flex items-center gap-1.5 rounded-md text-sm transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2",
-                scrolled ? "text-white/70" : "text-white/70"
+                scrolled ? "text-white/90" : "text-white/90"
               )}
             >
               <Phone className="size-4" />
               <span>(215) 839-4172</span>
             </a>
 
-            <ThemeToggle className={scrolled ? "text-white/70" : "text-white/70"} />
+            <ThemeToggle className={scrolled ? "text-white/90" : "text-white/90"} />
 
             {user ? (
               <div className="flex items-center gap-2">
@@ -126,7 +126,7 @@ export function Navbar() {
                   onClick={handleSignOut}
                   className={cn(
                     "rounded-md p-2 min-h-[44px] min-w-[44px] flex items-center justify-center transition-all duration-300 hover:text-gold",
-                    scrolled ? "text-white/70" : "text-white/70",
+                    scrolled ? "text-white/90" : "text-white/90",
                   )}
                   aria-label="Sign out"
                 >
@@ -138,7 +138,7 @@ export function Navbar() {
                 onClick={() => setAuthOpen(true)}
                 className={cn(
                   "flex items-center gap-1.5 rounded-md px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-gold",
-                  scrolled ? "text-white/80" : "text-white/80",
+                  scrolled ? "text-white/90" : "text-white/90",
                 )}
               >
                 <UserCircle className="size-4" />
@@ -193,7 +193,7 @@ export function Navbar() {
               type="button"
               onClick={() => setMobileOpen(false)}
               aria-label="Close menu"
-              className="rounded-md p-2 text-white/70 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
+              className="rounded-md p-2 text-white/90 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2 focus-visible:ring-offset-midnight"
             >
               <X className="size-6" />
             </button>
@@ -222,7 +222,7 @@ export function Navbar() {
                 </span>
                 <button
                   onClick={() => { handleSignOut(); setMobileOpen(false); }}
-                  className="text-sm text-white/60 hover:text-gold"
+                  className="text-sm text-white/80 hover:text-gold"
                 >
                   Sign Out
                 </button>
@@ -230,7 +230,7 @@ export function Navbar() {
             ) : (
               <button
                 onClick={() => { setAuthOpen(true); setMobileOpen(false); }}
-                className="flex items-center gap-2 text-sm font-medium text-white/80 hover:text-gold"
+                className="flex items-center gap-2 text-sm font-medium text-white/90 hover:text-gold"
               >
                 <UserCircle className="size-5" />
                 Sign In / Register
@@ -245,7 +245,7 @@ export function Navbar() {
             </Link>
             <a
               href="tel:+12158394172"
-              className="flex items-center gap-2 text-sm text-white/60 hover:text-gold"
+              className="flex items-center gap-2 text-sm text-white/80 hover:text-gold"
             >
               <Phone className="size-4" />
               (215) 839-4172

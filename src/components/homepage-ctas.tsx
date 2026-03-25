@@ -29,7 +29,7 @@ export default function HomepageCTAs() {
               <h3 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">
                 Find Your Dream Home
               </h3>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/80">
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/90">
                 Browse curated listings, explore neighborhoods, and let our agents
                 guide you to the perfect Philadelphia property.
               </p>
@@ -64,7 +64,7 @@ export default function HomepageCTAs() {
               <h3 className="mt-2 font-heading text-2xl font-bold text-white sm:text-3xl">
                 List With Tauro
               </h3>
-              <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/80">
+              <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/90">
                 Get a free home valuation, premium marketing, and an agent who
                 knows your neighborhood inside and out.
               </p>

@@ -240,7 +240,7 @@ export function ChatWidget() {
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                   </span>
-                  <p className="text-[11px] text-white/70">
+                  <p className="text-[11px] text-white/90">
                     {loading ? "Typing a response..." : "Online now"}
                   </p>
                 </div>
@@ -250,7 +250,7 @@ export function ChatWidget() {
               {messages.length > 0 && (
                 <button
                   onClick={resetChat}
-                  className="rounded-lg p-2 text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+                  className="rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                   aria-label="New conversation"
                   title="New conversation"
                 >
@@ -259,7 +259,7 @@ export function ChatWidget() {
               )}
               <button
                 onClick={() => setOpen(false)}
-                className="rounded-lg p-2 text-white/60 transition-colors hover:bg-white/10 hover:text-white"
+                className="rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                 aria-label="Close chat"
               >
                 <X className="size-5" />
@@ -283,7 +283,7 @@ export function ChatWidget() {
                   <p className="text-[15px] font-medium leading-snug">
                     Hi! I&apos;m your Philadelphia real estate expert.
                   </p>
-                  <p className="mt-1.5 text-sm text-white/80 leading-relaxed">
+                  <p className="mt-1.5 text-sm text-white/90 leading-relaxed">
                     I know every listing, neighborhood, and market trend. How can I help you today?
                   </p>
                 </div>

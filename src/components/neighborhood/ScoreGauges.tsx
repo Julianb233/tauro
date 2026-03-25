@@ -101,7 +101,7 @@ function CircularScore({
       </div>
       <p className="mt-3 font-heading text-sm font-bold text-white">{label}</p>
       {sublabel && (
-        <p className="mt-0.5 text-xs text-white/70">{sublabel}</p>
+        <p className="mt-0.5 text-xs text-white/90">{sublabel}</p>
       )}
     </div>
   );
