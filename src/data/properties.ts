@@ -185,7 +185,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
       "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=80",
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7c5a68?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80",
     ],
     description:
       "Exquisite Federal-style residence in Society Hill, meticulously restored with museum-quality finishes. Original exposed brick, wide-plank pine floors, and seven fireplaces complement a stunning modern kitchen and spa-like primary suite. One of Philadelphia's most distinguished addresses.",
@@ -596,7 +596,7 @@ export const properties: Property[] = [
     images: [
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80",
       "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7c5a68?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80",
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
     ],
     description:
@@ -825,7 +825,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
       "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7c5a68?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80",
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
     ],
     description:
@@ -1136,7 +1136,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=1200&q=80",
       "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1200&q=80",
       "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1200&q=80",
-      "https://images.unsplash.com/photo-1600566753376-12c8ab7c5a68?w=1200&q=80",
+      "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80",
     ],
     description:
       "Charming Victorian near Clark Park with a classic wrap-around porch and sun-filled interior. Four spacious bedrooms, original stained glass, a renovated kitchen with butcher block counters, and a deep backyard garden. Walk to Baltimore Avenue cafes, trolley stops, and UPenn campus.",

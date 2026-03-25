@@ -21,7 +21,7 @@ const SLIDES = [
     alt: "Contemporary home with manicured lawn",
   },
   {
-    src: "https://images.unsplash.com/photo-1582407947092-45ae4dedf6ff?w=1920&q=80",
+    src: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1920&q=80",
     alt: "Philadelphia row homes at golden hour",
   },
 ];
