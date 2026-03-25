@@ -20,8 +20,8 @@ export default function HomepageCTAs() {
               blurDataURL={BLUR_LANDSCAPE}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
-            <div className="relative z-10 p-8 sm:p-10">
-              <div className="glass-gold mb-4 inline-block rounded-full px-4 py-1.5">
+            <div className="relative z-10 h-full p-8 sm:p-10">
+              <div className="glass-gold mb-4 inline-block rounded-full px-4 py-1.5 shadow-[0_2px_12px_rgba(201,169,110,0.15)]">
                 <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                   For Buyers
                 </p>
@@ -55,8 +55,8 @@ export default function HomepageCTAs() {
               blurDataURL={BLUR_LANDSCAPE}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/30" />
-            <div className="relative z-10 p-8 sm:p-10">
-              <div className="glass-gold mb-4 inline-block rounded-full px-4 py-1.5">
+            <div className="relative z-10 h-full p-8 sm:p-10">
+              <div className="glass-gold mb-4 inline-block rounded-full px-4 py-1.5 shadow-[0_2px_12px_rgba(201,169,110,0.15)]">
                 <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                   For Sellers
                 </p>

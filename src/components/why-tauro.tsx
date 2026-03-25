@@ -52,8 +52,8 @@ export default function WhyTauro() {
         <StaggerReveal className="mt-8 grid gap-4 sm:mt-14 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-8" stagger={0.12}>
           {whyTauro.map((item) => (
             <TiltCard key={item.title} maxTilt={6}>
-              <div className="group glass-card rounded-xl p-6">
-                <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10 transition-all duration-300 group-hover:bg-gold/20 group-hover:scale-110">
+              <div className="group glass-premium rounded-xl p-6">
+                <div className="flex size-12 items-center justify-center rounded-xl bg-gold/10 ring-1 ring-gold/20 transition-all duration-300 group-hover:bg-gold/20 group-hover:ring-gold/40 group-hover:scale-110">
                   <item.icon className="size-6 text-gold transition-transform duration-300 group-hover:scale-105" strokeWidth={1.5} />
                 </div>
                 <h3 className="mt-4 font-heading text-lg font-bold text-white">
