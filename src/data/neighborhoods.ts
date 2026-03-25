@@ -570,9 +570,9 @@ export const neighborhoods: Neighborhood[] = [
       { name: "Garage Passyunk", type: "Bar", description: "Retro-themed bar with craft cocktails, pinball machines, and a speakeasy vibe." },
     ],
     image:
-      "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=1200&q=80",
+      "https://images.unsplash.com/photo-1599427303058-f04cbcf4756f?w=1200&q=80",
     cardImage:
-      "https://images.unsplash.com/photo-1582407947092-50b8c541ccbd?w=800&q=80",
+      "https://images.unsplash.com/photo-1599427303058-f04cbcf4756f?w=800&q=80",
     mapCenter: { lat: 39.9284, lng: -75.1645 },
     gallery: [
       "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80",
