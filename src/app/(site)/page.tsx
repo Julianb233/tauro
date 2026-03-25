@@ -11,6 +11,7 @@ import HomepageCTAs from "@/components/homepage-ctas";
 // Client components — lazy-loaded to reduce initial JS bundle and improve INP
 const RecentlyViewed = dynamic(() => import("@/components/RecentlyViewed"));
 const SocialProof = dynamic(() => import("@/components/SocialProof"));
+const InstagramFeed = dynamic(() => import("@/components/InstagramFeed"));
 const NewsletterCTA = dynamic(
   () =>
     import("@/components/NewsletterCTA").then((mod) => ({
@@ -38,6 +39,7 @@ export default function HomePage() {
       <Testimonials />
       <SocialProof />
       <div className="gold-divider mx-auto max-w-7xl" />
+      <InstagramFeed />
       <HomepageCTAs />
       <NewsletterCTA variant="homepage" />
     </>
