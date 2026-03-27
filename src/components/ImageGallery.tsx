@@ -130,7 +130,7 @@ export default function ImageGallery({ images, address }: ImageGalleryProps) {
                 src={src}
                 alt={`${address} - Photo ${i + 1}`}
                 fill
-                className="object-cover transition-transform hover:scale-105"
+                className="object-cover transition-transform duration-500 hover:scale-105"
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
                 placeholder="blur"
                 blurDataURL={BLUR_LANDSCAPE}
