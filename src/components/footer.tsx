@@ -315,6 +315,9 @@ export function Footer() {
             <p className="text-xs text-white/90">
               &copy; {new Date().getFullYear()} Tauro. All rights reserved.
             </p>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-[11px] font-semibold tracking-wide text-gold">
+              Est. 2014 <span className="text-gold/40">|</span> 12+ Years
+            </span>
             <GoogleReviewBadge variant="light" />
           </div>
           <div className="flex items-center gap-1 sm:gap-3">
