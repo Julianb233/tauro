@@ -110,6 +110,58 @@ function useTypewriter(phrases: string[]) {
   return text;
 }
 
+const PHRASES = ["Find Your Place", "Discover Luxury", "Live Extraordinary"];
+const TYPE_SPEED = 80;
+const DELETE_SPEED = 50;
+const PAUSE_AFTER_TYPE = 2000;
+const PAUSE_AFTER_DELETE = 400;
+
+function useTypewriter(phrases: string[]) {
+  const [text, setText] = useState("");
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const current = phrases[phraseIndex];
+    let delay: number;
+
+    if (!isDeleting) {
+      if (text.length < current.length) {
+        delay = TYPE_SPEED;
+      } else {
+        delay = PAUSE_AFTER_TYPE;
+      }
+    } else {
+      if (text.length > 0) {
+        delay = DELETE_SPEED;
+      } else {
+        delay = PAUSE_AFTER_DELETE;
+      }
+    }
+
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        if (text.length < current.length) {
+          setText(current.slice(0, text.length + 1));
+        } else {
+          setIsDeleting(true);
+        }
+      } else {
+        if (text.length > 0) {
+          setText(current.slice(0, text.length - 1));
+        } else {
+          setIsDeleting(false);
+          setPhraseIndex((phraseIndex + 1) % phrases.length);
+        }
+      }
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [text, phraseIndex, isDeleting, phrases]);
+
+  return text;
+}
+
 export default function Hero() {
   const typedText = useTypewriter(PHRASES);
 
