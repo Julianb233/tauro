@@ -99,7 +99,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
     ],
     description:
-      "Grand Rittenhouse Square townhome with impeccable period details and modern luxury throughout. Five bedrooms, a chef's kitchen, private garden, and a rooftop terrace overlooking the Square. Steps from Philadelphia's finest dining, shopping, and cultural institutions.",
+      "There are addresses, and then there is 1820 Rittenhouse Square. This grand four-story townhome commands one of Philadelphia's most coveted positions, where century-old sycamores frame views of the city's most beloved park. Inside, impeccable period details — hand-carved crown moldings, marble mantels, and inlaid hardwood floors — exist in seamless dialogue with modern luxuries: a professional-grade chef's kitchen, a temperature-controlled wine cellar, and a primary suite that feels more like a private retreat. Step onto the rooftop terrace with your morning coffee and watch the Square come alive below. This is not simply a home; it is a front-row seat to Philadelphia's most elegant way of life.",
     features: {
       interior: [
         "Original Crown Moldings",
@@ -188,7 +188,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80",
     ],
     description:
-      "Exquisite Federal-style residence in Society Hill, meticulously restored with museum-quality finishes. Original exposed brick, wide-plank pine floors, and seven fireplaces complement a stunning modern kitchen and spa-like primary suite. One of Philadelphia's most distinguished addresses.",
+      "Built the same year George Washington took office, this Federal-style masterpiece on Delancey Street has been reimagined for the way we live now — without sacrificing a single whisper of its storied past. Seven fireplaces anchor rooms dressed in original exposed brick and wide-plank pine floors that creak with two centuries of history. The restoration is meticulous: museum-quality plaster details alongside a chef's kitchen clad in honed marble, heated bathroom floors, and a primary suite that could pass for a boutique hotel. Out back, a walled garden offers the rarest of Philadelphia luxuries — absolute privacy in the heart of Society Hill.",
     features: {
       interior: [
         "7 Fireplaces",
@@ -273,7 +273,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=1200&q=80",
     ],
     description:
-      "Ultra-luxury penthouse overlooking the Philadelphia Museum of Art and Schuylkill River. Floor-to-ceiling glass walls, private elevator entry, two terraces totaling 1,200 SF, and panoramic skyline views from every room. The pinnacle of modern Philadelphia living.",
+      "Floating above the city like a glass pavilion in the sky, this penthouse redefines what it means to live at the top. Your private elevator opens directly into 5,600 square feet of uninterrupted space where floor-to-ceiling glass dissolves the boundary between indoors and out, framing the Philadelphia Museum of Art, the serpentine Schuylkill River, and a skyline that burns gold at sunset. Two wraparound terraces — 1,200 square feet of outdoor living — invite barefoot entertaining high above the noise. Every surface has been considered: custom Italian cabinetry, smart-home automation that anticipates your needs, and a wine room for the collection you have been building. This is the pinnacle.",
     features: {
       interior: [
         "Private Elevator Entry",
@@ -364,7 +364,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=1200&q=80",
     ],
     description:
-      "Sleek Center City condo in a full-service building with 24/7 concierge. Open concept living with floor-to-ceiling windows and a private balcony overlooking City Hall. Walking distance to world-class dining, Broad Street theaters, and Rittenhouse Square.",
+      "Wake up to the illuminated clock tower of City Hall, step onto your private balcony with coffee in hand, and survey the most walkable square mile in America. This sleek Center City condo wraps you in floor-to-ceiling glass and the quiet confidence of a full-service building — 24/7 concierge, doorman, and the kind of seamless convenience that turns every errand into a pleasant walk. The open living space is flooded with natural light, designed for both intimate evenings and effortless entertaining. Below your feet: Broad Street's theater row, Rittenhouse Square's boutiques, and restaurants that consistently land on every national best-of list.",
     features: {
       interior: [
         "Quartz Countertops",
@@ -442,7 +442,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
     ],
     description:
-      "Stunning new-construction townhome in Queen Village with designer finishes throughout. Open concept living with a custom chef's kitchen, rooftop deck with skyline views, and a private garage. Steps from South Street, Italian Market, and the Delaware River waterfront.",
+      "Queen Village has always been Philadelphia's best-kept secret — cobblestone streets, century-old trees, and a village-within-a-city charm that money cannot manufacture. This brand-new townhome honors the neighborhood's character while delivering everything modern buyers demand: sun-drenched open living anchored by a custom chef's kitchen with waterfall stone countertops, designer fixtures chosen with an architect's eye, and a private rooftop deck where the skyline unfolds like a postcard. The Italian Market is a morning stroll away, the Delaware River waterfront beckons for evening runs, and your private garage means never circling the block again.",
     features: {
       interior: [
         "Open Floor Plan",
@@ -523,7 +523,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=80",
     ],
     description:
-      "Brand-new Fishtown townhome blending industrial chic with modern luxury. Soaring ceilings, exposed ductwork, a gourmet kitchen with waterfall island, and a private rooftop with Center City skyline views. Walk to Frankford Avenue's best restaurants, breweries, and boutiques.",
+      "Fishtown does not do subtle, and neither does this brand-new townhome on Hagert Street. Soaring ceilings and raw exposed ductwork pay homage to the neighborhood's industrial heritage, while a gourmet kitchen with cascading waterfall island and custom joinery signals that this is something entirely new. Ascend to the private rooftop and the Center City skyline stretches before you — a view best enjoyed with a craft beer from one of the half-dozen breweries within walking distance. Frankford Avenue's constellation of acclaimed restaurants, indie boutiques, and late-night haunts is right outside the door. In a neighborhood that rewards bold taste, this home fits right in.",
     features: {
       interior: [
         "10-Foot Ceilings",
@@ -600,7 +600,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80",
     ],
     description:
-      "Sleek modern loft in the heart of Northern Liberties with soaring ceilings and floor-to-ceiling windows. Open-plan living flows into a designer kitchen with quartz countertops and custom cabinetry. Steps from the Piazza, Liberty Lands, and some of Philly's best restaurants.",
+      "Northern Liberties pioneered Philadelphia's post-industrial cool, and this loft on North 2nd Street captures that energy in every detail. Soaring ceilings and walls of glass flood the open-plan living space with the kind of natural light that photographers dream about. The designer kitchen — quartz countertops, custom cabinetry, soft-close everything — anchors a layout built for both quiet morning routines and spirited weekend gatherings. Step outside and the Piazza's European-inspired square is around the corner, Liberty Lands park is across the street, and some of the city's most inventive restaurants are within a five-minute walk. Urban living, refined.",
     features: {
       interior: [
         "12-Foot Ceilings",
@@ -676,7 +676,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80",
     ],
     description:
-      "Beautifully renovated Victorian twin in Spruce Hill, steps from Penn's campus and Clark Park. Original hardwood floors and ornate mantels blend with a modern open kitchen, updated baths, and a landscaped rear yard. Ideal for families or faculty seeking urban convenience with residential charm.",
+      "On a tree-canopied block in Spruce Hill, this beautifully renovated Victorian twin offers something increasingly rare in Philadelphia: genuine neighborhood warmth paired with city-caliber sophistication. Original hardwood floors, restored to a warm honey glow, run beneath ornate mantels that have witnessed over a century of family life. The modern open kitchen and refreshed bathrooms are thoughtful updates — not overwrought, just right. Out back, a landscaped garden invites Saturday afternoon reading and Sunday evening grilling. Clark Park's farmers market is a two-block walk, Penn's campus a leafy stroll, and the trolley line connects you to Center City in minutes. This is the kind of home you settle into.",
     features: {
       interior: [
         "Original Hardwood Floors",
@@ -751,7 +751,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600573472592-401b489a3cdc?w=1200&q=80",
     ],
     description:
-      "Modern townhouse on Manayunk's iconic Main Street with river views from the upper floors. Open-plan living, a sleek kitchen with waterfall island, and a private rooftop deck overlooking the Schuylkill. Walk to the towpath trail, shops, and dozens of restaurants.",
+      "Perched along Manayunk's iconic Main Street, this modern townhouse rewards you with something most city homes cannot: water views. From the upper floors and private rooftop deck, the Schuylkill River winds lazily below, rowers gliding past in the early morning light. Inside, the open-plan living space is anchored by a sleek kitchen with waterfall island — the kind of room where dinner parties start early and end late. The towpath trail begins practically at your doorstep, perfect for morning runs or weekend bike rides, and Main Street's eclectic mix of restaurants, galleries, and independent shops fills every block. Small-town charm, big-city energy.",
     features: {
       interior: [
         "Open Floor Plan",
@@ -829,7 +829,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
     ],
     description:
-      "Stately stone Colonial Revival on a tree-lined lot in the heart of Chestnut Hill. Five generous bedrooms, a sun-drenched conservatory, original chestnut woodwork, and a landscaped garden with stone patio. Steps from Germantown Avenue shops and the Wissahickon Valley trails.",
+      "Chestnut Hill has long been Philadelphia's version of a New England village — leafy, unhurried, and quietly grand — and this stone Colonial Revival embodies everything the neighborhood promises. Five generous bedrooms unfold beneath original chestnut woodwork so rich it seems to glow in the afternoon light. A sun-drenched conservatory offers year-round garden views, while the formal rooms retain the gracious proportions of an era when homes were built to host. Outside, a landscaped garden with stone patio backs onto one of the neighborhood's signature tree-lined lots. Germantown Avenue's boutiques and cafes are a pleasant walk away, and the Wissahickon Valley's 57 miles of trails begin just around the corner — a wilderness in the city.",
     features: {
       interior: [
         "Original Chestnut Woodwork",
@@ -909,7 +909,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80",
     ],
     description:
-      "Brand-new construction townhome in booming Brewerytown with a modern open layout and premium finishes. Three floors of living with a rooftop deck offering sweeping Fairmount Park views. Walk to the Art Museum, Schuylkill River Trail, and Girard Avenue's craft breweries.",
+      "Brewerytown is having its moment, and this brand-new townhome puts you at the center of the action. Three floors of sun-filled living climb toward the real showstopper: a private rooftop deck with sweeping views across Fairmount Park's canopy — a panorama that shifts from emerald green in summer to blazing amber in fall. Inside, the modern open layout features premium finishes that feel considered, not flashy: clean lines, warm tones, and the kind of thoughtful storage solutions that make daily life effortless. The Philadelphia Museum of Art is a morning jog away, the Schuylkill River Trail stretches for miles along the water, and Girard Avenue's growing roster of craft breweries and restaurants is rewriting the neighborhood's story one block at a time.",
     features: {
       interior: [
         "Open Concept Layout",
@@ -990,7 +990,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80",
     ],
     description:
-      "Fully renovated rowhome in fast-growing Point Breeze with a contemporary open layout and designer finishes. New kitchen with shaker cabinets and quartz countertops, exposed brick accent wall, and a private rear patio. Minutes from the Broad Street Line and East Passyunk dining.",
+      "Point Breeze is where savvy buyers have been quietly building equity for years, and this fully renovated rowhome shows exactly why. The contemporary open layout balances warmth and edge — shaker cabinets and quartz countertops bring polish, while an exposed brick accent wall nods to the home's original character. A private rear patio extends your living space into the open air, perfect for summer evenings with friends. The location is strategic: the Broad Street Line puts Center City ten minutes away, East Passyunk's award-winning restaurant row is a short bike ride, and the neighborhood's trajectory points firmly upward. Smart design in an even smarter location.",
     features: {
       interior: [
         "Exposed Brick Accent Wall",
@@ -1066,7 +1066,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
     ],
     description:
-      "Well-maintained duplex on the Kensington-Fishtown border with strong rental income potential. Each unit features two bedrooms, updated kitchens, and separate utilities. Steps from the Market-Frankford Line, Front Street breweries, and the booming Frankford Avenue corridor.",
+      "For the investor with an eye on Philadelphia's hottest corridor, this well-maintained duplex on the Kensington-Fishtown border delivers exactly what the spreadsheet demands — and then some. Each unit offers two bedrooms and an updated kitchen, with separate utilities that keep the numbers clean. But the real story is location: the Market-Frankford El puts tenants minutes from Center City, Front Street's brewery district draws the after-work crowd, and Frankford Avenue's seemingly endless expansion of restaurants and retail pushes rents higher every year. Live in one, rent the other, or let both units generate income in one of the city's strongest rental markets.",
     features: {
       interior: [
         "Two Separate Units",
@@ -1139,7 +1139,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=1200&q=80",
     ],
     description:
-      "Charming Victorian near Clark Park with a classic wrap-around porch and sun-filled interior. Four spacious bedrooms, original stained glass, a renovated kitchen with butcher block counters, and a deep backyard garden. Walk to Baltimore Avenue cafes, trolley stops, and UPenn campus.",
+      "Some homes photograph well; this one feels like a warm hug. Tucked near Clark Park in the heart of Cedar Park, this Victorian charmer wraps you in a classic porch — the kind where neighbors wave and conversations happen — before revealing a sun-filled interior that glows with original stained glass and the quiet craftsmanship of a different era. Four spacious bedrooms provide room to grow, while a renovated kitchen with butcher block counters strikes the perfect balance between character and function. The deep backyard garden is an urban oasis, and Baltimore Avenue's eclectic cafes, trolley stops, and the UPenn campus are all within an easy walk. This is the kind of home that makes you want to bake bread and leave the front door open.",
     features: {
       interior: [
         "Original Stained Glass",
@@ -1216,7 +1216,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=80",
     ],
     description:
-      "Penthouse condo on Delancey Place with private terrace and unobstructed Rittenhouse Square views. Custom Italian cabinetry, Calacatta marble baths, wide-plank oak floors, and a chef's kitchen with Sub-Zero and Wolf appliances. Full-service building with concierge and valet.",
+      "Delancey Place is Philadelphia's quietest power address — a cobblestoned enclave where brownstone facades conceal some of the city's most extraordinary residences. This penthouse is no exception. Step onto the private terrace and Rittenhouse Square unfolds before you, unobstructed, with the fountain and century-old trees forming a tableau that changes with every season. Inside, custom Italian cabinetry and Calacatta marble bathrooms speak to a level of finish that borders on haute couture, while wide-plank oak floors and a chef's kitchen fitted with Sub-Zero and Wolf appliances ground the luxury in everyday livability. Concierge and valet service complete the picture: a home where nothing has been left to chance.",
     features: {
       interior: [
         "Custom Italian Cabinetry",
@@ -1299,7 +1299,7 @@ export const properties: Property[] = [
       "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80",
     ],
     description:
-      "Architect-designed new construction in the heart of Fishtown with a striking modern facade and premium finishes throughout. Three bedrooms, a sun-drenched great room, chef's kitchen with waterfall quartz island, and a landscaped rooftop with skyline views. Steps from Suraya, La Colombe, and Frankford Avenue nightlife.",
+      "An architect's personal vision brought to life on Palmer Street, this new construction home turns heads before you even step inside — a striking modern facade that signals something special within. The sun-drenched great room is the heart of the home, where floor-to-ceiling light meets a chef's kitchen crowned by a waterfall quartz island that doubles as the neighborhood gathering spot. Three bedrooms upstairs provide restful retreat, while the landscaped rooftop offers the reward: skyline views that stretch from the Delaware River bridges to the Comcast towers. Suraya's legendary brunch is a two-block walk, La Colombe's flagship roastery an easy stroll, and Frankford Avenue's nightly energy is quite literally at your doorstep. This is Fishtown at its finest.",
     features: {
       interior: [
         "Architect-Designed Layout",
