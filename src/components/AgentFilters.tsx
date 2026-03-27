@@ -54,14 +54,16 @@ export default function AgentFilters({
             value={filters.search}
             onChange={(e) => onChange("search", e.target.value)}
             placeholder="Search agents by name..."
+            aria-label="Search agents by name"
             className="w-full rounded-lg border border-border bg-card py-2.5 pl-10 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-gold focus:outline-none focus:ring-1 focus:ring-gold"
           />
           {filters.search && (
             <button
               onClick={() => onChange("search", "")}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+              aria-label="Clear search"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </button>
           )}
         </div>
@@ -72,13 +74,16 @@ export default function AgentFilters({
         <button
           onClick={() => setOpen(!open)}
           className="flex min-h-[44px] items-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-foreground"
+          aria-expanded={open}
+          aria-label={`${open ? "Hide" : "Show"} agent filters${activeCount > 0 ? `, ${activeCount} active` : ""}`}
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
           Filters {activeCount > 0 && `(${activeCount})`}
         </button>
         <select
           value={filters.sort}
           onChange={(e) => onChange("sort", e.target.value)}
+          aria-label="Sort agents"
           className={selectClasses + " w-auto"}
         >
           <option value="">Default Order</option>

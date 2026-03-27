@@ -261,6 +261,13 @@ export default function PriceRangeSlider({
 
             {/* Min thumb */}
             <div
+              role="slider"
+              aria-label="Minimum price"
+              aria-valuemin={0}
+              aria-valuemax={10000000}
+              aria-valuenow={minIdx === MIN_IDX ? 0 : STEPS[minIdx]}
+              aria-valuetext={minIdx === MIN_IDX ? "No minimum" : formatPrice(STEPS[minIdx])}
+              tabIndex={0}
               className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
               style={{ left: `${leftPct}%` }}
               onPointerDown={onPointerDown("min")}
@@ -278,6 +285,13 @@ export default function PriceRangeSlider({
 
             {/* Max thumb */}
             <div
+              role="slider"
+              aria-label="Maximum price"
+              aria-valuemin={0}
+              aria-valuemax={10000000}
+              aria-valuenow={maxIdx === MAX_IDX ? 10000000 : STEPS[maxIdx]}
+              aria-valuetext={maxIdx === MAX_IDX ? "No maximum" : formatPrice(STEPS[maxIdx])}
+              tabIndex={0}
               className="absolute top-1/2 z-10 -translate-x-1/2 -translate-y-1/2"
               style={{ left: `${rightPct}%` }}
               onPointerDown={onPointerDown("max")}
