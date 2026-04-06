@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { CheckCircle, AlertCircle } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
+import { trackLeadSubmission } from "@/lib/analytics";
 import { useUtm } from "@/hooks/useUtm";
 
 type FormState = "idle" | "submitting" | "success" | "error";
@@ -98,6 +99,7 @@ export function ContactForm() {
       }
 
       setFormState("success");
+      trackLeadSubmission("contact-form");
       setForm(initialForm);
       setErrors({});
     } catch (err) {

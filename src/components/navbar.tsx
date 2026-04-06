@@ -1,31 +1,17 @@
 "use client";
 
-import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Menu, X, Phone, UserCircle, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
-import { AuthModal, getStoredUser, clearStoredUser, type StoredUser } from "@/components/AuthModal";
+import { AuthModal } from "@/components/AuthModal";
 import { ThemeToggle } from "@/components/ThemeToggle";
-
-// Reactive auth state via useSyncExternalStore
-const authListeners = new Set<() => void>();
-function subscribeAuth(cb: () => void) {
-  authListeners.add(cb);
-  const handler = () => authListeners.forEach((l) => l());
-  window.addEventListener("tauro-auth-change", handler);
-  return () => {
-    authListeners.delete(cb);
-    window.removeEventListener("tauro-auth-change", handler);
-  };
-}
-function getAuthSnapshot(): StoredUser | null {
-  return getStoredUser();
-}
-function getAuthServerSnapshot(): StoredUser | null {
-  return null;
-}
+import { createBrowserClient } from "@supabase/ssr";
+import type { Database } from "@/types/database";
+import type { User } from "@supabase/supabase-js";
 
 const navLinks = [
   { href: "/properties", label: "Properties" },
@@ -36,15 +22,48 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const scrolled = useScrolled();
-  const user = useSyncExternalStore(subscribeAuth, getAuthSnapshot, getAuthServerSnapshot);
+  const [user, setUser] = useState<User | null>(null);
 
-  const handleSignOut = useCallback(() => {
-    clearStoredUser();
-    window.dispatchEvent(new Event("tauro-auth-change"));
+  // Listen to Supabase auth state changes
+  useEffect(() => {
+    const supabase = createBrowserClient<Database>(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+
+    // Get initial session
+    supabase.auth.getUser().then(({ data: { user: u } }) => setUser(u));
+
+    // Subscribe to auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      },
+    );
+
+    return () => subscription.unsubscribe();
   }, []);
+
+  const handleSignOut = useCallback(async () => {
+    const supabase = createBrowserClient<Database>(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    );
+    await supabase.auth.signOut();
+    setUser(null);
+    router.refresh();
+  }, [router]);
+
+  const displayName = user
+    ? (user.user_metadata?.full_name as string) ||
+      (user.user_metadata?.name as string) ||
+      user.email?.split("@")[0] ||
+      "User"
+    : null;
 
   // Escape key closes overlay
   useEffect(() => {
@@ -109,7 +128,7 @@ export function Navbar() {
             {user ? (
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium text-white transition-all duration-300">
-                  {user.name}
+                  {displayName}
                 </span>
                 <button
                   onClick={handleSignOut}
@@ -196,7 +215,7 @@ export function Navbar() {
             {user ? (
               <div className="flex items-center gap-3">
                 <span className="text-sm font-medium text-white">
-                  {user.name}
+                  {displayName}
                 </span>
                 <button
                   onClick={() => { handleSignOut(); setMobileOpen(false); }}

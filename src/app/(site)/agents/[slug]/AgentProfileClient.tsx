@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { trackAgentContact, trackLeadSubmission } from "@/lib/analytics";
 import {
   Phone, Mail, Award, Play, Home, TrendingUp, Clock, CheckCircle,
   AlertCircle, ArrowLeft, Instagram, Linkedin, Star, Quote, DollarSign,
@@ -59,6 +60,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
         throw new Error(data.error ?? "Submission failed");
       }
       setState("success");
+      trackLeadSubmission("agent-contact", agent.slug);
       setForm(initialForm);
     } catch (err) {
       setState("error");
