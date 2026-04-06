@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isRateLimited, getClientIp } from "@/lib/rate-limit";
+import { updateSession } from "@/lib/supabase/middleware";
 
 // ---------------------------------------------------------------------------
-// Next.js Middleware — rate limiting + CSRF (auth removed for open access)
+// Next.js Middleware — Supabase auth session + rate limiting + CSRF
 // ---------------------------------------------------------------------------
 
 export async function middleware(request: NextRequest) {
@@ -34,9 +35,17 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  return NextResponse.next();
+  // --- Supabase session refresh + route protection ---
+  return updateSession(request);
 }
 
 export const config = {
-  matcher: ["/api/:path*"],
+  matcher: [
+    "/api/:path*",
+    "/dashboard/:path*",
+    "/login",
+    "/forgot-password",
+    "/reset-password",
+    "/auth/callback",
+  ],
 };

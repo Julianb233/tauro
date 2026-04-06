@@ -21,6 +21,8 @@ const roleBadgeColors: Record<UserRole, string> = {
   admin: "bg-gold/20 text-gold",
   agent: "bg-blue-500/20 text-blue-400",
   viewer: "bg-white/10 text-white/80",
+  buyer: "bg-emerald-500/20 text-emerald-400",
+  seller: "bg-purple-500/20 text-purple-400",
 };
 
 export function DashboardHeader({ user, onMenuToggle }: DashboardHeaderProps) {
