@@ -1,31 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Menu, X, Phone, UserCircle, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
-import { AuthModal, getStoredUser, clearStoredUser, type StoredUser } from "@/components/AuthModal";
+import { AuthModal } from "@/components/AuthModal";
 import { ThemeToggle } from "@/components/ThemeToggle";
-
-// Reactive auth state via useSyncExternalStore
-const authListeners = new Set<() => void>();
-function subscribeAuth(cb: () => void) {
-  authListeners.add(cb);
-  const handler = () => authListeners.forEach((l) => l());
-  window.addEventListener("tauro-auth-change", handler);
-  return () => {
-    authListeners.delete(cb);
-    window.removeEventListener("tauro-auth-change", handler);
-  };
-}
-function getAuthSnapshot(): StoredUser | null {
-  return getStoredUser();
-}
-function getAuthServerSnapshot(): StoredUser | null {
-  return null;
-}
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 const navLinks = [
   { href: "/properties", label: "Properties" },
@@ -36,15 +21,43 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
   const scrolled = useScrolled();
-  const user = useSyncExternalStore(subscribeAuth, getAuthSnapshot, getAuthServerSnapshot);
+  const [user, setUser] = useState<User | null>(null);
 
-  const handleSignOut = useCallback(() => {
-    clearStoredUser();
-    window.dispatchEvent(new Event("tauro-auth-change"));
+  useEffect(() => {
+    const supabase = createClient();
+
+    // Get initial session
+    supabase.auth.getUser().then(({ data: { user: u } }) => {
+      setUser(u);
+    });
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setUser(session?.user ?? null);
+      },
+    );
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
+
+  const displayName = user?.user_metadata?.full_name
+    || user?.user_metadata?.name
+    || user?.email?.split("@")[0]
+    || "User";
+
+  const handleSignOut = useCallback(async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    setUser(null);
+    router.refresh();
+  }, [router]);
 
   // Escape key closes overlay
   useEffect(() => {
@@ -108,9 +121,12 @@ export function Navbar() {
 
             {user ? (
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-white transition-all duration-300">
-                  {user.name}
-                </span>
+                <Link
+                  href="/dashboard"
+                  className="text-sm font-medium text-white transition-all duration-300 hover:text-gold"
+                >
+                  {displayName}
+                </Link>
                 <button
                   onClick={handleSignOut}
                   className="rounded-md p-2 min-h-[44px] min-w-[44px] flex items-center justify-center text-white transition-all duration-300 hover:text-gold"
@@ -156,7 +172,7 @@ export function Navbar() {
         </nav>
       </header>
 
-      {/* Full-screen mobile overlay — kept dark for dramatic contrast */}
+      {/* Full-screen mobile overlay */}
       {mobileOpen && (
         <div
           className="fixed inset-0 z-[60] flex flex-col bg-midnight/95 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] backdrop-blur-xl lg:hidden"
@@ -164,7 +180,6 @@ export function Navbar() {
           aria-modal="true"
           aria-label="Navigation menu"
         >
-          {/* Overlay header with logo and close button */}
           <div className="flex h-16 items-center justify-between px-4 sm:px-6">
             <Logo size="sm" variant="light" />
             <button
@@ -177,7 +192,6 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Centered navigation links */}
           <nav className="flex flex-1 flex-col items-center justify-center gap-8">
             {navLinks.map((link) => (
               <Link
@@ -191,13 +205,16 @@ export function Navbar() {
             ))}
           </nav>
 
-          {/* Bottom section with CTA, auth, and phone */}
           <div className="flex flex-col items-center gap-4 border-t border-white/10 px-4 py-8">
             {user ? (
               <div className="flex items-center gap-3">
-                <span className="text-sm font-medium text-white">
-                  {user.name}
-                </span>
+                <Link
+                  href="/dashboard"
+                  className="text-sm font-medium text-white hover:text-gold"
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {displayName}
+                </Link>
                 <button
                   onClick={() => { handleSignOut(); setMobileOpen(false); }}
                   className="text-sm text-white hover:text-gold"

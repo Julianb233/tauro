@@ -502,7 +502,7 @@ export type Database = {
     Views: Record<string, never>;
     Functions: Record<string, never>;
     Enums: {
-      user_role: "admin" | "agent" | "viewer";
+      user_role: "admin" | "agent" | "viewer" | "buyer" | "seller";
     };
     CompositeTypes: Record<string, never>;
   };

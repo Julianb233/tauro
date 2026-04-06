@@ -26,12 +26,13 @@ export async function signUp(
   email: string,
   password: string,
   fullName: string,
+  role?: string,
 ) {
   const supabase = getBrowserClient();
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { data: { full_name: fullName } },
+    options: { data: { full_name: fullName, role: role ?? "buyer" } },
   });
   return { user: data?.user ?? null, error };
 }
