@@ -7,6 +7,7 @@ import type { Property } from "@/data/properties";
 import type { Agent } from "@/data/agents";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { useUtm } from "@/hooks/useUtm";
+import { trackShowingRequest } from "@/lib/analytics";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 interface TourFormData { firstName: string; lastName: string; email: string; phone: string; propertyId: string; preferredDate: string; preferredTime: string; agentPreference: string; message: string; }
@@ -33,7 +34,7 @@ export function TourBookingForm({ preselectedPropertyId, properties, agents }: T
     try {
       const res = await fetch("/api/leads", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       if (!res.ok) { const data = await res.json().catch(() => ({})); throw new Error(data.error ?? "Submission failed"); }
-      setState("success"); setForm(initialForm);
+      setState("success"); trackShowingRequest(form.propertyId || undefined); setForm(initialForm);
     } catch (err) { setState("error"); setErrorMsg(err instanceof Error ? err.message : "Something went wrong. Please try again."); }
   }
 

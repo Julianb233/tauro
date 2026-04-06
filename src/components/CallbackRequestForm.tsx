@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { Phone, CheckCircle } from "lucide-react";
+import { trackLeadSubmission } from "@/lib/analytics";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -36,6 +37,7 @@ export function CallbackRequestForm() {
 
       if (res.ok) {
         setStatus("success");
+        trackLeadSubmission("callback-request");
         setName("");
         setPhone("");
         setPreferredTime("");
