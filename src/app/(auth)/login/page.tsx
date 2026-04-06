@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createBrowserClient } from "@supabase/ssr";
 import { Logo } from "@/components/logo";
@@ -138,6 +139,16 @@ export default function LoginPage() {
             {error}
           </p>
         )}
+
+        {/* Forgot password */}
+        <div className="text-right">
+          <Link
+            href="/forgot-password"
+            className="text-xs font-medium text-[#C9A96E] hover:underline"
+          >
+            Forgot password?
+          </Link>
+        </div>
 
         {/* Submit */}
         <button

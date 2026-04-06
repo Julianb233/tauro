@@ -1,8 +1,11 @@
 "use client";
 
 import { useState, useEffect, type FormEvent } from "react";
+import { useRouter } from "next/navigation";
 import { X, Mail, Loader2, User, Lock, Eye, EyeOff } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { signIn, signUp } from "@/lib/supabase/auth";
+import { createBrowserClient } from "@supabase/ssr";
+import type { Database } from "@/types/database";
 
 type AuthMode = "login" | "register";
 
@@ -11,34 +14,8 @@ interface AuthModalProps {
   onClose: () => void;
 }
 
-const STORAGE_KEY = "tauro_user";
-
-export interface StoredUser {
-  email: string;
-  name: string;
-  loggedInAt: string;
-}
-
-// Check if user is stored in localStorage
-export function getStoredUser(): StoredUser | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as StoredUser) : null;
-  } catch {
-    return null;
-  }
-}
-
-export function clearStoredUser() {
-  localStorage.removeItem(STORAGE_KEY);
-}
-
-function storeUser(user: StoredUser) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-}
-
 export function AuthModal({ open, onClose }: AuthModalProps) {
+  const router = useRouter();
   const [mode, setMode] = useState<AuthMode>("login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,11 +23,13 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
   // Reset on open/close
   useEffect(() => {
     if (open) {
       setError(null);
+      setSuccess(null);
       setEmail("");
       setPassword("");
       setName("");
@@ -99,36 +78,61 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
     if (!validate()) return;
 
     setLoading(true);
     try {
-      // Store locally for now (Supabase auth can be connected later)
-      const user: StoredUser = {
-        email,
-        name: mode === "register" ? name : email.split("@")[0],
-        loggedInAt: new Date().toISOString(),
-      };
-      storeUser(user);
-      window.dispatchEvent(new Event("tauro-auth-change"));
-      onClose();
+      if (mode === "login") {
+        const { error: authError } = await signIn(email, password);
+        if (authError) {
+          setError(authError.message);
+          return;
+        }
+        onClose();
+        router.refresh();
+      } else {
+        const { user, error: authError } = await signUp(email, password, name);
+        if (authError) {
+          setError(authError.message);
+          return;
+        }
+        if (user?.identities?.length === 0) {
+          setError("An account with this email already exists");
+          return;
+        }
+        setSuccess("Check your email for a confirmation link to complete registration.");
+      }
+    } catch {
+      setError("An unexpected error occurred. Please try again.");
     } finally {
       setLoading(false);
     }
   }
 
-  function handleGoogleAuth() {
+  async function handleGoogleAuth() {
     setLoading(true);
-    // Placeholder for Google OAuth — stores a mock user for now
-    const user: StoredUser = {
-      email: "user@gmail.com",
-      name: "Google User",
-      loggedInAt: new Date().toISOString(),
-    };
-    storeUser(user);
-    window.dispatchEvent(new Event("tauro-auth-change"));
-    setLoading(false);
-    onClose();
+    setError(null);
+    try {
+      const supabase = createBrowserClient<Database>(
+        process.env.NEXT_PUBLIC_SUPABASE_URL!,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      );
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      if (oauthError) {
+        setError(oauthError.message);
+        setLoading(false);
+      }
+      // Browser will redirect to Google — no need to close modal
+    } catch {
+      setError("Failed to start Google sign-in");
+      setLoading(false);
+    }
   }
 
   return (
@@ -234,9 +238,20 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
           </div>
 
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-muted-foreground">
-              Password
-            </label>
+            <div className="mb-1.5 flex items-center justify-between">
+              <label className="text-xs font-medium text-muted-foreground">
+                Password
+              </label>
+              {mode === "login" && (
+                <a
+                  href="/forgot-password"
+                  className="text-xs font-medium text-gold hover:underline"
+                  onClick={onClose}
+                >
+                  Forgot password?
+                </a>
+              )}
+            </div>
             <div className="relative">
               <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <input
@@ -265,6 +280,12 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
             </p>
           )}
 
+          {success && (
+            <p role="status" className="rounded-md bg-green-50 px-3 py-2 text-sm text-green-700">
+              {success}
+            </p>
+          )}
+
           <button
             type="submit"
             disabled={loading}
@@ -281,7 +302,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
             <>
               Don&apos;t have an account?{" "}
               <button
-                onClick={() => { setMode("register"); setError(null); }}
+                onClick={() => { setMode("register"); setError(null); setSuccess(null); }}
                 className="font-medium text-gold hover:underline"
               >
                 Sign up
@@ -291,7 +312,7 @@ export function AuthModal({ open, onClose }: AuthModalProps) {
             <>
               Already have an account?{" "}
               <button
-                onClick={() => { setMode("login"); setError(null); }}
+                onClick={() => { setMode("login"); setError(null); setSuccess(null); }}
                 className="font-medium text-gold hover:underline"
               >
                 Sign in
