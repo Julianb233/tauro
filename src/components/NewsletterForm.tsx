@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { Mail } from "lucide-react";
+import { trackNewsletterSignup } from "@/lib/analytics";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -39,6 +40,7 @@ export function NewsletterForm({ source: _source, showName: _showName, showInter
 
       if (res.ok) {
         setStatus("success");
+        trackNewsletterSignup();
         setMessage(data.message ?? "Thanks for subscribing!");
         setEmail("");
       } else {
