@@ -95,6 +95,7 @@ export function buildFilterSummary(filters: FilterState): string {
   if (filters.area) parts.push(filters.area);
   if (filters.propertyType) parts.push(filters.propertyType);
   if (filters.status) parts.push(filters.status);
+  if (filters.lifestyle) parts.push(`Lifestyle: ${filters.lifestyle}`);
 
   return parts.length > 0 ? parts.join(" | ") : "No filters";
 }
@@ -115,6 +116,7 @@ export function buildSearchUrl(filters: FilterState): string {
   if (filters.status) params.set("status", filters.status);
   if (filters.sort && filters.sort !== "price-desc") params.set("sort", filters.sort);
   if (filters.openHouse) params.set("openHouse", filters.openHouse);
+  if (filters.lifestyle) params.set("lifestyle", filters.lifestyle);
   const qs = params.toString();
   return `/properties${qs ? `?${qs}` : ""}`;
 }
