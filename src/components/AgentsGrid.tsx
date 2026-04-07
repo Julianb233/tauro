@@ -26,6 +26,14 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
     return Array.from(set).sort((a, b) => a.localeCompare(b));
   }, [agents]);
 
+  const availableLetters = useMemo(() => {
+    const set = new Set<string>();
+    agents.forEach((a) => {
+      if (a.lastName) set.add(a.lastName[0].toUpperCase());
+    });
+    return set;
+  }, [agents]);
+
   const filtered = useMemo(() => {
     let result = [...agents];
 
@@ -36,6 +44,12 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
           a.fullName.toLowerCase().includes(q) ||
           a.firstName.toLowerCase().includes(q) ||
           a.lastName.toLowerCase().includes(q)
+      );
+    }
+
+    if (filters.letter) {
+      result = result.filter(
+        (a) => a.lastName && a.lastName[0].toUpperCase() === filters.letter
       );
     }
 
@@ -77,6 +91,7 @@ export default function AgentsGrid({ agents }: { agents: Agent[] }) {
         neighborhoods={allNeighborhoods}
         specialties={allSpecialties}
         languages={allLanguages}
+        availableLetters={availableLetters}
       />
 
       {filtered.length === 0 ? (
