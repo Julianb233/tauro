@@ -84,7 +84,13 @@ export async function loadPropertyBySlug(
     const mappers = await getMappers();
     const row = await queries.getPropertyBySlug(slug);
     if (!row) return staticGetPropertyBySlug(slug);
-    return mappers.mapPropertyRow(row);
+    const mapped = mappers.mapPropertyRow(row);
+    // Merge static floor plans when DB row lacks them (AI-3770)
+    if (!mapped.floorPlans) {
+      const staticProp = staticGetPropertyBySlug(slug);
+      if (staticProp?.floorPlans) mapped.floorPlans = staticProp.floorPlans;
+    }
+    return mapped;
   } catch {
     return staticGetPropertyBySlug(slug);
   }
