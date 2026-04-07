@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#faf9f6"/>
+  <text x="400" y="30" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">1820 Rittenhouse Sq — First Floor</text>
+  <!-- Outer walls -->
+  <rect x="50" y="50" width="700" height="500" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <!-- Foyer -->
+  <rect x="300" y="450" width="200" height="100" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <text x="400" y="510" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#555">Foyer</text>
+  <text x="400" y="528" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">10' × 8'</text>
+  <!-- Living Room -->
+  <rect x="50" y="50" width="350" height="250" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <text x="225" y="175" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Living Room</text>
+  <text x="225" y="195" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">22' × 18'</text>
+  <!-- Dining Room -->
+  <rect x="400" y="50" width="350" height="200" stroke="#1a1a1a" stroke-width="2" fill="#e8e2d8"/>
+  <text x="575" y="150" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Dining Room</text>
+  <text x="575" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">18' × 14'</text>
+  <!-- Kitchen -->
+  <rect x="400" y="250" width="350" height="200" stroke="#1a1a1a" stroke-width="2" fill="#e0dcd4"/>
+  <text x="575" y="350" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Kitchen</text>
+  <text x="575" y="370" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">18' × 14'</text>
+  <!-- Half Bath -->
+  <rect x="50" y="300" width="150" height="100" stroke="#1a1a1a" stroke-width="2" fill="#d8d4cc"/>
+  <text x="125" y="355" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555">Half Bath</text>
+  <!-- Mudroom -->
+  <rect x="50" y="400" width="250" height="150" stroke="#1a1a1a" stroke-width="2" fill="#e8e2d8"/>
+  <text x="175" y="480" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#555">Mudroom</text>
+  <text x="175" y="498" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">14' × 10'</text>
+  <!-- Door indicators -->
+  <line x1="370" y1="550" x2="370" y2="530" stroke="#b8860b" stroke-width="2"/>
+  <line x1="430" y1="550" x2="430" y2="530" stroke="#b8860b" stroke-width="2"/>
+  <!-- Scale -->
+  <line x1="600" y1="570" x2="700" y2="570" stroke="#555" stroke-width="1"/>
+  <text x="650" y="585" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">10 ft</text>
+</svg>
