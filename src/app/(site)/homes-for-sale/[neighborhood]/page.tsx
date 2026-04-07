@@ -5,13 +5,15 @@ import type { Metadata } from "next";
 import {
   ArrowRight,
   CheckCircle,
-  ChevronRight,
   Coffee,
   Home,
   MapPin,
   Sparkles,
+  Star,
   TrainFront,
+  TrendingUp,
   Trees,
+  Users,
 } from "lucide-react";
 import {
   loadNeighborhoods,
@@ -35,7 +37,7 @@ export async function generateStaticParams() {
 }
 
 // ---------------------------------------------------------------------------
-// SEO metadata
+// SEO metadata — optimized for "[neighborhood] luxury real estate" queries
 // ---------------------------------------------------------------------------
 
 export async function generateMetadata({
@@ -47,9 +49,9 @@ export async function generateMetadata({
   const neighborhood = await loadNeighborhoodBySlug(slug);
   if (!neighborhood) return { title: "Neighborhood Not Found | Tauro Realty" };
 
-  const title = `Luxury Homes for Sale in ${neighborhood.name} | Tauro Realty`;
-  const description = `Browse luxury homes for sale in ${neighborhood.name}, Philadelphia. ${neighborhood.tagline}. View listings, neighborhood highlights, market stats, and more with Tauro Realty.`;
-  const canonicalUrl = `${siteUrl}/homes-for-sale/${neighborhood.slug}`;
+  const title = `${neighborhood.name} Luxury Real Estate | Homes for Sale | Tauro Realty Philadelphia`;
+  const description = `Explore luxury real estate in ${neighborhood.name}, Philadelphia. Browse premium homes for sale, view market data, neighborhood insights, and connect with Tauro Realty's ${neighborhood.name} specialists.`;
+  const canonicalUrl = `${siteUrl}/homes-for-sale-in-${neighborhood.slug}`;
 
   return {
     title,
@@ -67,7 +69,7 @@ export async function generateMetadata({
           url: neighborhood.image,
           width: 1200,
           height: 630,
-          alt: `Luxury homes for sale in ${neighborhood.name}, Philadelphia`,
+          alt: `${neighborhood.name} luxury real estate — Philadelphia homes for sale`,
         },
       ],
       type: "website",
@@ -101,10 +103,10 @@ const lifestyleLabels: Record<string, string> = {
 };
 
 // ---------------------------------------------------------------------------
-// Page component
+// Page component — SEO-focused location landing page
 // ---------------------------------------------------------------------------
 
-export default async function HomesForSaleNeighborhoodPage({
+export default async function LocationLandingPage({
   params,
 }: {
   params: Promise<{ neighborhood: string }>;
@@ -120,12 +122,17 @@ export default async function HomesForSaleNeighborhoodPage({
       neighborhood.propertyFilter.toLowerCase(),
   );
 
+  const avgPrice =
+    listings.length > 0
+      ? listings.reduce((sum, p) => sum + p.price, 0) / listings.length
+      : 0;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "RealEstateListing",
-    name: `Luxury Homes for Sale in ${neighborhood.name}`,
-    description: `Browse luxury homes for sale in ${neighborhood.name}, Philadelphia.`,
-    url: `${siteUrl}/homes-for-sale/${neighborhood.slug}`,
+    name: `${neighborhood.name} Luxury Real Estate — Homes for Sale`,
+    description: `Browse luxury homes for sale in ${neighborhood.name}, Philadelphia. Premium listings, market data, and local expertise from Tauro Realty.`,
+    url: `${siteUrl}/homes-for-sale-in-${neighborhood.slug}`,
     image: neighborhood.image,
     areaServed: {
       "@type": "Place",
@@ -140,6 +147,13 @@ export default async function HomesForSaleNeighborhoodPage({
       "@type": "RealEstateAgent",
       name: "Tauro Realty",
       url: siteUrl,
+      telephone: "+12158394172",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Philadelphia",
+        addressRegion: "PA",
+        addressCountry: "US",
+      },
     },
   };
 
@@ -154,60 +168,71 @@ export default async function HomesForSaleNeighborhoodPage({
       {/* Breadcrumbs */}
       <Breadcrumbs
         items={[
-          { label: "Homes for Sale", href: "/homes-for-sale" },
+          { label: "Homes for Sale", href: "/properties" },
           {
-            label: neighborhood.name,
-            href: `/homes-for-sale/${neighborhood.slug}`,
+            label: `${neighborhood.name} Real Estate`,
+            href: `/homes-for-sale-in-${neighborhood.slug}`,
           },
         ]}
       />
 
       {/* Hero section */}
-      <section className="relative min-h-[55vh] overflow-hidden pt-16">
+      <section className="relative min-h-[60vh] overflow-hidden pt-16">
         <Image
           src={neighborhood.image}
-          alt={`Luxury homes for sale in ${neighborhood.name}, Philadelphia`}
+          alt={`${neighborhood.name} luxury real estate — Philadelphia homes for sale`}
           fill
           className="object-cover"
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-midnight/90 via-midnight/50 to-midnight/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-midnight/95 via-midnight/60 to-midnight/30" />
 
-        <div className="relative z-10 mx-auto flex min-h-[55vh] max-w-7xl flex-col justify-end px-4 pb-14 sm:px-6 lg:px-8">
-          <nav className="mb-6 flex items-center gap-2 text-sm text-white/90">
-            <Link href="/" className="transition-colors hover:text-gold">
-              Home
-            </Link>
-            <ChevronRight className="size-3" />
-            <Link
-              href="/neighborhoods"
-              className="transition-colors hover:text-gold"
-            >
-              Neighborhoods
-            </Link>
-            <ChevronRight className="size-3" />
-            <span className="text-gold">{neighborhood.name}</span>
-          </nav>
-
-          <h1 className="font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl">
-            Luxury Homes for Sale in {neighborhood.name}
+        <div className="relative z-10 mx-auto flex min-h-[60vh] max-w-7xl flex-col justify-end px-4 pb-16 sm:px-6 lg:px-8">
+          <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
+            {neighborhood.name} Luxury Real Estate
+          </p>
+          <h1 className="mt-3 font-heading text-4xl font-bold text-white sm:text-5xl md:text-6xl">
+            Homes for Sale in {neighborhood.name}
           </h1>
-          <p className="mt-3 max-w-2xl text-lg text-white/90">
-            {neighborhood.tagline}. Discover available listings, neighborhood
-            highlights, and market data curated by Tauro Realty.
+          <p className="mt-4 max-w-2xl text-lg text-white/90">
+            {neighborhood.tagline}. Discover premium listings and market insights
+            from Philadelphia&apos;s trusted luxury real estate brokerage.
           </p>
 
-          <div className="mt-6 flex items-center gap-4">
-            <span className="inline-flex items-center gap-2 rounded-full bg-gold/20 px-4 py-2 text-sm font-semibold text-gold backdrop-blur-sm">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <span className="inline-flex items-center gap-2 rounded-full bg-gold/20 px-5 py-2.5 text-sm font-semibold text-gold backdrop-blur-sm">
               <Home className="size-4" />
               {listings.length}{" "}
-              {listings.length === 1 ? "Listing" : "Listings"} Available
+              {listings.length === 1 ? "Active Listing" : "Active Listings"}
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 backdrop-blur-sm">
-              <MapPin className="size-4" />
+            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm font-medium text-white/90 backdrop-blur-sm">
+              <TrendingUp className="size-4" />
               Median: {neighborhood.stats.medianPrice}
             </span>
+            {avgPrice > 0 && (
+              <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2.5 text-sm font-medium text-white/90 backdrop-blur-sm">
+                <Star className="size-4" />
+                Avg: ${Math.round(avgPrice / 1000)}K
+              </span>
+            )}
+          </div>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Link
+              href="/contact"
+              className="shimmer-gold inline-flex items-center gap-2 rounded-lg bg-gold px-8 py-3.5 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
+            >
+              Schedule a Showing
+              <ArrowRight className="size-4" />
+            </Link>
+            <Link
+              href={`/neighborhoods/${neighborhood.slug}`}
+              className="inline-flex items-center gap-2 rounded-lg border-2 border-white/30 px-8 py-3.5 text-sm font-semibold text-white transition-all hover:border-gold hover:text-gold"
+            >
+              Explore {neighborhood.name}
+              <ArrowRight className="size-4" />
+            </Link>
           </div>
         </div>
       </section>
@@ -216,11 +241,16 @@ export default async function HomesForSaleNeighborhoodPage({
       <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-            Available Listings
+            Available Properties
           </p>
           <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
-            Homes for Sale in {neighborhood.name}
+            {neighborhood.name} Luxury Homes for Sale
           </h2>
+          <p className="mt-3 max-w-2xl text-muted-foreground">
+            Browse currently available luxury properties in {neighborhood.name}.
+            Each listing is curated by our team of Philadelphia real estate
+            specialists.
+          </p>
           {listings.length > 0 ? (
             <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {listings.map((property) => (
@@ -231,17 +261,17 @@ export default async function HomesForSaleNeighborhoodPage({
             <div className="mt-8 rounded-xl border border-border/40 bg-card p-10 text-center">
               <MapPin className="mx-auto size-10 text-gold/40" />
               <p className="mt-4 font-heading text-lg font-bold text-foreground">
-                New listings in {neighborhood.name} coming soon.
+                New luxury listings in {neighborhood.name} coming soon
               </p>
               <p className="mt-2 text-sm text-muted-foreground">
-                Contact us to be the first to know when luxury properties become
-                available in this neighborhood.
+                Be the first to know when premium properties become available in
+                this sought-after neighborhood.
               </p>
               <Link
                 href="/contact"
                 className="mt-6 inline-flex items-center gap-2 rounded-lg bg-gold px-6 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
               >
-                Get Notified
+                Get Early Access
                 <ArrowRight className="size-4" />
               </Link>
             </div>
@@ -249,47 +279,42 @@ export default async function HomesForSaleNeighborhoodPage({
         </div>
       </section>
 
-      {/* Neighborhood description */}
+      {/* Why buy in this neighborhood */}
       <section className="border-t border-border/40 bg-cream py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-              About the Neighborhood
-            </p>
-            <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
-              Living in {neighborhood.name}
-            </h2>
-            <div className="mt-6 space-y-4 leading-relaxed text-muted-foreground">
-              {neighborhood.description.split("\n\n").map((para, i) => (
-                <p key={i}>{para}</p>
-              ))}
+          <div className="grid gap-12 lg:grid-cols-2">
+            <div>
+              <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+                Why {neighborhood.name}
+              </p>
+              <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
+                Why Buy Luxury Real Estate in {neighborhood.name}
+              </h2>
+              <div className="mt-6 space-y-4 leading-relaxed text-muted-foreground">
+                {neighborhood.description.split("\n\n").map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h3 className="font-heading text-xl font-bold text-foreground">
+                Neighborhood Highlights
+              </h3>
+              <div className="mt-6 space-y-3">
+                {neighborhood.sellingPoints.map((point) => (
+                  <div key={point} className="flex items-start gap-3">
+                    <CheckCircle className="mt-0.5 size-5 shrink-0 text-gold" />
+                    <p className="text-muted-foreground">{point}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Selling points */}
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-            Why {neighborhood.name}
-          </p>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
-            Neighborhood Highlights
-          </h2>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            {neighborhood.sellingPoints.map((point) => (
-              <div key={point} className="flex items-start gap-3">
-                <CheckCircle className="mt-0.5 size-5 shrink-0 text-gold" />
-                <p className="text-muted-foreground">{point}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Lifestyle & culture */}
-      <section className="border-t border-border/40 bg-cream py-16">
+      <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
             Local Life
@@ -305,6 +330,7 @@ export default async function HomesForSaleNeighborhoodPage({
               ][]
             ).map(([key, value]) => {
               const Icon = lifestyleIcons[key];
+              if (!Icon) return null;
               return (
                 <div
                   key={key}
@@ -334,33 +360,86 @@ export default async function HomesForSaleNeighborhoodPage({
         neighborhoodName={neighborhood.name}
       />
 
-      {/* CTA section */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+      {/* Why Tauro */}
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="font-label text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-            Ready to Find Your Home?
+            Local Expertise
           </p>
-          <h2 className="mt-2 font-heading text-3xl font-bold text-foreground sm:text-4xl">
-            Explore Luxury Living in {neighborhood.name}
+          <h2 className="mt-2 font-heading text-3xl font-bold text-foreground">
+            Your {neighborhood.name} Real Estate Specialists
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
-            Connect with a Tauro Realty agent who specializes in{" "}
-            {neighborhood.name} to find your perfect luxury home in
-            Philadelphia.
+          <div className="mt-8 grid gap-6 sm:grid-cols-3">
+            <div className="rounded-xl border border-border/40 bg-card p-6">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                <MapPin className="size-6 text-gold" />
+              </div>
+              <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
+                Local Market Knowledge
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Our agents live and breathe {neighborhood.name} real estate, with
+                intimate knowledge of pricing trends, building histories, and
+                off-market opportunities.
+              </p>
+            </div>
+            <div className="rounded-xl border border-border/40 bg-card p-6">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                <Users className="size-6 text-gold" />
+              </div>
+              <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
+                White-Glove Service
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                From private showings to negotiation strategy, our team provides
+                premium concierge-level service at every step of your home
+                purchase.
+              </p>
+            </div>
+            <div className="rounded-xl border border-border/40 bg-card p-6">
+              <div className="flex size-12 items-center justify-center rounded-lg bg-gold/10">
+                <TrendingUp className="size-6 text-gold" />
+              </div>
+              <h3 className="mt-4 font-heading text-lg font-bold text-foreground">
+                Proven Results
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Our track record in {neighborhood.name} speaks for itself —
+                strategic pricing, expert negotiation, and closings that exceed
+                our clients&apos; expectations.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA section */}
+      <section className="border-t border-border/40 bg-foreground py-20">
+        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+          <p className="font-label text-sm font-semibold uppercase tracking-[0.25em] text-gold">
+            Start Your Search
+          </p>
+          <h2 className="mt-3 font-heading text-3xl font-bold text-white sm:text-4xl">
+            Find Your Dream Home in {neighborhood.name}
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-white/90">
+            Whether you&apos;re seeking a historic townhome, a modern condo, or a
+            luxury single-family residence, Tauro Realty has the {neighborhood.name}{" "}
+            expertise to make it happen.
           </p>
           <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
             <Link
               href="/contact"
               className="shimmer-gold inline-flex items-center gap-2 rounded-lg bg-gold px-8 py-3 text-sm font-semibold text-near-black transition-all hover:bg-gold-light hover:shadow-lg"
             >
-              Contact an Agent
+              Contact a {neighborhood.name} Specialist
               <ArrowRight className="size-4" />
             </Link>
             <Link
               href="/properties"
               className="inline-flex items-center gap-2 rounded-lg border-2 border-gold px-8 py-3 text-sm font-semibold text-gold transition-all hover:bg-gold hover:text-near-black"
             >
-              Browse All Properties
+              Browse All Philadelphia Properties
               <ArrowRight className="size-4" />
             </Link>
           </div>
