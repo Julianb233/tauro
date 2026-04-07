@@ -3,9 +3,10 @@
 import { useCallback, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Clock, Video, Tag, Lock, Glasses } from "lucide-react";
+import { Calendar, Clock, Video, Tag, Lock, Glasses, GitCompareArrows } from "lucide-react";
 import { Property, formatPrice, getPropertyTags, formatDaysOnMarket } from "@/data/properties";
 import ShareButton from "@/components/ShareButton";
+import { useCompare } from "@/hooks/useCompare";
 import { siteUrl } from "@/lib/site-config";
 import { cn } from "@/lib/utils";
 import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
@@ -226,6 +227,9 @@ function ChevronRight() {
 /* ------------------------------------------------------------------ */
 
 export default function PropertyCard({ property }: { property: Property }) {
+  const { toggle, isComparing, count } = useCompare();
+  const comparing = isComparing(property.id);
+
   if (property.isComingSoon) {
     return (
       <Link
@@ -297,7 +301,23 @@ export default function PropertyCard({ property }: { property: Property }) {
         virtualTourUrl={property.virtualTourUrl}
       />
       <div className="relative">
-        <div className="absolute top-3 right-3 z-20 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <div className="absolute top-3 right-3 z-20 flex items-center gap-1.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          <button
+            type="button"
+            aria-label={comparing ? `Remove ${property.address} from comparison` : `Add ${property.address} to comparison`}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggle(property.id); }}
+            className={cn(
+              "flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors",
+              comparing
+                ? "bg-gold text-near-black shadow-sm"
+                : count >= 3
+                  ? "cursor-not-allowed bg-black/40 text-white/50"
+                  : "bg-black/40 text-white hover:bg-gold hover:text-near-black"
+            )}
+            disabled={!comparing && count >= 3}
+          >
+            <GitCompareArrows className="h-3.5 w-3.5" />
+          </button>
           <ShareButton
             url={shareUrl}
             title={`${property.address} — ${formatPrice(property.price)}`}
