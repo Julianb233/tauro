@@ -150,6 +150,14 @@ export async function loadAgentBySlug(
       return { agent, listings };
     }
     const agent = mappers.mapAgentRow(row);
+    // Merge static video data when DB row lacks it (AI-3745)
+    if (!agent.videoIntroId) {
+      const staticAgent = staticGetAgentBySlug(slug);
+      if (staticAgent?.videoIntroId) {
+        agent.videoIntroId = staticAgent.videoIntroId;
+        agent.videoIntroUrl = staticAgent.videoIntroUrl;
+      }
+    }
     const rawProperties = (row as Record<string, unknown>).properties;
     const listings = Array.isArray(rawProperties)
       ? rawProperties.map(mappers.mapPropertyRow)
