@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#faf9f6"/>
+  <text x="400" y="30" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">2401 Pennsylvania Ave — Unit Layout</text>
+  <!-- Outer walls -->
+  <rect x="50" y="50" width="700" height="500" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <!-- Open Living/Dining -->
+  <rect x="50" y="50" width="450" height="280" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <text x="275" y="170" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Open Living / Dining</text>
+  <text x="275" y="190" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">30' × 18'</text>
+  <!-- Balcony -->
+  <rect x="50" y="50" width="450" height="40" stroke="#1a1a1a" stroke-width="1.5" fill="#e8e2d8" stroke-dasharray="6,3"/>
+  <text x="275" y="75" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#555">Balcony</text>
+  <!-- Kitchen -->
+  <rect x="500" y="50" width="250" height="200" stroke="#1a1a1a" stroke-width="2" fill="#e0dcd4"/>
+  <text x="625" y="150" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Kitchen</text>
+  <text x="625" y="170" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">16' × 14'</text>
+  <!-- Island -->
+  <rect x="565" y="185" width="50" height="25" stroke="#999" stroke-width="1" fill="#d8d4cc" rx="3"/>
+  <!-- Primary Bedroom -->
+  <rect x="50" y="330" width="350" height="220" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <text x="225" y="440" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Primary Bedroom</text>
+  <text x="225" y="460" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">22' × 15'</text>
+  <!-- En-Suite -->
+  <rect x="400" y="330" width="150" height="130" stroke="#1a1a1a" stroke-width="2" fill="#d8d4cc"/>
+  <text x="475" y="400" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555">En-Suite</text>
+  <!-- Closet -->
+  <rect x="400" y="460" width="150" height="90" stroke="#1a1a1a" stroke-width="2" fill="#e8e2d8"/>
+  <text x="475" y="510" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#555">Closet</text>
+  <!-- Bedroom 2 -->
+  <rect x="550" y="250" width="200" height="180" stroke="#1a1a1a" stroke-width="2" fill="#e0dcd4"/>
+  <text x="650" y="340" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#555">Bedroom 2</text>
+  <text x="650" y="358" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">14' × 12'</text>
+  <!-- Hall/Entry -->
+  <rect x="550" y="430" width="200" height="120" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <text x="650" y="495" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555">Entry / Hall</text>
+  <!-- Front door -->
+  <line x1="720" y1="550" x2="700" y2="550" stroke="#b8860b" stroke-width="2"/>
+  <!-- Scale -->
+  <line x1="600" y1="570" x2="700" y2="570" stroke="#555" stroke-width="1"/>
+  <text x="650" y="585" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">10 ft</text>
+</svg>

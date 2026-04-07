@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#faf9f6"/>
+  <text x="400" y="30" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">312 Delancey St — Main Level</text>
+  <!-- Outer walls -->
+  <rect x="50" y="50" width="700" height="500" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <!-- Great Room -->
+  <rect x="50" y="50" width="450" height="300" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <text x="275" y="195" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Great Room</text>
+  <text x="275" y="215" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">28' × 20'</text>
+  <!-- Gourmet Kitchen -->
+  <rect x="500" y="50" width="250" height="250" stroke="#1a1a1a" stroke-width="2" fill="#e0dcd4"/>
+  <text x="625" y="170" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Gourmet Kitchen</text>
+  <text x="625" y="190" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">16' × 16'</text>
+  <!-- Kitchen Island -->
+  <rect x="570" y="210" width="60" height="30" stroke="#999" stroke-width="1" fill="#d8d4cc" rx="3"/>
+  <text x="600" y="230" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#888">Island</text>
+  <!-- Powder Room -->
+  <rect x="500" y="300" width="120" height="100" stroke="#1a1a1a" stroke-width="2" fill="#d8d4cc"/>
+  <text x="560" y="355" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555">Powder Room</text>
+  <!-- Study -->
+  <rect x="50" y="350" width="250" height="200" stroke="#1a1a1a" stroke-width="2" fill="#e8e2d8"/>
+  <text x="175" y="450" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Study</text>
+  <text x="175" y="470" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">16' × 14'</text>
+  <!-- Entry -->
+  <rect x="300" y="400" width="200" height="150" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <text x="400" y="480" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#555">Entry Hall</text>
+  <text x="400" y="498" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">12' × 10'</text>
+  <!-- Stairs -->
+  <rect x="620" y="400" width="130" height="150" stroke="#1a1a1a" stroke-width="2" fill="#e8e2d8"/>
+  <rect x="650" y="420" width="80" height="60" stroke="#b8860b" stroke-width="1.5" fill="none"/>
+  <line x1="660" y1="430" x2="720" y2="430" stroke="#b8860b" stroke-width="1"/>
+  <line x1="660" y1="440" x2="720" y2="440" stroke="#b8860b" stroke-width="1"/>
+  <line x1="660" y1="450" x2="720" y2="450" stroke="#b8860b" stroke-width="1"/>
+  <line x1="660" y1="460" x2="720" y2="460" stroke="#b8860b" stroke-width="1"/>
+  <line x1="660" y1="470" x2="720" y2="470" stroke="#b8860b" stroke-width="1"/>
+  <text x="685" y="500" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">Stairs Up</text>
+  <!-- Front door -->
+  <line x1="370" y1="550" x2="370" y2="530" stroke="#b8860b" stroke-width="2"/>
+  <line x1="430" y1="550" x2="430" y2="530" stroke="#b8860b" stroke-width="2"/>
+  <!-- Scale -->
+  <line x1="600" y1="570" x2="700" y2="570" stroke="#555" stroke-width="1"/>
+  <text x="650" y="585" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">10 ft</text>
+</svg>

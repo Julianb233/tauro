@@ -124,6 +124,7 @@ export function mapPropertyRow(row: any): Property {
     isNewConstruction: row.is_new_construction ?? undefined,
     isComingSoon: row.is_coming_soon ?? undefined,
     isExclusive: row.is_exclusive ?? undefined,
+    floorPlans: (row.floor_plans as Property["floorPlans"]) ?? undefined,
   };
 }
 

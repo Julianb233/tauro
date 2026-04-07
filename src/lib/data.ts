@@ -84,7 +84,13 @@ export async function loadPropertyBySlug(
     const mappers = await getMappers();
     const row = await queries.getPropertyBySlug(slug);
     if (!row) return staticGetPropertyBySlug(slug);
-    return mappers.mapPropertyRow(row);
+    const mapped = mappers.mapPropertyRow(row);
+    // Merge static floor plans when DB row lacks them (AI-3770)
+    if (!mapped.floorPlans) {
+      const staticProp = staticGetPropertyBySlug(slug);
+      if (staticProp?.floorPlans) mapped.floorPlans = staticProp.floorPlans;
+    }
+    return mapped;
   } catch {
     return staticGetPropertyBySlug(slug);
   }
@@ -144,6 +150,14 @@ export async function loadAgentBySlug(
       return { agent, listings };
     }
     const agent = mappers.mapAgentRow(row);
+    // Merge static video data when DB row lacks it (AI-3745)
+    if (!agent.videoIntroId) {
+      const staticAgent = staticGetAgentBySlug(slug);
+      if (staticAgent?.videoIntroId) {
+        agent.videoIntroId = staticAgent.videoIntroId;
+        agent.videoIntroUrl = staticAgent.videoIntroUrl;
+      }
+    }
     const rawProperties = (row as Record<string, unknown>).properties;
     const listings = Array.isArray(rawProperties)
       ? rawProperties.map(mappers.mapPropertyRow)
