@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Search, SlidersHorizontal, X } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Search, SlidersHorizontal, X, MapPin } from "lucide-react";
 
 export interface AgentFilterState {
   sort: string;
@@ -9,6 +9,7 @@ export interface AgentFilterState {
   search: string;
   specialty: string;
   language: string;
+  letter: string;
 }
 
 export const defaultAgentFilters: AgentFilterState = {
@@ -17,7 +18,10 @@ export const defaultAgentFilters: AgentFilterState = {
   search: "",
   specialty: "",
   language: "",
+  letter: "",
 };
+
+const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export default function AgentFilters({
   filters,
@@ -26,6 +30,7 @@ export default function AgentFilters({
   neighborhoods,
   specialties,
   languages,
+  availableLetters,
 }: {
   filters: AgentFilterState;
   onChange: (key: keyof AgentFilterState, value: string) => void;
@@ -33,6 +38,7 @@ export default function AgentFilters({
   neighborhoods: string[];
   specialties: string[];
   languages: string[];
+  availableLetters: Set<string>;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -69,6 +75,82 @@ export default function AgentFilters({
         </div>
       </div>
 
+      {/* Alphabetical letter bar */}
+      <div className="px-4 pt-3 lg:px-6" role="navigation" aria-label="Filter agents by last name initial">
+        <div className="flex flex-wrap items-center gap-1">
+          <button
+            onClick={() => onChange("letter", "")}
+            className={`rounded px-2 py-1 text-xs font-semibold transition-colors ${
+              filters.letter === ""
+                ? "bg-gold text-near-black"
+                : "text-muted-foreground hover:bg-gold/10 hover:text-foreground"
+            }`}
+            aria-label="Show all agents"
+            aria-pressed={filters.letter === ""}
+          >
+            All
+          </button>
+          {ALPHABET.map((letter) => {
+            const hasAgents = availableLetters.has(letter);
+            return (
+              <button
+                key={letter}
+                onClick={() => hasAgents ? onChange("letter", filters.letter === letter ? "" : letter) : undefined}
+                disabled={!hasAgents}
+                className={`min-w-[28px] rounded px-1.5 py-1 text-xs font-semibold transition-colors ${
+                  filters.letter === letter
+                    ? "bg-gold text-near-black"
+                    : hasAgents
+                      ? "text-foreground hover:bg-gold/10"
+                      : "cursor-default text-muted-foreground/40"
+                }`}
+                aria-label={`Filter by last name starting with ${letter}`}
+                aria-pressed={filters.letter === letter}
+                aria-disabled={!hasAgents}
+              >
+                {letter}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Location quick-filter pills */}
+      {neighborhoods.length > 0 && (
+        <div className="px-4 pt-3 lg:px-6" role="navigation" aria-label="Filter agents by neighborhood">
+          <div className="flex items-center gap-2">
+            <MapPin className="h-3.5 w-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
+            <div className="flex flex-wrap items-center gap-1.5">
+              <button
+                onClick={() => onChange("neighborhood", "")}
+                className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                  filters.neighborhood === ""
+                    ? "bg-gold text-near-black"
+                    : "border border-border bg-white text-muted-foreground hover:border-gold/40 hover:text-foreground"
+                }`}
+                aria-pressed={filters.neighborhood === ""}
+              >
+                All Areas
+              </button>
+              {neighborhoods.map((n) => (
+                <button
+                  key={n}
+                  onClick={() => onChange("neighborhood", filters.neighborhood === n ? "" : n)}
+                  className={`rounded-full px-3 py-1 text-xs font-medium transition-colors ${
+                    filters.neighborhood === n
+                      ? "bg-gold text-near-black"
+                      : "border border-border bg-white text-muted-foreground hover:border-gold/40 hover:text-foreground"
+                  }`}
+                  aria-pressed={filters.neighborhood === n}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Mobile toggle */}
       <div className="flex items-center justify-between px-4 py-3 lg:hidden">
         <button
@@ -92,28 +174,11 @@ export default function AgentFilters({
         </select>
       </div>
 
-      {/* Filter bar */}
+      {/* Additional filter bar (specialty, language, sort) */}
       <div
         className={`${open ? "block" : "hidden"} px-4 pb-4 lg:flex lg:items-end lg:gap-3 lg:px-6 lg:py-4`}
       >
         <div className="grid grid-cols-2 gap-3 lg:flex lg:flex-wrap lg:items-end lg:gap-3">
-          <div>
-            <label className="mb-1 block text-xs font-medium text-muted-foreground">
-              Neighborhood
-            </label>
-            <select
-              value={filters.neighborhood}
-              onChange={(e) => onChange("neighborhood", e.target.value)}
-              className={selectClasses}
-            >
-              <option value="">All Neighborhoods</option>
-              {neighborhoods.map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
-              ))}
-            </select>
-          </div>
           <div>
             <label className="mb-1 block text-xs font-medium text-muted-foreground">
               Specialty

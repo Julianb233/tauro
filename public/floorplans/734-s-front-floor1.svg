@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="#faf9f6"/>
+  <text x="400" y="30" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#1a1a1a">734 S Front St — First Floor</text>
+  <!-- Outer walls -->
+  <rect x="80" y="50" width="640" height="500" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <!-- Living Room -->
+  <rect x="80" y="50" width="320" height="260" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <text x="240" y="180" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Living Room</text>
+  <text x="240" y="200" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">20' × 16'</text>
+  <!-- Kitchen/Dining -->
+  <rect x="400" y="50" width="320" height="260" stroke="#1a1a1a" stroke-width="2" fill="#e0dcd4"/>
+  <text x="560" y="160" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Kitchen / Dining</text>
+  <text x="560" y="180" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">20' × 16'</text>
+  <!-- Counter -->
+  <rect x="430" y="240" width="120" height="20" stroke="#999" stroke-width="1" fill="#d8d4cc" rx="2"/>
+  <text x="490" y="255" text-anchor="middle" font-family="sans-serif" font-size="8" fill="#888">Counter</text>
+  <!-- Patio -->
+  <rect x="80" y="310" width="320" height="240" stroke="#1a1a1a" stroke-width="2" fill="#e8e2d8"/>
+  <text x="240" y="430" text-anchor="middle" font-family="sans-serif" font-size="14" fill="#555">Patio / Garden</text>
+  <text x="240" y="450" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#888">20' × 15'</text>
+  <!-- Laundry -->
+  <rect x="400" y="310" width="160" height="120" stroke="#1a1a1a" stroke-width="2" fill="#d8d4cc"/>
+  <text x="480" y="375" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555">Laundry</text>
+  <!-- Powder Room -->
+  <rect x="560" y="310" width="160" height="120" stroke="#1a1a1a" stroke-width="2" fill="#d8d4cc"/>
+  <text x="640" y="375" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#555">Powder Room</text>
+  <!-- Stairs -->
+  <rect x="400" y="430" width="320" height="120" stroke="#1a1a1a" stroke-width="2" fill="#f0ebe3"/>
+  <rect x="540" y="450" width="80" height="60" stroke="#b8860b" stroke-width="1.5" fill="none"/>
+  <line x1="550" y1="460" x2="610" y2="460" stroke="#b8860b" stroke-width="1"/>
+  <line x1="550" y1="470" x2="610" y2="470" stroke="#b8860b" stroke-width="1"/>
+  <line x1="550" y1="480" x2="610" y2="480" stroke="#b8860b" stroke-width="1"/>
+  <line x1="550" y1="490" x2="610" y2="490" stroke="#b8860b" stroke-width="1"/>
+  <line x1="550" y1="500" x2="610" y2="500" stroke="#b8860b" stroke-width="1"/>
+  <text x="480" y="500" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#555">Stairs Up</text>
+  <!-- Front door -->
+  <line x1="80" y1="150" x2="100" y2="150" stroke="#b8860b" stroke-width="2"/>
+  <!-- Scale -->
+  <line x1="600" y1="570" x2="700" y2="570" stroke="#555" stroke-width="1"/>
+  <text x="650" y="585" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#888">10 ft</text>
+</svg>

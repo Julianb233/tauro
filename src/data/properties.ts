@@ -72,6 +72,8 @@ isExclusive?: boolean;
   roofType?: string;
   rooms?: Room[];
   priceHistory?: { date: string; price: number; event: string }[];
+  /** AI-3770: Floor plan images with labels */
+  floorPlans?: { src: string; label: string }[];
 }
 
 export const properties: Property[] = [
@@ -164,6 +166,10 @@ export const properties: Property[] = [
       { date: "2025-11-01", price: 3350000, event: "Price Reduced" },
       { date: "2026-01-10", price: 3250000, event: "Price Reduced" },
     ],
+    floorPlans: [
+      { src: "/floorplans/1820-rittenhouse-floor1.svg", label: "First Floor" },
+      { src: "/floorplans/1820-rittenhouse-floor2.svg", label: "Second Floor" },
+    ],
   },
   {
     id: "2",
@@ -247,6 +253,9 @@ export const properties: Property[] = [
     priceHistory: [
       { date: "2025-06-01", price: 4950000, event: "Listed" },
       { date: "2025-08-15", price: 4750000, event: "Price Reduced" },
+    ],
+    floorPlans: [
+      { src: "/floorplans/312-delancey-floor1.svg", label: "Main Level" },
     ],
   },
   {
@@ -339,6 +348,9 @@ export const properties: Property[] = [
       { date: "2025-05-10", price: 1850000, event: "Pending" },
       { date: "2025-06-01", price: 1850000, event: "Back on Market" },
       { date: "2025-09-15", price: 1750000, event: "Price Reduced" },
+    ],
+    floorPlans: [
+      { src: "/floorplans/2401-pennsylvania-unit.svg", label: "Unit Layout" },
     ],
   },
   {
@@ -497,6 +509,9 @@ export const properties: Property[] = [
       { date: "2025-12-15", price: 1075000, event: "Price Reduced" },
       { date: "2026-02-01", price: 999000, event: "Price Reduced" },
       { date: "2026-03-05", price: 999000, event: "Pending" },
+    ],
+    floorPlans: [
+      { src: "/floorplans/734-s-front-floor1.svg", label: "First Floor" },
     ],
   },
   {
