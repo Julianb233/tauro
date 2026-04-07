@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/homes-for-sale-in-:neighborhood",
+      "destination": "/homes-for-sale/:neighborhood"
+    }
+  ],
   "redirects": [
     {
       "source": "/(.*)",
