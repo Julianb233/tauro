@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useSearchParams, useRouter } from "next/navigation";
 import { LayoutGrid, Map, Bookmark, Check } from "lucide-react";
-import type { Property } from "@/data/properties";
+import { type Property, type LifestyleTag, getPropertyTags } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilters, { FilterState } from "@/components/PropertyFilters";
 import { cn } from "@/lib/utils";
@@ -52,6 +52,7 @@ export default function PropertiesClient({
     yearBuiltMin: searchParams.get("yearBuiltMin") || "",
     yearBuiltMax: searchParams.get("yearBuiltMax") || "",
     daysOnMarket: searchParams.get("daysOnMarket") || "",
+    lifestyle: searchParams.get("lifestyle") || "",
   }), [searchParams]);
 
   const updateFilter = useCallback((key: keyof FilterState, value: string) => {
@@ -157,6 +158,10 @@ export default function PropertiesClient({
         const dom = Math.floor((now - listed) / 86400000);
         return dom <= maxDays;
       });
+    }
+    /* AI-3740: Lifestyle tag filter */
+    if (filters.lifestyle) {
+      result = result.filter((p) => getPropertyTags(p).includes(filters.lifestyle as LifestyleTag));
     }
     switch (filters.sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;

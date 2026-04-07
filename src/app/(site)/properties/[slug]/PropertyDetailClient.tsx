@@ -36,6 +36,7 @@ import RoomBreakdown from "@/components/RoomBreakdown";
 import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import ShareButton from "@/components/ShareButton";
 import PropertyAmenities from "@/components/PropertyAmenities";
+import FloorPlanViewer from "@/components/FloorPlanViewer";
 import { cn } from "@/lib/utils";
 
 // Heavy components — lazy-loaded to reduce initial bundle
@@ -695,6 +696,11 @@ export default function PropertyDetailClient({
             {/* Room-by-Room Breakdown */}
             {property.rooms && property.rooms.length > 0 && (
               <RoomBreakdown rooms={property.rooms} />
+            )}
+
+            {/* AI-3770: Floor Plan Viewer */}
+            {property.floorPlans && property.floorPlans.length > 0 && (
+              <FloorPlanViewer plans={property.floorPlans} />
             )}
 
             {/* Location map */}
