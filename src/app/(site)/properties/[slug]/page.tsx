@@ -97,6 +97,7 @@ export default async function PropertyDetailPage({ params }: { params: Promise<{
                 medianPrice: matchedNeighborhood.marketData.medianPrice,
                 walkScore: matchedNeighborhood.walkScore,
                 transitScore: matchedNeighborhood.transitScore,
+                bikeScore: matchedNeighborhood.bikeScore,
                 localSpots: matchedNeighborhood.localSpots.slice(0, 3),
               }
             : undefined

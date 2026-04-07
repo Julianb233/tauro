@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { CheckCircle, AlertCircle } from "lucide-react";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { useUtm } from "@/hooks/useUtm";
+import { Turnstile } from "@/components/turnstile";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -30,7 +31,11 @@ export function ContactForm() {
   const [formState, setFormState] = useState<FormState>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [errorMsg, setErrorMsg] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const utm = useUtm();
+
+  const handleCaptcha = useCallback((token: string) => setCaptchaToken(token), []);
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(null), []);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -82,6 +87,7 @@ export function ContactForm() {
       email: form.email,
       phone: form.phone,
       message: form.message,
+      captchaToken: captchaToken ?? undefined,
       ...utm,
     };
 
@@ -248,6 +254,8 @@ export function ContactForm() {
           className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20 transition-all duration-300"
         />
       </div>
+
+      <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
 
       <button
         type="submit"

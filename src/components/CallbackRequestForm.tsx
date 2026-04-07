@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useCallback, type FormEvent } from "react";
 import { Phone, CheckCircle } from "lucide-react";
+import { Turnstile } from "@/components/turnstile";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -13,7 +14,11 @@ export function CallbackRequestForm() {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [preferredTime, setPreferredTime] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [status, setStatus] = useState<Status>("idle");
+
+  const handleCaptcha = useCallback((token: string) => setCaptchaToken(token), []);
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(null), []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -31,6 +36,7 @@ export function CallbackRequestForm() {
           message: preferredTime ? `Preferred callback time: ${preferredTime}` : "Requested a callback",
           type: "callback",
           source: "callback-form",
+          captchaToken: captchaToken ?? undefined,
         }),
       });
 
@@ -114,6 +120,7 @@ export function CallbackRequestForm() {
           <option value="Late Afternoon (3pm-5pm)">Late Afternoon (3pm-5pm)</option>
           <option value="Evening (5pm-7pm)">Evening (5pm-7pm)</option>
         </select>
+        <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
         <button
           type="submit"
           disabled={status === "loading"}

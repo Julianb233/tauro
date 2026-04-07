@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BLUR_LANDSCAPE } from "@/lib/blur-placeholder";
+import { Turnstile } from "@/components/turnstile";
 import {
   Gift,
   Clock,
@@ -82,6 +83,9 @@ export default function HomeValuePage() {
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const handleCaptcha = useCallback((token: string) => setCaptchaToken(token), []);
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(null), []);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -102,6 +106,7 @@ export default function HomeValuePage() {
       phone: form.phone,
       homeAddress: form.homeAddress,
       message: form.message,
+      captchaToken: captchaToken ?? undefined,
       ...utm,
     };
 
@@ -369,6 +374,8 @@ export default function HomeValuePage() {
                     className="w-full resize-none rounded-lg border border-border/40 bg-white px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/20"
                 />
               </div>
+
+              <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
 
               <button
                 type="submit"

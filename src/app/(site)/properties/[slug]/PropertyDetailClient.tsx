@@ -21,8 +21,6 @@ import {
   Download,
   Loader2,
   DollarSign,
-  Footprints,
-  TrainFront,
   Star,
   Bell,
 ChevronLeft,
@@ -50,6 +48,7 @@ import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useUtm } from "@/hooks/useUtm";
 import { siteUrl } from "@/lib/site-config";
 import { Logo } from "@/components/logo";
+import { Turnstile } from "@/components/turnstile";
 
 /** Minimal QR code SVG component using a simple matrix encoding approach */
 function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
@@ -117,7 +116,31 @@ interface NeighborhoodMiniGuide {
   medianPrice: string;
   walkScore: number;
   transitScore: number;
+  bikeScore: number;
   localSpots: { name: string; type: string; description: string }[];
+}
+
+function MiniScoreRing({ score, label }: { score: number; label: string }) {
+  const radius = 28;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - (score / 100) * circumference;
+  const color =
+    score >= 90 ? "#22c55e" : score >= 70 ? "#c9a96e" : score >= 50 ? "#f59e0b" : "#ef4444";
+
+  return (
+    <div className="flex flex-col items-center gap-1">
+      <div className="relative size-16">
+        <svg className="size-full -rotate-90" viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r={radius} fill="none" stroke="currentColor" strokeWidth="4" className="text-border/30" />
+          <circle cx="32" cy="32" r={radius} fill="none" stroke={color} strokeWidth="4" strokeLinecap="round" strokeDasharray={circumference} strokeDashoffset={offset} />
+        </svg>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-sm font-bold text-foreground">{score}</span>
+        </div>
+      </div>
+      <span className="text-xs text-muted-foreground">{label}</span>
+    </div>
+  );
 }
 
 export default function PropertyDetailClient({
@@ -142,6 +165,9 @@ export default function PropertyDetailClient({
   const [earlyAccessSubmitting, setEarlyAccessSubmitting] = useState(false);
   const [earlyAccessSuccess, setEarlyAccessSuccess] = useState(false);
   const [earlyAccessError, setEarlyAccessError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const handleCaptcha = useCallback((token: string) => setCaptchaToken(token), []);
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(null), []);
   const [downloadingBrochure, setDownloadingBrochure] = useState(false);
   const { track } = useRecentlyViewed();
 
@@ -225,6 +251,7 @@ export default function PropertyDetailClient({
           message: formData.message || undefined,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          captchaToken: captchaToken ?? undefined,
           ...utm,
         }),
       });
@@ -261,6 +288,7 @@ export default function PropertyDetailClient({
           message: `Early access request for ${property.address}`,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          captchaToken: captchaToken ?? undefined,
           ...utm,
         }),
       });
@@ -436,6 +464,7 @@ export default function PropertyDetailClient({
                           onChange={(e) => setEarlyAccessData({ ...earlyAccessData, phone: e.target.value })}
                           className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
                         />
+                        <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
                         <button
                           type="submit"
                           disabled={earlyAccessSubmitting}
@@ -696,20 +725,17 @@ export default function PropertyDetailClient({
                         </Link>
                       </div>
 
-                      {/* Stats row */}
-                      <div className="mt-3 flex flex-wrap gap-4">
-                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                          <DollarSign className="h-3.5 w-3.5 text-gold" />
-                          <span>Median {neighborhoodMiniGuide.medianPrice}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                          <Footprints className="h-3.5 w-3.5 text-gold" />
-                          <span>Walk Score {neighborhoodMiniGuide.walkScore}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-                          <TrainFront className="h-3.5 w-3.5 text-gold" />
-                          <span>Transit {neighborhoodMiniGuide.transitScore}</span>
-                        </div>
+                      {/* Median price */}
+                      <div className="mt-3 flex items-center gap-1.5 text-sm text-muted-foreground">
+                        <DollarSign className="h-3.5 w-3.5 text-gold" />
+                        <span>Median {neighborhoodMiniGuide.medianPrice}</span>
+                      </div>
+
+                      {/* Score rings */}
+                      <div className="mt-4 flex justify-around">
+                        <MiniScoreRing score={neighborhoodMiniGuide.walkScore} label="Walk" />
+                        <MiniScoreRing score={neighborhoodMiniGuide.transitScore} label="Transit" />
+                        <MiniScoreRing score={neighborhoodMiniGuide.bikeScore} label="Bike" />
                       </div>
 
                       {/* Local spots */}
@@ -881,6 +907,7 @@ export default function PropertyDetailClient({
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
                     />
+                    <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
                     <button
                       type="submit"
                       disabled={submitting}
@@ -947,6 +974,7 @@ export default function PropertyDetailClient({
 function PropertyAlertSignup({ neighborhoodName }: { neighborhoodName?: string }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [alertCaptchaToken, setAlertCaptchaToken] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -956,7 +984,7 @@ function PropertyAlertSignup({ neighborhoodName }: { neighborhoodName?: string }
       await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), source: "property-alert" }),
+        body: JSON.stringify({ email: email.trim(), source: "property-alert", captchaToken: alertCaptchaToken ?? undefined }),
       });
     } catch {
       // Show success regardless — newsletter API handles gracefully
@@ -1009,6 +1037,7 @@ function PropertyAlertSignup({ neighborhoodName }: { neighborhoodName?: string }
           {status === "loading" ? "..." : "Notify Me"}
         </button>
       </form>
+      <Turnstile onVerify={setAlertCaptchaToken} onExpire={() => setAlertCaptchaToken(null)} className="mt-2" />
     </div>
   );
 }

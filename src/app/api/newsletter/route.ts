@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { verifyTurnstileToken } from "@/lib/turnstile";
+import { getClientIp } from "@/lib/rate-limit";
 
 const NewsletterSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
+  captchaToken: z.string().optional(),
 });
 
 export async function POST(request: NextRequest) {
@@ -27,7 +30,15 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const { email } = result.data;
+  const { email, captchaToken } = result.data;
+
+  // --- Turnstile CAPTCHA verification ---
+  const ip = getClientIp(request.headers);
+  const turnstileResult = await verifyTurnstileToken(captchaToken, ip);
+  if (!turnstileResult.success) {
+    return NextResponse.json({ error: turnstileResult.error }, { status: 400 });
+  }
+
   const supabase = await createClient();
 
   if (!supabase) {
