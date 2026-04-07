@@ -8,6 +8,7 @@ import { Logo } from "@/components/logo";
 import { useScrolled } from "@/hooks/use-scrolled";
 import { AuthModal, getStoredUser, clearStoredUser, type StoredUser } from "@/components/AuthModal";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { MegaDropdown, MobileMegaSection, buyMenu, sellMenu } from "@/components/mega-menu";
 
 // Reactive auth state via useSyncExternalStore
 const authListeners = new Set<() => void>();
@@ -27,10 +28,8 @@ function getAuthServerSnapshot(): StoredUser | null {
   return null;
 }
 
-const navLinks = [
-  { href: "/properties", label: "Properties" },
+const simpleLinks = [
   { href: "/agents", label: "Agents" },
-  { href: "/sell", label: "Sell" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
@@ -38,6 +37,7 @@ const navLinks = [
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [authOpen, setAuthOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<"buy" | "sell" | null>(null);
   const scrolled = useScrolled();
   const user = useSyncExternalStore(subscribeAuth, getAuthSnapshot, getAuthServerSnapshot);
 
@@ -81,18 +81,29 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <ul className="hidden items-center gap-1 lg:flex">
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="nav-link-underline rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide text-white transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
-                >
-                  {link.label}
-                </Link>
-              </li>
+          <div className="hidden items-center gap-1 lg:flex">
+            <MegaDropdown
+              section={buyMenu}
+              open={openMenu === "buy"}
+              onOpen={() => setOpenMenu("buy")}
+              onClose={() => setOpenMenu(null)}
+            />
+            <MegaDropdown
+              section={sellMenu}
+              open={openMenu === "sell"}
+              onOpen={() => setOpenMenu("sell")}
+              onClose={() => setOpenMenu(null)}
+            />
+            {simpleLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="nav-link-underline rounded-md px-3 py-2 font-label text-sm font-medium tracking-wide text-white transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
+              >
+                {link.label}
+              </Link>
             ))}
-          </ul>
+          </div>
 
           {/* Desktop CTA */}
           <div className="hidden items-center gap-3 lg:flex">
@@ -178,8 +189,10 @@ export function Navbar() {
           </div>
 
           {/* Centered navigation links */}
-          <nav className="flex flex-1 flex-col items-center justify-center gap-8">
-            {navLinks.map((link) => (
+          <nav className="flex flex-1 flex-col items-center justify-center gap-6 overflow-y-auto px-6">
+            <MobileMegaSection section={buyMenu} onNavigate={() => setMobileOpen(false)} />
+            <MobileMegaSection section={sellMenu} onNavigate={() => setMobileOpen(false)} />
+            {simpleLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
