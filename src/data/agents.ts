@@ -100,8 +100,8 @@ export const agents: Agent[] = [
         issuer: "Pennsylvania Association of Realtors",
       },
     ],
-    videoIntroUrl: null,
-    videoIntroId: null,
+    videoIntroUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoIntroId: "dQw4w9WgXcQ",
     activeListingIds: ["1", "3", "5"],
     soldListingIds: ["101", "102", "103", "104"],
     soldListings: [
@@ -169,8 +169,8 @@ export const agents: Agent[] = [
         issuer: "EXIT Realty International",
       },
     ],
-    videoIntroUrl: null,
-    videoIntroId: null,
+    videoIntroUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoIntroId: "dQw4w9WgXcQ",
     activeListingIds: ["2", "4"],
     soldListingIds: ["201", "202", "203"],
     soldListings: [
@@ -238,8 +238,8 @@ export const agents: Agent[] = [
         issuer: "Exit Benchmark Realty",
       },
     ],
-    videoIntroUrl: null,
-    videoIntroId: null,
+    videoIntroUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoIntroId: "dQw4w9WgXcQ",
     activeListingIds: ["6"],
     soldListingIds: ["301", "302", "303", "304"],
     soldListings: [

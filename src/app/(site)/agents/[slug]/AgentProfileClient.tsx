@@ -13,6 +13,7 @@ import type { Property } from "@/data/properties";
 import { formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import AgentQrCode from "@/components/AgentQrCode";
+import AgentVideoIntro from "@/components/AgentVideoIntro";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 import { Turnstile } from "@/components/turnstile";
@@ -387,18 +388,6 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
               </div>
             )}
 
-            {/* Video */}
-            {agent.videoIntroUrl && (
-              <div>
-                <div className="mb-8 flex items-center gap-3">
-                  <Play className="size-5 text-gold" />
-                  <h2 className="font-heading text-2xl font-bold text-foreground">Video Introduction</h2>
-                </div>
-                <div className="aspect-video overflow-hidden rounded-xl border border-border/40">
-                  <iframe src={agent.videoIntroUrl} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen className="h-full w-full" title={`${agent.fullName} video introduction`} />
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Sticky sidebar contact form — desktop */}
@@ -409,6 +398,15 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
           </div>
         </div>
       </div>
+
+      {/* AI-3745: Video Introduction — full-width section */}
+      {agent.videoIntroId && (
+        <AgentVideoIntro
+          videoId={agent.videoIntroId}
+          agentName={agent.fullName}
+          agentPhoto={agent.photo}
+        />
+      )}
 
       {/* Active Listings */}
       {activeListings.length > 0 && (
