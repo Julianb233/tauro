@@ -24,6 +24,7 @@ import { siteUrl } from "@/lib/site-config";
 import PropertyCard from "@/components/PropertyCard";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { MarketStats } from "@/components/market-stats";
+import { ScoreGauges } from "@/components/neighborhood/ScoreGauges";
 
 export const revalidate = 86400;
 
@@ -353,6 +354,13 @@ export default async function LocationLandingPage({
           </div>
         </div>
       </section>
+
+      {/* Walk / Transit / Bike Scores */}
+      <ScoreGauges
+        walkScore={neighborhood.walkScore}
+        transitScore={neighborhood.transitScore}
+        bikeScore={neighborhood.bikeScore}
+      />
 
       {/* Market stats */}
       <MarketStats
