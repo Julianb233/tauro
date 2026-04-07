@@ -3,8 +3,8 @@
 import { useState, useMemo, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { useSearchParams, useRouter } from "next/navigation";
-import { LayoutGrid, Map, Bookmark, Check } from "lucide-react";
-import type { Property } from "@/data/properties";
+import { LayoutGrid, Map, Bookmark, Check, Tag } from "lucide-react";
+import { type Property, type LifestyleTag, getPropertyTags, LIFESTYLE_TAGS } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import PropertyFilters, { FilterState } from "@/components/PropertyFilters";
 import { cn } from "@/lib/utils";
@@ -52,6 +52,7 @@ export default function PropertiesClient({
     yearBuiltMin: searchParams.get("yearBuiltMin") || "",
     yearBuiltMax: searchParams.get("yearBuiltMax") || "",
     daysOnMarket: searchParams.get("daysOnMarket") || "",
+    lifestyle: searchParams.get("lifestyle") || "",
   }), [searchParams]);
 
   const updateFilter = useCallback((key: keyof FilterState, value: string) => {
@@ -158,6 +159,10 @@ export default function PropertiesClient({
         return dom <= maxDays;
       });
     }
+    /* AI-3740: Lifestyle tag filter */
+    if (filters.lifestyle) {
+      result = result.filter((p) => getPropertyTags(p).includes(filters.lifestyle as LifestyleTag));
+    }
     switch (filters.sort) {
       case "price-asc": result.sort((a, b) => a.price - b.price); break;
       case "price-desc": result.sort((a, b) => b.price - a.price); break;
@@ -205,6 +210,29 @@ export default function PropertiesClient({
             <button onClick={() => setView("grid")} className={cn("rounded-md p-2.5 transition-colors", view === "grid" ? "bg-gold text-near-black" : "text-muted-foreground hover:text-foreground")} aria-label="Grid view"><LayoutGrid className="h-4 w-4" /></button>
             <button onClick={() => setView("map")} className={cn("rounded-md p-2.5 transition-colors", view === "map" ? "bg-gold text-near-black" : "text-muted-foreground hover:text-foreground")} aria-label="Map view"><Map className="h-4 w-4" /></button>
           </div>
+          </div>
+        </div>
+      </div>
+      {/* AI-3740: Lifestyle browsing pills */}
+      <div className="border-b border-border bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
+            <Tag className="h-4 w-4 shrink-0 text-muted-foreground" />
+            <span className="shrink-0 text-xs font-medium text-muted-foreground">Browse by Lifestyle:</span>
+            {LIFESTYLE_TAGS.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => updateFilter("lifestyle", filters.lifestyle === tag ? "" : tag)}
+                className={cn(
+                  "shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition-all",
+                  filters.lifestyle === tag
+                    ? "border-gold bg-gold/10 text-gold"
+                    : "border-border text-muted-foreground hover:border-gold/50 hover:text-foreground"
+                )}
+              >
+                {tag}
+              </button>
+            ))}
           </div>
         </div>
       </div>
