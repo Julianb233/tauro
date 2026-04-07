@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, useCallback, type FormEvent } from "react";
 import { Mail } from "lucide-react";
+import { Turnstile } from "@/components/turnstile";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -16,6 +17,9 @@ export function NewsletterForm({ source: _source, showName: _showName, showInter
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const handleCaptcha = useCallback((token: string) => setCaptchaToken(token), []);
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(null), []);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,7 +36,7 @@ export function NewsletterForm({ source: _source, showName: _showName, showInter
       const res = await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), website: honeypot }),
+        body: JSON.stringify({ email: email.trim(), website: honeypot, captchaToken: captchaToken ?? undefined }),
       });
 
       const data = await res.json();
@@ -92,6 +96,7 @@ export function NewsletterForm({ source: _source, showName: _showName, showInter
           {status === "loading" ? "..." : "Subscribe"}
         </button>
       </form>
+      <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="mt-2" />
       {status === "success" && (
         <p role="status" className="text-xs text-green-400">{message}</p>
       )}

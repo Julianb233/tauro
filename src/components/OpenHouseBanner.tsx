@@ -6,6 +6,7 @@ import { Property } from "@/data/properties";
 import { siteUrl } from "@/lib/site-config";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useUtm } from "@/hooks/useUtm";
+import { Turnstile } from "@/components/turnstile";
 
 /* ------------------------------------------------------------------ */
 /*  .ics file generator                                                */
@@ -124,6 +125,9 @@ function RsvpModal({
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const handleCaptcha = useCallback((token: string) => setCaptchaToken(token), []);
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(null), []);
   const nameInputRef = useRef<HTMLInputElement>(null);
   const focusTrapRef = useFocusTrap(true, {
     onEscape: onClose,
@@ -149,6 +153,7 @@ function RsvpModal({
           message: `RSVP for Open House on ${property.openHouse}`,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          captchaToken: captchaToken ?? undefined,
           ...utm,
         }),
       });
@@ -235,6 +240,7 @@ function RsvpModal({
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
                 className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
               />
+              <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
               <button
                 type="submit"
                 disabled={submitting}

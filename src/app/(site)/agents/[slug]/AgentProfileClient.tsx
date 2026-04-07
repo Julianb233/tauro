@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -15,6 +15,7 @@ import PropertyCard from "@/components/PropertyCard";
 import AgentQrCode from "@/components/AgentQrCode";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
+import { Turnstile } from "@/components/turnstile";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 interface FormData { firstName: string; lastName: string; email: string; phone: string; message: string; }
@@ -27,6 +28,9 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
   const [form, setForm] = useState<FormData>(initialForm);
   const [state, setState] = useState<FormState>("idle");
   const [errorMsg, setErrorMsg] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const handleCaptcha = useCallback((token: string) => setCaptchaToken(token), []);
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(null), []);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -52,7 +56,7 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...payload, website: honeypot }),
+        body: JSON.stringify({ ...payload, captchaToken: captchaToken ?? undefined, website: honeypot }),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -166,6 +170,8 @@ function AgentContactForm({ agent, variant }: { agent: Agent; variant: "sidebar"
             className={`resize-none ${inputCls}`}
           />
         </div>
+
+        <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
 
         <button
           type="submit"

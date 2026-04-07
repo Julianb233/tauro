@@ -48,6 +48,7 @@ import { useRecentlyViewed } from "@/hooks/useRecentlyViewed";
 import { useUtm } from "@/hooks/useUtm";
 import { siteUrl } from "@/lib/site-config";
 import { Logo } from "@/components/logo";
+import { Turnstile } from "@/components/turnstile";
 
 /** Minimal QR code SVG component using a simple matrix encoding approach */
 function QRCodeSVG({ url, size = 120 }: { url: string; size?: number }) {
@@ -164,6 +165,9 @@ export default function PropertyDetailClient({
   const [earlyAccessSubmitting, setEarlyAccessSubmitting] = useState(false);
   const [earlyAccessSuccess, setEarlyAccessSuccess] = useState(false);
   const [earlyAccessError, setEarlyAccessError] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const handleCaptcha = useCallback((token: string) => setCaptchaToken(token), []);
+  const handleCaptchaExpire = useCallback(() => setCaptchaToken(null), []);
   const [downloadingBrochure, setDownloadingBrochure] = useState(false);
   const { track } = useRecentlyViewed();
 
@@ -247,6 +251,7 @@ export default function PropertyDetailClient({
           message: formData.message || undefined,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          captchaToken: captchaToken ?? undefined,
           ...utm,
         }),
       });
@@ -283,6 +288,7 @@ export default function PropertyDetailClient({
           message: `Early access request for ${property.address}`,
           propertyAddress: `${property.address}, ${property.city}, ${property.state} ${property.zip}`,
           propertyId: property.id,
+          captchaToken: captchaToken ?? undefined,
           ...utm,
         }),
       });
@@ -458,6 +464,7 @@ export default function PropertyDetailClient({
                           onChange={(e) => setEarlyAccessData({ ...earlyAccessData, phone: e.target.value })}
                           className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
                         />
+                        <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
                         <button
                           type="submit"
                           disabled={earlyAccessSubmitting}
@@ -900,6 +907,7 @@ export default function PropertyDetailClient({
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus-visible:border-gold focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold disabled:opacity-50"
                     />
+                    <Turnstile onVerify={handleCaptcha} onExpire={handleCaptchaExpire} className="flex justify-center" />
                     <button
                       type="submit"
                       disabled={submitting}
@@ -966,6 +974,7 @@ export default function PropertyDetailClient({
 function PropertyAlertSignup({ neighborhoodName }: { neighborhoodName?: string }) {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [alertCaptchaToken, setAlertCaptchaToken] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -975,7 +984,7 @@ function PropertyAlertSignup({ neighborhoodName }: { neighborhoodName?: string }
       await fetch("/api/newsletter", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: email.trim(), source: "property-alert" }),
+        body: JSON.stringify({ email: email.trim(), source: "property-alert", captchaToken: alertCaptchaToken ?? undefined }),
       });
     } catch {
       // Show success regardless — newsletter API handles gracefully
@@ -1028,6 +1037,7 @@ function PropertyAlertSignup({ neighborhoodName }: { neighborhoodName?: string }
           {status === "loading" ? "..." : "Notify Me"}
         </button>
       </form>
+      <Turnstile onVerify={setAlertCaptchaToken} onExpire={() => setAlertCaptchaToken(null)} className="mt-2" />
     </div>
   );
 }
