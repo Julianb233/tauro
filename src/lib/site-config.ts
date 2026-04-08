@@ -7,4 +7,5 @@
 const DEFAULT_SITE_URL = "https://taurorealty.com";
 
 export const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/+$/, "") || DEFAULT_SITE_URL;
+  process.env.NEXT_PUBLIC_SITE_URL?.trim().replace(/\/+$/, "") ||
+  DEFAULT_SITE_URL;
