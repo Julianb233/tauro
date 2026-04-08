@@ -39,6 +39,7 @@ export interface Agent {
     instagram?: string;
     linkedin?: string;
     facebook?: string;
+    whatsapp?: string;
   };
   certifications: {
     code: string;
@@ -114,6 +115,7 @@ export const agents: Agent[] = [
       instagram: "https://instagram.com/tcupone",
       linkedin: "https://linkedin.com/in/tony-goodman-625682b",
       facebook: "https://facebook.com/tony.goodman1",
+      whatsapp: "12154272870",
     },
     certifications: [
       { code: "CRS", fullName: "Certified Residential Specialist" },
@@ -181,6 +183,7 @@ export const agents: Agent[] = [
     social: {
       instagram: "https://instagram.com/shaquondagarrett",
       linkedin: "https://linkedin.com/in/shaquonda-garrett",
+      whatsapp: "12158175777",
     },
     certifications: [
       { code: "ABR", fullName: "Accredited Buyer's Representative" },
@@ -250,6 +253,7 @@ export const agents: Agent[] = [
     ],
     social: {
       linkedin: "https://linkedin.com/in/morris-brown-philly",
+      whatsapp: "12154169113",
     },
     certifications: [
       { code: "CRS", fullName: "Certified Residential Specialist" },
@@ -315,6 +319,7 @@ export const agents: Agent[] = [
     ],
     social: {
       linkedin: "https://linkedin.com/in/stephen-stevens-realty",
+      whatsapp: "12154272870",
     },
     certifications: [],
     languages: ["English", "Spanish"],
@@ -377,6 +382,7 @@ export const agents: Agent[] = [
     ],
     social: {
       linkedin: "https://linkedin.com/in/chris-lane-philly-re",
+      whatsapp: "12154272870",
     },
     certifications: [
       { code: "PSA", fullName: "Pricing Strategy Advisor" },
