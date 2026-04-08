@@ -9,6 +9,7 @@ import { useScrolled } from "@/hooks/use-scrolled";
 import { AuthModal, getStoredUser, clearStoredUser, type StoredUser } from "@/components/AuthModal";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { MegaDropdown, MobileMegaSection, buyMenu, sellMenu } from "@/components/mega-menu";
+import { trackClickToCall, trackCtaClick } from "@/lib/analytics";
 
 // Reactive auth state via useSyncExternalStore
 const authListeners = new Set<() => void>();
@@ -109,6 +110,7 @@ export function Navbar() {
           <div className="hidden items-center gap-3 lg:flex">
             <a
               href="tel:+12158394172"
+              onClick={() => trackClickToCall("+12158394172", "navbar")}
               className="flex items-center gap-1.5 rounded-md text-sm text-white transition-all duration-300 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
             >
               <Phone className="size-4" />
@@ -142,6 +144,7 @@ export function Navbar() {
 
             <Link
               href="/contact"
+              onClick={() => trackCtaClick("schedule_showing", "navbar")}
               className="shimmer-gold inline-flex items-center justify-center rounded-lg bg-gold px-4 py-2 text-sm font-label uppercase tracking-wide text-near-black transition-all duration-300 hover:bg-gold-light focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/50 focus-visible:ring-offset-2"
             >
               Schedule a Showing

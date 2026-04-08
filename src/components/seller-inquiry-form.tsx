@@ -5,6 +5,7 @@ import { CheckCircle, AlertCircle } from "lucide-react";
 import { Turnstile } from "@/components/turnstile";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { useUtm } from "@/hooks/useUtm";
+import { trackFormSubmission } from "@/lib/analytics";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -115,6 +116,7 @@ export function SellerInquiryForm() {
       }
 
       setState("success");
+      trackFormSubmission("seller_inquiry");
       setForm(initialForm);
       setTurnstileToken("");
     } catch (err) {
