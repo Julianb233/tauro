@@ -37,6 +37,7 @@ import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import ShareButton from "@/components/ShareButton";
 import PropertyAmenities from "@/components/PropertyAmenities";
 import { cn } from "@/lib/utils";
+import { trackPropertyView, trackClickToCall, trackBrochureDownload, trackFormSubmission } from "@/lib/analytics";
 
 // Heavy components — lazy-loaded to reduce initial bundle
 const ImageGallery = dynamic(() => import("@/components/ImageGallery"));
@@ -174,6 +175,16 @@ export default function PropertyDetailClient({
   // Mobile floating CTA: visible when sidebar agent card scrolls out of view
   const [showMobileCta, setShowMobileCta] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // Track GA4 property view
+  useEffect(() => {
+    trackPropertyView({
+      id: property.id,
+      title: property.address,
+      price: property.price,
+      neighborhood: property.neighborhood,
+    });
+  }, [property.id, property.address, property.price, property.neighborhood]);
 
   useEffect(() => {
     const sidebar = sidebarRef.current;
