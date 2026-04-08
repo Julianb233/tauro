@@ -37,6 +37,7 @@ import PropertyDetailsTable from "@/components/PropertyDetailsTable";
 import ShareButton from "@/components/ShareButton";
 import PropertyAmenities from "@/components/PropertyAmenities";
 import { cn } from "@/lib/utils";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import { trackPropertyView, trackClickToCall, trackBrochureDownload, trackFormSubmission } from "@/lib/analytics";
 
 // Heavy components — lazy-loaded to reduce initial bundle
@@ -848,6 +849,13 @@ export default function PropertyDetailClient({
                   <Mail className="h-4 w-4" />
                   {property.agent.email}
                 </a>
+                <WhatsAppButton
+                  phone={`1${property.agent.phone.replace(/[^0-9]/g, "")}`}
+                  agentName={property.agent.name.split(" ")[0]}
+                  agentSlug={property.agent.slug}
+                  message={`Hi ${property.agent.name.split(" ")[0]}, I'm interested in the property at ${property.address}. Can you tell me more?`}
+                  className="flex items-center gap-2 text-sm text-[#25D366] transition-colors hover:text-[#25D366]/80"
+                />
               </div>
               {property.agent.slug && (
                 <Link
