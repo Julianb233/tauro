@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { SlidersHorizontal } from "lucide-react";
 import PriceRangeSlider from "@/components/PriceRangeSlider";
+import { LIFESTYLE_TAGS } from "@/data/properties";
 interface NeighborhoodOption {
   id: string;
   name: string;
@@ -34,6 +35,8 @@ export interface FilterState {
   yearBuiltMax: string;
   /** AI-3871: Days on market filter */
   daysOnMarket: string;
+  /** AI-3740: Lifestyle tag filter */
+  lifestyle: string;
 }
 
 export const defaultFilters: FilterState = {
@@ -55,6 +58,7 @@ export const defaultFilters: FilterState = {
   yearBuiltMin: "",
   yearBuiltMax: "",
   daysOnMarket: "",
+  lifestyle: "",
 };
 
 export default function PropertyFilters({
@@ -344,6 +348,20 @@ export default function PropertyFilters({
               <option value="60">60 Days</option>
               <option value="90">90 Days</option>
               <option value="180">180 Days</option>
+            </select>
+          </div>
+          {/* AI-3740: Lifestyle tag filter */}
+          <div>
+            <label className="mb-1 block text-xs font-medium text-muted-foreground">Lifestyle</label>
+            <select
+              value={filters.lifestyle}
+              onChange={(e) => update("lifestyle", e.target.value)}
+              className={selectClasses}
+            >
+              <option value="">All Lifestyles</option>
+              {LIFESTYLE_TAGS.map((tag) => (
+                <option key={tag} value={tag}>{tag}</option>
+              ))}
             </select>
           </div>
           {/* AI-3805: Virtual tour filter */}

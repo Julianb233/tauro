@@ -13,6 +13,7 @@ import type { Property } from "@/data/properties";
 import { formatPrice } from "@/data/properties";
 import PropertyCard from "@/components/PropertyCard";
 import AgentQrCode from "@/components/AgentQrCode";
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 import type { LeadPayload } from "@/app/api/leads/route";
 import { BLUR_PORTRAIT } from "@/lib/blur-placeholder";
 import { Turnstile } from "@/components/turnstile";
@@ -258,11 +259,26 @@ export default function AgentProfileClient({ agent, activeListings }: { agent: A
                     <Linkedin className="size-5" />
                   </a>
                 )}
+                {agent.social.whatsapp && (
+                  <WhatsAppButton
+                    phone={agent.social.whatsapp}
+                    agentName={agent.firstName}
+                    agentSlug={agent.slug}
+                    variant="icon"
+                  />
+                )}
               </div>
               <div className="mt-6 flex flex-wrap gap-3">
                 <a href={`tel:${agent.phone.replace(/[^+\d]/g, "")}`} className="inline-flex items-center gap-2 rounded-lg border border-gold/40 px-5 py-2.5 text-sm font-semibold text-gold transition-colors hover:bg-gold/10">
                   <Phone className="size-4" />{agent.phone}
                 </a>
+                {agent.social.whatsapp && (
+                  <WhatsAppButton
+                    phone={agent.social.whatsapp}
+                    agentName={agent.firstName}
+                    agentSlug={agent.slug}
+                  />
+                )}
                 <a href={`mailto:${agent.email}`} className="inline-flex items-center gap-2 rounded-lg bg-gold px-5 py-2.5 text-sm font-semibold text-near-black transition-colors hover:bg-gold-light">
                   <Mail className="size-4" />Email {agent.firstName}
                 </a>
