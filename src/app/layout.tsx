@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { OrganizationJsonLd, WebSiteJsonLd } from "@/components/JsonLd";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { PageEngagement } from "@/components/PageEngagement";
 import { loadTestimonials } from "@/lib/data";
 import { siteUrl } from "@/lib/site-config";
 import "./globals.css";
@@ -59,7 +60,7 @@ const montserrat = Montserrat({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  maximumScale: 5,
   viewportFit: "cover",
   themeColor: "#0A0A0A",
 };
@@ -143,6 +144,7 @@ export default async function RootLayout({
           Skip to main content
         </a>
         <GoogleAnalytics />
+        <PageEngagement />
         <Analytics />
         <SpeedInsights />
         <OrganizationJsonLd testimonials={testimonials} />

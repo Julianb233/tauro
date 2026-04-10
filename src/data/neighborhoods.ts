@@ -32,6 +32,19 @@ export interface LifestyleInfo {
   culture: string;
 }
 
+export interface ParkInfo {
+  name: string;
+  type: "Park" | "Trail" | "Recreation Center" | "Playground" | "Dog Park" | "Sports Complex" | "Garden";
+  highlights: string[];
+  acreage?: number;
+}
+
+export interface ParksAndRec {
+  overview: string;
+  parks: ParkInfo[];
+  recreationPrograms?: string[];
+}
+
 export interface DemographicData {
   population: number;
   medianHouseholdIncome: string;
@@ -72,6 +85,7 @@ export interface Neighborhood {
   monthlyTrend: MonthlyTrendPoint[];
   mapCenter: { lat: number; lng: number };
   demographics: DemographicData;
+  parksAndRec?: ParksAndRec;
   videoTourUrl?: string;
   propertyFilter: string;
   featured: boolean;

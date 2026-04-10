@@ -17,6 +17,8 @@ import { FeaturedAgent } from "@/components/neighborhood/FeaturedAgent";
 import { NeighborhoodAgents } from "@/components/neighborhood/NeighborhoodAgents";
 import { VideoTour } from "@/components/neighborhood/VideoTour";
 import { DemographicsCard } from "@/components/neighborhood/DemographicsCard";
+import { ParksAndRecSection } from "@/components/ParksAndRecSection";
+import { parksAndRecData } from "@/data/parks-and-rec";
 
 // Heavy client components — lazy-loaded (recharts ~200KB, lightbox ~50KB)
 const MarketTrendChart = dynamic(() =>
@@ -164,6 +166,14 @@ export default async function NeighborhoodDetailPage({ params }: { params: Promi
         schools={neighborhood.schools}
         neighborhoodName={neighborhood.name}
       />
+
+      {/* Parks & Recreation */}
+      {parksAndRecData[neighborhood.slug] && (
+        <ParksAndRecSection
+          data={parksAndRecData[neighborhood.slug]}
+          neighborhoodName={neighborhood.name}
+        />
+      )}
 
       {/* Lifestyle Info (dining, nightlife, parks, culture) */}
       <LifestyleSection

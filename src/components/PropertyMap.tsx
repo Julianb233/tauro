@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from "react";
 import { MapPin, ExternalLink, ChevronDown, Layers } from "lucide-react";
 import { Property, formatPrice } from "@/data/properties";
 import { cn } from "@/lib/utils";
-import "mapbox-gl/dist/mapbox-gl.css";
+// mapbox-gl CSS is loaded dynamically in initMap() to avoid bundling ~50KB of unused CSS
 
 interface PropertyMapProps {
   properties: Property[];
