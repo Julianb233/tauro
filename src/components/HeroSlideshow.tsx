@@ -30,6 +30,7 @@ const INTERVAL = 6000;
 
 export default function HeroSlideshow() {
   const [active, setActive] = useState(0);
+  const [loaded, setLoaded] = useState(false);
 
   const advance = useCallback(() => {
     setActive((prev) => (prev + 1) % SLIDES.length);
@@ -40,29 +41,36 @@ export default function HeroSlideshow() {
     return () => clearInterval(timer);
   }, [advance]);
 
+  // After first paint, allow all slides to render for smooth transitions
+  useEffect(() => {
+    const t = setTimeout(() => setLoaded(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <>
-      {SLIDES.map((slide, i) => (
-        <Image
-          key={slide.src}
-          src={slide.src}
-          alt={slide.alt}
-          aria-hidden={i !== active}
-          fill
-          priority={i === 0}
-          sizes="100vw"
-          className={`object-cover transition-opacity duration-[1500ms] ease-in-out ${
-            i === active ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
-      {/* Ken Burns zoom effect on active slide */}
-      <style>{`
-        @keyframes kenburns {
-          0% { transform: scale(1); }
-          100% { transform: scale(1.08); }
-        }
-      `}</style>
+      {SLIDES.map((slide, i) => {
+        // Only render the first image on initial load, defer the rest
+        if (!loaded && i > 0) return null;
+
+        return (
+          <Image
+            key={slide.src}
+            src={slide.src}
+            alt={i === active ? slide.alt : ""}
+            aria-hidden={i !== active}
+            fill
+            priority={i === 0}
+            fetchPriority={i === 0 ? "high" : undefined}
+            loading={i === 0 ? "eager" : "lazy"}
+            sizes="100vw"
+            quality={i === 0 ? 85 : 75}
+            className={`object-cover transition-opacity duration-[1500ms] ease-in-out ${
+              i === active ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        );
+      })}
     </>
   );
 }

@@ -1,3 +1,9 @@
+"use client";
+
+import { useState, useCallback } from "react";
+import Image from "next/image";
+import { Play } from "lucide-react";
+
 const videos = [
   {
     id: "K9TZZrtwvkA",
@@ -25,6 +31,51 @@ const videos = [
   },
 ];
 
+/**
+ * Lightweight YouTube facade — shows thumbnail + play button instead of
+ * loading 6 heavy YouTube iframes on page load. The iframe only loads
+ * when a user clicks play, saving ~1-2MB of initial JS/network.
+ */
+function YouTubeFacade({ id, title }: { id: string; title: string }) {
+  const [playing, setPlaying] = useState(false);
+
+  const handlePlay = useCallback(() => setPlaying(true), []);
+
+  if (playing) {
+    return (
+      <iframe
+        src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&autoplay=1`}
+        title={title}
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        className="absolute inset-0 h-full w-full"
+      />
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={handlePlay}
+      className="absolute inset-0 flex h-full w-full items-center justify-center bg-black"
+      aria-label={`Play video: ${title}`}
+    >
+      <Image
+        src={`https://img.youtube.com/vi/${id}/hqdefault.jpg`}
+        alt={title}
+        fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        className="object-cover opacity-80 transition-opacity duration-300 group-hover:opacity-100"
+        loading="lazy"
+      />
+      {/* Play button overlay */}
+      <div className="relative z-10 flex size-16 items-center justify-center rounded-full bg-gold/90 shadow-lg shadow-gold/30 transition-transform duration-300 group-hover:scale-110">
+        <Play className="ml-1 size-7 text-near-black" fill="currentColor" />
+      </div>
+    </button>
+  );
+}
+
 export default function VideoShowcase() {
   return (
     <section className="bg-foreground py-20">
@@ -47,14 +98,7 @@ export default function VideoShowcase() {
           {videos.map((video) => (
             <div key={video.id} className="group">
               <div className="relative aspect-video overflow-hidden rounded-xl border border-white/10 bg-black shadow-lg transition-all duration-300 group-hover:border-gold/30 group-hover:shadow-gold/10">
-                <iframe
-                  src={`https://www.youtube.com/embed/${video.id}?rel=0&modestbranding=1`}
-                  title={video.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 h-full w-full"
-                  loading="lazy"
-                />
+                <YouTubeFacade id={video.id} title={video.title} />
               </div>
               <p className="mt-3 text-sm font-medium text-white/90 transition-colors group-hover:text-gold">
                 {video.title}
